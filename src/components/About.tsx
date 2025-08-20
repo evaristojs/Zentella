@@ -23,10 +23,10 @@ const About = () => {
   ]
 
   const stats = [
-    { number: '150+', label: 'Proyectos Completados' },
+    { number: '4+', label: 'Años de Experiencia' },
+    { number: '100+', label: 'Proyectos Completados' },
     { number: '50+', label: 'Clientes Satisfechos' },
-    { number: '5', label: 'Años de Experiencia' },
-    { number: '98%', label: 'Tasa de Satisfacción' }
+    { number: '100%', label: 'Compromiso con la Excelencia' }
   ]
 
   return (
@@ -37,19 +37,21 @@ const About = () => {
             <h2>NOSOTROS</h2>
             <div className="about-description">
               <p>
-                Somos <strong>Zentella</strong>, una agencia creativa integral ubicada en el corazón 
-                de Yucatán. Nos especializamos en crear experiencias visuales y estrategias de 
-                comunicación que conectan marcas con sus audiencias de manera auténtica y memorable.
+                En <strong>Zentella</strong>, somos una agencia de marketing digital con más de 4 años de experiencia 
+                comprometida con la innovación y la excelencia. Desde nuestros inicios, hemos trabajado 
+                con dedicación para ayudar a nuestros clientes a alcanzar sus objetivos de negocio a través 
+                de estrategias personalizadas y efectivas.
               </p>
               <p>
-                Nuestro enfoque multidisciplinario combina creatividad, estrategia y tecnología 
-                para ofrecer soluciones integrales que impulsan el crecimiento de nuestros clientes. 
-                Desde el desarrollo de identidad visual hasta campañas digitales complejas, 
-                trabajamos con pasión para hacer realidad las visiones más ambiciosas.
+                <strong>El Motor de Nuestra Pasión</strong> es proporcionar soluciones de marketing digital y publicidad 
+                que impulsen el crecimiento y el éxito de nuestros clientes. Nos esforzamos por comprender 
+                las necesidades específicas de cada cliente y desarrollar estrategias que generen resultados tangibles.
               </p>
               <p>
-                Creemos en el poder de las historias bien contadas y en la importancia de mantener 
-                la autenticidad cultural mientras exploramos nuevas fronteras creativas.
+                <strong>La Profecía del Éxito:</strong> Ser una agencia de referencia en el sector del marketing digital 
+                y la publicidad, reconocida por nuestra creatividad, innovación y capacidad para transformar 
+                desafíos en oportunidades. Queremos ser el socio estratégico que acompaña a las empresas 
+                en su camino hacia el éxito.
               </p>
             </div>
           </div>
@@ -67,47 +69,43 @@ const About = () => {
         </div>
 
         <div className="team-section">
-          <h3>Nuestro Equipo</h3>
-          <div className="team-grid">
-            {team.map((member, index) => (
-              <div key={index} className="team-member">
-                <div className="member-image">
-                  <img src={member.image} alt={member.name} />
-                  <div className="member-overlay">
-                    <p>{member.bio}</p>
-                  </div>
-                </div>
-                <div className="member-info">
-                  <h4>{member.name}</h4>
-                  <p>{member.role}</p>
-                </div>
-              </div>
-            ))}
+          <h3>Despega con Nosotros</h3>
+          <div className="team-description">
+            <p>
+              Nuestro equipo está compuesto por profesionales apasionados y experimentados en 
+              diversas áreas del marketing digital. Cada miembro de nuestro equipo aporta su experiencia 
+              y creatividad para ofrecer soluciones innovadoras y efectivas.
+            </p>
+            <p>
+              En Zentella, estamos aquí para ayudarte a alcanzar tus objetivos y llevar tu negocio al 
+              siguiente nivel. <strong>Contáctanos y descubre cómo podemos trabajar juntos para hacer realidad 
+              tus metas.</strong>
+            </p>
           </div>
         </div>
 
         <div className="values-section">
-          <h3>Nuestros Valores</h3>
+          <h3>Nuestro Universo Creativo</h3>
           <div className="values-grid">
             <div className="value-item">
-              <div className="value-icon">🎨</div>
-              <h4>Creatividad</h4>
-              <p>Innovamos constantemente para ofrecer soluciones únicas y memorables.</p>
+              <div className="value-icon">🚀</div>
+              <h4>Innovación</h4>
+              <p>Creemos en la importancia de estar a la vanguardia de las tendencias y tecnologías del marketing digital.</p>
+            </div>
+            <div className="value-item">
+              <div className="value-icon">⭐</div>
+              <h4>Excelencia</h4>
+              <p>Nos comprometemos a ofrecer servicios de alta calidad que superen las expectativas de nuestros clientes.</p>
+            </div>
+            <div className="value-item">
+              <div className="value-icon">💎</div>
+              <h4>Transparencia</h4>
+              <p>Mantenemos una comunicación abierta y honesta con nuestros clientes, asegurando que estén informados en cada paso del proceso.</p>
             </div>
             <div className="value-item">
               <div className="value-icon">🤝</div>
-              <h4>Colaboración</h4>
-              <p>Trabajamos mano a mano con nuestros clientes como socios estratégicos.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon">⚡</div>
-              <h4>Excelencia</h4>
-              <p>Nos comprometemos con la calidad en cada detalle de nuestro trabajo.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon">🌱</div>
-              <h4>Crecimiento</h4>
-              <p>Evolucionamos constantemente para mantenernos a la vanguardia.</p>
+              <h4>Trabajo en Equipo</h4>
+              <p>Valoramos la colaboración y el trabajo conjunto, tanto dentro de nuestro equipo como con nuestros clientes.</p>
             </div>
           </div>
         </div>

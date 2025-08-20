@@ -71,7 +71,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
             >
-              AGENCIA CREATIVA INTEGRAL
+              AGENCIA DE MARKETING DIGITAL
             </motion.span>
             <motion.span 
               className="hero-title"
@@ -87,8 +87,8 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.4 }}
             >
-              Marketing • Fotografía • Diseño Gráfico<br />
-              Videografía • Animación
+              Transforma tu marca en una estrella con la magia de Zentella.<br />
+              <strong>Donde la creatividad se encuentra con el rendimiento.</strong>
             </motion.span>
           </h1>
         </motion.div>
@@ -99,9 +99,9 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 1.6 }}
         >
-          <button className="play-reel-btn" onClick={playReel}>
-            <span className="play-icon">▶</span>
-            REPRODUCIR REEL 2025
+          <button className="play-reel-btn" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+            <span className="play-icon">🚀</span>
+            ¡DESPEGAR CON NOSOTROS!
           </button>
         </motion.div>
 

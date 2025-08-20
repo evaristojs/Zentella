@@ -9,34 +9,34 @@ const Services = () => {
 
   const services = [
     {
+      title: 'Estrategia Publicitaria',
+      description: 'Desarrollamos campañas publicitarias que captan la atención de tu audiencia y generan resultados',
+      features: ['Campañas Creativas', 'Publicidad Digital', 'Branding', 'ROI Optimizado'],
+      image: '/images/services/marketing-preview.jpg'
+    },
+    {
       title: 'Marketing Digital',
-      description: 'Estrategias integrales para posicionar tu marca en el mundo digital',
-      features: ['SEO/SEM', 'Social Media', 'Email Marketing', 'Analytics'],
-      image: '/images/marketing-preview.gif'
+      description: 'Implementamos estrategias de marketing digital que aumentan la visibilidad de tu marca y mejoran tu presencia en línea',
+      features: ['SEO', 'SEM', 'Email Marketing', 'Analytics'],
+      image: '/images/services/marketing-preview.jpg'
     },
     {
-      title: 'Fotografía',
-      description: 'Capturamos la esencia de tu marca con imágenes profesionales',
-      features: ['Producto', 'Corporativo', 'Eventos', 'Lifestyle'],
-      image: '/images/photography-preview.gif'
+      title: 'Gestión de Redes Sociales',
+      description: 'Creamos y gestionamos contenido en redes sociales para construir y fortalecer la relación con tus seguidores',
+      features: ['Content Creation', 'Community Management', 'Social Media Ads', 'Influencer Marketing'],
+      image: '/images/services/photography-preview.jpg'
     },
     {
-      title: 'Diseño Gráfico',
-      description: 'Identidad visual que conecta con tu audiencia',
-      features: ['Branding', 'Editorial', 'Packaging', 'Digital'],
-      image: '/images/design-preview.gif'
+      title: 'SEO',
+      description: 'Optimizamos tu sitio web para mejorar su posicionamiento en los motores de búsqueda y atraer tráfico orgánico',
+      features: ['On-Page SEO', 'Technical SEO', 'Link Building', 'Local SEO'],
+      image: '/images/services/design-preview.jpg'
     },
     {
-      title: 'Videografía',
-      description: 'Historias audiovisuales que impactan y convierten',
-      features: ['Comerciales', 'Corporativos', 'Documentales', 'Social Media'],
-      image: '/images/video-preview.gif'
-    },
-    {
-      title: 'Animación',
-      description: 'Movimiento y vida para tus ideas más creativas',
-      features: ['Motion Graphics', '2D/3D', 'Explicativos', 'Interactivos'],
-      image: '/images/animation-preview.gif'
+      title: 'Creación de Contenido',
+      description: 'Desarrollamos contenido de alta calidad que resuena con tu audiencia y refuerza tu mensaje de marca',
+      features: ['Copywriting', 'Diseño Gráfico', 'Video Content', 'Photography'],
+      image: '/images/services/animation-preview.gif'
     }
   ]
 
@@ -51,8 +51,8 @@ const Services = () => {
     >
       <div className="container">
         <motion.div className="services-header" variants={fadeInUp}>
-          <h2>SERVICIOS INTEGRALES</h2>
-          <p>Soluciones creativas completas para impulsar tu marca</p>
+          <h2>LAS ÓRBITAS QUE TRAZAMOS</h2>
+          <p>Impulsa tu éxito con estrategias que no solo impactan, ¡sorprenden!</p>
         </motion.div>
 
         <motion.div className="services-grid" variants={fadeInUp}>

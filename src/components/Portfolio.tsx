@@ -22,70 +22,68 @@ const Portfolio = () => {
   const categories = ['all', 'marketing', 'photography', 'design', 'video', 'animation']
 
   useEffect(() => {
-    // Simulamos carga de datos del portafolio
+    // Portafolio real de Zentella
     const mockPortfolio: PortfolioItem[] = [
       {
         id: 1,
-        title: 'Campaña Digital Restaurante Maya',
-        category: 'marketing',
-        description: 'Estrategia integral de marketing digital que aumentó las ventas en un 150%',
-        image: '/images/portfolio/maya-restaurant.jpg',
-        video: '/videos/portfolio/maya-restaurant.mp4',
-        client: 'Restaurante Maya',
+        title: 'Nevada Care Pharmacy - Identidad Corporativa',
+        category: 'design',
+        description: 'Desarrollo completo de identidad visual para farmacia especializada en Nevada',
+        image: '/images/portfolio/nevada-care.jpg',
+        client: 'Nevada Care Pharmacy',
         year: 2024,
-        tags: ['Social Media', 'SEO', 'Email Marketing']
+        tags: ['Branding', 'Identidad Visual', 'Healthcare']
       },
       {
         id: 2,
-        title: 'Sesión Fotográfica Hotel Boutique',
+        title: 'Revel Bar & Kitchen - Fotografía Gastronómica',
         category: 'photography',
-        description: 'Fotografía arquitectural y lifestyle para hotel de lujo en Mérida',
-        image: '/images/portfolio/hotel-boutique.jpg',
-        client: 'Hotel Boutique Yucatán',
+        description: 'Sesión fotográfica profesional para restaurante de alta cocina',
+        image: '/images/portfolio/revel-bar.jpg',
+        client: 'Revel Bar & Kitchen',
         year: 2024,
-        tags: ['Arquitectura', 'Lifestyle', 'Comercial']
+        tags: ['Gastronomía', 'Lifestyle', 'Comercial']
       },
       {
         id: 3,
-        title: 'Identidad Visual Startup Tech',
+        title: 'Palo Studio - Desarrollo de Marca',
         category: 'design',
-        description: 'Desarrollo completo de identidad corporativa para empresa tecnológica',
-        image: '/images/portfolio/startup-branding.jpg',
-        client: 'TechStart Solutions',
+        description: 'Creación de identidad visual completa para estudio creativo',
+        image: '/images/portfolio/palo-studio.jpg',
+        client: 'Palo Studio',
         year: 2023,
-        tags: ['Branding', 'Logo Design', 'Papelería']
+        tags: ['Branding', 'Logo Design', 'Creative']
       },
       {
         id: 4,
-        title: 'Documental Artesanos Yucatecos',
+        title: 'ESVI x Brugal - Colaboración Audiovisual',
         category: 'video',
-        description: 'Producción audiovisual sobre la tradición artesanal de Yucatán',
-        image: '/images/portfolio/artesanos-doc.jpg',
-        video: '/videos/portfolio/artesanos-doc.mp4',
-        client: 'Gobierno de Yucatán',
+        description: 'Producción audiovisual para colaboración entre salon y marca premium',
+        image: '/images/services/video-preview.jpg',
+        video: '/videos/portfolio/esvi-brugal.mp4',
+        client: 'ESVI Hair Studio',
         year: 2024,
-        tags: ['Documental', 'Cultural', 'Storytelling']
+        tags: ['Colaboración', 'Lifestyle', 'Premium']
       },
       {
         id: 5,
-        title: 'Animación Explainer FinTech',
+        title: 'Chavalines RP - Animación 3D Logo',
         category: 'animation',
-        description: 'Video animado explicativo para aplicación financiera',
-        image: '/images/portfolio/fintech-animation.jpg',
-        video: '/videos/portfolio/fintech-animation.mp4',
-        client: 'PayMéxico',
+        description: 'Animación 3D profesional para entrada de logo corporativo',
+        image: '/images/services/animation-preview.gif',
+        client: 'Chavalines RP',
         year: 2024,
-        tags: ['Motion Graphics', '2D Animation', 'Explainer']
+        tags: ['3D Animation', 'Logo Animation', 'Corporate']
       },
       {
         id: 6,
-        title: 'Campaña Producto Cosmético',
+        title: 'AJF Panadería - Fotografía de Producto',
         category: 'photography',
-        description: 'Fotografía de producto y lifestyle para línea de cosméticos naturales',
-        image: '/images/portfolio/cosmetics-campaign.jpg',
-        client: 'Natural Beauty Co.',
-        year: 2023,
-        tags: ['Producto', 'Beauty', 'Lifestyle']
+        description: 'Fotografía especializada de productos de panadería artesanal',
+        image: '/images/services/photography-preview.jpg',
+        client: 'AJF Panadería',
+        year: 2024,
+        tags: ['Producto', 'Food Photography', 'Artesanal']
       }
     ]
     

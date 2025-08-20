@@ -91,6 +91,24 @@
   margin-bottom: 60px;
 }
 
+.team-description {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.team-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 25px;
+}
+
+.team-description strong {
+  color: var(--primary-purple);
+  font-weight: 600;
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
