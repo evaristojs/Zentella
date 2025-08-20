@@ -29,7 +29,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply from-primary-focus to-secondary-focus;
+    background: linear-gradient(to bottom, hsl(var(--p) / 0.8), hsl(var(--s) / 0.8));
   }
 
   /* Selection */

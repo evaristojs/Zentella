@@ -317,7 +317,7 @@ const Portfolio = () => {
                     <div className="badge badge-primary badge-sm mb-2 capitalize">
                       {item.category}
                     </div>
-                    <h3 className="font-bold text-sm line-clamp-2 mb-1">
+                    <h3 className="font-bold text-sm mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
                       {item.title}
                     </h3>
                     <p className="text-xs text-base-content/70">
@@ -344,7 +344,7 @@ const Portfolio = () => {
                     {item.year}
                   </div>
                 </div>
-                <h3 className="card-title text-sm line-clamp-2 mb-1">
+                <h3 className="card-title text-sm mb-1 overflow-hidden text-ellipsis">
                   {item.title}
                 </h3>
                 <p className="text-xs text-base-content/70 mb-3">
