@@ -21,9 +21,6 @@ const Hero = () => {
     }
   }, [isVideoPlaying])
 
-  const playReel = () => {
-    setIsVideoPlaying(true)
-  }
 
   return (
     <section id="hero" className="hero">

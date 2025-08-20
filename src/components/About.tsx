@@ -1,26 +1,6 @@
 import './About.css'
 
 const About = () => {
-  const team = [
-    {
-      name: 'Ana Zentella',
-      role: 'Creative Director',
-      image: '/images/team/ana-zentella.jpg',
-      bio: 'Directora creativa con más de 10 años de experiencia en branding y marketing digital.'
-    },
-    {
-      name: 'Carlos Mendoza',
-      role: 'Art Director',
-      image: '/images/team/carlos-mendoza.jpg',
-      bio: 'Director de arte especializado en diseño gráfico y dirección visual de campañas.'
-    },
-    {
-      name: 'María González',
-      role: 'Head of Strategy',
-      image: '/images/team/maria-gonzalez.jpg',
-      bio: 'Estratega de marketing con experiencia en desarrollo de marcas y análisis de mercado.'
-    }
-  ]
 
   const stats = [
     { number: '4+', label: 'Años de Experiencia' },
