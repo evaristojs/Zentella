@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import './Portfolio.css'
+import { motion } from 'framer-motion'
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 interface PortfolioItem {
   id: number
@@ -18,8 +19,15 @@ const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { elementRef, isVisible } = useIntersectionObserver()
 
-  const categories = ['all', 'marketing', 'photography', 'design', 'video', 'animation']
+  const categories = [
+    { id: 'all', name: 'Todos', icon: '🌟' },
+    { id: 'photography', name: 'Fotografía', icon: '📸' },
+    { id: 'design', name: 'Diseño', icon: '🎨' },
+    { id: 'video', name: 'Video', icon: '🎬' },
+    { id: 'animation', name: 'Animación', icon: '✨' }
+  ]
 
   useEffect(() => {
     // Portafolio completo real de Zentella
@@ -236,91 +244,206 @@ const Portfolio = () => {
   }
 
   return (
-    <section id="portfolio" className="portfolio">
-      <div className="container">
-        <div className="portfolio-header">
-          <h2>PORTAFOLIO</h2>
-          <p>Algunos de nuestros trabajos más destacados</p>
-        </div>
+    <section 
+      id="portfolio" 
+      className="section-padding bg-base-200/50"
+      ref={elementRef}
+    >
+      <div className="container-custom">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="badge badge-primary badge-lg mb-4 font-mono">PORTAFOLIO</div>
+          <h2 className="text-section gradient-text mb-6">
+            Nuestros Trabajos
+          </h2>
+          <p className="text-lg text-base-content/80 max-w-2xl mx-auto">
+            Algunos de nuestros proyectos más destacados que muestran nuestra experiencia y creatividad
+          </p>
+        </motion.div>
 
-        <div className="portfolio-filters">
+        {/* Filters */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-4 mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           {categories.map(category => (
             <button
-              key={category}
-              className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
+              key={category.id}
+              className={`btn btn-sm glass-effect hover-glow transition-all duration-300 ${
+                selectedCategory === category.id 
+                  ? 'btn-primary shadow-lg shadow-primary/20' 
+                  : 'btn-ghost'
+              }`}
+              onClick={() => setSelectedCategory(category.id)}
             >
-              {category === 'all' ? 'Todos' : 
-               category === 'marketing' ? 'Marketing' :
-               category === 'photography' ? 'Fotografía' :
-               category === 'design' ? 'Diseño' :
-               category === 'video' ? 'Video' : 'Animación'}
+              <span className="mr-2">{category.icon}</span>
+              {category.name}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="portfolio-grid">
-          {filteredItems.map(item => (
-            <div
+        {/* Portfolio Grid */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial={{ opacity: 0 }}
+          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          {filteredItems.map((item, index) => (
+            <motion.div
               key={item.id}
-              className="portfolio-item"
+              className="card glass-effect hover-glow group cursor-pointer overflow-hidden"
               onClick={() => openModal(item)}
+              initial={{ opacity: 0, y: 50 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -5 }}
             >
-              <div className="portfolio-image">
-                <img src={item.image} alt={item.title} />
-                <div className="portfolio-overlay">
-                  <div className="portfolio-info">
-                    <span className="portfolio-category">{item.category}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.client} • {item.year}</p>
+              <figure className="aspect-[4/3] bg-base-300 overflow-hidden">
+                <img 
+                  src={item.image} 
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-base-100/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <div className="badge badge-primary badge-sm mb-2 capitalize">
+                      {item.category}
+                    </div>
+                    <h3 className="font-bold text-sm line-clamp-2 mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-base-content/70">
+                      {item.client} • {item.year}
+                    </p>
                   </div>
-                  <div className="portfolio-action">
-                    <span>Ver proyecto</span>
+                  <div className="absolute top-4 right-4">
+                    <div className="btn btn-circle btn-sm glass-effect">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
+              </figure>
+              
+              <div className="card-body p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="badge badge-outline badge-xs capitalize">
+                    {item.category}
+                  </div>
+                  <div className="text-xs text-base-content/60">
+                    {item.year}
+                  </div>
+                </div>
+                <h3 className="card-title text-sm line-clamp-2 mb-1">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-base-content/70 mb-3">
+                  {item.client}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {item.tags.slice(0, 2).map(tag => (
+                    <div key={tag} className="badge badge-ghost badge-xs">
+                      {tag}
+                    </div>
+                  ))}
+                  {item.tags.length > 2 && (
+                    <div className="badge badge-ghost badge-xs">
+                      +{item.tags.length - 2}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Modal */}
+        {/* Modern Modal */}
         {isModalOpen && selectedItem && (
-          <div className="portfolio-modal" onClick={closeModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <button className="modal-close" onClick={closeModal}>
-                <span></span>
-                <span></span>
+          <div className="modal modal-open z-50">
+            <div className="modal-box max-w-4xl p-0 glass-effect border border-white/10">
+              {/* Close Button */}
+              <button 
+                className="btn btn-circle btn-ghost absolute top-4 right-4 z-10 glass-effect"
+                onClick={closeModal}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
               
-              <div className="modal-media">
+              {/* Media */}
+              <figure className="aspect-video bg-base-300 overflow-hidden">
                 {selectedItem.video ? (
-                  <video controls autoPlay muted>
+                  <video 
+                    controls 
+                    autoPlay 
+                    muted 
+                    className="w-full h-full object-cover"
+                  >
                     <source src={selectedItem.video} type="video/mp4" />
                   </video>
                 ) : (
-                  <img src={selectedItem.image} alt={selectedItem.title} />
+                  <img 
+                    src={selectedItem.image} 
+                    alt={selectedItem.title}
+                    className="w-full h-full object-cover"
+                  />
                 )}
-              </div>
+              </figure>
               
-              <div className="modal-info">
-                <span className="modal-category">{selectedItem.category}</span>
-                <h3>{selectedItem.title}</h3>
-                <p className="modal-description">{selectedItem.description}</p>
-                <div className="modal-details">
-                  <div className="detail-item">
-                    <strong>Cliente:</strong> {selectedItem.client}
+              {/* Content */}
+              <div className="p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="badge badge-primary badge-lg capitalize">
+                    {selectedItem.category}
                   </div>
-                  <div className="detail-item">
-                    <strong>Año:</strong> {selectedItem.year}
+                  <div className="text-sm text-base-content/60">
+                    {selectedItem.year}
                   </div>
-                  <div className="modal-tags">
+                </div>
+                
+                <h3 className="text-2xl font-bold gradient-text mb-4">
+                  {selectedItem.title}
+                </h3>
+                
+                <p className="text-base-content/80 mb-6 leading-relaxed">
+                  {selectedItem.description}
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <div className="text-sm font-semibold text-base-content/70 mb-2">Cliente</div>
+                    <div className="text-lg font-medium">{selectedItem.client}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-base-content/70 mb-2">Año</div>
+                    <div className="text-lg font-medium">{selectedItem.year}</div>
+                  </div>
+                </div>
+                
+                <div className="mt-6">
+                  <div className="text-sm font-semibold text-base-content/70 mb-3">Tags</div>
+                  <div className="flex flex-wrap gap-2">
                     {selectedItem.tags.map(tag => (
-                      <span key={tag} className="tag">{tag}</span>
+                      <div key={tag} className="badge badge-outline">
+                        {tag}
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
+            <div className="modal-backdrop" onClick={closeModal}></div>
           </div>
         )}
       </div>

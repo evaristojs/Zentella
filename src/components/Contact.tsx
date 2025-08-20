@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import './Contact.css'
+import { motion } from 'framer-motion'
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 interface FormData {
   name: string
@@ -16,6 +17,7 @@ interface FormErrors {
 }
 
 const Contact = () => {
+  const { elementRef, isVisible } = useIntersectionObserver()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -145,202 +147,317 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="contact">
-        <div className="container">
-          <div className="success-message">
-            <div className="success-icon">✓</div>
-            <h2>¡Mensaje Enviado!</h2>
-            <p>Gracias por contactarnos. Te responderemos en las próximas 24 horas.</p>
-            <button 
-              className="back-btn"
-              onClick={() => setIsSubmitted(false)}
-            >
-              Enviar otro mensaje
-            </button>
-          </div>
+      <section id="contact" className="section-padding bg-base-100">
+        <div className="container-custom">
+          <motion.div 
+            className="flex items-center justify-center min-h-[60vh]"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="card glass-effect text-center p-12 max-w-lg">
+              <div className="text-6xl mb-6 text-success">✓</div>
+              <h2 className="text-2xl font-bold gradient-text mb-4">¡Mensaje Enviado!</h2>
+              <p className="text-base-content/80 mb-8">
+                Gracias por contactarnos. Te responderemos en las próximas 24 horas.
+              </p>
+              <button 
+                className="btn btn-primary hover-glow"
+                onClick={() => setIsSubmitted(false)}
+              >
+                Enviar otro mensaje
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
     )
   }
 
   return (
-    <section id="contact" className="contact">
-      <div className="container">
-        <div className="contact-content">
-          <div className="contact-info">
-            <h2>HABLEMOS</h2>
-            <p className="contact-subtitle">
-              Cuéntanos sobre tu proyecto y cómo podemos ayudarte a hacerlo realidad.
-            </p>
+    <section 
+      id="contact" 
+      className="section-padding bg-base-200/50"
+      ref={elementRef}
+    >
+      <div className="container-custom">
+        {/* Header */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="badge badge-primary badge-lg mb-4 font-mono">CONTACTO</div>
+          <h2 className="text-section gradient-text mb-6">
+            Hablemos
+          </h2>
+          <p className="text-lg text-base-content/80 max-w-2xl mx-auto">
+            Cuéntanos sobre tu proyecto y cómo podemos ayudarte a hacerlo realidad.
+          </p>
+        </motion.div>
 
-            <div className="contact-details">
-              <div className="contact-item">
-                <h4>Oficina</h4>
-                <p>Mérida, Yucatán<br />México</p>
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Contact Info */}
+          <motion.div
+            className="space-y-8"
+            initial={{ opacity: 0, x: -50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="grid gap-6">
+              <div className="card glass-effect p-6">
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl">🏢</div>
+                  <div>
+                    <h4 className="font-semibold gradient-text mb-2">Oficina</h4>
+                    <p className="text-base-content/80">
+                      Mérida, Yucatán<br />
+                      México
+                    </p>
+                  </div>
+                </div>
               </div>
-              
-              <div className="contact-item">
-                <h4>Email</h4>
-                <p>hello@zentella.com<br />proyectos@zentella.com</p>
+
+              <div className="card glass-effect p-6">
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl">📧</div>
+                  <div>
+                    <h4 className="font-semibold gradient-text mb-2">Email</h4>
+                    <p className="text-base-content/80">
+                      hello@zentella.com<br />
+                      proyectos@zentella.com
+                    </p>
+                  </div>
+                </div>
               </div>
-              
-              <div className="contact-item">
-                <h4>Teléfono</h4>
-                <p>+52 999 123 4567</p>
+
+              <div className="card glass-effect p-6">
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl">📱</div>
+                  <div>
+                    <h4 className="font-semibold gradient-text mb-2">Teléfono</h4>
+                    <p className="text-base-content/80">+52 999 123 4567</p>
+                  </div>
+                </div>
               </div>
-              
-              <div className="contact-item">
-                <h4>Horarios</h4>
-                <p>Lun - Vie: 9:00 - 18:00<br />Sáb: 9:00 - 14:00</p>
+
+              <div className="card glass-effect p-6">
+                <div className="flex items-start gap-4">
+                  <div className="text-2xl">🕒</div>
+                  <div>
+                    <h4 className="font-semibold gradient-text mb-2">Horarios</h4>
+                    <p className="text-base-content/80">
+                      Lun - Vie: 9:00 - 18:00<br />
+                      Sáb: 9:00 - 14:00
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="social-links">
-              <h4>Síguenos</h4>
-              <div className="social-list">
-                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">Behance</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <div className="card glass-effect p-6">
+              <h4 className="font-semibold gradient-text mb-4">Síguenos</h4>
+              <div className="flex flex-wrap gap-3">
+                {['Instagram', 'Behance', 'LinkedIn', 'Facebook'].map((social) => (
+                  <a 
+                    key={social}
+                    href="#" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-ghost btn-sm glass-effect hover-glow"
+                  >
+                    {social}
+                  </a>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="contact-form-container">
+          {/* Contact Form */}
+          <motion.div
+            className="card glass-effect p-8"
+            initial={{ opacity: 0, x: 50 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <form 
-              className="contact-form" 
               onSubmit={handleSubmit}
               name="contact"
               method="POST"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
+              className="space-y-6"
             >
               <input type="hidden" name="form-name" value="contact" />
               <input type="hidden" name="bot-field" />
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="name">Nombre *</label>
+              
+              {/* Name & Email Row */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Nombre *</span>
+                  </label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className={errors.name ? 'error' : ''}
                     placeholder="Tu nombre completo"
+                    className={`input input-bordered glass-effect ${errors.name ? 'input-error' : ''}`}
                   />
-                  {errors.name && <span className="error-message">{errors.name}</span>}
+                  {errors.name && (
+                    <label className="label">
+                      <span className="label-text-alt text-error">{errors.name}</span>
+                    </label>
+                  )}
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Email *</span>
+                  </label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={errors.email ? 'error' : ''}
                     placeholder="tu@email.com"
+                    className={`input input-bordered glass-effect ${errors.email ? 'input-error' : ''}`}
                   />
-                  {errors.email && <span className="error-message">{errors.email}</span>}
+                  {errors.email && (
+                    <label className="label">
+                      <span className="label-text-alt text-error">{errors.email}</span>
+                    </label>
+                  )}
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="phone">Teléfono *</label>
+              {/* Phone & Company Row */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Teléfono *</span>
+                  </label>
                   <input
                     type="tel"
-                    id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={errors.phone ? 'error' : ''}
                     placeholder="+52 999 123 4567"
+                    className={`input input-bordered glass-effect ${errors.phone ? 'input-error' : ''}`}
                   />
-                  {errors.phone && <span className="error-message">{errors.phone}</span>}
+                  {errors.phone && (
+                    <label className="label">
+                      <span className="label-text-alt text-error">{errors.phone}</span>
+                    </label>
+                  )}
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="company">Empresa</label>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Empresa</span>
+                  </label>
                   <input
                     type="text"
-                    id="company"
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
                     placeholder="Nombre de tu empresa"
+                    className="input input-bordered glass-effect"
                   />
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="service">Servicio de Interés *</label>
+              {/* Service & Budget Row */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Servicio de Interés *</span>
+                  </label>
                   <select
-                    id="service"
                     name="service"
                     value={formData.service}
                     onChange={handleInputChange}
-                    className={errors.service ? 'error' : ''}
+                    className={`select select-bordered glass-effect ${errors.service ? 'select-error' : ''}`}
                   >
                     <option value="">Selecciona un servicio</option>
                     {services.map(service => (
                       <option key={service} value={service}>{service}</option>
                     ))}
                   </select>
-                  {errors.service && <span className="error-message">{errors.service}</span>}
+                  {errors.service && (
+                    <label className="label">
+                      <span className="label-text-alt text-error">{errors.service}</span>
+                    </label>
+                  )}
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="budget">Presupuesto *</label>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-medium">Presupuesto *</span>
+                  </label>
                   <select
-                    id="budget"
                     name="budget"
                     value={formData.budget}
                     onChange={handleInputChange}
-                    className={errors.budget ? 'error' : ''}
+                    className={`select select-bordered glass-effect ${errors.budget ? 'select-error' : ''}`}
                   >
                     <option value="">Selecciona un rango</option>
                     {budgetRanges.map(range => (
                       <option key={range} value={range}>{range}</option>
                     ))}
                   </select>
-                  {errors.budget && <span className="error-message">{errors.budget}</span>}
+                  {errors.budget && (
+                    <label className="label">
+                      <span className="label-text-alt text-error">{errors.budget}</span>
+                    </label>
+                  )}
                 </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="message">Mensaje *</label>
+              {/* Message */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-medium">Mensaje *</span>
+                </label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  className={errors.message ? 'error' : ''}
                   placeholder="Cuéntanos sobre tu proyecto, objetivos, timeline y cualquier detalle relevante..."
                   rows={6}
+                  className={`textarea textarea-bordered glass-effect h-32 ${errors.message ? 'textarea-error' : ''}`}
                 />
-                {errors.message && <span className="error-message">{errors.message}</span>}
+                {errors.message && (
+                  <label className="label">
+                    <span className="label-text-alt text-error">{errors.message}</span>
+                  </label>
+                )}
               </div>
 
+              {/* Submit Button */}
               <button
                 type="submit"
-                className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
                 disabled={isSubmitting}
+                className="btn btn-primary btn-lg w-full hover-glow"
               >
                 {isSubmitting ? (
                   <>
-                    <span className="loading-spinner"></span>
+                    <span className="loading loading-spinner loading-sm"></span>
                     Enviando...
                   </>
                 ) : (
-                  'Enviar Mensaje'
+                  <>
+                    Enviar Mensaje
+                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  </>
                 )}
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
