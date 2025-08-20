@@ -1,0 +1,11 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--dark-bg);
+  color: var(--white);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
