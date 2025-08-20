@@ -11,8 +11,7 @@
   }
   
   body {
-    @apply font-sans bg-base-100 text-base-content overflow-x-hidden;
-    background: radial-gradient(ellipse at center, rgba(133, 2, 187, 0.05) 0%, theme('colors.base-100') 70%);
+    @apply font-sans bg-base-100 text-base-content overflow-x-hidden transition-all duration-300;
   }
 
   /* Custom scrollbar */
@@ -29,7 +28,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, hsl(var(--p) / 0.8), hsl(var(--s) / 0.8));
+    @apply bg-gradient-to-b from-primary/80 to-secondary/80;
   }
 
   /* Selection */
@@ -39,9 +38,9 @@
 }
 
 @layer components {
-  /* Glass morphism effect */
-  .glass-effect {
-    @apply bg-black/10 backdrop-blur-xl border border-white/10;
+  /* Clean card effect */
+  .clean-card {
+    @apply bg-base-100 border border-base-300 shadow-sm hover:shadow-lg transition-all duration-300;
   }
   
   /* Gradient text */
@@ -49,34 +48,32 @@
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
   
-  /* Hover glow effect */
-  .hover-glow {
-    @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1;
-  }
-  
-  /* Animated background */
-  .animated-bg {
-    background: linear-gradient(-45deg, theme('colors.base-100'), theme('colors.base-200'), theme('colors.base-300'));
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+  /* Subtle hover effect */
+  .hover-lift {
+    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
   }
   
   /* Typography utilities */
   .text-hero {
-    @apply text-4xl md:text-6xl lg:text-8xl font-black tracking-tight;
+    @apply text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight;
   }
   
   .text-section {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+    @apply text-2xl md:text-3xl lg:text-4xl font-semibold;
   }
   
   /* Layout containers */
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-12 md:py-20;
+  }
+  
+  /* Clean spacing */
+  .content-spacing {
+    @apply space-y-6 md:space-y-8;
   }
 }
 
@@ -89,21 +86,26 @@
   .delay-500 { animation-delay: 0.5s; }
 }
 
-/* Custom animations */
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Clean animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  50% { transform: translateY(-10px); }
 }
 
 /* Intersection Observer animations */
 .animate-on-scroll {
-  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  @apply opacity-0 translate-y-6 transition-all duration-500 ease-out;
 }
 
 .animate-on-scroll.visible {
