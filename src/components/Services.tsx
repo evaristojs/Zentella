@@ -1,9 +1,7 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 const Services = () => {
-  const [activeService, setActiveService] = useState(0)
   const { elementRef, isVisible } = useIntersectionObserver()
 
   const services = [
@@ -89,7 +87,6 @@ const Services = () => {
             <motion.div
               key={service.id}
               className="clean-card p-6 hover-lift group cursor-pointer"
-              onClick={() => setActiveService(index)}
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}

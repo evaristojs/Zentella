@@ -145,7 +145,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             {/* Mobile Menu Items */}
             <nav className="flex-1 py-8">
               <ul className="space-y-6">
-                {menuItems.map((item, index) => (
+                {menuItems.map((item) => (
                   <li key={item.name}>
                     <a 
                       href={item.href} 
