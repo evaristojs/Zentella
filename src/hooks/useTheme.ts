@@ -1,24 +1,42 @@
 import { useState, useEffect } from 'react'
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<'zentellaLight' | 'zentellaDark'>('zentellaLight')
+  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
-    // Get theme from localStorage or default to light
-    const savedTheme = localStorage.getItem('zentella-theme') as 'zentellaLight' | 'zentellaDark' | null
+    // Get theme preference from localStorage or system preference
+    const savedTheme = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     
-    const initialTheme = savedTheme || (prefersDark ? 'zentellaDark' : 'zentellaLight')
-    setTheme(initialTheme)
-    document.documentElement.setAttribute('data-theme', initialTheme)
+    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && prefersDark)
+    setIsDark(shouldBeDark)
+    
+    // Apply theme to document
+    if (shouldBeDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }, [])
 
   const toggleTheme = () => {
-    const newTheme = theme === 'zentellaLight' ? 'zentellaDark' : 'zentellaLight'
-    setTheme(newTheme)
-    localStorage.setItem('zentella-theme', newTheme)
-    document.documentElement.setAttribute('data-theme', newTheme)
+    const newIsDark = !isDark
+    setIsDark(newIsDark)
+    
+    // Update localStorage
+    localStorage.setItem('theme', newIsDark ? 'dark' : 'light')
+    
+    // Apply theme to document
+    if (newIsDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
 
-  return { theme, toggleTheme, isDark: theme === 'zentellaDark' }
+  return { 
+    theme: isDark ? 'dark' : 'light', 
+    toggleTheme, 
+    isDark 
+  }
 }

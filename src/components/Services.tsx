@@ -59,64 +59,58 @@ const Services = () => {
   return (
     <section 
       id="services" 
-      className="section-padding bg-base-200/50"
+      className="py-12 md:py-20 bg-gray-50 dark:bg-gray-900"
       ref={elementRef}
     >
-      <div className="container-custom">
-        {/* Header */}
+      <div className="layout-container">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="badge badge-primary badge-lg mb-4 font-medium">
+          <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Nuestros servicios
           </span>
-          <h2 className="text-section mb-4">
-            Todo lo que necesitas para <span className="gradient-text">hacer crecer</span> tu marca
+          <h2 className="heading-1 lg:text-4xl mb-4 text-text-primary-light dark:text-text-primary-dark">
+            Todo lo que necesitas para <span className="text-color-primary">hacer crecer</span> tu marca
           </h2>
-          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
+          <p className="text-base max-w-2xl mx-auto">
             Soluciones integrales de marketing digital diseñadas para transformar tu visión en resultados reales
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid-mobile sm:grid-tablet lg:grid-desktop-4">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className="clean-card p-6 hover-lift group cursor-pointer"
+              className="card-base group cursor-pointer"
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              {/* Icon */}
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 bg-color-primary rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 hover-smooth">
                 {service.icon}
               </div>
 
-              {/* Content */}
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+              <h3 className="heading-3 mb-3 group-hover:text-color-primary hover-smooth text-text-primary-light dark:text-text-primary-dark">
                 {service.title}
               </h3>
-              <p className="text-base-content/70 text-sm mb-4 leading-relaxed">
+              <p className="text-small mb-4 leading-relaxed">
                 {service.description}
               </p>
 
-              {/* Features */}
               <ul className="space-y-2">
                 {service.features.slice(0, 3).map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-xs text-base-content/60">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+                  <li key={idx} className="flex items-center gap-2 text-small">
+                    <div className="w-1.5 h-1.5 bg-color-primary rounded-full"></div>
                     {feature}
                   </li>
                 ))}
               </ul>
 
-              {/* Learn More */}
-              <div className="mt-6 pt-4 border-t border-base-300">
-                <span className="text-sm font-medium text-primary group-hover:underline">
+              <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <span className="text-small font-medium text-color-primary group-hover:underline">
                   Conocer más
                 </span>
               </div>
@@ -124,29 +118,28 @@ const Services = () => {
           ))}
         </div>
 
-        {/* CTA Section */}
         <motion.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <div className="clean-card p-8 md:p-12 max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4">
-              ¿Listo para llevar tu marca al <span className="gradient-text">siguiente nivel?</span>
+          <div className="card-base max-w-4xl mx-auto text-center">
+            <h3 className="heading-2 lg:text-3xl mb-4 text-text-primary-light dark:text-text-primary-dark">
+              ¿Listo para llevar tu marca al <span className="text-color-primary">siguiente nivel?</span>
             </h3>
-            <p className="text-base-content/70 mb-8 max-w-2xl mx-auto">
+            <p className="text-base mb-8 max-w-2xl mx-auto">
               Trabajemos juntos para crear una estrategia personalizada que impulse el crecimiento de tu negocio
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
-                className="btn btn-primary btn-lg hover-lift"
+                className="btn-primary"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Hablemos de tu proyecto
               </button>
               <button 
-                className="btn btn-outline btn-lg hover-lift"
+                className="btn-secondary"
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Ver casos de éxito

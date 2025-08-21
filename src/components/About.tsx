@@ -53,55 +53,52 @@ const About = () => {
   return (
     <section 
       id="about" 
-      className="section-padding bg-base-100"
+      className="py-12 md:py-20 bg-white dark:bg-bg-base-dark"
       ref={elementRef}
     >
-      <div className="container-custom">
-        {/* Header */}
+      <div className="layout-container">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="badge badge-primary badge-lg mb-4 font-medium">
+          <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Nosotros
           </span>
-          <h2 className="text-section mb-4">
-            Conoce a <span className="gradient-text">Zentella</span>
+          <h2 className="heading-1 lg:text-4xl mb-4 text-text-primary-light dark:text-text-primary-dark">
+            Conoce a <span className="text-color-primary">Zentella</span>
           </h2>
-          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
+          <p className="text-base max-w-2xl mx-auto">
             Una agencia comprometida con transformar ideas en resultados extraordinarios
           </p>
         </motion.div>
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-3 gap-12 mb-16">
-          {/* Story */}
+        <div className="grid-mobile lg:grid-desktop-3 gap-12 mb-16">
           <motion.div
-            className="lg:col-span-2 content-spacing"
+            className="lg:col-span-2 space-y-8"
             initial={{ opacity: 0, x: -30 }}
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="prose prose-lg max-w-none">
-              <p className="text-base-content/80 leading-relaxed text-lg">
-                En <span className="gradient-text font-semibold">Zentella</span>, somos más que una agencia de marketing digital. 
+            <div>
+              <p className="text-base leading-relaxed text-text-primary-light dark:text-text-primary-dark">
+                En <span className="text-color-primary font-semibold">Zentella</span>, somos más que una agencia de marketing digital. 
                 Somos tus aliados estratégicos en el camino hacia el éxito digital. Con más de 5 años de experiencia, 
                 hemos ayudado a decenas de empresas a transformar su presencia online y alcanzar sus objetivos de negocio.
               </p>
               
-              <div className="clean-card p-6 my-8">
-                <h3 className="text-xl font-semibold gradient-text mb-3">Nuestra Misión</h3>
-                <p className="text-base-content/70">
+              <div className="card-base my-8">
+                <h3 className="heading-3 text-color-primary mb-3">Nuestra Misión</h3>
+                <p className="text-base">
                   Democratizar el marketing digital de alta calidad, proporcionando soluciones innovadoras 
                   y accesibles que impulsen el crecimiento sostenible de nuestros clientes.
                 </p>
               </div>
 
-              <div className="clean-card p-6">
-                <h3 className="text-xl font-semibold gradient-text mb-3">Nuestra Visión</h3>
-                <p className="text-base-content/70">
+              <div className="card-base">
+                <h3 className="heading-3 text-color-primary mb-3">Nuestra Visión</h3>
+                <p className="text-base">
                   Ser la agencia de referencia en Latinoamérica, reconocida por nuestra capacidad 
                   de transformar desafíos digitales en oportunidades de crecimiento real.
                 </p>
@@ -109,7 +106,6 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Stats */}
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, x: 30 }}
@@ -119,49 +115,48 @@ const About = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                className="clean-card p-6 text-center hover-lift"
+                className="card-base text-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
               >
-                <div className="text-3xl font-bold gradient-text mb-2">{stat.number}</div>
-                <div className="text-sm text-base-content/60 font-medium">{stat.label}</div>
+                <div className="heading-1 lg:text-4xl text-color-primary mb-2">{stat.number}</div>
+                <div className="text-small font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        {/* Values */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <div className="text-center mb-12">
-            <h3 className="text-2xl font-semibold mb-4">
-              Nuestros <span className="gradient-text">valores</span>
+            <h3 className="heading-2 lg:text-3xl mb-4 text-text-primary-light dark:text-text-primary-dark">
+              Nuestros <span className="text-color-primary">valores</span>
             </h3>
-            <p className="text-base-content/70 max-w-2xl mx-auto">
+            <p className="text-base max-w-2xl mx-auto">
               Los principios que guían cada decisión y proyecto que desarrollamos
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid-mobile md:grid-tablet lg:grid-desktop-4">
             {values.map((value, index) => (
               <motion.div
                 key={index}
-                className="clean-card p-6 text-center hover-lift group"
+                className="card-base text-center group"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.4, delay: 1 + index * 0.1 }}
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 bg-color-primary rounded-2xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 hover-smooth">
                   {value.icon}
                 </div>
-                <h4 className="text-lg font-semibold mb-3 group-hover:text-primary transition-colors">
+                <h4 className="heading-3 mb-3 group-hover:text-color-primary hover-smooth text-text-primary-light dark:text-text-primary-dark">
                   {value.title}
                 </h4>
-                <p className="text-sm text-base-content/70 leading-relaxed">
+                <p className="text-small leading-relaxed">
                   {value.description}
                 </p>
               </motion.div>
@@ -169,22 +164,21 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 1.4 }}
         >
-          <div className="clean-card p-8 max-w-3xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4">
-              ¿Listo para <span className="gradient-text">comenzar tu transformación digital?</span>
+          <div className="card-base max-w-3xl mx-auto text-center">
+            <h3 className="heading-2 lg:text-3xl mb-4 text-text-primary-light dark:text-text-primary-dark">
+              ¿Listo para <span className="text-color-primary">comenzar tu transformación digital?</span>
             </h3>
-            <p className="text-base-content/70 mb-6">
+            <p className="text-base mb-6">
               Conversemos sobre cómo podemos hacer crecer tu negocio juntos
             </p>
             <button 
-              className="btn btn-primary btn-lg hover-lift"
+              className="btn-primary"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Conversemos
