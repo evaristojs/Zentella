@@ -71,7 +71,7 @@ const Hero = () => {
                       style={{ 
                         backgroundSize: "400% 400%",
                         backgroundPosition: "0% 50%",
-                        fontSize: 'clamp(1.5rem, 6vw, 8rem)',
+                        fontSize: 'clamp(2rem, 8vw, 10rem)',
                         whiteSpace: 'nowrap',
                         maxWidth: '100%',
                         width: '100%'
