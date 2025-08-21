@@ -80,18 +80,32 @@ const CustomStarfield = ({ isDarkMode }: CustomStarfieldProps) => {
           star.y >= 0 &&
           star.y <= canvas.height
         ) {
-          const size = (1 - star.z / 1000) * 2
+          const size = (1 - star.z / 1000) * 3
           const opacity = 1 - star.z / 1000
 
-          ctx.lineWidth = size
-          ctx.strokeStyle = isDarkMode 
+          ctx.fillStyle = isDarkMode 
             ? `rgba(255, 255, 255, ${opacity})` 
-            : `rgba(103, 0, 248, ${opacity})`
+            : `rgba(103, 0, 248, ${opacity * 0.6})`
 
           ctx.beginPath()
-          ctx.moveTo(star.prevX, star.prevY)
-          ctx.lineTo(star.x, star.y)
-          ctx.stroke()
+          ctx.arc(star.x, star.y, size, 0, Math.PI * 2)
+          ctx.fill()
+          
+          // Add sparkle effect for brighter stars
+          if (opacity > 0.8) {
+            ctx.strokeStyle = isDarkMode 
+              ? `rgba(255, 255, 255, ${opacity * 0.5})` 
+              : `rgba(103, 0, 248, ${opacity * 0.3})`
+            ctx.lineWidth = 0.5
+            
+            // Draw cross sparkle
+            ctx.beginPath()
+            ctx.moveTo(star.x - size * 2, star.y)
+            ctx.lineTo(star.x + size * 2, star.y)
+            ctx.moveTo(star.x, star.y - size * 2)
+            ctx.lineTo(star.x, star.y + size * 2)
+            ctx.stroke()
+          }
         }
       })
 

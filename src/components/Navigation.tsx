@@ -48,7 +48,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-full mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.div 
@@ -80,10 +80,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               ))}
             </div>
 
-            <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
               <motion.button 
                 onClick={toggleTheme}
-                className="p-1.5 sm:p-2 lg:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className="p-2 sm:p-2.5 lg:p-3 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
                 aria-label="Cambiar tema"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -105,7 +105,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className="md:hidden p-1.5 sm:p-2 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className="md:hidden p-2 sm:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
