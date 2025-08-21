@@ -71,15 +71,15 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center">
+              <h1 className="heading-1 text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight flex flex-col items-center justify-center">
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full text-center overflow-hidden">
+                <div className="relative w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="block bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent whitespace-nowrap"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
