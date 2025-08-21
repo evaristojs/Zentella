@@ -56,7 +56,7 @@ const Hero = () => {
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-2 font-black text-center">
                   Haz que
                 </span>
-                <div className="relative w-full text-center h-[1.4em] flex items-center justify-center overflow-hidden">
+                <div className="relative w-full text-center h-[1.6em] flex items-center justify-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
@@ -71,10 +71,11 @@ const Hero = () => {
                       style={{ 
                         backgroundSize: "400% 400%",
                         backgroundPosition: "0% 50%",
-                        fontSize: 'clamp(2.5rem, 10vw, 12rem)',
+                        fontSize: 'clamp(2.5rem, 9vw, 11rem)',
                         whiteSpace: 'nowrap',
                         maxWidth: '100%',
-                        width: '100%'
+                        width: '100%',
+                        lineHeight: '1.1'
                       }}
                     >
                       {phrases[currentPhraseIndex]}
