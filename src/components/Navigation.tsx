@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
 
 interface NavigationProps {
@@ -13,7 +13,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 20)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -38,46 +38,59 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 hover-smooth ${
-        isScrolled 
-          ? 'bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-lg border-b border-gray-200 dark:border-gray-700' 
-          : 'bg-transparent'
-      }`}>
-        <div className="layout-container">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
+      <motion.nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' 
+            : 'bg-transparent'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            
+            <motion.div 
+              className="flex-shrink-0"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
               <img 
                 src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
                 alt="Zentella" 
-                className="h-8 w-auto hover-smooth hover:scale-105"
+                className="h-8 lg:h-10 w-auto"
               />
-            </div>
+            </motion.div>
             
-            <div className="hidden md:flex items-center space-x-8">
-              {menuItems.map((item) => (
-                <a 
+            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
+              {menuItems.map((item, index) => (
+                <motion.a 
                   key={item.name}
                   href={item.href}
-                  className="text-small font-medium text-text-secondary-light dark:text-text-secondary-dark hover:text-color-primary hover-smooth relative group focus-ring rounded-md px-2 py-1"
+                  className="relative px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {item.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-color-primary hover-smooth group-hover:w-full"></span>
-                </a>
+                </motion.a>
               ))}
             </div>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 lg:space-x-3">
               <motion.button 
                 onClick={toggleTheme}
-                className="btn-ghost"
-                aria-label="Toggle theme"
-                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="p-2 lg:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                aria-label="Cambiar tema"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
-                  initial={{ rotate: 0 }}
                   animate={{ rotate: isDark ? 180 : 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
                   {isDark ? (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,15 +105,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className="btn-ghost md:hidden"
+                className="md:hidden p-2 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
                 onClick={toggleMenu}
-                aria-label="Toggle menu"
+                aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col items-center justify-center w-5 h-5 space-y-1">
                   <motion.div 
-                    className="w-4 h-0.5 bg-current origin-center"
+                    className="w-4 h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? 45 : 0,
                       y: isMenuOpen ? 6 : 0
@@ -108,14 +121,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-4 h-0.5 bg-current"
+                    className="w-4 h-0.5 bg-current rounded-full"
                     animate={{
-                      opacity: isMenuOpen ? 0 : 1
+                      opacity: isMenuOpen ? 0 : 1,
+                      scale: isMenuOpen ? 0 : 1
                     }}
                     transition={{ duration: 0.15, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-4 h-0.5 bg-current origin-center"
+                    className="w-4 h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? -45 : 0,
                       y: isMenuOpen ? -6 : 0
@@ -125,113 +139,112 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </div>
               </motion.button>
 
-              <motion.button 
-                className="btn-primary hidden lg:flex"
-                whileHover={{ scale: 1.02 }}
+              <motion.a
+                href="#contact"
+                className="hidden lg:inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-medium rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25"
+                whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
               >
                 Trabajemos juntos
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      <motion.div 
-        className="fixed inset-0 z-40 md:hidden"
-        initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: isMenuOpen ? 1 : 0,
-          pointerEvents: isMenuOpen ? 'auto' : 'none'
-        }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
-      >
-        <motion.div 
-          className="absolute inset-0 bg-white dark:bg-bg-base-dark"
-          initial={{ x: "100%" }}
-          animate={{ x: isMenuOpen ? "0%" : "100%" }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-        >
-          <div className="layout-container h-full flex flex-col">
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 z-40 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div 
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+              onClick={closeMenu}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
             
             <motion.div 
-              className="flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isMenuOpen ? 1 : 0 }}
-              transition={{ duration: 0.2, delay: isMenuOpen ? 0.1 : 0 }}
+              className="absolute top-0 right-0 w-full max-w-sm h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
             >
-              <img 
-                src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
-                alt="Zentella" 
-                className="h-8 w-auto"
-              />
-              <motion.button 
-                className="btn-ghost"
-                onClick={closeMenu}
-                aria-label="Close menu"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </motion.button>
-            </motion.div>
-
-            <nav className="flex-1 py-8">
-              <ul className="space-y-6">
-                {menuItems.map((item, index) => (
-                  <motion.li 
-                    key={item.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ 
-                      opacity: isMenuOpen ? 1 : 0, 
-                      x: isMenuOpen ? 0 : 20 
-                    }}
-                    transition={{ 
-                      duration: 0.2, 
-                      delay: isMenuOpen ? 0.15 + index * 0.05 : 0,
-                      ease: "easeInOut"
-                    }}
+              <div className="h-full flex flex-col">
+                
+                <div className="flex items-center justify-between p-6">
+                  <img 
+                    src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
+                    alt="Zentella" 
+                    className="h-8 w-auto"
+                  />
+                  <motion.button 
+                    onClick={closeMenu}
+                    className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label="Cerrar menú"
                   >
-                    <motion.a 
-                      href={item.href} 
-                      onClick={closeMenu}
-                      className="block heading-3 text-text-primary-light dark:text-text-primary-dark hover:text-color-primary hover-smooth focus-ring rounded-md px-2 py-2"
-                      whileHover={{ scale: 1.02, x: 4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item.name}
-                    </motion.a>
-                  </motion.li>
-                ))}
-              </ul>
-            </nav>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </motion.button>
+                </div>
 
-            <motion.div 
-              className="py-6 border-t border-gray-200 dark:border-gray-700"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ 
-                opacity: isMenuOpen ? 1 : 0, 
-                y: isMenuOpen ? 0 : 20 
-              }}
-              transition={{ 
-                duration: 0.2, 
-                delay: isMenuOpen ? 0.3 : 0,
-                ease: "easeInOut"
-              }}
-            >
-              <motion.button 
-                className="btn-primary"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Trabajemos juntos
-              </motion.button>
+                <nav className="flex-1 px-6">
+                  <ul className="space-y-2">
+                    {menuItems.map((item, index) => (
+                      <motion.li 
+                        key={item.name}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: 0.1 + index * 0.1,
+                          ease: "easeOut"
+                        }}
+                      >
+                        <motion.a 
+                          href={item.href} 
+                          onClick={closeMenu}
+                          className="block px-4 py-3 text-lg font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200"
+                          whileHover={{ x: 4, scale: 1.02 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {item.name}
+                        </motion.a>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </nav>
+
+                <motion.div 
+                  className="p-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
+                >
+                  <motion.a
+                    href="#contact"
+                    onClick={closeMenu}
+                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-base font-medium rounded-xl transition-all duration-200 shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Trabajemos juntos
+                  </motion.a>
+                </motion.div>
+              </div>
             </motion.div>
-          </div>
-        </motion.div>
-      </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
