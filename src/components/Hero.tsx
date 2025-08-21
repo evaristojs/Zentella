@@ -20,6 +20,9 @@ const Hero = () => {
     "tu éxito sea imparable"
   ]
 
+  // Determinar si la frase actual es larga (más de 20 caracteres)
+  const isLongPhrase = phrases[currentPhraseIndex].length > 20
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
@@ -75,11 +78,11 @@ const Hero = () => {
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full max-w-full text-center min-h-[2.4em] sm:min-h-[1.2em] flex items-center justify-center overflow-hidden px-4 sm:px-2">
+                <div className={`relative w-full max-w-full text-center flex items-center justify-center overflow-hidden px-4 sm:px-2 ${isLongPhrase ? 'min-h-[2.4em] sm:min-h-[1.2em]' : 'h-[1.2em]'}`}>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center leading-tight sm:leading-none"
+                      className={`absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center ${isLongPhrase ? 'leading-tight sm:leading-none' : 'leading-none whitespace-nowrap'}`}
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -91,8 +94,8 @@ const Hero = () => {
                         backgroundSize: "200% 200%",
                         fontSize: 'clamp(1.8rem, 7vw, 8rem)',
                         maxWidth: '100%',
-                        wordWrap: 'break-word',
-                        hyphens: 'auto'
+                        wordWrap: isLongPhrase ? 'break-word' : 'normal',
+                        hyphens: isLongPhrase ? 'auto' : 'none'
                       }}
                     >
                       {phrases[currentPhraseIndex]}
