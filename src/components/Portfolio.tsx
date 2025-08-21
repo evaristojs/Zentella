@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 
 interface PortfolioItem {
@@ -9,9 +9,56 @@ interface PortfolioItem {
   description: string
   image: string
   video?: string
+  videoThumbnail?: string
   client: string
   year: number
   tags: string[]
+}
+
+// Componente de imagen lazy loading
+const LazyImage = ({ src, alt, className }: { src: string, alt: string, className: string }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={imgRef} className={`${className} relative overflow-hidden bg-gray-200 dark:bg-gray-800`}>
+      {isVisible && (
+        <motion.img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={() => setIsLoaded(true)}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: isLoaded ? 1 : 1.1 }}
+          transition={{ duration: 0.6 }}
+        />
+      )}
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-color-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+    </div>
+  )
 }
 
 const Portfolio = () => {
@@ -19,6 +66,7 @@ const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [itemsToShow, setItemsToShow] = useState(6)
   const { elementRef, isVisible } = useIntersectionObserver()
 
   const categories = [
@@ -217,7 +265,8 @@ const Portfolio = () => {
         title: 'Ambiente Chic - Grand Opening',
         category: 'video',
         description: 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/ambiente-chic-thumb.jpg',
+        videoThumbnail: '/images/portfolio/video/ambiente-chic-thumb.jpg',
         video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
         client: 'Ambiente Chic',
         year: 2024,
@@ -228,7 +277,8 @@ const Portfolio = () => {
         title: 'BeerOClock - Campaña Navideña',
         category: 'video',
         description: 'Producción audiovisual para campaña navideña, combinando creatividad y espíritu festivo',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/beeroclock-thumb.jpg',
+        videoThumbnail: '/images/portfolio/video/beeroclock-thumb.jpg',
         video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
         client: 'BeerOClock',
         year: 2024,
@@ -239,7 +289,8 @@ const Portfolio = () => {
         title: 'TimeHomes - María Teresa Condos',
         category: 'video',
         description: 'Video promocional para desarrollo inmobiliario, destacando lujo y ubicación privilegiada',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/timehomes-thumb.jpg',
+        videoThumbnail: '/images/portfolio/video/timehomes-thumb.jpg',
         video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
         client: 'TimeHomes',
         year: 2024,
@@ -254,6 +305,13 @@ const Portfolio = () => {
     ? portfolioItems 
     : portfolioItems.filter(item => item.category === selectedCategory)
 
+  const displayedItems = filteredItems.slice(0, itemsToShow)
+  const hasMoreItems = displayedItems.length < filteredItems.length
+
+  const loadMore = () => {
+    setItemsToShow(prev => prev + 6)
+  }
+
   const openModal = (item: PortfolioItem) => {
     setSelectedItem(item)
     setIsModalOpen(true)
@@ -264,135 +322,223 @@ const Portfolio = () => {
     setSelectedItem(null)
   }
 
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId)
+    setItemsToShow(6) // Reset items to show when changing category
+  }
+
   return (
     <section 
       id="portfolio" 
-      className="py-12 md:py-20 bg-bg-base-light dark:bg-bg-base-dark"
+      className="py-20 md:py-32 bg-gradient-to-b from-bg-base-light to-bg-secondary-light dark:from-bg-base-dark dark:to-bg-secondary-dark relative overflow-hidden"
       ref={elementRef}
     >
-      <div className="layout-container">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="portfolio-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#portfolio-grid)" className="text-color-primary" />
+        </svg>
+      </div>
+
+      <div className="layout-container relative z-10">
+        {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 50 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
-            PORTAFOLIO
-          </span>
-          <h2 className="heading-1 lg:text-4xl mb-6 text-color-primary">
-            Nuestros Trabajos
+          <motion.div
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 dark:bg-black/20 backdrop-blur-lg rounded-full border border-white/30 dark:border-gray-700/30 mb-6"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="w-2 h-2 bg-color-primary rounded-full animate-pulse" />
+            <span className="text-small font-medium text-color-primary uppercase tracking-wider">
+              Portafolio
+            </span>
+          </motion.div>
+          
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+            Trabajos Destacados
           </h2>
-          <p className="text-base max-w-2xl mx-auto">
-            Algunos de nuestros proyectos más destacados que muestran nuestra experiencia y creatividad
+          <p className="text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
+            Una selección de nuestros proyectos más impactantes que demuestran nuestra pasión por la excelencia creativa
           </p>
         </motion.div>
 
+        {/* Categories with Glassmorphism */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-3 mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
           {categories.map((category, index) => (
             <motion.button
               key={category.id}
-              className={selectedCategory === category.id ? 'btn-primary' : 'btn-secondary'}
-              onClick={() => setSelectedCategory(category.id)}
-              whileHover={{ scale: 1.05 }}
+              className={`group relative overflow-hidden px-6 py-3 rounded-full transition-all duration-300 ${
+                selectedCategory === category.id 
+                  ? 'bg-color-primary text-white shadow-lg shadow-color-primary/30' 
+                  : 'bg-white/10 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 text-text-primary-light dark:text-text-primary-dark hover:bg-white/20 dark:hover:bg-black/20 hover:border-color-primary/30'
+              }`}
+              onClick={() => handleCategoryChange(category.id)}
+              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.2, ease: "easeInOut" }}
+              transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
             >
-              <span className="mr-2">{category.icon}</span>
-              {category.name}
+              <span className="relative z-10 flex items-center gap-2 font-medium">
+                {category.icon}
+                {category.name}
+              </span>
+              {selectedCategory === category.id && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-color-primary to-color-secondary"
+                  layoutId="activeCategory"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
             </motion.button>
           ))}
         </motion.div>
 
-        <motion.div 
-          className="grid-mobile md:grid-tablet lg:grid-desktop-3 gap-8"
-          initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {filteredItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              className="bg-white dark:bg-bg-base-dark rounded-2xl shadow-md overflow-hidden group cursor-pointer"
-              onClick={() => openModal(item)}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ 
-                y: -8, 
-                scale: 1.02,
-                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-                transition: { duration: 0.2, ease: "easeInOut" }
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <figure className="aspect-[4/3] bg-gray-200 dark:bg-gray-800 overflow-hidden relative">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-full object-cover hover-smooth group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 hover-smooth">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="bg-color-primary text-white text-small rounded px-2 py-1 mb-2 capitalize">
-                      {item.category}
-                    </div>
-                    <h3 className="font-bold text-small mb-1 text-white overflow-hidden text-ellipsis whitespace-nowrap">
-                      {item.title}
-                    </h3>
-                    <p className="text-small text-white/80">
-                      {item.client} • {item.year}
-                    </p>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </figure>
-              
-              <div className="p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-small text-color-primary capitalize border border-color-primary rounded px-2 py-1">
-                    {item.category}
-                  </div>
-                  <div className="text-small">
-                    {item.year}
-                  </div>
-                </div>
-                <h3 className="heading-3 mb-1 text-text-primary-light dark:text-text-primary-dark overflow-hidden text-ellipsis">
-                  {item.title}
-                </h3>
-                <p className="text-small mb-3">
-                  {item.client}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {item.tags.slice(0, 2).map(tag => (
-                    <div key={tag} className="bg-gray-100 dark:bg-gray-800 text-small rounded px-2 py-1">
-                      {tag}
-                    </div>
-                  ))}
-                  {item.tags.length > 2 && (
-                    <div className="bg-gray-100 dark:bg-gray-800 text-small rounded px-2 py-1">
-                      +{item.tags.length - 2}
+        {/* Portfolio Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={selectedCategory}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, staggerChildren: 0.1 }}
+          >
+            {displayedItems.map((item, index) => (
+              <motion.div
+                key={item.id}
+                className="group relative bg-white/5 dark:bg-black/5 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 dark:border-gray-700/10 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                onClick={() => openModal(item)}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Image Container */}
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <LazyImage
+                    src={item.videoThumbnail || item.image}
+                    alt={item.title}
+                    className="w-full h-full group-hover:scale-110 transition-transform duration-700"
+                  />
+                  
+                  {/* Video Indicator */}
+                  {item.video && (
+                    <div className="absolute top-4 right-4">
+                      <div className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-color-primary/80 transition-colors duration-300">
+                        <svg className="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
                     </div>
                   )}
+                  
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="px-3 py-1 bg-color-primary text-white text-xs font-medium rounded-full capitalize">
+                          {item.category}
+                        </span>
+                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                          {item.year}
+                        </span>
+                      </div>
+                      <h3 className="text-white font-bold text-sm mb-1 line-clamp-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-white/80 text-xs">
+                        {item.client}
+                      </p>
+                    </div>
+                    
+                    <div className="absolute top-4 left-4">
+                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                
+                {/* Content */}
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="px-3 py-1 text-xs font-medium text-color-primary bg-color-primary/10 rounded-full capitalize">
+                      {item.category}
+                    </span>
+                    <span className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                      {item.year}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold text-text-primary-light dark:text-text-primary-dark mb-2 line-clamp-1 group-hover:text-color-primary transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4">
+                    {item.client}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.slice(0, 3).map(tag => (
+                      <span key={tag} className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-text-secondary-light dark:text-text-secondary-dark rounded-md">
+                        {tag}
+                      </span>
+                    ))}
+                    {item.tags.length > 3 && (
+                      <span className="px-2 py-1 text-xs bg-color-primary/10 text-color-primary rounded-md">
+                        +{item.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Load More Button */}
+        {hasMoreItems && (
+          <motion.div 
+            className="text-center mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            <motion.button
+              onClick={loadMore}
+              className="px-8 py-4 bg-white/10 dark:bg-black/10 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 text-text-primary-light dark:text-text-primary-dark rounded-full font-medium hover:bg-color-primary hover:text-white hover:border-color-primary transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Cargar más proyectos
+            </motion.button>
+          </motion.div>
+        )}
 
         {isModalOpen && selectedItem && (
           <motion.div 

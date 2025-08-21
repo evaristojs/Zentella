@@ -1,27 +1,11 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
-
-declare global {
-  interface Window {
-    Starfield: {
-      setup: (config?: {
-        numStars?: number
-        baseSpeed?: number
-        trailLength?: number
-        starColor?: string
-        canvasColor?: string
-        auto?: boolean
-        originX?: number
-        originY?: number
-      }) => void
-    }
-  }
-}
+import { useState, useEffect } from 'react'
+import CustomStarfield from './CustomStarfield'
 
 const Hero = () => {
-  const heroRef = useRef<HTMLElement>(null)
   
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   
   const phrases = [
     "tu marca brille",
@@ -44,54 +28,21 @@ const Hero = () => {
     return () => clearInterval(interval)
   }, [phrases.length])
 
-  // Configurar starfield.js
+  // Monitor theme changes
   useEffect(() => {
-    const loadStarfield = async () => {
-      // Cargar el script si no está cargado
-      if (!window.Starfield) {
-        const script = document.createElement('script')
-        script.src = '/starfield.js'
-        script.onload = () => {
-          initStarfield()
-        }
-        document.head.appendChild(script)
-      } else {
-        initStarfield()
-      }
+    const updateTheme = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'))
     }
-
-    const initStarfield = () => {
-      if (window.Starfield) {
-        // Determinar si es modo oscuro
-        const isDarkMode = document.documentElement.classList.contains('dark')
-        
-        window.Starfield.setup({
-          numStars: 150,
-          baseSpeed: 2,
-          trailLength: 0.7,
-          starColor: isDarkMode ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)',
-          canvasColor: isDarkMode ? 'rgb(17, 17, 17)' : 'rgb(253, 254, 255)'
-        })
-      }
-    }
-
-    loadStarfield()
-
-    // Escuchar cambios de tema
-    const observer = new MutationObserver(() => {
-      if (window.Starfield) {
-        initStarfield()
-      }
-    })
     
+    updateTheme() // Initial check
+    
+    const observer = new MutationObserver(updateTheme)
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
     })
 
-    return () => {
-      observer.disconnect()
-    }
+    return () => observer.disconnect()
   }, [])
   
   const stats = [
@@ -103,10 +54,10 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      ref={heroRef}
-      className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark starfield"
+      className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark"
     >
-      <div className="layout-container relative z-20 flex items-center min-h-screen">
+      <CustomStarfield isDarkMode={isDarkMode} />
+      <div className="layout-container relative z-10 flex items-center min-h-screen">
         <div className="w-full max-w-6xl mx-auto">
           
           {/* Main Content - Centered Layout */}
@@ -124,7 +75,7 @@ const Hero = () => {
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full text-center overflow-hidden starfield-origin">
+                <div className="relative w-full text-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
