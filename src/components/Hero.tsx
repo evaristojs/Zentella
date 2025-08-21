@@ -75,11 +75,11 @@ const Hero = () => {
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full max-w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden px-2">
+                <div className="relative w-full max-w-full text-center min-h-[2.4em] sm:min-h-[1.2em] flex items-center justify-center overflow-hidden px-4 sm:px-2">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center leading-none"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center leading-tight sm:leading-none"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -89,7 +89,7 @@ const Hero = () => {
                       }}
                       style={{ 
                         backgroundSize: "200% 200%",
-                        fontSize: 'clamp(2rem, 8vw, 8rem)',
+                        fontSize: 'clamp(1.8rem, 7vw, 8rem)',
                         maxWidth: '100%',
                         wordWrap: 'break-word',
                         hyphens: 'auto'
