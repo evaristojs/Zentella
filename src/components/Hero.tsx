@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 const Hero = () => {
   
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
+  const [displayText, setDisplayText] = useState('')
+  const [showCursor, setShowCursor] = useState(true)
   
   const phrases = [
     "tu marca brille",
@@ -18,13 +20,44 @@ const Hero = () => {
     "tu éxito sea real"
   ]
 
+  // Typing effect
+  useEffect(() => {
+    const currentPhrase = phrases[currentPhraseIndex]
+    let timeoutId: number
+
+    const typeText = async () => {
+      setDisplayText('')
+      
+      for (let i = 0; i <= currentPhrase.length; i++) {
+        await new Promise(resolve => {
+          timeoutId = setTimeout(() => {
+            setDisplayText(currentPhrase.slice(0, i))
+            resolve(void 0)
+          }, 100)
+        })
+      }
+      
+      // Wait before starting next phrase
+      timeoutId = setTimeout(() => {
+        setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
+      }, 2000)
+    }
+
+    typeText()
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [currentPhraseIndex, phrases])
+
+  // Cursor blink effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
-    }, 3000) // Cambia cada 3 segundos
+      setShowCursor(prev => !prev)
+    }, 530)
 
     return () => clearInterval(interval)
-  }, [phrases.length])
+  }, [])
   
   const stats = [
     { value: '50+', label: 'Proyectos' },
@@ -57,30 +90,27 @@ const Hero = () => {
                   Haz que
                 </span>
                 <div className="relative w-full text-center h-[1.6em] flex items-center justify-center overflow-hidden">
-                  <AnimatePresence mode="wait">
+                  <motion.span
+                    className="flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent font-black"
+                    style={{ 
+                      backgroundSize: "400% 400%",
+                      backgroundPosition: "0% 50%",
+                      fontSize: 'clamp(2.5rem, 9vw, 11rem)',
+                      whiteSpace: 'nowrap',
+                      maxWidth: '100%',
+                      width: '100%',
+                      lineHeight: '1.1'
+                    }}
+                  >
+                    {displayText}
                     <motion.span
-                      key={currentPhraseIndex}
-                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent font-black"
-                      initial={{ y: 50, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -50, opacity: 0 }}
-                      transition={{
-                        duration: 0.5,
-                        ease: "easeInOut"
-                      }}
-                      style={{ 
-                        backgroundSize: "400% 400%",
-                        backgroundPosition: "0% 50%",
-                        fontSize: 'clamp(2.5rem, 9vw, 11rem)',
-                        whiteSpace: 'nowrap',
-                        maxWidth: '100%',
-                        width: '100%',
-                        lineHeight: '1.1'
-                      }}
+                      className="ml-1 text-color-primary"
+                      animate={{ opacity: showCursor ? 1 : 0 }}
+                      transition={{ duration: 0.1 }}
                     >
-                      {phrases[currentPhraseIndex]}
+                      |
                     </motion.span>
-                  </AnimatePresence>
+                  </motion.span>
                 </div>
                 <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black text-center">
                   con Zentella
