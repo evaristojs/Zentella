@@ -137,22 +137,22 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-2 justify-center items-center pt-8 px-4 w-full"
+              className="flex flex-col gap-3 justify-center items-center pt-6 px-6 w-full"
               style={{ maxWidth: '100%' }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <motion.button 
-                className="group relative overflow-hidden w-full sm:w-auto px-8 py-4 sm:py-5 bg-color-primary text-white rounded-full font-medium text-lg sm:text-xl shadow-lg hover:shadow-xl transition-shadow min-h-[56px] touch-manipulation"
+                className="group relative overflow-hidden w-full max-w-xs px-6 py-3 bg-color-primary text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transition-shadow min-h-[48px] touch-manipulation"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="relative z-10 flex items-center justify-center gap-3">
+                <span className="relative z-10 flex items-center justify-center gap-2">
                   Comenzar Proyecto
                   <motion.svg 
-                    className="w-5 h-5 sm:w-6 sm:h-6" 
+                    className="w-4 h-4" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -171,14 +171,14 @@ const Hero = () => {
               </motion.button>
               
               <motion.button 
-                className="group w-full sm:w-auto px-8 py-4 sm:py-5 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-lg sm:text-xl hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[56px] touch-manipulation"
+                className="group w-full max-w-xs px-6 py-3 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-sm hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[48px] touch-manipulation"
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="flex items-center justify-center gap-3">
+                <span className="flex items-center justify-center gap-2">
                   Ver Portfolio
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
