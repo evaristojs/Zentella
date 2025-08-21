@@ -11,17 +11,14 @@ const Hero = () => {
     "tu marca brille",
     "tu negocio despegue", 
     "cada clic cuente",
-    "tu mensaje llegue alto y claro",
+    "tu mensaje resuene",
     "tus ideas cobren vida",
-    "tu marketing sea un espectáculo",
+    "tu marketing impacte",
     "tus resultados sorprendan",
-    "tu creatividad sea tendencia",
+    "tu creatividad inspire",
     "tu marca deslumbre",
     "tu éxito sea imparable"
   ]
-
-  // Determinar si la frase actual es larga (más de 20 caracteres)
-  const isLongPhrase = phrases[currentPhraseIndex].length > 20
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,11 +75,11 @@ const Hero = () => {
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className={`relative w-full max-w-full text-center flex items-center justify-center overflow-hidden px-4 sm:px-2 ${isLongPhrase ? 'min-h-[2.4em] sm:min-h-[1.2em]' : 'h-[1.2em]'}`}>
+                <div className="relative w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className={`absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center ${isLongPhrase ? 'leading-tight sm:leading-none' : 'leading-none whitespace-nowrap'}`}
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent whitespace-nowrap"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -90,13 +87,7 @@ const Hero = () => {
                         duration: 0.5,
                         ease: "easeInOut"
                       }}
-                      style={{ 
-                        backgroundSize: "200% 200%",
-                        fontSize: 'clamp(1.8rem, 7vw, 8rem)',
-                        maxWidth: '100%',
-                        wordWrap: isLongPhrase ? 'break-word' : 'normal',
-                        hyphens: isLongPhrase ? 'auto' : 'none'
-                      }}
+                      style={{ backgroundSize: "200% 200%" }}
                     >
                       {phrases[currentPhraseIndex]}
                     </motion.span>
