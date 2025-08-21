@@ -100,17 +100,17 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-row gap-3 justify-center items-center pt-8 px-4 w-full"
+              className="flex flex-row gap-4 justify-center items-center pt-8 px-4 w-full"
               style={{ maxWidth: '100%' }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <motion.button 
-                className="group relative overflow-hidden flex-1 max-w-[180px] px-5 py-4 bg-color-primary text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transition-shadow min-h-[48px] touch-manipulation"
+                className="group relative overflow-hidden flex-1 max-w-[180px] px-6 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-2xl font-semibold text-sm shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[52px] touch-manipulation border border-color-primary/20"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   Comenzar Proyecto
@@ -126,22 +126,27 @@ const Hero = () => {
                   </motion.svg>
                 </span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-color-primary to-color-secondary"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 bg-gradient-to-r from-color-secondary to-color-primary opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                  whileHover={{ opacity: 1 }}
                 />
               </motion.button>
               
               <motion.button 
-                className="group flex-1 max-w-[180px] px-5 py-4 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-sm hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[48px] touch-manipulation"
+                className="group flex-1 max-w-[180px] px-6 py-4 bg-transparent border-2 border-color-primary/40 text-color-primary dark:text-color-primary rounded-2xl font-semibold text-sm hover:border-color-primary hover:bg-gradient-to-r hover:from-color-primary/10 hover:to-color-secondary/10 transition-all duration-300 min-h-[52px] touch-manipulation backdrop-blur-sm"
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
               >
                 <span className="flex items-center justify-center gap-2">
                   Ver Portfolio
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-4 h-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
