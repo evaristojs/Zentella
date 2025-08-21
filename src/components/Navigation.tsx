@@ -105,7 +105,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className="md:hidden p-2 sm:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className="md:hidden p-2 sm:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 relative z-[60]"
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
@@ -146,7 +146,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 z-40 md:hidden"
+            className="fixed inset-0 z-[70] md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -161,7 +161,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
             
             <motion.div 
-              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl"
+              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-[80]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -177,7 +177,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   />
                   <motion.button 
                     onClick={closeMenu}
-                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 relative z-[90]"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label="Cerrar menú"
