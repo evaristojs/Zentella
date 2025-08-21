@@ -17,21 +17,21 @@ const CustomStarfield = ({ isDarkMode }: CustomStarfieldProps) => {
       if (window.Starfield && containerRef.current) {
         // Configure starfield based on theme
         const config = {
-          numStars: 200,
-          baseSpeed: 0.8,
-          trailLength: 0.9,
+          numStars: 150,
+          baseSpeed: 0.3,
+          trailLength: 0.95,
           starColor: isDarkMode 
             ? 'rgb(255, 255, 255)' 
             : 'rgb(103, 0, 248)',
           canvasColor: isDarkMode 
             ? 'rgb(17, 17, 17)' 
             : 'rgb(253, 254, 255)',
-          hueJitter: isDarkMode ? 0 : 30,
-          maxAcceleration: 8,
-          accelerationRate: 0.15,
-          decelerationRate: 0.25,
-          minSpawnRadius: 60,
-          maxSpawnRadius: 400
+          hueJitter: isDarkMode ? 0 : 20,
+          maxAcceleration: 2,
+          accelerationRate: 0.1,
+          decelerationRate: 0.15,
+          minSpawnRadius: 0,
+          maxSpawnRadius: 1000
         }
         
         window.Starfield.setup(config)

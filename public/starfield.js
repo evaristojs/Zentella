@@ -31,65 +31,50 @@ const Starfield = (function() {
     this.prevX = x;
     this.prevY = y;
     this.speed = config.baseSpeed;
+    this.baseOpacity = 0.3 + Math.random() * 0.7; // Each star has its own base opacity
     
-    // Calculate initial direction from origin
-    const angle = Math.atan2(y - origin.y, x - origin.x);
-    this.vx = Math.cos(angle) * this.speed;
-    this.vy = Math.sin(angle) * this.speed;
+    // Random initial direction for floating effect
+    const angle = Math.random() * Math.PI * 2;
+    this.vx = Math.cos(angle) * this.speed * 0.5; // Slower movement
+    this.vy = Math.sin(angle) * this.speed * 0.5;
   }
 
   Star.prototype.update = function() {
     this.prevX = this.x;
     this.prevY = this.y;
     
-    // Update position
+    // Gentle floating movement
     this.x += this.vx;
     this.y += this.vy;
     
-    // Update speed based on acceleration
-    if (isAccelerating && this.speed < config.maxAcceleration) {
-      this.speed += config.accelerationRate;
-    } else if (!isAccelerating && this.speed > config.baseSpeed) {
-      this.speed -= config.decelerationRate;
-    }
+    // Add slight random movement for twinkling effect
+    this.x += (Math.random() - 0.5) * 0.2;
+    this.y += (Math.random() - 0.5) * 0.2;
     
-    // Update velocity based on current speed
-    const angle = Math.atan2(this.y - origin.y, this.x - origin.x);
-    this.vx = Math.cos(angle) * this.speed;
-    this.vy = Math.sin(angle) * this.speed;
-    
-    // Reset star if it goes off screen
-    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-      this.respawn();
-    }
+    // Wrap around screen edges for continuous effect
+    if (this.x < 0) this.x = canvas.width;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.y < 0) this.y = canvas.height;
+    if (this.y > canvas.height) this.y = 0;
   };
   
   Star.prototype.respawn = function() {
-    const angle = Math.random() * Math.PI * 2;
-    const radius = config.minSpawnRadius + Math.random() * (config.maxSpawnRadius - config.minSpawnRadius);
-    
-    this.x = origin.x + Math.cos(angle) * radius;
-    this.y = origin.y + Math.sin(angle) * radius;
+    // Respawn randomly across the canvas
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
     this.prevX = this.x;
     this.prevY = this.y;
     this.speed = config.baseSpeed;
     
-    const dirAngle = Math.atan2(this.y - origin.y, this.x - origin.x);
-    this.vx = Math.cos(dirAngle) * this.speed;
-    this.vy = Math.sin(dirAngle) * this.speed;
+    // Random direction for movement
+    const angle = Math.random() * Math.PI * 2;
+    this.vx = Math.cos(angle) * this.speed;
+    this.vy = Math.sin(angle) * this.speed;
   };
   
   Star.prototype.draw = function() {
-    const distance = Math.sqrt((this.x - origin.x) ** 2 + (this.y - origin.y) ** 2);
-    const opacity = Math.max(0, 1 - distance / config.maxSpawnRadius);
-    
-    if (opacity <= 0) return;
-    
-    // Calculate trail
-    const trailDistance = this.speed * config.trailLength * 10;
-    const angle = Math.atan2(this.vy, this.vx);
-    const tailX = this.x - Math.cos(angle) * trailDistance;
-    const tailY = this.y - Math.sin(angle) * trailDistance;
+    // Use base opacity with slight variation for twinkling
+    const opacity = this.baseOpacity * (0.8 + Math.random() * 0.4);
     
     // Apply hue jitter if configured
     let color = config.starColor;
@@ -98,23 +83,26 @@ const Starfield = (function() {
       color = adjustHue(color, hueShift);
     }
     
-    // Draw trail
-    const gradient = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
-    gradient.addColorStop(0, `rgba(${extractRGB(color).join(',')}, 0)`);
-    gradient.addColorStop(1, `rgba(${extractRGB(color).join(',')}, ${opacity})`);
-    
-    ctx.strokeStyle = gradient;
-    ctx.lineWidth = Math.max(1, this.speed / 2);
-    ctx.beginPath();
-    ctx.moveTo(tailX, tailY);
-    ctx.lineTo(this.x, this.y);
-    ctx.stroke();
-    
-    // Draw star point
+    // Draw star as a simple circle
+    const size = 0.5 + Math.random() * 1.5; // Random size between 0.5 and 2
     ctx.fillStyle = `rgba(${extractRGB(color).join(',')}, ${opacity})`;
     ctx.beginPath();
-    ctx.arc(this.x, this.y, Math.max(1, this.speed / 3), 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
     ctx.fill();
+    
+    // Add sparkle effect for brighter stars
+    if (opacity > 0.7) {
+      ctx.strokeStyle = `rgba(${extractRGB(color).join(',')}, ${opacity * 0.5})`;
+      ctx.lineWidth = 0.5;
+      
+      // Draw cross sparkle
+      ctx.beginPath();
+      ctx.moveTo(this.x - size * 2, this.y);
+      ctx.lineTo(this.x + size * 2, this.y);
+      ctx.moveTo(this.x, this.y - size * 2);
+      ctx.lineTo(this.x, this.y + size * 2);
+      ctx.stroke();
+    }
   };
   
   function extractRGB(rgbString) {
@@ -179,10 +167,9 @@ const Starfield = (function() {
   function createStars() {
     stars = [];
     for (let i = 0; i < config.numStars; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = config.minSpawnRadius + Math.random() * (config.maxSpawnRadius - config.minSpawnRadius);
-      const x = origin.x + Math.cos(angle) * radius;
-      const y = origin.y + Math.sin(angle) * radius;
+      // Distribute stars randomly across the entire canvas
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
       stars.push(new Star(x, y));
     }
   }
