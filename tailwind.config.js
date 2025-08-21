@@ -14,7 +14,7 @@ export default {
         // Modern whites for light mode
         'bg-base-light': '#FDFEFF', // Modern off-white with slight cool tint
         'bg-secondary-light': '#F8FAFC', // Subtle gray-white for cards
-        'bg-base-dark': '#0F0F1A', // Deep dark with purple undertone
+        'bg-base-dark': '#111111', // Modern dark gray, not pure black
         'bg-secondary-dark': '#1A1A2E', // Slightly lighter dark
         
         // Text colors

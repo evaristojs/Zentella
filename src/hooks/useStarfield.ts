@@ -22,60 +22,63 @@ declare global {
   }
 }
 
-export const useStarfield = (config: StarfieldConfig = {}) => {
+export const useStarfield = () => {
   const containerRef = useRef<HTMLElement>(null)
   const starfieldRef = useRef<any>(null)
 
   useEffect(() => {
+    const setupStarfield = () => {
+      if (!window.Starfield || !containerRef.current) return
+
+      const isDarkMode = document.documentElement.classList.contains('dark')
+      
+      const config = {
+        starColor: isDarkMode ? "rgba(255, 255, 255, 0.8)" : "rgba(103, 0, 248, 0.6)",
+        hueJitter: 0,
+        trailLength: 0.15,
+        baseSpeed: 0.2,
+        maxAcceleration: 0.1,
+        accelerationRate: 0.003,
+        decelerationRate: 0.003,
+        minSpawnRadius: 300,
+        maxSpawnRadius: 500
+      }
+
+      if (starfieldRef.current) {
+        window.Starfield.destroy()
+      }
+      
+      starfieldRef.current = window.Starfield.setup(config)
+    }
+
     // Load starfield script if not already loaded
     if (!window.Starfield) {
       const script = document.createElement('script')
       script.src = '/starfield.js'
-      script.onload = () => {
-        if (window.Starfield && containerRef.current) {
-          starfieldRef.current = window.Starfield.setup({
-            starColor: "rgba(103, 0, 248, 0.4)",
-            hueJitter: 0,
-            trailLength: 0.2,
-            baseSpeed: 0.3,
-            maxAcceleration: 0.2,
-            accelerationRate: 0.005,
-            decelerationRate: 0.005,
-            minSpawnRadius: 250,
-            maxSpawnRadius: 450,
-            ...config
-          })
-        }
-      }
+      script.onload = setupStarfield
       document.head.appendChild(script)
 
       return () => {
         document.head.removeChild(script)
       }
     } else {
-      // Starfield already loaded
-      if (containerRef.current) {
-        starfieldRef.current = window.Starfield.setup({
-          starColor: "rgba(103, 0, 248, 0.4)",
-          hueJitter: 0,
-          trailLength: 0.2,
-          baseSpeed: 0.3,
-          maxAcceleration: 0.2,
-          accelerationRate: 0.005,
-          decelerationRate: 0.005,
-          minSpawnRadius: 250,
-          maxSpawnRadius: 450,
-          ...config
-        })
-      }
+      setupStarfield()
     }
 
+    // Listen for theme changes
+    const observer = new MutationObserver(setupStarfield)
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    })
+
     return () => {
+      observer.disconnect()
       if (starfieldRef.current && window.Starfield) {
         window.Starfield.destroy()
       }
     }
-  }, [config])
+  }, [])
 
   return containerRef
 }

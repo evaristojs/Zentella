@@ -126,14 +126,20 @@ const Starfield = (function() {
   }
 
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    try {
+      if (!canvas || !ctx) return;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    stars.forEach(star => {
-      star.update();
-      star.draw();
-    });
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
 
-    animationId = requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
+    } catch (error) {
+      console.warn('Starfield animation error:', error);
+    }
   }
 
   function handleResize() {
@@ -143,33 +149,47 @@ const Starfield = (function() {
 
   return {
     setup: function(options = {}) {
-      // Merge options with default config
-      config = { ...config, ...options };
+      try {
+        // Merge options with default config
+        config = { ...config, ...options };
 
-      // Find hero section or create canvas container
-      const heroSection = document.getElementById('hero') || document.body;
-      
-      // Remove existing canvas if any
-      const existingCanvas = document.getElementById('starfield-canvas');
-      if (existingCanvas) {
-        existingCanvas.remove();
+        // Find hero section or create canvas container
+        const heroSection = document.getElementById('hero');
+        if (!heroSection) {
+          console.warn('Hero section not found for starfield');
+          return this;
+        }
+        
+        // Remove existing canvas if any
+        const existingCanvas = document.getElementById('starfield-canvas');
+        if (existingCanvas) {
+          existingCanvas.remove();
+        }
+
+        // Create and append canvas
+        canvas = createCanvas();
+        if (!canvas) {
+          console.warn('Failed to create starfield canvas');
+          return this;
+        }
+        
+        heroSection.appendChild(canvas);
+
+        // Setup
+        resizeCanvas();
+        initStars();
+
+        // Start animation
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', handleResize);
+
+        return this;
+      } catch (error) {
+        console.warn('Starfield setup error:', error);
+        return this;
       }
-
-      // Create and append canvas
-      canvas = createCanvas();
-      heroSection.appendChild(canvas);
-
-      // Setup
-      resizeCanvas();
-      initStars();
-
-      // Start animation
-      animate();
-
-      // Handle resize
-      window.addEventListener('resize', handleResize);
-
-      return this;
     },
 
     destroy: function() {

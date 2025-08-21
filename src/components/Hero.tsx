@@ -3,17 +3,7 @@ import { useStarfield } from '../hooks/useStarfield'
 import { useState, useEffect } from 'react'
 
 const Hero = () => {
-  const starfieldRef = useStarfield({
-    starColor: "rgba(103, 0, 248, 0.6)",
-    hueJitter: 0,
-    trailLength: 0.15,
-    baseSpeed: 0.2,
-    maxAcceleration: 0.1,
-    accelerationRate: 0.003,
-    decelerationRate: 0.003,
-    minSpawnRadius: 300,
-    maxSpawnRadius: 500
-  })
+  const starfieldRef = useStarfield()
   
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   
@@ -48,47 +38,8 @@ const Hero = () => {
     <section 
       id="hero" 
       ref={starfieldRef}
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-bg-base-light via-bg-base-light to-color-primary/5 dark:from-bg-base-dark dark:via-bg-base-dark dark:to-color-primary/10"
+      className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark"
     >
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 opacity-2">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <defs>
-            <pattern id="grid" width="15" height="15" patternUnits="userSpaceOnUse">
-              <path d="M 15 0 L 0 0 0 15" fill="none" stroke="currentColor" strokeWidth="0.3"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" className="text-color-primary" />
-        </svg>
-      </div>
-
-      {/* Abstract Shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 right-20 w-60 h-60"
-          initial={{ opacity: 0, rotate: 0 }}
-          animate={{ opacity: 0.03, rotate: 360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="w-full h-full border-2 border-color-primary/30 rounded-full"></div>
-          <div className="absolute top-4 left-4 w-52 h-52 border border-color-secondary/20 rounded-full"></div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-32 left-10 w-40 h-40"
-          initial={{ opacity: 0, rotate: 180 }}
-          animate={{ opacity: 0.02, rotate: -180 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        >
-          <div className="w-full h-full bg-gradient-to-br from-color-primary/10 to-color-accent/10 rounded-2xl transform rotate-45"></div>
-        </motion.div>
-
-        <motion.div
-          className="absolute top-1/2 left-1/4 w-2 h-80 bg-gradient-to-b from-transparent via-color-primary/5 to-transparent"
-          animate={{ x: [-30, 30, -30] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
 
       <div className="layout-container relative z-20 flex items-center min-h-screen">
         <div className="w-full max-w-6xl mx-auto">
@@ -96,26 +47,6 @@ const Hero = () => {
           {/* Main Content - Centered Layout */}
           <div className="text-center space-y-8">
             
-            {/* Badge */}
-            <motion.div
-              className="inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-full border border-color-primary/20">
-                <div className="flex items-center gap-2">
-                  <motion.div
-                    className="w-2 h-2 bg-color-primary rounded-full"
-                    animate={{ scale: [1, 1.3, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  <span className="text-small font-medium text-color-primary uppercase tracking-wide">
-                    Digital Creative Agency
-                  </span>
-                </div>
-              </div>
-            </motion.div>
 
             {/* Main Headline with Rotating Phrases */}
             <motion.div
@@ -282,30 +213,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Floating Action */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer group z-20"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 2.0 }}
-        onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-      >
-        <div className="flex flex-col items-center gap-2">
-          <div className="text-small text-text-secondary-light dark:text-text-secondary-dark group-hover:text-color-primary transition-colors font-medium uppercase tracking-wider">
-            Explorar
-          </div>
-          <motion.div
-            className="w-6 h-10 border-2 border-color-primary/40 rounded-full p-1 group-hover:border-color-primary transition-colors"
-            whileHover={{ scale: 1.1 }}
-          >
-            <motion.div
-              className="w-1 h-3 bg-color-primary rounded-full mx-auto"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.div>
-        </div>
-      </motion.div>
     </section>
   )
 }
