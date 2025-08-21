@@ -41,8 +41,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       <motion.nav 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' 
-            : 'bg-transparent'
+            ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30' 
+            : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -59,7 +59,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <img 
                 src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
                 alt="Zentella" 
-                className="h-8 lg:h-10 w-auto"
+                className="h-10 sm:h-12 lg:h-12 w-auto"
               />
             </motion.div>
             

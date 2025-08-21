@@ -71,15 +71,15 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center">
-                <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
+              <h1 className="heading-1 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight min-h-[180px] sm:min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mb-2 sm:mb-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
                   Haz que
                 </span>
-                <div className="relative w-full text-center overflow-hidden">
+                <div className="relative w-full text-center overflow-hidden px-4">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="block bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent"
+                      className="block bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -93,7 +93,7 @@ const Hero = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-4xl md:text-6xl lg:text-7xl">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 sm:mt-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
                   con Zentella
                 </span>
               </h1>
@@ -128,21 +128,21 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <motion.button 
-                className="group relative overflow-hidden px-8 py-4 bg-color-primary text-white rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-shadow"
+                className="group relative overflow-hidden w-full sm:w-auto px-8 py-4 sm:py-5 bg-color-primary text-white rounded-full font-medium text-lg sm:text-xl shadow-lg hover:shadow-xl transition-shadow min-h-[56px] touch-manipulation"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className="relative z-10 flex items-center gap-3">
+                <span className="relative z-10 flex items-center justify-center gap-3">
                   Comenzar Proyecto
                   <motion.svg 
-                    className="w-5 h-5" 
+                    className="w-5 h-5 sm:w-6 sm:h-6" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -161,14 +161,14 @@ const Hero = () => {
               </motion.button>
               
               <motion.button 
-                className="group px-8 py-4 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-lg hover:border-color-primary hover:bg-color-primary/5 transition-all"
+                className="group w-full sm:w-auto px-8 py-4 sm:py-5 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-lg sm:text-xl hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[56px] touch-manipulation"
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className="flex items-center gap-3">
+                <span className="flex items-center justify-center gap-3">
                   Ver Portfolio
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
