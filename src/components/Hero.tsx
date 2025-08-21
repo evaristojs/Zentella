@@ -123,7 +123,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              Agencia creativa digital especializada en transformar visiones en realidades exitosas.
+              Transformamos tu visión en realidad exitosa.
             </motion.p>
 
             {/* CTA Buttons */}
