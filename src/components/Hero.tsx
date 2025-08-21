@@ -52,7 +52,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-2 w-full">
+              <h1 className="heading-1 text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-2 w-full">
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-2 font-black text-center">
                   Haz que
                 </span>
@@ -71,7 +71,7 @@ const Hero = () => {
                       style={{ 
                         backgroundSize: "400% 400%",
                         backgroundPosition: "0% 50%",
-                        fontSize: 'clamp(2rem, 8vw, 10rem)',
+                        fontSize: 'clamp(2.5rem, 10vw, 12rem)',
                         whiteSpace: 'nowrap',
                         maxWidth: '100%',
                         width: '100%'
@@ -81,22 +81,12 @@ const Hero = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-black text-center">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black text-center">
                   con Zentella
                 </span>
               </h1>
             </motion.div>
 
-            {/* Description */}
-            <motion.p
-              className="text-sm sm:text-base md:text-xl mx-auto leading-relaxed text-text-secondary-light dark:text-text-secondary-dark px-4 mt-4 w-full"
-              style={{ maxWidth: '100%' }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              Transformamos tu visión en realidad exitosa.
-            </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
