@@ -17,10 +17,39 @@ const Hero = () => {
   }, [])
 
   const services = [
-    { icon: '🎨', text: 'Diseño' },
-    { icon: '📸', text: 'Fotografía' },
-    { icon: '🎬', text: 'Video' },
-    { icon: '✨', text: 'Animación' },
+    { 
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+        </svg>
+      ), 
+      text: 'Diseño' 
+    },
+    { 
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ), 
+      text: 'Fotografía' 
+    },
+    { 
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      ), 
+      text: 'Video' 
+    },
+    { 
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ), 
+      text: 'Animación' 
+    },
   ]
 
   return (
@@ -171,8 +200,8 @@ const Hero = () => {
                   whileHover={{ x: 3 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </motion.div>
               </motion.button>
@@ -212,7 +241,7 @@ const Hero = () => {
                   transition={{ delay: 1.3 + index * 0.1, duration: 0.3 }}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.8)" }}
                 >
-                  <span className="text-lg">{service.icon}</span>
+                  <span className="text-color-primary">{service.icon}</span>
                   <span className="text-small font-medium text-text-primary-light dark:text-text-primary-dark">
                     {service.text}
                   </span>
@@ -254,10 +283,46 @@ const Hero = () => {
 
               {/* Orbiting Elements */}
               {[
-                { icon: '⚡', color: 'bg-color-primary', angle: 0, radius: 180 },
-                { icon: '🚀', color: 'bg-color-success', angle: 90, radius: 200 },
-                { icon: '💡', color: 'bg-yellow-500', angle: 180, radius: 190 },
-                { icon: '🎯', color: 'bg-purple-500', angle: 270, radius: 210 },
+                { 
+                  icon: (
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  ), 
+                  color: 'bg-color-primary', 
+                  angle: 0, 
+                  radius: 180 
+                },
+                { 
+                  icon: (
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                  ), 
+                  color: 'bg-color-success', 
+                  angle: 90, 
+                  radius: 200 
+                },
+                { 
+                  icon: (
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  ), 
+                  color: 'bg-color-accent', 
+                  angle: 180, 
+                  radius: 190 
+                },
+                { 
+                  icon: (
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                  ), 
+                  color: 'bg-color-secondary', 
+                  angle: 270, 
+                  radius: 210 
+                },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -280,7 +345,7 @@ const Hero = () => {
                   }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <span className="text-2xl">{item.icon}</span>
+                  {item.icon}
                 </motion.div>
               ))}
             </div>
