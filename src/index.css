@@ -7,16 +7,24 @@
 @layer base {
   html {
     @apply scroll-smooth;
+    overflow-x: hidden;
   }
   
   body {
-    @apply font-sans bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark overflow-x-hidden transition-all duration-300;
+    @apply font-sans bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark transition-all duration-300;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  * {
+    box-sizing: border-box;
   }
 
   /* Minimum font size for mobile accessibility */
   @media (max-width: 640px) {
     body {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 }

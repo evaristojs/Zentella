@@ -93,11 +93,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
                   {isDark ? (
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                   ) : (
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                   )}
@@ -111,17 +111,17 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="flex flex-col items-center justify-center w-4 h-4 sm:w-5 sm:h-5 space-y-0.5">
+                <div className="flex flex-col items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 space-y-0.5">
                   <motion.div 
-                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
+                    className="w-2.5 h-0.5 sm:w-3 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? 45 : 0,
-                      y: isMenuOpen ? 4 : 0
+                      y: isMenuOpen ? 3 : 0
                     }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
+                    className="w-2.5 h-0.5 sm:w-3 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       opacity: isMenuOpen ? 0 : 1,
                       scale: isMenuOpen ? 0 : 1
@@ -129,10 +129,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                     transition={{ duration: 0.15, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
+                    className="w-2.5 h-0.5 sm:w-3 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? -45 : 0,
-                      y: isMenuOpen ? -4 : 0
+                      y: isMenuOpen ? -3 : 0
                     }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                   />
