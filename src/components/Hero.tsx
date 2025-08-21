@@ -71,15 +71,15 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight flex flex-col items-center justify-center">
+              <h1 className="heading-1 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-4">
                 <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden">
+                <div className="relative w-full max-w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden px-2">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent whitespace-nowrap"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-center leading-none"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -87,13 +87,19 @@ const Hero = () => {
                         duration: 0.5,
                         ease: "easeInOut"
                       }}
-                      style={{ backgroundSize: "200% 200%" }}
+                      style={{ 
+                        backgroundSize: "200% 200%",
+                        fontSize: 'clamp(2rem, 8vw, 8rem)',
+                        maxWidth: '100%',
+                        wordWrap: 'break-word',
+                        hyphens: 'auto'
+                      }}
                     >
                       {phrases[currentPhraseIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-4xl md:text-6xl lg:text-7xl">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
                   con Zentella
                 </span>
               </h1>
@@ -118,7 +124,7 @@ const Hero = () => {
 
             {/* Description */}
             <motion.p
-              className="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-text-secondary-light dark:text-text-secondary-dark"
+              className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-text-secondary-light dark:text-text-secondary-dark px-6 mt-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -128,7 +134,7 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 px-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 px-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
