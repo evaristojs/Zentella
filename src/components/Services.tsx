@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+// Asegúrate de instalar heroicons: npm install @heroicons/react
+import { SwatchIcon, MegaphoneIcon, CameraIcon, VideoCameraIcon } from '@heroicons/react/24/outline'
 
 const Services = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
@@ -10,11 +12,7 @@ const Services = () => {
       title: 'Diseño & Branding',
       description: 'Identidades visuales únicas que conectan con tu audiencia y destacan en el mercado.',
       preview: '/images/services/design-preview.jpg',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
-        </svg>
-      ),
+      icon: <SwatchIcon className="w-6 h-6" />,
       features: ['Logo & Identidad Visual', 'Branding Completo', 'Packaging Design', 'Material Promocional']
     },
     {
@@ -22,11 +20,7 @@ const Services = () => {
       title: 'Marketing Digital',
       description: 'Estrategias integrales para hacer crecer tu negocio en el mundo online.',
       preview: '/images/services/marketing-preview.jpg',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      ),
+      icon: <MegaphoneIcon className="w-6 h-6" />,
       features: ['Social Media', 'Google Ads', 'Email Marketing', 'SEO & SEM']
     },
     {
@@ -34,12 +28,7 @@ const Services = () => {
       title: 'Fotografía',
       description: 'Capturamos la esencia de tu marca con fotografías profesionales.',
       preview: '/images/services/photography-preview.jpg',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
+      icon: <CameraIcon className="w-6 h-6" />,
       features: ['Fotografía Comercial', 'Producto', 'Eventos', 'Retratos Corporativos']
     },
     {
@@ -47,11 +36,7 @@ const Services = () => {
       title: 'Video & Animación',
       description: 'Contenido audiovisual que conecta emocionalmente con tu audiencia.',
       preview: '/images/services/video-preview.jpg',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      ),
+      icon: <VideoCameraIcon className="w-6 h-6" />,
       features: ['Video Corporativo', 'Animación 2D/3D', 'Motion Graphics', 'Social Media Videos']
     }
   ]
@@ -88,12 +73,16 @@ const Services = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -5, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}
             >
-              <div className="w-12 h-12 bg-color-primary rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 hover-smooth">
+              <motion.div 
+                className="w-12 h-12 bg-color-primary rounded-xl flex items-center justify-center text-white mb-4 transition-transform duration-300 ease-in-out"
+                whileHover={{ scale: 1.1, rotate: 10 }}
+              >
                 {service.icon}
-              </div>
+              </motion.div>
 
-              <h3 className="heading-3 mb-3 group-hover:text-color-primary hover-smooth text-text-primary-light dark:text-text-primary-dark">
+              <h3 className="heading-3 mb-3 group-hover:text-color-primary transition-colors duration-300 text-text-primary-light dark:text-text-primary-dark">
                 {service.title}
               </h3>
               <p className="text-small mb-4 leading-relaxed">
