@@ -5,13 +5,13 @@ const Starfield = (function() {
   let config = {
     starColor: "rgb(103, 0, 248)",
     hueJitter: 0,
-    trailLength: 0.6,
-    baseSpeed: 1.5,
-    maxAcceleration: 1,
-    accelerationRate: 0.02,
-    decelerationRate: 0.02,
-    minSpawnRadius: 120,
-    maxSpawnRadius: 350
+    trailLength: 0.3,
+    baseSpeed: 0.5,
+    maxAcceleration: 0.3,
+    accelerationRate: 0.01,
+    decelerationRate: 0.01,
+    minSpawnRadius: 200,
+    maxSpawnRadius: 400
   };
 
   class Star {
@@ -59,17 +59,33 @@ const Starfield = (function() {
 
     draw() {
       const opacity = Math.max(0, 1 - this.z / 1000);
-      const size = Math.max(0.5, (1000 - this.z) / 1000 * 2);
+      const size = Math.max(0.3, (1000 - this.z) / 1000 * 1.5);
 
-      // Draw trail
-      ctx.strokeStyle = config.starColor.replace('rgb', 'rgba').replace(')', `, ${opacity * config.trailLength})`);
-      ctx.lineWidth = size;
+      // Draw trail with gradient
+      if (config.trailLength > 0) {
+        const gradient = ctx.createLinearGradient(this.prevX, this.prevY, this.x, this.y);
+        gradient.addColorStop(0, config.starColor.replace('rgb', 'rgba').replace(')', `, ${opacity * config.trailLength * 0.3})`));
+        gradient.addColorStop(1, config.starColor.replace('rgb', 'rgba').replace(')', `, ${opacity * config.trailLength})`));
+        
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = size * 0.5;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(this.prevX, this.prevY);
+        ctx.lineTo(this.x, this.y);
+        ctx.stroke();
+      }
+
+      // Draw star with glow
+      const glowOpacity = opacity * 0.3;
+      
+      // Outer glow
+      ctx.fillStyle = config.starColor.replace('rgb', 'rgba').replace(')', `, ${glowOpacity})`);
       ctx.beginPath();
-      ctx.moveTo(this.prevX, this.prevY);
-      ctx.lineTo(this.x, this.y);
-      ctx.stroke();
-
-      // Draw star
+      ctx.arc(this.x, this.y, size * 2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Inner star
       ctx.fillStyle = config.starColor.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
       ctx.beginPath();
       ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
@@ -102,9 +118,9 @@ const Starfield = (function() {
 
   function initStars() {
     stars = [];
-    const numStars = Math.floor((canvas.width * canvas.height) / 10000);
+    const numStars = Math.floor((canvas.width * canvas.height) / 25000); // Menos estrellas
     
-    for (let i = 0; i < numStars; i++) {
+    for (let i = 0; i < Math.max(numStars, 20); i++) { // Mínimo 20 estrellas
       stars.push(new Star());
     }
   }

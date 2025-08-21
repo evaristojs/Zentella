@@ -34,15 +34,15 @@ export const useStarfield = (config: StarfieldConfig = {}) => {
       script.onload = () => {
         if (window.Starfield && containerRef.current) {
           starfieldRef.current = window.Starfield.setup({
-            starColor: "rgb(103, 0, 248)",
+            starColor: "rgba(103, 0, 248, 0.4)",
             hueJitter: 0,
-            trailLength: 0.8,
-            baseSpeed: 2,
-            maxAcceleration: 1.5,
-            accelerationRate: 0.03,
-            decelerationRate: 0.03,
-            minSpawnRadius: 100,
-            maxSpawnRadius: 400,
+            trailLength: 0.2,
+            baseSpeed: 0.3,
+            maxAcceleration: 0.2,
+            accelerationRate: 0.005,
+            decelerationRate: 0.005,
+            minSpawnRadius: 250,
+            maxSpawnRadius: 450,
             ...config
           })
         }
@@ -56,15 +56,15 @@ export const useStarfield = (config: StarfieldConfig = {}) => {
       // Starfield already loaded
       if (containerRef.current) {
         starfieldRef.current = window.Starfield.setup({
-          starColor: "rgb(103, 0, 248)",
+          starColor: "rgba(103, 0, 248, 0.4)",
           hueJitter: 0,
-          trailLength: 0.8,
-          baseSpeed: 2,
-          maxAcceleration: 1.5,
-          accelerationRate: 0.03,
-          decelerationRate: 0.03,
-          minSpawnRadius: 100,
-          maxSpawnRadius: 400,
+          trailLength: 0.2,
+          baseSpeed: 0.3,
+          maxAcceleration: 0.2,
+          accelerationRate: 0.005,
+          decelerationRate: 0.005,
+          minSpawnRadius: 250,
+          maxSpawnRadius: 450,
           ...config
         })
       }
