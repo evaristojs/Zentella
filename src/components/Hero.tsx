@@ -72,14 +72,14 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <h1 className="heading-1 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-4">
-                <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mb-4 font-black">
                   Haz que
                 </span>
                 <div className="relative w-full text-center h-[1.2em] flex items-center justify-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent whitespace-nowrap"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent whitespace-nowrap font-black"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -87,13 +87,16 @@ const Hero = () => {
                         duration: 0.5,
                         ease: "easeInOut"
                       }}
-                      style={{ backgroundSize: "200% 200%" }}
+                      style={{ 
+                        backgroundSize: "400% 400%",
+                        backgroundPosition: "0% 50%"
+                      }}
                     >
                       {phrases[currentPhraseIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black">
                   con Zentella
                 </span>
               </h1>
@@ -105,8 +108,8 @@ const Hero = () => {
                     key={index}
                     className={`h-1 rounded-full transition-all duration-300 ${
                       index === currentPhraseIndex 
-                        ? 'w-8 bg-color-primary' 
-                        : 'w-2 bg-color-primary/30'
+                        ? 'w-8 bg-color-primary shadow-sm' 
+                        : 'w-2 bg-color-primary/40 dark:bg-color-primary/30'
                     }`}
                     animate={{
                       scale: index === currentPhraseIndex ? 1.2 : 1
