@@ -68,9 +68,27 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen relative bg-bg-base-light dark:bg-bg-base-dark"
+      className="min-h-screen relative overflow-hidden"
       style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}
     >
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ filter: 'brightness(0.3) contrast(1.2) saturate(0.8) blur(1px)' }}
+        >
+          <source src="/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4" type="video/mp4" />
+          <source src="/videos/portfolio/videography/ambiente-chic-grand-opening.mp4" type="video/mp4" />
+          <source src="/videos/portfolio/videography/beeroclock-navidad.mp4" type="video/mp4" />
+        </video>
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-base-light/20 dark:to-bg-base-dark/20"></div>
+      </div>
       <div className="relative z-10 flex items-center justify-center min-h-screen pt-16 pb-16 px-2 sm:px-4" style={{ width: '100%', maxWidth: '100vw' }}>
         <div className="w-full" style={{ maxWidth: '100%' }}>
           
@@ -86,7 +104,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <h1 className="heading-1 text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-2 w-full">
-                <span className="block text-text-primary-light dark:text-text-primary-dark mb-2 font-black text-center">
+                <span className="block text-white mb-2 font-black text-center drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
                   Haz que
                 </span>
                 <div className="relative w-full text-center h-[1.6em] flex items-center justify-center overflow-hidden">
@@ -112,7 +130,7 @@ const Hero = () => {
                     </motion.span>
                   </motion.span>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black text-center">
+                <span className="block text-white mt-2 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black text-center drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
                   con Zentella
                 </span>
               </h1>
@@ -189,10 +207,10 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.3 + index * 0.1, duration: 0.5 }}
                 >
-                  <div className="text-4xl md:text-5xl font-bold text-color-primary mb-3">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-md" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>
                     {stat.value}
                   </div>
-                  <div className="text-sm uppercase tracking-wide text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                  <div className="text-sm uppercase tracking-wide text-gray-200 font-medium drop-shadow-sm" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }}>
                     {stat.label}
                   </div>
                 </motion.div>
@@ -209,7 +227,7 @@ const Hero = () => {
               {['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
                 <motion.div
                   key={service}
-                  className="px-5 py-3 bg-bg-secondary-light dark:bg-bg-secondary-dark border border-color-primary/20 rounded-full text-sm font-medium text-text-primary-light dark:text-text-primary-dark"
+                  className="px-5 py-3 bg-white/10 dark:bg-black/20 backdrop-blur-sm border border-white/30 rounded-full text-sm font-medium text-white drop-shadow-sm"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
