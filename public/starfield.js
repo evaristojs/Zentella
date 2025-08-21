@@ -24,57 +24,108 @@ const Starfield = (function() {
   let origin = { x: 0, y: 0 };
   let isAccelerating = false;
 
-  function Star(x, y) {
+  function Star(x, y, isFromOrigin = false) {
     this.x = x;
     this.y = y;
     this.z = Math.random() * 1000;
     this.prevX = x;
     this.prevY = y;
     this.speed = config.baseSpeed;
-    this.baseOpacity = 0.3 + Math.random() * 0.7; // Each star has its own base opacity
+    this.baseOpacity = 0.3 + Math.random() * 0.7;
+    this.isFromOrigin = isFromOrigin;
+    this.life = 1.0; // Life span for origin stars
     
-    // Random initial direction for floating effect
-    const angle = Math.random() * Math.PI * 2;
-    this.vx = Math.cos(angle) * this.speed * 0.5; // Slower movement
-    this.vy = Math.sin(angle) * this.speed * 0.5;
+    if (isFromOrigin) {
+      // Stars from origin move outward
+      const angle = Math.atan2(y - origin.y, x - origin.x);
+      this.vx = Math.cos(angle) * this.speed * 2; // Faster outward movement
+      this.vy = Math.sin(angle) * this.speed * 2;
+    } else {
+      // Background stars float gently
+      const angle = Math.random() * Math.PI * 2;
+      this.vx = Math.cos(angle) * this.speed * 0.3;
+      this.vy = Math.sin(angle) * this.speed * 0.3;
+    }
   }
 
   Star.prototype.update = function() {
     this.prevX = this.x;
     this.prevY = this.y;
     
-    // Gentle floating movement
-    this.x += this.vx;
-    this.y += this.vy;
-    
-    // Add slight random movement for twinkling effect
-    this.x += (Math.random() - 0.5) * 0.2;
-    this.y += (Math.random() - 0.5) * 0.2;
-    
-    // Wrap around screen edges for continuous effect
-    if (this.x < 0) this.x = canvas.width;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.y < 0) this.y = canvas.height;
-    if (this.y > canvas.height) this.y = 0;
+    if (this.isFromOrigin) {
+      // Origin stars move outward and fade
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life -= 0.005; // Gradual fade
+      
+      // Respawn from origin when life ends or goes off screen
+      if (this.life <= 0 || this.x < -50 || this.x > canvas.width + 50 || 
+          this.y < -50 || this.y > canvas.height + 50) {
+        this.respawnFromOrigin();
+      }
+    } else {
+      // Background stars float gently
+      this.x += this.vx;
+      this.y += this.vy;
+      
+      // Add slight random movement for twinkling
+      this.x += (Math.random() - 0.5) * 0.2;
+      this.y += (Math.random() - 0.5) * 0.2;
+      
+      // Wrap around screen edges
+      if (this.x < 0) this.x = canvas.width;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.y < 0) this.y = canvas.height;
+      if (this.y > canvas.height) this.y = 0;
+    }
   };
   
   Star.prototype.respawn = function() {
-    // Respawn randomly across the canvas
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
+    if (this.isFromOrigin) {
+      this.respawnFromOrigin();
+    } else {
+      // Background stars respawn randomly
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.prevX = this.x;
+      this.prevY = this.y;
+      
+      const angle = Math.random() * Math.PI * 2;
+      this.vx = Math.cos(angle) * this.speed * 0.3;
+      this.vy = Math.sin(angle) * this.speed * 0.3;
+    }
+  };
+  
+  Star.prototype.respawnFromOrigin = function() {
+    // Respawn near the origin
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 30;
+    this.x = origin.x + Math.cos(angle) * radius;
+    this.y = origin.y + Math.sin(angle) * radius;
     this.prevX = this.x;
     this.prevY = this.y;
-    this.speed = config.baseSpeed;
+    this.life = 1.0;
     
-    // Random direction for movement
-    const angle = Math.random() * Math.PI * 2;
-    this.vx = Math.cos(angle) * this.speed;
-    this.vy = Math.sin(angle) * this.speed;
+    // Set outward direction from origin
+    const outwardAngle = Math.atan2(this.y - origin.y, this.x - origin.x);
+    this.vx = Math.cos(outwardAngle) * this.speed * 2;
+    this.vy = Math.sin(outwardAngle) * this.speed * 2;
   };
   
   Star.prototype.draw = function() {
-    // Use base opacity with slight variation for twinkling
-    const opacity = this.baseOpacity * (0.8 + Math.random() * 0.4);
+    let opacity;
+    
+    if (this.isFromOrigin) {
+      // Origin stars fade based on life and distance from origin
+      const distance = Math.sqrt((this.x - origin.x) ** 2 + (this.y - origin.y) ** 2);
+      const distanceFactor = Math.max(0, 1 - distance / 300);
+      opacity = this.baseOpacity * this.life * distanceFactor * (0.8 + Math.random() * 0.4);
+    } else {
+      // Background stars have consistent twinkling
+      opacity = this.baseOpacity * (0.8 + Math.random() * 0.4);
+    }
+    
+    if (opacity <= 0.1) return; // Don't draw very faint stars
     
     // Apply hue jitter if configured
     let color = config.starColor;
@@ -83,8 +134,27 @@ const Starfield = (function() {
       color = adjustHue(color, hueShift);
     }
     
-    // Draw star as a simple circle
-    const size = 0.5 + Math.random() * 1.5; // Random size between 0.5 and 2
+    // Draw trail for origin stars
+    if (this.isFromOrigin && this.life < 0.9) {
+      const trailDistance = 15;
+      const angle = Math.atan2(this.vy, this.vx);
+      const tailX = this.x - Math.cos(angle) * trailDistance;
+      const tailY = this.y - Math.sin(angle) * trailDistance;
+      
+      const gradient = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+      gradient.addColorStop(0, `rgba(${extractRGB(color).join(',')}, 0)`);
+      gradient.addColorStop(1, `rgba(${extractRGB(color).join(',')}, ${opacity})`);
+      
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(this.x, this.y);
+      ctx.stroke();
+    }
+    
+    // Draw star point
+    const size = this.isFromOrigin ? (1 + Math.random() * 2) : (0.5 + Math.random() * 1.5);
     ctx.fillStyle = `rgba(${extractRGB(color).join(',')}, ${opacity})`;
     ctx.beginPath();
     ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
@@ -167,10 +237,20 @@ const Starfield = (function() {
   function createStars() {
     stars = [];
     for (let i = 0; i < config.numStars; i++) {
-      // Distribute stars randomly across the entire canvas
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      stars.push(new Star(x, y));
+      // Some stars spawn from origin, others distributed across canvas
+      if (Math.random() < 0.6) {
+        // 60% spawn from origin with small radius
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * 50; // Small radius around origin
+        const x = origin.x + Math.cos(angle) * radius;
+        const y = origin.y + Math.sin(angle) * radius;
+        stars.push(new Star(x, y, true)); // Mark as origin star
+      } else {
+        // 40% spawn randomly across canvas
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        stars.push(new Star(x, y, false)); // Mark as background star
+      }
     }
   }
   
