@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 const Hero = () => {
   
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
   const heroRef = useRef<HTMLElement>(null)
@@ -35,10 +34,9 @@ const Hero = () => {
   // Typing effect
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex]
-    let timeoutId: NodeJS.Timeout
+    let timeoutId: number
 
     const typeText = async () => {
-      setIsTyping(true)
       setDisplayText('')
       
       for (let i = 0; i <= currentPhrase.length; i++) {
@@ -49,8 +47,6 @@ const Hero = () => {
           }, 100)
         })
       }
-      
-      setIsTyping(false)
       
       // Wait before starting next phrase
       timeoutId = setTimeout(() => {
