@@ -1,6 +1,18 @@
 import { motion } from 'framer-motion'
+import { useStarfield } from '../hooks/useStarfield'
 
 const Hero = () => {
+  const starfieldRef = useStarfield({
+    starColor: "rgb(103, 0, 248)",
+    hueJitter: 0,
+    trailLength: 0.6,
+    baseSpeed: 1.5,
+    maxAcceleration: 1,
+    accelerationRate: 0.02,
+    decelerationRate: 0.02,
+    minSpawnRadius: 120,
+    maxSpawnRadius: 350
+  })
   const stats = [
     { value: '50+', label: 'Proyectos' },
     { value: '5+', label: 'Años' },
@@ -8,7 +20,11 @@ const Hero = () => {
   ]
 
   return (
-    <section id="hero" className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark">
+    <section 
+      id="hero" 
+      ref={starfieldRef}
+      className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark"
+    >
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -49,7 +65,7 @@ const Hero = () => {
         />
       </div>
 
-      <div className="layout-container relative z-10 flex items-center min-h-screen">
+      <div className="layout-container relative z-20 flex items-center min-h-screen">
         <div className="w-full max-w-6xl mx-auto">
           
           {/* Main Content - Centered Layout */}
@@ -223,7 +239,7 @@ const Hero = () => {
 
       {/* Floating Action */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer group"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer group z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.5 }}
