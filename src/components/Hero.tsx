@@ -7,15 +7,15 @@ const Hero = () => {
   
   const phrases = [
     "tu marca brille",
-    "tu negocio despegue", 
+    "tu negocio crezca", 
     "cada clic cuente",
-    "tu mensaje resuene",
-    "tus ideas cobren vida",
-    "tu marketing impacte",
-    "tus resultados sorprendan",
-    "tu creatividad inspire",
-    "tu marca deslumbre",
-    "tu éxito sea imparable"
+    "tu mensaje impacte",
+    "tus ideas vivan",
+    "tu marketing funcione",
+    "tus ventas suban",
+    "tu marca destaque",
+    "tu proyecto triunfe",
+    "tu éxito sea real"
   ]
 
   useEffect(() => {
