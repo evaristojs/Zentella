@@ -71,15 +71,15 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight min-h-[180px] sm:min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center">
-                <span className="block text-text-primary-light dark:text-text-primary-dark mb-2 sm:mb-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
+              <h1 className="heading-1 text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mb-4">
                   Haz que
                 </span>
-                <div className="relative w-full text-center overflow-hidden px-4">
+                <div className="relative w-full text-center overflow-hidden">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="block bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight"
+                      className="block bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
@@ -93,7 +93,7 @@ const Hero = () => {
                     </motion.span>
                   </AnimatePresence>
                 </div>
-                <span className="block text-text-primary-light dark:text-text-primary-dark mt-2 sm:mt-4 text-3xl sm:text-4xl md:text-6xl lg:text-7xl">
+                <span className="block text-text-primary-light dark:text-text-primary-dark mt-4 text-4xl md:text-6xl lg:text-7xl">
                   con Zentella
                 </span>
               </h1>
