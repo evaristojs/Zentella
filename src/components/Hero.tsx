@@ -1,11 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import CustomStarfield from './CustomStarfield'
 
 const Hero = () => {
   
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
-  const [isDarkMode, setIsDarkMode] = useState(false)
   
   const phrases = [
     "tu marca brille",
@@ -27,23 +25,6 @@ const Hero = () => {
 
     return () => clearInterval(interval)
   }, [phrases.length])
-
-  // Monitor theme changes
-  useEffect(() => {
-    const updateTheme = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'))
-    }
-    
-    updateTheme() // Initial check
-    
-    const observer = new MutationObserver(updateTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
-
-    return () => observer.disconnect()
-  }, [])
   
   const stats = [
     { value: '50+', label: 'Proyectos' },
@@ -57,18 +38,6 @@ const Hero = () => {
       className="min-h-screen relative bg-bg-base-light dark:bg-bg-base-dark"
       style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}
     >
-      <CustomStarfield isDarkMode={isDarkMode} />
-      {/* Blur layer */}
-      <div 
-        className="absolute inset-0 z-5"
-        style={{
-          backdropFilter: 'blur(1px)',
-          WebkitBackdropFilter: 'blur(1px)',
-          background: isDarkMode 
-            ? 'rgba(17, 17, 17, 0.1)' 
-            : 'rgba(253, 254, 255, 0.1)'
-        }}
-      />
       <div className="relative z-10 flex items-center justify-center min-h-screen pt-16 pb-16 px-2 sm:px-4" style={{ width: '100%', maxWidth: '100vw' }}>
         <div className="w-full" style={{ maxWidth: '100%' }}>
           
@@ -91,7 +60,7 @@ const Hero = () => {
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentPhraseIndex}
-                      className="starfield-origin absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent font-black"
+                      className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent font-black"
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -50, opacity: 0 }}
