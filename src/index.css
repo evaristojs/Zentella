@@ -6,8 +6,12 @@
 
 @layer base {
   html {
-    @apply scroll-smooth dark;
+    @apply scroll-smooth;
     overflow-x: hidden;
+  }
+  
+  html.dark {
+    color-scheme: dark;
   }
   
   body {
