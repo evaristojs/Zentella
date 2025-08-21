@@ -57,7 +57,7 @@ const Hero = () => {
       className="min-h-screen relative overflow-hidden bg-bg-base-light dark:bg-bg-base-dark"
     >
       <CustomStarfield isDarkMode={isDarkMode} />
-      <div className="layout-container relative z-10 flex items-center min-h-screen">
+      <div className="layout-container relative z-10 flex items-center min-h-screen pt-20 lg:pt-24">
         <div className="w-full max-w-6xl mx-auto">
           
           {/* Main Content - Centered Layout */}
