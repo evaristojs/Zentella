@@ -77,13 +77,25 @@ const Hero = () => {
           loop
           muted
           playsInline
+          preload="metadata"
+          poster="/images/hero/hero-1.jpg"
           className="w-full h-full object-cover"
           style={{ filter: 'brightness(0.3) contrast(1.2) saturate(0.8) blur(1px)' }}
+          onError={(e) => {
+            // Fallback to poster image if video fails
+            e.currentTarget.style.display = 'none'
+          }}
         >
           <source src="/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4" type="video/mp4" />
-          <source src="/videos/portfolio/videography/ambiente-chic-grand-opening.mp4" type="video/mp4" />
-          <source src="/videos/portfolio/videography/beeroclock-navidad.mp4" type="video/mp4" />
         </video>
+        {/* Fallback background image */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ 
+            backgroundImage: 'url(/images/hero/hero-1.jpg)',
+            filter: 'brightness(0.3) contrast(1.2) saturate(0.8) blur(1px)'
+          }}
+        ></div>
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-base-light/20 dark:to-bg-base-dark/20"></div>
