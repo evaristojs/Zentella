@@ -116,23 +116,6 @@ const Hero = () => {
                   con Zentella
                 </span>
               </h1>
-              
-              {/* Progress Indicators */}
-              <div className="flex justify-center gap-2 mt-8">
-                {phrases.map((_, index) => (
-                  <motion.div
-                    key={index}
-                    className={`h-1 rounded-full transition-all duration-300 ${
-                      index === currentPhraseIndex 
-                        ? 'w-8 bg-color-primary shadow-sm' 
-                        : 'w-2 bg-color-primary/40 dark:bg-color-primary/30'
-                    }`}
-                    animate={{
-                      scale: index === currentPhraseIndex ? 1.2 : 1
-                    }}
-                  />
-                ))}
-              </div>
             </motion.div>
 
             {/* Description */}
@@ -155,7 +138,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
             >
               <motion.button 
-                className="group relative overflow-hidden flex-1 max-w-[200px] px-5 py-4 bg-color-primary text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transition-shadow min-h-[48px] touch-manipulation"
+                className="group relative overflow-hidden flex-1 max-w-[180px] px-5 py-4 bg-color-primary text-white rounded-full font-medium text-sm shadow-lg hover:shadow-xl transition-shadow min-h-[48px] touch-manipulation"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -182,7 +165,7 @@ const Hero = () => {
               </motion.button>
               
               <motion.button 
-                className="group flex-1 max-w-[160px] px-5 py-4 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-sm hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[48px] touch-manipulation"
+                className="group flex-1 max-w-[180px] px-5 py-4 border-2 border-color-primary/30 text-color-primary rounded-full font-medium text-sm hover:border-color-primary hover:bg-color-primary/5 transition-all min-h-[48px] touch-manipulation"
                 onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
