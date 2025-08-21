@@ -22,30 +22,30 @@ const Hero = () => {
   // Typing effect
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex]
-    let timeoutId: number
+    let timeouts: number[] = []
 
-    const typeText = async () => {
+    const typeText = () => {
       setDisplayText('')
       
+      // Type each character
       for (let i = 0; i <= currentPhrase.length; i++) {
-        await new Promise(resolve => {
-          timeoutId = setTimeout(() => {
-            setDisplayText(currentPhrase.slice(0, i))
-            resolve(void 0)
-          }, 100)
-        })
+        const timeoutId = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, i))
+        }, i * 80) // 80ms between characters
+        timeouts.push(timeoutId)
       }
       
-      // Wait before starting next phrase
-      timeoutId = setTimeout(() => {
+      // Wait 2 seconds after typing is complete, then start next phrase
+      const finalTimeout = setTimeout(() => {
         setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
-      }, 2000)
+      }, currentPhrase.length * 80 + 2000)
+      timeouts.push(finalTimeout)
     }
 
     typeText()
 
     return () => {
-      if (timeoutId) clearTimeout(timeoutId)
+      timeouts.forEach(id => clearTimeout(id))
     }
   }, [currentPhraseIndex, phrases])
 
