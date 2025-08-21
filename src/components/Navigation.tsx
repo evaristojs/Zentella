@@ -48,8 +48,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="max-w-full mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.div 
               className="flex-shrink-0"
@@ -59,7 +59,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <img 
                 src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
                 alt="Zentella" 
-                className="h-10 sm:h-12 lg:h-12 w-auto"
+                className="h-8 sm:h-10 lg:h-12 w-auto"
               />
             </motion.div>
             
@@ -68,7 +68,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 <motion.a 
                   key={item.name}
                   href={item.href}
-                  className="relative px-3 lg:px-4 py-2 text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+                  className="relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -80,10 +80,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               ))}
             </div>
 
-            <div className="flex items-center space-x-2 lg:space-x-3">
+            <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
               <motion.button 
                 onClick={toggleTheme}
-                className="p-2 lg:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className="p-1.5 sm:p-2 lg:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
                 aria-label="Cambiar tema"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -93,11 +93,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
                   {isDark ? (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                   )}
@@ -105,23 +105,23 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className="md:hidden p-2 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className="md:hidden p-1.5 sm:p-2 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="flex flex-col items-center justify-center w-5 h-5 space-y-1">
+                <div className="flex flex-col items-center justify-center w-4 h-4 sm:w-5 sm:h-5 space-y-0.5">
                   <motion.div 
-                    className="w-4 h-0.5 bg-current rounded-full"
+                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? 45 : 0,
-                      y: isMenuOpen ? 6 : 0
+                      y: isMenuOpen ? 4 : 0
                     }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-4 h-0.5 bg-current rounded-full"
+                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       opacity: isMenuOpen ? 0 : 1,
                       scale: isMenuOpen ? 0 : 1
@@ -129,24 +129,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                     transition={{ duration: 0.15, ease: "easeInOut" }}
                   />
                   <motion.div 
-                    className="w-4 h-0.5 bg-current rounded-full"
+                    className="w-3 h-0.5 sm:w-4 sm:h-0.5 bg-current rounded-full"
                     animate={{
                       rotate: isMenuOpen ? -45 : 0,
-                      y: isMenuOpen ? -6 : 0
+                      y: isMenuOpen ? -4 : 0
                     }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                   />
                 </div>
               </motion.button>
-
-              <motion.a
-                href="#contact"
-                className="hidden lg:inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-medium rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25"
-                whileHover={{ scale: 1.02, y: -1 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Trabajemos juntos
-              </motion.a>
             </div>
           </div>
         </div>
@@ -170,7 +161,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
             
             <motion.div 
-              className="absolute top-0 right-0 w-full max-w-sm h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl"
+              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -178,27 +169,27 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             >
               <div className="h-full flex flex-col">
                 
-                <div className="flex items-center justify-between p-6">
+                <div className="flex items-center justify-between p-4">
                   <img 
                     src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
                     alt="Zentella" 
-                    className="h-8 w-auto"
+                    className="h-7 w-auto"
                   />
                   <motion.button 
                     onClick={closeMenu}
-                    className="p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label="Cerrar menú"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </motion.button>
                 </div>
 
-                <nav className="flex-1 px-6">
-                  <ul className="space-y-2">
+                <nav className="flex-1 px-4">
+                  <ul className="space-y-1">
                     {menuItems.map((item, index) => (
                       <motion.li 
                         key={item.name}
@@ -213,7 +204,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                         <motion.a 
                           href={item.href} 
                           onClick={closeMenu}
-                          className="block px-4 py-3 text-lg font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200"
+                          className="block px-3 py-2.5 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200"
                           whileHover={{ x: 4, scale: 1.02 }}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -225,7 +216,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </nav>
 
                 <motion.div 
-                  className="p-6"
+                  className="p-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.6 }}
@@ -233,7 +224,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   <motion.a
                     href="#contact"
                     onClick={closeMenu}
-                    className="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-base font-medium rounded-xl transition-all duration-200 shadow-lg"
+                    className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-sm font-medium rounded-xl transition-all duration-200 shadow-lg"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.95 }}
                   >
