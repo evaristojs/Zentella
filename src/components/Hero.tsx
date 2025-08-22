@@ -313,14 +313,18 @@ const Hero = () => {
 
             {/* Services Banner - Scrolling Animation */}
             <motion.div
-              className="absolute left-0 right-0 overflow-hidden pt-8"
+              className="absolute left-0 right-0 bottom-0 overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
-              style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}
+              style={{ 
+                width: '100vw', 
+                marginLeft: 'calc(-50vw + 50%)',
+                height: '120px'
+              }}
             >
               <motion.div
-                className="relative py-6 bg-white dark:bg-transparent"
+                className="relative h-full bg-white dark:bg-transparent flex items-center justify-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.7 }}
@@ -345,13 +349,14 @@ const Hero = () => {
                     ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
                       <motion.span
                         key={`${groupIndex}-${service}-${index}`}
-                        className="text-4xl md:text-6xl lg:text-7xl font-black text-black dark:text-white"
+                        className="text-6xl md:text-8xl lg:text-9xl font-black text-black dark:text-white"
                         style={{ 
                           fontFamily: 'Poppins, sans-serif',
-                          letterSpacing: '-0.02em',
+                          letterSpacing: '-0.03em',
                           textRendering: 'optimizeSpeed',
                           backfaceVisibility: 'hidden',
-                          transform: 'translateZ(0)'
+                          transform: 'translateZ(0)',
+                          lineHeight: '1'
                         }}
                       >
                         {service}
