@@ -192,10 +192,16 @@ const Hero = () => {
     >
       {/* Background Layer */}
       <div 
-        className="absolute inset-0 transition-colors duration-300"
+        className="absolute inset-0 w-full h-full transition-colors duration-300"
         style={{ 
           zIndex: 0,
-          backgroundColor: isDark ? '#000000' : '#ffffff'
+          backgroundColor: isDark ? '#000000' : '#ffffff',
+          minHeight: '100vh',
+          minWidth: '100vw',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
         }}
       />
 
