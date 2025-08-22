@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-// Asegúrate de instalar heroicons: npm install @heroicons/react
-import { SwatchIcon, MegaphoneIcon, CameraIcon, VideoCameraIcon } from '@heroicons/react/24/outline'
+import { Palette, Megaphone, Camera, Video } from '@klarr-agency/circum-icons-react'
 
 const Services = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
@@ -12,7 +11,7 @@ const Services = () => {
       title: 'Diseño & Branding',
       description: 'Identidades visuales únicas que conectan con tu audiencia y destacan en el mercado.',
       preview: '/images/services/design-preview.jpg',
-      icon: <SwatchIcon className="w-6 h-6" />,
+      icon: <Palette className="w-6 h-6" />,
       features: ['Logo & Identidad Visual', 'Branding Completo', 'Packaging Design', 'Material Promocional']
     },
     {
@@ -20,7 +19,7 @@ const Services = () => {
       title: 'Marketing Digital',
       description: 'Estrategias integrales para hacer crecer tu negocio en el mundo online.',
       preview: '/images/services/marketing-preview.jpg',
-      icon: <MegaphoneIcon className="w-6 h-6" />,
+      icon: <Megaphone className="w-6 h-6" />,
       features: ['Social Media', 'Google Ads', 'Email Marketing', 'SEO & SEM']
     },
     {
@@ -28,7 +27,7 @@ const Services = () => {
       title: 'Fotografía',
       description: 'Capturamos la esencia de tu marca con fotografías profesionales.',
       preview: '/images/services/photography-preview.jpg',
-      icon: <CameraIcon className="w-6 h-6" />,
+      icon: <Camera className="w-6 h-6" />,
       features: ['Fotografía Comercial', 'Producto', 'Eventos', 'Retratos Corporativos']
     },
     {
@@ -36,7 +35,7 @@ const Services = () => {
       title: 'Video & Animación',
       description: 'Contenido audiovisual que conecta emocionalmente con tu audiencia.',
       preview: '/images/services/video-preview.jpg',
-      icon: <VideoCameraIcon className="w-6 h-6" />,
+      icon: <Video className="w-6 h-6" />,
       features: ['Video Corporativo', 'Animación 2D/3D', 'Motion Graphics', 'Social Media Videos']
     }
   ]

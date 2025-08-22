@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-// Asegúrate de instalar heroicons: npm install @heroicons/react
-import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon, ClockIcon, PaperAirplaneIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
+import { Building, Mail, Phone, Clock, Send, CheckCircle } from '@klarr-agency/circum-icons-react'
 
 interface FormData {
   name: string
@@ -115,7 +114,7 @@ const Contact = () => {
                 animate={{ scale: 1, rotate: 360 }}
                 transition={{ duration: 0.5, type: 'spring', bounce: 0.4 }}
               >
-                <CheckBadgeIcon className="w-8 h-8 text-white" />
+                <CheckCircle className="w-8 h-8 text-white" />
               </motion.div>
               <h2 className="heading-2 text-color-success mb-4">¡Mensaje Enviado!</h2>
               <p className="text-base mb-8">
@@ -168,10 +167,10 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InfoCard icon={<BuildingOffice2Icon className="w-5 h-5 text-white" />} title="Oficina" lines={['Mérida, Yucatán', 'México']} />
-              <InfoCard icon={<EnvelopeIcon className="w-5 h-5 text-white" />} title="Email" lines={['hello@zentella.com', 'proyectos@zentella.com']} />
-              <InfoCard icon={<PhoneIcon className="w-5 h-5 text-white" />} title="Teléfono" lines={['+52 999 123 4567']} />
-              <InfoCard icon={<ClockIcon className="w-5 h-5 text-white" />} title="Horarios" lines={['Lun - Vie: 9:00 - 18:00', 'Sáb: 9:00 - 14:00']} />
+              <InfoCard icon={<Building className="w-5 h-5 text-white" />} title="Oficina" lines={['Mérida, Yucatán', 'México']} />
+              <InfoCard icon={<Mail className="w-5 h-5 text-white" />} title="Email" lines={['hello@zentella.com', 'proyectos@zentella.com']} />
+              <InfoCard icon={<Phone className="w-5 h-5 text-white" />} title="Teléfono" lines={['+52 999 123 4567']} />
+              <InfoCard icon={<Clock className="w-5 h-5 text-white" />} title="Horarios" lines={['Lun - Vie: 9:00 - 18:00', 'Sáb: 9:00 - 14:00']} />
             </div>
 
             <div className="card-base">
@@ -260,7 +259,7 @@ const Contact = () => {
                       className="flex items-center gap-2"
                     >
                       Enviar Mensaje
-                      <PaperAirplaneIcon className="w-5 h-5" />
+                      <Send className="w-5 h-5" />
                     </motion.div>
                   )}
                 </AnimatePresence>
