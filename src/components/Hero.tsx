@@ -313,10 +313,11 @@ const Hero = () => {
 
             {/* Services Banner - Scrolling Animation */}
             <motion.div
-              className="w-full overflow-hidden pt-8"
+              className="absolute left-0 right-0 overflow-hidden pt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
+              style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}
             >
               <motion.div
                 className="relative py-6 bg-white dark:bg-transparent"
