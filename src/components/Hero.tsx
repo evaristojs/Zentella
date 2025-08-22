@@ -190,11 +190,11 @@ const Hero = () => {
       }}
       data-theme-bg="true"
     >
-      {/* Background Layer */}
+      {/* Background Layer - Must be behind everything */}
       <div 
         className="absolute inset-0 w-full h-full transition-colors duration-300"
         style={{ 
-          zIndex: 0,
+          zIndex: -10,
           backgroundColor: isDark ? '#000000' : '#ffffff',
           minHeight: '100vh',
           minWidth: '100vw',
