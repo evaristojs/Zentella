@@ -325,15 +325,18 @@ const Hero = () => {
                 transition={{ duration: 0.8, delay: 1.7 }}
               >
                 <motion.div
-                  className="flex gap-12 whitespace-nowrap"
-                  animate={{ x: [0, -100] }}
+                  className="flex gap-16 whitespace-nowrap"
+                  animate={{ x: ["0%", "-33.333%"] }}
                   transition={{
                     x: {
                       repeat: Infinity,
                       repeatType: "loop",
-                      duration: 15,
+                      duration: 25,
                       ease: "linear",
                     },
+                  }}
+                  style={{
+                    willChange: 'transform'
                   }}
                 >
                   {/* Duplicar servicios para efecto infinito */}
@@ -344,7 +347,10 @@ const Hero = () => {
                         className="text-4xl md:text-6xl lg:text-7xl font-black text-black dark:text-white"
                         style={{ 
                           fontFamily: 'Poppins, sans-serif',
-                          letterSpacing: '-0.02em'
+                          letterSpacing: '-0.02em',
+                          textRendering: 'optimizeSpeed',
+                          backfaceVisibility: 'hidden',
+                          transform: 'translateZ(0)'
                         }}
                       >
                         {service}
