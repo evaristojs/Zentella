@@ -10,7 +10,6 @@ interface PortfolioItem {
   image: string
   images: string[]
   video?: string
-  videoThumbnail?: string
   client: string
   year: number
   tags: string[]
@@ -429,11 +428,10 @@ const Portfolio = () => {
         title: 'Ambiente Chic - Grand Opening',
         category: 'video',
         description: 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
-        image: '/images/portfolio/video/ambiente-chic-thumb.jpg',
+        image: '/images/services/video-preview.jpg',
         images: [
-          '/images/portfolio/video/ambiente-chic-thumb.jpg'
+          '/images/services/video-preview.jpg'
         ],
-        videoThumbnail: '/images/portfolio/video/ambiente-chic-thumb.jpg',
         video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
         client: 'Ambiente Chic',
         year: 2024,
@@ -444,11 +442,10 @@ const Portfolio = () => {
         title: 'BeerOClock - Campaña Navideña',
         category: 'video',
         description: 'Producción audiovisual para campaña navideña, combinando creatividad y espíritu festivo',
-        image: '/images/portfolio/video/beeroclock-thumb.jpg',
+        image: '/images/services/video-preview.jpg',
         images: [
-          '/images/portfolio/video/beeroclock-thumb.jpg'
+          '/images/services/video-preview.jpg'
         ],
-        videoThumbnail: '/images/portfolio/video/beeroclock-thumb.jpg',
         video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
         client: 'BeerOClock',
         year: 2024,
@@ -459,11 +456,10 @@ const Portfolio = () => {
         title: 'TimeHomes - María Teresa Condos',
         category: 'video',
         description: 'Video promocional para desarrollo inmobiliario, destacando lujo y ubicación privilegiada',
-        image: '/images/portfolio/video/timehomes-thumb.jpg',
+        image: '/images/services/video-preview.jpg',
         images: [
-          '/images/portfolio/video/timehomes-thumb.jpg'
+          '/images/services/video-preview.jpg'
         ],
-        videoThumbnail: '/images/portfolio/video/timehomes-thumb.jpg',
         video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
         client: 'TimeHomes',
         year: 2024,
