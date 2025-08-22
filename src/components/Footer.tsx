@@ -50,7 +50,7 @@ const Footer = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      style={{ height: '200px' }}
+      style={{ height: '200px', marginTop: '80px' }}
     >
       <motion.div
         className="relative h-full bg-white dark:bg-bg-secondary-dark flex items-center justify-center"
