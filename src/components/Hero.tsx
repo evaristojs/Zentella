@@ -79,8 +79,6 @@ const Hero = () => {
 
   // Starfield.js initialization
   useEffect(() => {
-    let themeObserver: MutationObserver | null = null
-    
     // Load starfield.js script
     const script = document.createElement('script')
     script.src = '/starfield.js'
@@ -124,10 +122,6 @@ const Hero = () => {
       }
       if (script.parentNode) {
         script.parentNode.removeChild(script)
-      }
-      // Cleanup del observer
-      if (themeObserver) {
-        themeObserver.disconnect()
       }
     }
   }, [])
