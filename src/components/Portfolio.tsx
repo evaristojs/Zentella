@@ -157,51 +157,6 @@ const ImageSlider = ({ images, alt, className, showDots = true, onClick }: { ima
   )
 }
 
-// Componente de imagen lazy loading
-const LazyImage = ({ src, alt, className }: { src: string, alt: string, className: string }) => {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div ref={imgRef} className={`${className} relative overflow-hidden bg-gray-200 dark:bg-gray-800`}>
-      {isVisible && (
-        <motion.img
-          src={src}
-          alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-          onLoad={() => setIsLoaded(true)}
-          initial={{ scale: 1.1 }}
-          animate={{ scale: isLoaded ? 1 : 1.1 }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
-      {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-color-primary border-t-transparent rounded-full animate-spin" />
-        </div>
-      )}
-    </div>
-  )
-}
 
 const Portfolio = () => {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([])
