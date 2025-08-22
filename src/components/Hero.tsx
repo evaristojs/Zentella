@@ -342,13 +342,13 @@ const Hero = () => {
       </div>
     </section>
     
-    {/* Services Banner - Desktop/Laptop Only - Mejor Organizado */}
+    {/* Services Banner - Always Visible - Mejor Organizado */}
     <motion.section
-      className="hidden lg:flex w-full overflow-hidden snap-start"
+      className="w-full overflow-hidden snap-start"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}
-      style={{ height: '120px' }}
+      style={{ height: '80px' }}
     >
       <motion.div
         className="relative h-full bg-white dark:bg-gray-900 flex items-center justify-center"
@@ -358,7 +358,7 @@ const Hero = () => {
       >
         {/* Banner organizado con separación visual clara */}
         <motion.div
-          className="flex items-center gap-16 whitespace-nowrap"
+          className="flex items-center gap-8 sm:gap-12 lg:gap-16 whitespace-nowrap"
           animate={{ x: ["0%", "-20%"] }}
           transition={{
             x: {
@@ -374,10 +374,10 @@ const Hero = () => {
         >
           {/* Patrón repetido: TODOS + separador + servicios */}
           {[...Array(5)].map((_, groupIndex) => (
-            <div key={groupIndex} className="flex items-center gap-16">
+            <div key={groupIndex} className="flex items-center gap-8 sm:gap-12 lg:gap-16">
               {/* "TODOS" como elemento principal */}
               <motion.span
-                className="text-6xl md:text-7xl lg:text-8xl font-black text-color-primary"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-color-primary"
                 style={{ 
                   fontFamily: 'Poppins, sans-serif',
                   letterSpacing: '-0.03em',
@@ -392,18 +392,18 @@ const Hero = () => {
               
               {/* Separador visual */}
               <motion.div
-                className="w-2 h-16 bg-gradient-to-b from-color-primary to-color-secondary rounded-full opacity-60"
+                className="w-1 sm:w-2 h-8 sm:h-12 lg:h-16 bg-gradient-to-b from-color-primary to-color-secondary rounded-full opacity-60"
                 style={{ 
                   transform: 'translateZ(0)'
                 }}
               />
               
               {/* Servicios agrupados de manera compacta */}
-              <div className="flex items-center gap-12">
+              <div className="flex items-center gap-6 sm:gap-8 lg:gap-12">
                 {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
                   <motion.span
                     key={`${groupIndex}-${service}-${index}`}
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-800 dark:text-gray-200"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-gray-800 dark:text-gray-200"
                     style={{ 
                       fontFamily: 'Poppins, sans-serif',
                       letterSpacing: '-0.02em',
