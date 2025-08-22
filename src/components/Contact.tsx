@@ -277,12 +277,15 @@ const Contact = () => {
 const FormField = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
-    <motion.input
-      name={name}
-      className={`input-base ${error ? 'border-color-error' : ''}`}
-      whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(96, 165, 250, 0.3)" }}
-      {...props}
-    />
+    <motion.div 
+      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+      whileFocus={{ scale: 1.01 }}
+    >
+      <input
+        name={name}
+        {...props}
+      />
+    </motion.div>
     <AnimatePresence>
       {error && <FormError message={error} />}
     </AnimatePresence>
@@ -292,10 +295,15 @@ const FormField = ({ name, label, error, ...props }: { name: string; label: stri
 const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: string[]; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
-    <select name={name} className={`input-base ${error ? 'border-color-error' : ''}`} {...props}>
-      <option value="">Selecciona una opción</option>
-      {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
-    </select>
+    <motion.div 
+      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+      whileFocus={{ scale: 1.01 }}
+    >
+      <select name={name} {...props}>
+        <option value="">Selecciona una opción</option>
+        {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+      </select>
+    </motion.div>
     <AnimatePresence>
       {error && <FormError message={error} />}
     </AnimatePresence>
@@ -305,13 +313,16 @@ const FormSelect = ({ name, label, error, options, ...props }: { name: string; l
 const FormTextarea = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
-    <motion.textarea
-      name={name}
-      rows={5}
-      className={`input-base h-32 ${error ? 'border-color-error' : ''}`}
-      whileFocus={{ scale: 1.01, boxShadow: "0 0 0 3px rgba(96, 165, 250, 0.3)" }}
-      {...props}
-    />
+    <motion.div 
+      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+      whileFocus={{ scale: 1.01 }}
+    >
+      <textarea
+        name={name}
+        rows={5}
+        {...props}
+      />
+    </motion.div>
     <AnimatePresence>
       {error && <FormError message={error} />}
     </AnimatePresence>
