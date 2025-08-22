@@ -392,7 +392,7 @@ const Hero = () => {
             ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
               <motion.span
                 key={`${groupIndex}-${service}-${index}`}
-                className="text-6xl md:text-8xl lg:text-9xl font-black text-black dark:text-white"
+                className="text-6xl md:text-8xl lg:text-9xl font-black text-gray-900 dark:text-white"
                 style={{ 
                   fontFamily: 'Poppins, sans-serif',
                   letterSpacing: '-0.03em',
