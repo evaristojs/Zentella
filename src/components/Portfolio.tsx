@@ -8,11 +8,153 @@ interface PortfolioItem {
   category: string
   description: string
   image: string
+  images: string[]
   video?: string
   videoThumbnail?: string
   client: string
   year: number
   tags: string[]
+}
+
+// Componente de slider de imágenes
+const ImageSlider = ({ images, alt, className, showDots = true, onClick }: { images: string[], alt: string, className: string, showDots?: boolean, onClick?: (index: number) => void }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const imgRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  const goToImage = (index: number) => {
+    setCurrentIndex(index)
+  }
+
+  if (images.length === 0) return null
+  if (images.length === 1) {
+    return (
+      <div ref={imgRef} className={`${className} relative overflow-hidden bg-gray-200 dark:bg-gray-800`}>
+        {isVisible && (
+          <motion.img
+            src={images[0]}
+            alt={alt}
+            className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setIsLoaded(true)}
+            initial={{ scale: 1.1 }}
+            animate={{ scale: isLoaded ? 1 : 1.1 }}
+            transition={{ duration: 0.6 }}
+          />
+        )}
+        {!isLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-color-primary border-t-transparent rounded-full animate-spin" />
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div ref={imgRef} className={`${className} relative overflow-hidden bg-gray-200 dark:bg-gray-800 group`}>
+      {isVisible && (
+        <>
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            alt={`${alt} ${currentIndex + 1}`}
+            className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${onClick ? 'cursor-zoom-in' : ''}`}
+            onLoad={() => setIsLoaded(true)}
+            onClick={() => onClick && onClick(currentIndex)}
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: isLoaded ? 1 : 1.1, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          />
+          
+          {/* Navigation Arrows */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  prevImage()
+                }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextImage()
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          )}
+          
+          {/* Dots Indicator */}
+          {images.length > 1 && showDots && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    goToImage(index)
+                  }}
+                  className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                    index === currentIndex ? 'bg-white' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+          
+          {/* Image Counter */}
+          {images.length > 1 && (
+            <div className="absolute top-2 right-2 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {currentIndex + 1}/{images.length}
+            </div>
+          )}
+        </>
+      )}
+      
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-color-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+    </div>
+  )
 }
 
 // Componente de imagen lazy loading
@@ -66,6 +208,8 @@ const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isImageExpanded, setIsImageExpanded] = useState(false)
+  const [expandedImageIndex, setExpandedImageIndex] = useState(0)
   const [itemsToShow, setItemsToShow] = useState(6)
   const { elementRef, isVisible } = useIntersectionObserver()
 
@@ -108,6 +252,11 @@ const Portfolio = () => {
         category: 'photography',
         description: 'Fotografía especializada de productos de panadería artesanal, destacando la calidad y frescura de cada producto',
         image: '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
+        images: [
+          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
+          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-2.jpg',
+          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-3.jpg'
+        ],
         client: 'AJF Panadería',
         year: 2024,
         tags: ['Producto', 'Food Photography', 'Artesanal', 'Comercial']
@@ -118,6 +267,11 @@ const Portfolio = () => {
         category: 'photography',
         description: 'Sesión fotográfica completa para restaurante, capturando la esencia culinaria y ambiente único',
         image: '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
+        images: [
+          '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
+          '/images/portfolio/photography/el-cayuco/el-cayuco-2.jpg',
+          '/images/portfolio/photography/el-cayuco/el-cayuco-3.jpg'
+        ],
         client: 'El Cayuco Restaurante',
         year: 2024,
         tags: ['Gastronomía', 'Ambiente', 'Restaurante', 'Lifestyle']
@@ -128,6 +282,11 @@ const Portfolio = () => {
         category: 'photography',
         description: 'Fotografía profesional de servicios de belleza, mostrando técnicas y resultados de alta calidad',
         image: '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
+        images: [
+          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
+          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-2.jpg',
+          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-3.jpg'
+        ],
         client: 'Esvi Hair Studio',
         year: 2024,
         tags: ['Belleza', 'Servicios', 'Profesional', 'Lifestyle']
@@ -138,6 +297,11 @@ const Portfolio = () => {
         category: 'photography',
         description: 'Sesión fotográfica profesional para restaurante de alta cocina, destacando presentación y calidad',
         image: '/images/portfolio/photography/revel-bar/revel-bar-1.jpg',
+        images: [
+          '/images/portfolio/photography/revel-bar/revel-bar-1.jpg',
+          '/images/portfolio/photography/revel-bar/revel-bar-2.jpg',
+          '/images/portfolio/photography/revel-bar/revel-bar-3.jpg'
+        ],
         client: 'Revel Bar & Kitchen',
         year: 2024,
         tags: ['Gastronomía', 'Alta Cocina', 'Comercial', 'Premium']
@@ -148,6 +312,11 @@ const Portfolio = () => {
         category: 'photography',
         description: 'Fotografía comercial de productos ópticos, resaltando diseño y funcionalidad de monturas',
         image: '/images/portfolio/photography/widook-optic/widook-optic-1.jpg',
+        images: [
+          '/images/portfolio/photography/widook-optic/widook-optic-1.jpg',
+          '/images/portfolio/photography/widook-optic/widook-optic-2.jpg',
+          '/images/portfolio/photography/widook-optic/widook-optic-3.jpg'
+        ],
         client: 'Widook Optic',
         year: 2024,
         tags: ['Producto', 'Óptica', 'Comercial', 'Diseño']
@@ -160,6 +329,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Desarrollo completo de identidad visual para centro de salud, transmitiendo confianza y profesionalismo',
         image: '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
+        images: [
+          '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
+          '/images/portfolio/branding/better-health-nevada/better-health-nevada-2.jpg',
+          '/images/portfolio/branding/better-health-nevada/better-health-nevada-3.jpg'
+        ],
         client: 'Better Health Nevada',
         year: 2024,
         tags: ['Branding', 'Healthcare', 'Identidad Visual', 'Corporativo']
@@ -170,6 +344,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Creación de identidad visual completa para cocina gourmet, enfocada en calidad y sofisticación',
         image: '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
+        images: [
+          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
+          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-2.jpg',
+          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-3.jpg'
+        ],
         client: 'Kaccao Kitchen',
         year: 2024,
         tags: ['Branding', 'Gourmet', 'Logo Design', 'Gastronomía']
@@ -180,6 +359,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Desarrollo de marca para cadena de comida rápida, balanceando modernidad y tradición',
         image: '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.png',
+        images: [
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.png',
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-2.png',
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-3.png'
+        ],
         client: 'Los Hotdogs SDQ',
         year: 2024,
         tags: ['Branding', 'Fast Food', 'Identidad Visual', 'Franquicia']
@@ -190,6 +374,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Desarrollo completo de identidad visual para farmacia especializada, enfocada en cuidado y confianza',
         image: '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg',
+        images: [
+          '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg',
+          '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-2.jpg',
+          '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-3.jpg'
+        ],
         client: 'Nevada Care Pharmacy',
         year: 2024,
         tags: ['Branding', 'Healthcare', 'Farmacia', 'Corporativo']
@@ -200,6 +389,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Creación de identidad visual completa para estudio creativo, reflejando innovación y profesionalismo',
         image: '/images/portfolio/branding/palo-studio/palo-studio-1.png',
+        images: [
+          '/images/portfolio/branding/palo-studio/palo-studio-1.png',
+          '/images/portfolio/branding/palo-studio/palo-studio-2.png',
+          '/images/portfolio/branding/palo-studio/palo-studio-3.png'
+        ],
         client: 'Palo Studio',
         year: 2023,
         tags: ['Branding', 'Creative Studio', 'Logo Design', 'Innovación']
@@ -210,6 +404,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Desarrollo de marca para servicios médicos especializados, transmitiendo profesionalismo y confianza',
         image: '/images/portfolio/branding/premeditest/premeditest-1.png',
+        images: [
+          '/images/portfolio/branding/premeditest/premeditest-1.png',
+          '/images/portfolio/branding/premeditest/premeditest-2.png',
+          '/images/portfolio/branding/premeditest/premeditest-3.png'
+        ],
         client: 'PreMeditest',
         year: 2024,
         tags: ['Branding', 'Medicina', 'Healthcare', 'Profesional']
@@ -220,6 +419,11 @@ const Portfolio = () => {
         category: 'design',
         description: 'Creación de identidad visual para desarrollo inmobiliario, evocando lujo y tranquilidad',
         image: '/images/portfolio/branding/th-oasis/th-oasis-1.png',
+        images: [
+          '/images/portfolio/branding/th-oasis/th-oasis-1.png',
+          '/images/portfolio/branding/th-oasis/th-oasis-2.png',
+          '/images/portfolio/branding/th-oasis/th-oasis-3.png'
+        ],
         client: 'TH Oasis',
         year: 2024,
         tags: ['Branding', 'Inmobiliario', 'Lujo', 'Corporativo']
@@ -232,6 +436,11 @@ const Portfolio = () => {
         category: 'animation',
         description: 'Animación 3D profesional para entrada de logo corporativo, creando impacto visual memorable',
         image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
+        images: [
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif'
+        ],
         client: 'Chavalines RP',
         year: 2024,
         tags: ['3D Animation', 'Logo Animation', 'Corporate', 'Motion Graphics']
@@ -242,6 +451,9 @@ const Portfolio = () => {
         category: 'animation',
         description: 'Animación promocional vertical para redes sociales, optimizada para engagement móvil',
         image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif',
+        images: [
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif'
+        ],
         video: '/videos/portfolio/animation/nevada-care-pharmacy-animation.mp4',
         client: 'Nevada Care Pharmacy',
         year: 2024,
@@ -253,6 +465,9 @@ const Portfolio = () => {
         category: 'animation',
         description: 'Animaciones promocionales para servicios de lavado en seco, combinando información y entretenimiento',
         image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif',
+        images: [
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif'
+        ],
         video: '/videos/portfolio/animation/servi-sec-lavado-en-seco-animation.mp4',
         client: 'Servi-Sec',
         year: 2024,
@@ -266,6 +481,9 @@ const Portfolio = () => {
         category: 'video',
         description: 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
         image: '/images/portfolio/video/ambiente-chic-thumb.jpg',
+        images: [
+          '/images/portfolio/video/ambiente-chic-thumb.jpg'
+        ],
         videoThumbnail: '/images/portfolio/video/ambiente-chic-thumb.jpg',
         video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
         client: 'Ambiente Chic',
@@ -278,6 +496,9 @@ const Portfolio = () => {
         category: 'video',
         description: 'Producción audiovisual para campaña navideña, combinando creatividad y espíritu festivo',
         image: '/images/portfolio/video/beeroclock-thumb.jpg',
+        images: [
+          '/images/portfolio/video/beeroclock-thumb.jpg'
+        ],
         videoThumbnail: '/images/portfolio/video/beeroclock-thumb.jpg',
         video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
         client: 'BeerOClock',
@@ -290,6 +511,9 @@ const Portfolio = () => {
         category: 'video',
         description: 'Video promocional para desarrollo inmobiliario, destacando lujo y ubicación privilegiada',
         image: '/images/portfolio/video/timehomes-thumb.jpg',
+        images: [
+          '/images/portfolio/video/timehomes-thumb.jpg'
+        ],
         videoThumbnail: '/images/portfolio/video/timehomes-thumb.jpg',
         video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
         client: 'TimeHomes',
@@ -320,6 +544,29 @@ const Portfolio = () => {
   const closeModal = () => {
     setIsModalOpen(false)
     setSelectedItem(null)
+    setIsImageExpanded(false)
+    setExpandedImageIndex(0)
+  }
+
+  const expandImage = (index: number) => {
+    setExpandedImageIndex(index)
+    setIsImageExpanded(true)
+  }
+
+  const closeExpandedImage = () => {
+    setIsImageExpanded(false)
+  }
+
+  const nextExpandedImage = () => {
+    if (selectedItem) {
+      setExpandedImageIndex((prev) => (prev + 1) % selectedItem.images.length)
+    }
+  }
+
+  const prevExpandedImage = () => {
+    if (selectedItem) {
+      setExpandedImageIndex((prev) => (prev - 1 + selectedItem.images.length) % selectedItem.images.length)
+    }
   }
 
   const handleCategoryChange = (categoryId: string) => {
@@ -436,10 +683,11 @@ const Portfolio = () => {
               >
                 {/* Image Container */}
                 <div className="aspect-[4/3] overflow-hidden relative">
-                  <LazyImage
-                    src={item.videoThumbnail || item.image}
+                  <ImageSlider
+                    images={item.images}
                     alt={item.title}
                     className="w-full h-full group-hover:scale-110 transition-transform duration-700"
+                    showDots={true}
                   />
                   
                   {/* Video Indicator */}
@@ -577,7 +825,7 @@ const Portfolio = () => {
               </motion.button>
               
               {/* Media */}
-              <figure className="aspect-[16/10] bg-base-300 overflow-hidden">
+              <figure className="aspect-[16/10] bg-base-300 overflow-hidden relative group">
                 {selectedItem.video ? (
                   <video 
                     controls 
@@ -588,11 +836,28 @@ const Portfolio = () => {
                     <source src={selectedItem.video} type="video/mp4" />
                   </video>
                 ) : (
-                  <img 
-                    src={selectedItem.image} 
+                  <ImageSlider
+                    images={selectedItem.images}
                     alt={selectedItem.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full cursor-zoom-in"
+                    showDots={true}
+                    onClick={(index) => expandImage(index)}
                   />
+                )}
+                
+                {/* Expand Button */}
+                {!selectedItem.video && selectedItem.images.length > 0 && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      expandImage(0)
+                    }}
+                    className="absolute top-4 left-4 w-10 h-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                  >
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </button>
                 )}
               </figure>
               
@@ -637,6 +902,100 @@ const Portfolio = () => {
                   </div>
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+        
+        {/* Expanded Image Modal */}
+        {isImageExpanded && selectedItem && (
+          <motion.div 
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={closeExpandedImage}
+          >
+            <motion.div 
+              className="relative max-w-full max-h-full"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button 
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white"
+                onClick={closeExpandedImage}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              {/* Navigation Arrows */}
+              {selectedItem.images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevExpandedImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white z-10"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={nextExpandedImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white z-10"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </>
+              )}
+              
+              {/* Image Counter */}
+              {selectedItem.images.length > 1 && (
+                <div className="absolute top-4 left-4 px-3 py-2 bg-black/50 backdrop-blur-sm rounded-full text-white text-sm font-medium z-10">
+                  {expandedImageIndex + 1} / {selectedItem.images.length}
+                </div>
+              )}
+              
+              {/* Expanded Image */}
+              <motion.img
+                key={expandedImageIndex}
+                src={selectedItem.images[expandedImageIndex]}
+                alt={`${selectedItem.title} ${expandedImageIndex + 1}`}
+                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Image Thumbnails */}
+              {selectedItem.images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 max-w-full overflow-x-auto px-4">
+                  {selectedItem.images.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setExpandedImageIndex(index)}
+                      className={`flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                        index === expandedImageIndex 
+                          ? 'border-white shadow-lg' 
+                          : 'border-white/30 hover:border-white/60'
+                      }`}
+                    >
+                      <img
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}
