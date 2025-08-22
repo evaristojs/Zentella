@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { ThemeProvider } from './contexts/ThemeContext'
 import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
@@ -20,7 +21,7 @@ function App() {
   }
 
   return (
-    <>
+    <ThemeProvider>
       <AnimatePresence mode="wait">
         {showLoadingScreen ? (
           <LoadingScreen key="loading" onComplete={handleLoadingComplete} />
@@ -45,7 +46,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </ThemeProvider>
   )
 }
 
