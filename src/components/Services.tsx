@@ -67,14 +67,14 @@ const Services = () => {
           </motion.div>
           
           <motion.h2 
-            className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 leading-tight"
+            className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 leading-tight bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent"
             style={{ fontFamily: 'Poppins, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <span className="block text-gray-900 dark:text-white mb-2">Todo lo que</span>
-            <span className="block bg-gradient-to-r from-color-primary via-color-secondary to-color-accent bg-clip-text text-transparent">
+            <span className="block mb-2">Todo lo que</span>
+            <span className="block">
               necesitas
             </span>
           </motion.h2>
@@ -236,11 +236,11 @@ const Services = () => {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           <motion.h3 
-            className="text-4xl lg:text-5xl font-bold mb-8 leading-tight"
+            className="text-4xl lg:text-5xl font-black mb-8 leading-tight bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
-            <span className="block text-gray-900 dark:text-white mb-2">¿Listo para llevar</span>
-            <span className="block bg-gradient-to-r from-color-primary via-color-secondary to-color-accent bg-clip-text text-transparent">
+            <span className="block mb-2">¿Listo para llevar</span>
+            <span className="block">
               tu marca al siguiente nivel?
             </span>
           </motion.h3>

@@ -190,10 +190,9 @@ const Hero = () => {
             >
               <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
                 <span 
-                  className="block text-white font-black text-center drop-shadow-lg" 
+                  className="block font-black text-center bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent" 
                   style={{ 
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
-                    textShadow: '0 4px 20px rgba(0,0,0,0.6)',
                     lineHeight: '0.9',
                     letterSpacing: '-0.02em'
                   }}
@@ -240,10 +239,9 @@ const Hero = () => {
                   </motion.span>
                 </div>
                 <span 
-                  className="block text-white font-black text-center drop-shadow-lg -mt-1" 
+                  className="block font-black text-center bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent -mt-1" 
                   style={{ 
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
-                    textShadow: '0 4px 20px rgba(0,0,0,0.6)',
                     lineHeight: '0.9',
                     letterSpacing: '-0.02em'
                   }}

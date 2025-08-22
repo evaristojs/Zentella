@@ -172,7 +172,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="heading-3 text-color-primary mb-4">Navegación</h4>
+            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Navegación</h4>
             <ul className="space-y-2">
               {quickLinks.map(link => (
                 <li key={link.name}>
@@ -188,7 +188,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="heading-3 text-color-primary mb-4">Servicios</h4>
+            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Servicios</h4>
             <ul className="space-y-2">
               {services.map(service => (
                 <li key={service}>
@@ -206,7 +206,7 @@ const Footer = () => {
 
         <div className="card-base mb-12">
           <div className="text-center max-w-2xl mx-auto">
-            <h4 className="heading-2 text-color-primary mb-4">Mantente al día</h4>
+            <h4 className="heading-2 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Mantente al día</h4>
             <p className="text-base mb-6">
               Suscríbete para recibir noticias sobre nuestros últimos proyectos y tendencias creativas.
             </p>
