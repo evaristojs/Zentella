@@ -311,44 +311,52 @@ const Hero = () => {
               </motion.button>
             </motion.div>
 
-            {/* Services Pills - Mobile/Tablet Only */}
+            {/* Services Grid - Mobile/Tablet Only */}
             <motion.div
-              className="flex flex-wrap justify-center gap-3 pt-8 lg:hidden"
+              className="grid grid-cols-2 gap-4 pt-8 lg:hidden max-w-md mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              {['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+              {/* Primera fila - servicios principales */}
+              <motion.div
+                className="group relative col-span-2 px-6 py-4 bg-gradient-to-r from-color-primary/20 to-color-secondary/20 backdrop-blur-sm border border-color-primary/40 rounded-2xl text-center font-semibold text-white drop-shadow-lg cursor-pointer"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6, duration: 0.3 }}
+                whileHover={{ 
+                  scale: 1.02,
+                  backgroundColor: "rgba(103, 0, 248, 0.3)",
+                  borderColor: "rgba(103, 0, 248, 0.6)" 
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="text-lg font-bold">Todos</div>
+                <div className="text-xs opacity-80 mt-1">Servicios Integrales</div>
+              </motion.div>
+
+              {/* Segunda fila - servicios específicos organizados */}
+              {[
+                { name: 'Fotografía', desc: 'Captura profesional' },
+                { name: 'Diseño', desc: 'Identidad visual' },
+                { name: 'Video', desc: 'Producción creativa' },
+                { name: 'Animación', desc: 'Motion graphics' }
+              ].map((service, index) => (
                 <motion.div
-                  key={service}
-                  className="group relative px-5 py-3 bg-white/10 dark:bg-black/20 backdrop-blur-sm border border-white/30 rounded-full text-sm font-medium text-white drop-shadow-sm cursor-pointer"
+                  key={service.name}
+                  className="group relative px-4 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-xl text-center font-medium text-white drop-shadow-sm cursor-pointer"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
+                  transition={{ delay: 1.7 + index * 0.1, duration: 0.3 }}
                   whileHover={{ 
                     scale: 1.05, 
-                    backgroundColor: "rgba(103, 0, 248, 0.1)",
-                    borderColor: "rgba(103, 0, 248, 0.5)" 
+                    backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    borderColor: "rgba(255, 255, 255, 0.6)" 
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {service}
-                  
-                  {/* Tooltip */}
-                  <motion.div
-                    className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black/90 text-white text-xs rounded-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileHover={{ opacity: 1, y: 0 }}
-                  >
-                    {service === 'Branding' && 'Identidad visual y marca'}
-                    {service === 'Diseño Web' && 'Sitios web modernos y responsivos'}
-                    {service === 'Fotografía' && 'Fotografía profesional y comercial'}
-                    {service === 'Video' && 'Producción audiovisual creativa'}
-                    {service === 'Animación' && 'Motion graphics y animaciones'}
-                    
-                    {/* Tooltip arrow */}
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90"></div>
-                  </motion.div>
+                  <div className="text-sm font-semibold">{service.name}</div>
+                  <div className="text-xs opacity-70 mt-0.5">{service.desc}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -364,7 +372,7 @@ const Hero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}
-      style={{ height: '120px' }}
+      style={{ height: '140px' }}
     >
       <motion.div
         className="relative h-full bg-white dark:bg-transparent flex items-center justify-center"
@@ -372,14 +380,15 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.7 }}
       >
+        {/* Banner con texto más organizado y espaciado */}
         <motion.div
-          className="flex gap-16 whitespace-nowrap"
-          animate={{ x: ["0%", "-33.333%"] }}
+          className="flex gap-20 whitespace-nowrap"
+          animate={{ x: ["0%", "-25%"] }}
           transition={{
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 25,
+              duration: 30,
               ease: "linear",
             },
           }}
@@ -387,12 +396,11 @@ const Hero = () => {
             willChange: 'transform'
           }}
         >
-          {/* Duplicar servicios para efecto infinito */}
-          {[...Array(3)].map((_, groupIndex) => (
-            ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+          {/* Texto principal destacado seguido de servicios organizados */}
+          {[...Array(4)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex items-center gap-20">
               <motion.span
-                key={`${groupIndex}-${service}-${index}`}
-                className="text-6xl md:text-8xl lg:text-9xl font-black text-gray-900 dark:text-white"
+                className="text-7xl md:text-8xl lg:text-9xl font-black text-color-primary"
                 style={{ 
                   fontFamily: 'Poppins, sans-serif',
                   letterSpacing: '-0.03em',
@@ -402,9 +410,27 @@ const Hero = () => {
                   lineHeight: '1'
                 }}
               >
-                {service}
+                TODOS
               </motion.span>
-            ))
+              
+              {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
+                <motion.span
+                  key={`${groupIndex}-${service}-${index}`}
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 dark:text-gray-300"
+                  style={{ 
+                    fontFamily: 'Poppins, sans-serif',
+                    letterSpacing: '-0.02em',
+                    textRendering: 'optimizeSpeed',
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    lineHeight: '1',
+                    opacity: 0.8
+                  }}
+                >
+                  {service}
+                </motion.span>
+              ))}
+            </div>
           ))}
         </motion.div>
       </motion.div>
