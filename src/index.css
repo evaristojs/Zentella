@@ -46,7 +46,7 @@ body {
   /* Custom Message Box Styles - Adaptado para Zentella */
   .messageBox {
     @apply w-full h-12 flex items-center justify-center px-4 rounded-xl border transition-all duration-300;
-    @apply bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600;
+    @apply bg-white dark:bg-bg-secondary-dark border-text-secondary-light/30 dark:border-text-secondary-dark/30;
   }
   
   .messageBox:focus-within {
@@ -56,8 +56,8 @@ body {
   .messageBox input,
   .messageBox select,
   .messageBox textarea {
-    @apply w-full h-full bg-transparent outline-none border-none text-gray-900 dark:text-gray-100;
-    @apply placeholder-gray-500 dark:placeholder-gray-400;
+    @apply w-full h-full bg-transparent outline-none border-none text-text-primary-light dark:text-text-primary-dark;
+    @apply placeholder-text-secondary-light dark:placeholder-text-secondary-dark;
   }
   
   .messageBox textarea {
@@ -70,7 +70,7 @@ body {
   
   /* Custom styling for select dropdowns */
   .messageBox select option {
-    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+    @apply bg-white dark:bg-bg-secondary-dark text-text-primary-light dark:text-text-primary-dark;
   }
 
   /* 📱 OnePlus 10 Pro Viewport Constraints (412px) */

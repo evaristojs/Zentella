@@ -54,10 +54,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
           isScrolled 
             ? (isInHero && !isDark
               ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10' 
-              : 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30')
+              : 'bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30')
             : (isInHero && !isDark
               ? 'bg-white/20 backdrop-blur-sm'
-              : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm')
+              : 'bg-white/10 dark:bg-bg-base-dark/10 backdrop-blur-sm')
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -85,8 +85,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   href={item.href}
                   className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg ${
                     isInHero && !isDark
-                      ? 'text-gray-800 hover:text-gray-900 hover:bg-gray-100/50'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                      ? 'text-text-primary-light hover:text-text-primary-light hover:bg-bg-secondary-light/50'
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -104,8 +104,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 onClick={toggleTheme}
                 className={`p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 ${
                   isInHero && !isDark
-                    ? 'bg-gray-100/90 text-gray-700 hover:bg-gray-200/90 hover:text-gray-900'
-                    : 'bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100'
+                    ? 'bg-bg-secondary-light/90 text-text-secondary-light hover:bg-bg-secondary-light hover:text-text-primary-light'
+                    : 'bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
                 }`}
                 aria-label="Cambiar tema"
                 whileHover={{ scale: 1.05, rotate: 15 }}
@@ -135,8 +135,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <motion.button 
                 className={`md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] ${
                   isInHero && !isDark
-                    ? 'bg-gray-100/90 text-gray-700 hover:bg-gray-200/90 hover:text-gray-900'
-                    : 'bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100'
+                    ? 'bg-bg-secondary-light/90 text-text-secondary-light hover:bg-bg-secondary-light hover:text-text-primary-light'
+                    : 'bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
                 }`}
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
@@ -186,7 +186,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
             
             <motion.div 
-              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-2xl z-[50]"
+              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-bg-base-dark/95 backdrop-blur-xl shadow-2xl z-[50]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -194,7 +194,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             >
               <div className="h-full flex flex-col">
                 
-                <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700/60">
+                <div className="flex items-center justify-between p-4 border-b border-text-secondary-light/20 dark:border-text-secondary-dark/20">
                   <img 
                     src={isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg"}
                     alt="Zentella" 
@@ -202,7 +202,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   />
                   <motion.button 
                     onClick={closeMenu}
-                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                    className="p-1.5 rounded-xl bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light/80 dark:hover:bg-bg-secondary-dark/80 transition-colors duration-200"
                     whileHover={{ scale: 1.05, rotate: 90 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label="Cerrar menú"
@@ -229,7 +229,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                         <motion.a 
                           href={item.href} 
                           onClick={closeMenu}
-                          className="block px-3 py-2.5 text-base font-medium text-gray-800 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-xl transition-all duration-200"
+                          className="block px-3 py-2.5 text-base font-medium text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 rounded-xl transition-all duration-200"
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -241,7 +241,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </nav>
 
                 <motion.div 
-                  className="p-4 border-t border-gray-200 dark:border-gray-700/60"
+                  className="p-4 border-t border-text-secondary-light/20 dark:border-text-secondary-dark/20"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.6 }}

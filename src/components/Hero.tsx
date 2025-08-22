@@ -351,7 +351,7 @@ const Hero = () => {
       style={{ height: '80px' }}
     >
       <motion.div
-        className="relative h-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center"
+        className="relative h-full bg-white/80 dark:bg-bg-base-dark/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.7 }}
@@ -403,7 +403,7 @@ const Hero = () => {
                 {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
                   <motion.span
                     key={`${groupIndex}-${service}-${index}`}
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-gray-800 dark:text-gray-200"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-text-primary-light dark:text-text-primary-dark"
                     style={{ 
                       fontFamily: 'Poppins, sans-serif',
                       letterSpacing: '-0.02em',

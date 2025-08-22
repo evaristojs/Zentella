@@ -118,19 +118,51 @@ const Services = () => {
               <div className="relative p-8 lg:p-10 h-full">
                 {/* Icon */}
                 <motion.div 
-                  className="w-20 h-20 lg:w-24 lg:h-24 mb-8 relative mx-auto"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-28 h-28 lg:w-32 lg:h-32 mb-8 relative mx-auto"
+                  whileHover={{ 
+                    scale: 1.15, 
+                    rotate: [0, -5, 5, -5, 0],
+                    transition: { rotate: { duration: 0.5 } }
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-3xl flex items-center justify-center text-white shadow-lg">
-                    <div className="w-8 h-8 lg:w-10 lg:h-10">
-                      {service.icon}
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-color-primary to-color-secondary rounded-3xl opacity-0"
-                    whileHover={{ opacity: 0.2, scale: 1.2 }}
+                  <motion.div 
+                    className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-full flex items-center justify-center text-white shadow-xl"
+                    whileHover={{ 
+                      boxShadow: "0 20px 40px -12px rgba(103, 0, 248, 0.4)",
+                      background: "linear-gradient(135deg, #8001cf 0%, #6700f8 100%)"
+                    }}
                     transition={{ duration: 0.3 }}
+                  >
+                    <motion.div 
+                      className="w-12 h-12 lg:w-14 lg:h-14"
+                      whileHover={{ 
+                        scale: 1.1,
+                        rotate: 360
+                      }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {service.icon}
+                    </motion.div>
+                  </motion.div>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-color-accent to-color-primary rounded-full opacity-0"
+                    whileHover={{ 
+                      opacity: 0.3, 
+                      scale: 1.3,
+                      rotate: 45
+                    }}
+                    transition={{ duration: 0.4 }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 border-2 border-color-primary/30 rounded-full opacity-0"
+                    whileHover={{ 
+                      opacity: 1, 
+                      scale: 1.4,
+                      borderColor: "rgba(103, 0, 248, 0.6)"
+                    }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
                   />
                 </motion.div>
 
