@@ -139,12 +139,6 @@ const ImageSlider = ({ images, alt, className, showDots = true, onClick }: { ima
             </div>
           )}
           
-          {/* Image Counter */}
-          {images.length > 1 && (
-            <div className="absolute top-2 right-2 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {currentIndex + 1}/{images.length}
-            </div>
-          )}
         </>
       )}
       
@@ -881,11 +875,11 @@ const Portfolio = () => {
             >
               {/* Close Button */}
               <button 
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center text-white"
+                className="absolute top-6 right-6 z-10 w-12 h-12 bg-white/20 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/30 hover:border-white/50 shadow-lg transition-all duration-200 hover:scale-110"
                 onClick={closeExpandedImage}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
               
@@ -911,12 +905,6 @@ const Portfolio = () => {
                 </>
               )}
               
-              {/* Image Counter */}
-              {selectedItem.images.length > 1 && (
-                <div className="absolute top-4 left-4 px-3 py-2 bg-black/50 backdrop-blur-sm rounded-full text-white text-sm font-medium z-10">
-                  {expandedImageIndex + 1} / {selectedItem.images.length}
-                </div>
-              )}
               
               {/* Expanded Image */}
               <motion.img
