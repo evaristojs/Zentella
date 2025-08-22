@@ -541,7 +541,7 @@ const Portfolio = () => {
 
         {isModalOpen && selectedItem && (
           <motion.div 
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-24"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -556,7 +556,7 @@ const Portfolio = () => {
               transition={{ duration: 0.2, ease: "easeInOut" }}
             />
             <motion.div 
-              className="relative card-base-static max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="relative card-base-static max-w-4xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
