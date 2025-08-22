@@ -130,7 +130,7 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="starfield min-h-screen relative overflow-hidden bg-gray-900 dark:bg-black"
+      className="starfield min-h-screen relative overflow-hidden"
       style={{ 
         height: '100vh',
         width: '100%', 
