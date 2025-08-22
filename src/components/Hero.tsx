@@ -127,6 +127,22 @@ const Hero = () => {
     }
   }
 
+  const handleComenzarClick = () => {
+    // Activar aceleración del starfield
+    if (window.Starfield) {
+      window.Starfield.setAccelerate(true)
+    }
+    
+    // Esperar 1.5 segundos antes de hacer scroll para mostrar la aceleración
+    setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+      // Desactivar aceleración después del scroll
+      if (window.Starfield) {
+        window.Starfield.setAccelerate(false)
+      }
+    }, 1500)
+  }
+
   return (
     <section 
       id="hero" 
@@ -246,7 +262,7 @@ const Hero = () => {
             >
               <motion.button 
                 className="group relative overflow-hidden flex-1 max-w-[160px] px-4 py-2.5 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 min-h-[40px] touch-manipulation border border-color-primary/20"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={handleComenzarClick}
                 onMouseEnter={handleComenzarHover}
                 onMouseLeave={handleComenzarLeave}
                 whileHover={{ scale: 1.03, y: -2 }}
