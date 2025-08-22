@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import { Palette, Megaphone, Camera, Video } from '@klarr-agency/circum-icons-react'
 
 const Services = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
@@ -11,7 +10,7 @@ const Services = () => {
       title: 'Diseño & Branding',
       description: 'Identidades visuales únicas que conectan con tu audiencia y destacan en el mercado.',
       preview: '/images/services/design-preview.jpg',
-      icon: <Palette className="w-6 h-6" />,
+      icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-4a2 2 0 00-2-2H7M7 21V9a2 2 0 012-2h6a2 2 0 012 2v8M7 9V5a2 2 0 012-2h6a2 2 0 012 2v4H7z" /></svg>,
       features: ['Logo & Identidad Visual', 'Branding Completo', 'Packaging Design', 'Material Promocional']
     },
     {
@@ -19,7 +18,7 @@ const Services = () => {
       title: 'Marketing Digital',
       description: 'Estrategias integrales para hacer crecer tu negocio en el mundo online.',
       preview: '/images/services/marketing-preview.jpg',
-      icon: <Megaphone className="w-6 h-6" />,
+      icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>,
       features: ['Social Media', 'Google Ads', 'Email Marketing', 'SEO & SEM']
     },
     {
@@ -27,7 +26,7 @@ const Services = () => {
       title: 'Fotografía',
       description: 'Capturamos la esencia de tu marca con fotografías profesionales.',
       preview: '/images/services/photography-preview.jpg',
-      icon: <Camera className="w-6 h-6" />,
+      icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
       features: ['Fotografía Comercial', 'Producto', 'Eventos', 'Retratos Corporativos']
     },
     {
@@ -35,7 +34,7 @@ const Services = () => {
       title: 'Video & Animación',
       description: 'Contenido audiovisual que conecta emocionalmente con tu audiencia.',
       preview: '/images/services/video-preview.jpg',
-      icon: <Video className="w-6 h-6" />,
+      icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>,
       features: ['Video Corporativo', 'Animación 2D/3D', 'Motion Graphics', 'Social Media Videos']
     }
   ]
