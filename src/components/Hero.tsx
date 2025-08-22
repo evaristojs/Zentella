@@ -240,7 +240,6 @@ const Hero = () => {
                       whiteSpace: 'nowrap',
                       lineHeight: '0.9',
                       letterSpacing: '-0.02em',
-                      filter: 'drop-shadow(0 4px 12px rgba(103, 0, 248, 0.3))',
                       color: '#6700f8' // Fallback color
                     }}
                   >

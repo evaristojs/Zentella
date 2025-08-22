@@ -5,6 +5,7 @@ import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import FAQ from './components/FAQ'
 import Portfolio from './components/Portfolio'
 import About from './components/About'
 import Testimonials from './components/Testimonials'
@@ -37,6 +38,7 @@ function App() {
             <main>
               <Hero />
               <Services />
+              <FAQ />
               <Portfolio />
               <About />
               <Testimonials />
