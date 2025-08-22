@@ -94,11 +94,11 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="grid-mobile sm:grid-tablet lg:grid-desktop-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className="card-base group cursor-pointer relative overflow-hidden"
+              className="card-base group cursor-pointer relative overflow-hidden h-full"
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -135,7 +135,7 @@ const Services = () => {
                 whileHover={{ opacity: 1 }}
               />
               
-              <div className="relative z-10">
+              <div className="relative z-10 h-full flex flex-col">
                 <motion.div 
                   className="w-12 h-12 bg-color-primary rounded-xl flex items-center justify-center text-white mb-4 relative overflow-hidden"
                   whileHover={{ 
@@ -181,51 +181,53 @@ const Services = () => {
                   {service.description}
                 </motion.p>
 
-                <ul className="space-y-2">
-                  {service.features.slice(0, 3).map((feature, idx) => (
-                    <motion.li 
-                      key={idx} 
-                      className="flex items-center gap-2 text-small"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1, duration: 0.3 }}
-                      whileHover={{ x: 4, color: "rgb(103, 0, 248)" }}
-                    >
-                      <motion.div 
-                        className="w-1.5 h-1.5 bg-color-primary rounded-full"
-                        whileHover={{ 
-                          scale: 1.5,
-                          boxShadow: '0 0 8px rgba(103, 0, 248, 0.6)'
-                        }}
-                        transition={{ type: "spring", stiffness: 500 }}
-                      />
-                      {feature}
-                    </motion.li>
-                  ))}
-                </ul>
+                <div className="flex-1 flex flex-col justify-between">
+                  <ul className="space-y-3 mb-6">
+                    {service.features.slice(0, 3).map((feature, idx) => (
+                      <motion.li 
+                        key={idx} 
+                        className="flex items-center gap-3 text-small"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1, duration: 0.3 }}
+                        whileHover={{ x: 4, color: "rgb(103, 0, 248)" }}
+                      >
+                        <motion.div 
+                          className="w-2 h-2 bg-color-primary rounded-full flex-shrink-0"
+                          whileHover={{ 
+                            scale: 1.5,
+                            boxShadow: '0 0 8px rgba(103, 0, 248, 0.6)'
+                          }}
+                          transition={{ type: "spring", stiffness: 500 }}
+                        />
+                        {feature}
+                      </motion.li>
+                    ))}
+                  </ul>
 
-                <motion.div 
-                  className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700"
-                  whileHover={{ borderColor: "rgba(103, 0, 248, 0.3)" }}
-                >
-                  <motion.span 
-                    className="text-small font-medium text-color-primary flex items-center gap-2"
-                    whileHover={{ x: 6 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                  <motion.div 
+                    className="pt-4 border-t border-gray-200 dark:border-gray-700"
+                    whileHover={{ borderColor: "rgba(103, 0, 248, 0.3)" }}
                   >
-                    Conocer más
-                    <motion.svg 
-                      className="w-4 h-4" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                      whileHover={{ x: 3, rotate: -15 }}
-                      transition={{ duration: 0.2 }}
+                    <motion.span 
+                      className="text-small font-medium text-color-primary flex items-center gap-2"
+                      whileHover={{ x: 6 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </motion.svg>
-                  </motion.span>
-                </motion.div>
+                      Conocer más
+                      <motion.svg 
+                        className="w-4 h-4" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                        whileHover={{ x: 3, rotate: -15 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </motion.svg>
+                    </motion.span>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}
