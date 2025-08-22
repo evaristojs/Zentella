@@ -91,9 +91,9 @@ const Hero = () => {
         window.Starfield.setup({
           numStars: 300,              
           baseSpeed: 2.5,             
-          trailLength: 0.6,           
+          trailLength: 1.0,           // 1.0 = sin fondo, solo partículas 
           starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Usar context theme
-          canvasColor: 'rgba(0, 0, 0, 0)', // Transparente para mostrar fondo de sección
+          canvasColor: 'rgba(0, 0, 0, 0)', // Transparente completamente
           hueJitter: isDark ? 0 : 20, // Usar context theme
           maxAcceleration: 4,         
           accelerationRate: 0.12,     
