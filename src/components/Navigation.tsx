@@ -59,7 +59,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               transition={{ duration: 0.2 }}
             >
               <img 
-                src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
+                src="/positivozentella2025.svg" 
                 alt="Zentella" 
                 className="h-8 sm:h-10 lg:h-12 w-auto"
               />
@@ -163,7 +163,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 
                 <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700/60">
                   <img 
-                    src="/Zentella Logo Web/isotipo-colorzentella2025.svg" 
+                    src="/positivozentella2025.svg" 
                     alt="Zentella" 
                     className="h-7 w-auto"
                   />
