@@ -127,11 +127,36 @@ const Hero = () => {
     }
   }, [])
 
-  // Efecto para actualizar starfield cuando cambia el tema
+  // Efecto para reinicializar starfield cuando cambia el tema
   useEffect(() => {
-    if (window.Starfield && window.Starfield.config) {
-      window.Starfield.config.starColor = isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)'
-      window.Starfield.config.hueJitter = isDark ? 0 : 20
+    if (window.Starfield) {
+      // Limpiar starfield existente
+      window.Starfield.cleanup()
+      
+      // Reinicializar con los nuevos colores
+      window.Starfield.setup({
+        numStars: 300,              
+        baseSpeed: 2.5,             
+        trailLength: 1.0,           
+        starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)',
+        canvasColor: 'rgba(0, 0, 0, 0)',
+        hueJitter: isDark ? 0 : 20,
+        maxAcceleration: 4,         
+        accelerationRate: 0.12,     
+        decelerationRate: 0.18,     
+        minSpawnRadius: 80,         
+        maxSpawnRadius: 400,        
+        auto: false                 
+      })
+      
+      // Configurar z-index del nuevo canvas
+      setTimeout(() => {
+        const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
+        if (canvas) {
+          canvas.style.zIndex = '1'
+          canvas.style.pointerEvents = 'none'
+        }
+      }, 100)
     }
   }, [isDark])
 
