@@ -1,23 +1,39 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
+// Declarar Starfield como global para TypeScript
+declare global {
+  interface Window {
+    Starfield: {
+      setup: (config: Record<string, unknown>) => void
+      cleanup: () => void
+      setAccelerate: (state: boolean) => void
+      setOrigin: (x: number, y: number) => void
+      setOriginX: (x: number) => void
+      setOriginY: (y: number) => void
+      resize: (width: number, height: number) => void
+      config: Record<string, unknown>
+    }
+  }
+}
+
 const Hero = () => {
+  const phrases = [
+    "brilles más",
+    "crezcas hoy", 
+    "todo cuente",
+    "impactes ya",
+    "vivas libre",
+    "funcione bien",
+    "vendas más",
+    "destaques ya",
+    "triunfes hoy",
+    "seas único"
+  ]
+
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
-  
-  const phrases = [
-    "tu marca brille",
-    "tu negocio crezca", 
-    "cada clic cuente",
-    "tu mensaje impacte",
-    "tus ideas vivan",
-    "tu marketing funcione",
-    "tus ventas suban",
-    "tu marca destaque",
-    "tu proyecto triunfe",
-    "tu éxito sea real"
-  ]
 
   // Typing effect
   useEffect(() => {
@@ -47,7 +63,7 @@ const Hero = () => {
     return () => {
       timeouts.forEach(id => clearTimeout(id))
     }
-  }, [currentPhraseIndex, phrases])
+  }, [currentPhraseIndex])
 
   // Cursor blink effect
   useEffect(() => {
@@ -57,21 +73,74 @@ const Hero = () => {
 
     return () => clearInterval(interval)
   }, [])
-  
-  const stats = [
-    { value: '50+', label: 'Proyectos' },
-    { value: '5+', label: 'Años' },
-    { value: '100%', label: 'Satisfacción' },
-  ]
+
+  // Starfield.js initialization
+  useEffect(() => {
+    // Load starfield.js script
+    const script = document.createElement('script')
+    script.src = '/starfield.js'
+    script.async = true
+    
+    script.onload = () => {
+      // Initialize Starfield with custom configuration
+      if (window.Starfield) {
+        window.Starfield.setup({
+          numStars: 300,              // Más estrellas para mejor visibilidad
+          baseSpeed: 1.0,             // Velocidad base ligeramente mayor
+          trailLength: 0.5,           // Rastros medianos para equilibrio
+          starColor: 'rgba(103,0,248,0.8)', // Color principal #6700f8 con mayor opacidad
+          canvasColor: 'rgba(0,0,20,0.03)', // Fondo muy transparente
+          hueJitter: 15,              // Menor variación para mantener color consistente
+          maxAcceleration: 4,         // Aceleración moderada
+          accelerationRate: 0.12,     // Aceleración equilibrada
+          decelerationRate: 0.18,     // Desaceleración suave
+          minSpawnRadius: 80,         // Radio mínimo de aparición (50-200)
+          maxSpawnRadius: 400,        // Radio máximo de aparición (300-800)
+          auto: false                 // Desactivar auto para control manual
+        })
+      }
+    }
+    
+    document.head.appendChild(script)
+    
+    return () => {
+      // Cleanup: destroy starfield and remove script
+      if (window.Starfield) {
+        window.Starfield.cleanup()
+      }
+      if (script.parentNode) {
+        script.parentNode.removeChild(script)
+      }
+    }
+  }, [])
+
+  // Event handlers para el botón Comenzar
+  const handleComenzarHover = () => {
+    if (window.Starfield) {
+      window.Starfield.setAccelerate(true)
+    }
+  }
+
+  const handleComenzarLeave = () => {
+    if (window.Starfield) {
+      window.Starfield.setAccelerate(false)
+    }
+  }
 
   return (
     <section 
       id="hero" 
-      className="min-h-screen relative overflow-hidden"
-      style={{ overflowX: 'hidden', width: '100%', maxWidth: '100vw' }}
+      className="starfield min-h-screen relative overflow-hidden"
+      style={{ 
+        height: '100vh',
+        width: '100%', 
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+        position: 'relative'
+      }}
     >
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full">
+      {/* Video Background - Más sutil para que starfield sea protagonista */}
+      <div className="absolute inset-0 w-full h-full opacity-30">
         <video
           autoPlay
           loop
@@ -80,7 +149,7 @@ const Hero = () => {
           preload="metadata"
           poster="/images/hero/hero-1.jpg"
           className="w-full h-full object-cover"
-          style={{ filter: 'brightness(0.3) contrast(1.2) saturate(0.8) blur(1px)' }}
+          style={{ filter: 'brightness(0.2) contrast(1.1) saturate(0.6) blur(2px)' }}
           onError={(e) => {
             // Fallback to poster image if video fails
             e.currentTarget.style.display = 'none'
@@ -93,14 +162,28 @@ const Hero = () => {
           className="absolute inset-0 w-full h-full bg-cover bg-center"
           style={{ 
             backgroundImage: 'url(/images/hero/hero-1.jpg)',
-            filter: 'brightness(0.3) contrast(1.2) saturate(0.8) blur(1px)'
+            filter: 'brightness(0.2) contrast(1.1) saturate(0.6) blur(2px)'
           }}
         ></div>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-base-light/20 dark:to-bg-base-dark/20"></div>
       </div>
-      <div className="relative z-10 flex items-center justify-center min-h-screen pt-16 pb-16 px-2 sm:px-4" style={{ width: '100%', maxWidth: '100vw' }}>
+
+      {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
+      
+      {/* Hero Content - starfield-origin según especificaciones oficiales */}
+      <div 
+        className="hero-content starfield-origin"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 10,
+          width: '100%',
+          maxWidth: '100vw',
+          textAlign: 'center',
+          padding: '0 1rem'
+        }}
+      >
         <div className="w-full" style={{ maxWidth: '100%' }}>
           
           {/* Main Content - Centered Layout */}
@@ -109,39 +192,71 @@ const Hero = () => {
 
             {/* Main Headline with Rotating Phrases */}
             <motion.div
-              className="space-y-4"
+              className="space-y-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <h1 className="heading-1 text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-black leading-tight tracking-tight flex flex-col items-center justify-center px-2 w-full">
-                <span className="block text-white mb-2 font-black text-center drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+              <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
+                <span 
+                  className="block text-white font-black text-center drop-shadow-lg" 
+                  style={{ 
+                    fontSize: 'clamp(3.5rem, 7vw, 7rem)',
+                    textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+                    lineHeight: '0.9',
+                    letterSpacing: '-0.02em'
+                  }}
+                >
                   Haz que
                 </span>
-                <div className="relative w-full text-center h-[1.6em] flex items-center justify-center overflow-hidden">
+                <div 
+                  className="relative w-full text-center flex items-center justify-center overflow-hidden -mt-1"
+                  style={{ 
+                    height: 'clamp(4rem, 8vw, 8rem)',
+                    minHeight: '4rem'
+                  }}
+                >
                   <motion.span
-                    className="flex items-center justify-center bg-gradient-to-r from-color-primary via-color-accent to-color-secondary bg-clip-text text-transparent font-black"
+                    className="flex items-center justify-center font-black"
                     style={{ 
-                      backgroundSize: "400% 400%",
-                      backgroundPosition: "0% 50%",
-                      fontSize: 'clamp(2.5rem, 9vw, 11rem)',
+                      background: 'linear-gradient(135deg, #6700f8 0%, #ac00d3 50%, #ff0080 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                       whiteSpace: 'nowrap',
-                      maxWidth: '100%',
-                      width: '100%',
-                      lineHeight: '1.1'
+                      lineHeight: '0.9',
+                      letterSpacing: '-0.02em',
+                      filter: 'drop-shadow(0 4px 12px rgba(103, 0, 248, 0.3))',
+                      color: '#6700f8' // Fallback color
                     }}
                   >
                     {displayText}
                     <motion.span
-                      className="ml-1 text-color-primary"
+                      className="ml-1"
                       animate={{ opacity: showCursor ? 1 : 0 }}
                       transition={{ duration: 0.1 }}
+                      style={{ 
+                        fontSize: 'inherit',
+                        background: 'linear-gradient(135deg, #6700f8, #ac00d3)',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                      }}
                     >
                       |
                     </motion.span>
                   </motion.span>
                 </div>
-                <span className="block text-white mt-2 text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-black text-center drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+                <span 
+                  className="block text-white font-black text-center drop-shadow-lg -mt-1" 
+                  style={{ 
+                    fontSize: 'clamp(3.5rem, 7vw, 7rem)',
+                    textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+                    lineHeight: '0.9',
+                    letterSpacing: '-0.02em'
+                  }}
+                >
                   con Zentella
                 </span>
               </h1>
@@ -158,6 +273,8 @@ const Hero = () => {
               <motion.button 
                 className="group relative overflow-hidden flex-1 max-w-[160px] px-4 py-2.5 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300 min-h-[40px] touch-manipulation border border-color-primary/20"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onMouseEnter={handleComenzarHover}
+                onMouseLeave={handleComenzarLeave}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -203,30 +320,6 @@ const Hero = () => {
               </motion.button>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-8 lg:gap-16 pt-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  className="text-center"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.3 + index * 0.1, duration: 0.5 }}
-                >
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-md" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.7)' }}>
-                    {stat.value}
-                  </div>
-                  <div className="text-sm uppercase tracking-wide text-gray-200 font-medium drop-shadow-sm" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.6)' }}>
-                    {stat.label}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
 
             {/* Services Pills */}
             <motion.div
@@ -255,7 +348,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
     </section>
   )
 }
