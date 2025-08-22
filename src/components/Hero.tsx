@@ -147,7 +147,7 @@ const Hero = () => {
     <>
     <section 
       id="hero" 
-      className="starfield min-h-screen relative overflow-hidden"
+      className="starfield min-h-screen relative overflow-hidden snap-start"
       style={{ 
         height: '100vh',
         width: '100%', 
@@ -360,7 +360,7 @@ const Hero = () => {
     
     {/* Services Banner - Desktop/Laptop Only */}
     <motion.section
-      className="hidden lg:block w-full overflow-hidden"
+      className="hidden lg:block w-full overflow-hidden snap-start"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}

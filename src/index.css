@@ -8,10 +8,17 @@
   html {
     @apply scroll-smooth;
     overflow-x: hidden;
+    scroll-snap-type: y mandatory;
   }
   
   html.dark {
     color-scheme: dark;
+  }
+  
+  /* Section snap points */
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 }
 

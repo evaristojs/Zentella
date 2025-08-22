@@ -44,7 +44,7 @@ const Services = () => {
   return (
     <motion.section 
       id="services" 
-      className="py-12 md:py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
+      className="py-12 md:py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden snap-start"
       ref={elementRef}
       initial={{ opacity: 0 }}
       animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
