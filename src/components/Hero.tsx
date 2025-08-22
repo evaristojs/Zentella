@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { useTheme } from '../contexts/ThemeContext'
 
 // Declarar Starfield como global para TypeScript
 declare global {
@@ -18,6 +19,8 @@ declare global {
 }
 
 const Hero = () => {
+  const { isDark } = useTheme()
+  
   const phrases = [
     "brilles más",
     "crezcas hoy", 
@@ -189,8 +192,11 @@ const Hero = () => {
     >
       {/* Background Layer */}
       <div 
-        className="absolute inset-0 bg-white dark:bg-black transition-colors duration-300"
-        style={{ zIndex: 0 }}
+        className="absolute inset-0 transition-colors duration-300"
+        style={{ 
+          zIndex: 0,
+          backgroundColor: isDark ? '#000000' : '#ffffff'
+        }}
       />
 
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}

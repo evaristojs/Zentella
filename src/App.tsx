@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import LoadingScreen from './components/MinimalLoadingScreen'
@@ -13,13 +13,39 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import './App.css'
 
+// Función para verificar si es la primera visita
+const isFirstVisit = (): boolean => {
+  if (typeof window === 'undefined') return true
+  
+  try {
+    const hasVisited = localStorage.getItem('hasVisited')
+    return !hasVisited
+  } catch {
+    return true
+  }
+}
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(isFirstVisit())
 
   const handleLoadingComplete = () => {
     setShowLoadingScreen(false)
+    // Marcar que el usuario ya visitó el sitio
+    try {
+      localStorage.setItem('hasVisited', 'true')
+    } catch {
+      console.warn('Failed to save visit status')
+    }
   }
+
+  // Efecto para manejar visitas posteriores
+  useEffect(() => {
+    if (!isFirstVisit()) {
+      // Si no es la primera visita, no mostrar loading screen
+      setShowLoadingScreen(false)
+    }
+  }, [])
 
   return (
     <ThemeProvider>
