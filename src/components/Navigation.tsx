@@ -20,7 +20,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       const servicesSection = document.getElementById('services')
       
       if (heroSection && servicesSection) {
-        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
         const servicesTop = servicesSection.offsetTop
         const scrollPosition = window.scrollY + 80 // Offset for navbar height
         
