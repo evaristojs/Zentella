@@ -106,7 +106,7 @@ const Hero = () => {
           })
           
           // Ajustar z-index del canvas para que esté encima del fondo pero debajo del texto
-          const canvas = document.querySelector('.starfield canvas')
+          const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
           if (canvas) {
             canvas.style.zIndex = '1'
           }
