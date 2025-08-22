@@ -96,7 +96,7 @@ const About = () => {
   return (
     <section 
       id="about" 
-      className="py-12 md:py-20 bg-white dark:bg-bg-base-dark"
+      className="min-h-screen py-12 md:py-20 bg-white dark:bg-bg-base-dark snap-start"
       ref={elementRef}
     >
       <div className="layout-container">

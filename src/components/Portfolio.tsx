@@ -330,7 +330,7 @@ const Portfolio = () => {
   return (
     <section 
       id="portfolio" 
-      className="py-20 md:py-32 bg-gradient-to-b from-bg-base-light to-bg-secondary-light dark:from-bg-base-dark dark:to-bg-secondary-dark relative overflow-hidden"
+      className="min-h-screen py-20 md:py-32 bg-gradient-to-b from-bg-base-light to-bg-secondary-light dark:from-bg-base-dark dark:to-bg-secondary-dark relative overflow-hidden snap-start"
       ref={elementRef}
     >
       {/* Background Pattern */}

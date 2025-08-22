@@ -69,7 +69,7 @@ const Testimonials = () => {
   return (
     <section 
       id="testimonials" 
-      className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-bg-base-dark"
+      className="min-h-screen py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-bg-base-dark snap-start"
       ref={elementRef}
     >
       <div className="layout-container">
