@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 // Asegúrate de instalar heroicons: npm install @heroicons/react
 import { BuildingOffice2Icon, EnvelopeIcon, PhoneIcon, ClockIcon, PaperAirplaneIcon, CheckBadgeIcon } from '@heroicons/react/24/outline'
@@ -274,7 +274,7 @@ const Contact = () => {
 }
 
 // Helper components for form fields to reduce repetition
-const FormField = ({ name, label, error, ...props }) => (
+const FormField = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
     <motion.input
@@ -289,12 +289,12 @@ const FormField = ({ name, label, error, ...props }) => (
   </div>
 )
 
-const FormSelect = ({ name, label, error, options, ...props }) => (
+const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: string[]; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
     <select name={name} className={`input-base ${error ? 'border-color-error' : ''}`} {...props}>
       <option value="">Selecciona una opción</option>
-      {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+      {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
     </select>
     <AnimatePresence>
       {error && <FormError message={error} />}
@@ -302,7 +302,7 @@ const FormSelect = ({ name, label, error, options, ...props }) => (
   </div>
 )
 
-const FormTextarea = ({ name, label, error, ...props }) => (
+const FormTextarea = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
     <motion.textarea
@@ -318,7 +318,7 @@ const FormTextarea = ({ name, label, error, ...props }) => (
   </div>
 )
 
-const FormError = ({ message }) => (
+const FormError = ({ message }: { message: string }) => (
   <motion.p
     className="text-color-error text-small mt-1"
     initial={{ opacity: 0, y: -10 }}
@@ -330,7 +330,7 @@ const FormError = ({ message }) => (
   </motion.p>
 )
 
-const InfoCard = ({ icon, title, lines }) => (
+const InfoCard = ({ icon, title, lines }: { icon: React.ReactNode; title: string; lines: string[] }) => (
   <motion.div 
     className="card-base-static hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
     whileHover={{ scale: 1.03 }}
