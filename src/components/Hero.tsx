@@ -344,14 +344,14 @@ const Hero = () => {
     
     {/* Services Banner - Desktop/Laptop Only - Mejor Organizado */}
     <motion.section
-      className="hidden lg:block w-full overflow-hidden snap-start"
+      className="hidden lg:flex w-full overflow-hidden snap-start"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}
       style={{ height: '120px' }}
     >
       <motion.div
-        className="relative h-full bg-white dark:bg-transparent flex items-center justify-center"
+        className="relative h-full bg-white dark:bg-gray-900 flex items-center justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.7 }}
@@ -403,7 +403,7 @@ const Hero = () => {
                 {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
                   <motion.span
                     key={`${groupIndex}-${service}-${index}`}
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-700 dark:text-gray-400"
+                    className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-800 dark:text-gray-200"
                     style={{ 
                       fontFamily: 'Poppins, sans-serif',
                       letterSpacing: '-0.02em',
@@ -411,7 +411,7 @@ const Hero = () => {
                       backfaceVisibility: 'hidden',
                       transform: 'translateZ(0)',
                       lineHeight: '1',
-                      opacity: 0.85
+                      opacity: 1
                     }}
                   >
                     {service}
