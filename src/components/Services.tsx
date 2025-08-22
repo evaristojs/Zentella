@@ -43,14 +43,14 @@ const Services = () => {
     <>
     {/* Services Banner - Always Visible - Mejor Organizado */}
     <motion.section
-      className="w-full overflow-hidden snap-start"
+      className="w-full overflow-hidden snap-start relative z-40"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      style={{ height: '80px' }}
+      style={{ height: '80px', marginTop: '80px' }}
     >
       <motion.div
-        className="relative h-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center"
+        className="relative h-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center z-40"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
