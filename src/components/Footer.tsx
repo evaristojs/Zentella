@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
@@ -41,6 +43,91 @@ const Footer = () => {
   ]
 
   return (
+    <>
+    {/* Large Services Banner - Footer Version */}
+    <motion.section
+      className="w-full overflow-hidden relative"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      style={{ height: '200px' }}
+    >
+      <motion.div
+        className="relative h-full bg-gradient-to-r from-color-primary via-color-secondary to-color-accent flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Large Banner */}
+        <motion.div
+          className="flex items-center gap-16 sm:gap-20 lg:gap-28 xl:gap-32 whitespace-nowrap"
+          animate={{ x: ["-100%", "100%"] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+            },
+          }}
+          style={{
+            willChange: 'transform'
+          }}
+        >
+          {/* Patrón repetido más grande: TODOS + separador + servicios */}
+          {[...Array(8)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex items-center gap-16 sm:gap-20 lg:gap-28 xl:gap-32">
+              {/* "TODOS" como elemento principal - MUCHO MAS GRANDE */}
+              <motion.span
+                className="text-8xl sm:text-9xl md:text-[10rem] lg:text-[12rem] xl:text-[14rem] font-black text-white"
+                style={{ 
+                  fontFamily: 'Poppins, sans-serif',
+                  letterSpacing: '-0.04em',
+                  textRendering: 'optimizeSpeed',
+                  backfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)',
+                  lineHeight: '0.8',
+                  textShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                }}
+              >
+                TODOS
+              </motion.span>
+              
+              {/* Separador visual más grande */}
+              <motion.div
+                className="w-3 sm:w-4 lg:w-6 h-16 sm:h-20 lg:h-24 xl:h-28 bg-white/80 rounded-full"
+                style={{ 
+                  transform: 'translateZ(0)',
+                  boxShadow: '0 4px 16px rgba(255, 255, 255, 0.3)'
+                }}
+              />
+              
+              {/* Servicios agrupados más grandes */}
+              <div className="flex items-center gap-12 sm:gap-16 lg:gap-20 xl:gap-24">
+                {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
+                  <motion.span
+                    key={`${groupIndex}-${service}-${index}`}
+                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white/90"
+                    style={{ 
+                      fontFamily: 'Poppins, sans-serif',
+                      letterSpacing: '-0.03em',
+                      textRendering: 'optimizeSpeed',
+                      backfaceVisibility: 'hidden',
+                      transform: 'translateZ(0)',
+                      lineHeight: '0.9',
+                      textShadow: '0 6px 24px rgba(0, 0, 0, 0.2)'
+                    }}
+                  >
+                    {service}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.section>
+    
     <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="layout-container py-16">
         <div className="grid-mobile md:grid-tablet lg:grid-desktop-4 gap-12 mb-12">
@@ -181,6 +268,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    </>
   )
 }
 
