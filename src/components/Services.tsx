@@ -89,7 +89,7 @@ const Services = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 max-w-6xl mx-auto mb-24">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -100,25 +100,28 @@ const Services = () => {
             >
               {/* Background Card */}
               <motion.div 
-                className="absolute inset-0 bg-white dark:bg-gray-900/50 rounded-3xl border border-gray-100 dark:border-gray-800/50 backdrop-blur-sm"
+                className="absolute inset-0 bg-white dark:bg-bg-secondary-dark rounded-3xl border border-text-secondary-light/10 dark:border-text-secondary-dark/10 backdrop-blur-sm shadow-lg shadow-black/5 dark:shadow-black/20"
                 whileHover={{ 
                   scale: 1.02,
-                  boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.08)"
+                  boxShadow: "0 25px 50px -12px rgba(103, 0, 248, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1)"
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
               />
               
               {/* Gradient Border on Hover */}
               <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 bg-gradient-to-br from-color-primary/20 via-color-secondary/20 to-color-accent/20"
-                whileHover={{ opacity: 1 }}
+                className="absolute inset-0 rounded-3xl opacity-0 bg-gradient-to-br from-color-primary/20 via-color-secondary/20 to-color-accent/20 shadow-xl shadow-color-primary/10"
+                whileHover={{ 
+                  opacity: 1,
+                  boxShadow: "0 30px 60px -15px rgba(103, 0, 248, 0.25)"
+                }}
                 transition={{ duration: 0.4 }}
               />
 
-              <div className="relative p-8 lg:p-10 h-full">
+              <div className="relative p-10 lg:p-12 h-full">
                 {/* Icon */}
                 <motion.div 
-                  className="w-28 h-28 lg:w-32 lg:h-32 mb-8 relative mx-auto"
+                  className="w-28 h-28 lg:w-32 lg:h-32 mb-8 relative mx-auto flex items-center justify-center"
                   whileHover={{ 
                     scale: 1.15, 
                     rotate: [0, -5, 5, -5, 0],
@@ -128,23 +131,28 @@ const Services = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div 
-                    className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-full flex items-center justify-center text-white shadow-xl"
+                    className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-xl absolute inset-0"
                     whileHover={{ 
                       boxShadow: "0 20px 40px -12px rgba(103, 0, 248, 0.4)",
                       background: "linear-gradient(135deg, #8001cf 0%, #6700f8 100%)"
                     }}
                     transition={{ duration: 0.3 }}
+                  />
+                  <motion.div 
+                    className="relative z-10 flex items-center justify-center text-white"
+                    style={{ 
+                      width: '48px', 
+                      height: '48px'
+                    }}
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: 360
+                    }}
+                    transition={{ duration: 0.6 }}
                   >
-                    <motion.div 
-                      className="w-12 h-12 lg:w-14 lg:h-14"
-                      whileHover={{ 
-                        scale: 1.1,
-                        rotate: 360
-                      }}
-                      transition={{ duration: 0.6 }}
-                    >
+                    <div className="w-full h-full flex items-center justify-center">
                       {service.icon}
-                    </motion.div>
+                    </div>
                   </motion.div>
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-color-accent to-color-primary rounded-full opacity-0"
@@ -167,41 +175,41 @@ const Services = () => {
                 </motion.div>
 
                 {/* Content */}
-                <div className="space-y-6 text-center">
+                <div className="space-y-8 text-center">
                   <motion.h3 
-                    className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight"
+                    className="text-2xl lg:text-3xl font-bold text-text-primary-light dark:text-text-primary-dark leading-tight"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
                     {service.title}
                   </motion.h3>
                   
-                  <p className="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-md mx-auto">
                     {service.description}
                   </p>
 
                   {/* Features */}
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     {service.features.slice(0, 3).map((feature, idx) => (
                       <motion.div 
                         key={idx} 
-                        className="flex items-center justify-center gap-4 text-gray-700 dark:text-gray-300"
+                        className="flex items-center justify-center gap-4 text-text-secondary-light dark:text-text-secondary-dark"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 + idx * 0.1, duration: 0.5 }}
                       >
-                        <div className="w-2 h-2 bg-gradient-to-r from-color-primary to-color-secondary rounded-full flex-shrink-0" />
-                        <span className="font-medium">{feature}</span>
+                        <div className="w-2.5 h-2.5 bg-gradient-to-r from-color-primary to-color-secondary rounded-full flex-shrink-0 shadow-sm" />
+                        <span className="font-medium text-sm lg:text-base">{feature}</span>
                       </motion.div>
                     ))}
                   </div>
 
                   {/* CTA */}
                   <motion.div 
-                    className="pt-8"
+                    className="pt-10"
                     whileHover={{ x: 4 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <span className="inline-flex items-center gap-2 text-color-primary font-semibold uppercase tracking-wider text-sm cursor-pointer">
+                    <span className="inline-flex items-center gap-3 text-color-primary font-semibold uppercase tracking-wider text-sm cursor-pointer hover:text-color-secondary transition-colors duration-300">
                       Ver más
                       <motion.svg 
                         className="w-4 h-4" 
