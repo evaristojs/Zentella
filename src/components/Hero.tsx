@@ -311,9 +311,9 @@ const Hero = () => {
               </motion.button>
             </motion.div>
 
-            {/* Services Pills - Mobile Only */}
+            {/* Services Pills - Mobile/Tablet Only */}
             <motion.div
-              className="flex flex-wrap justify-center gap-3 pt-8 md:hidden"
+              className="flex flex-wrap justify-center gap-3 pt-8 lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
@@ -358,9 +358,9 @@ const Hero = () => {
       </div>
     </section>
     
-    {/* Services Banner - Desktop Only */}
+    {/* Services Banner - Desktop/Laptop Only */}
     <motion.section
-      className="hidden md:block w-full overflow-hidden"
+      className="hidden lg:block w-full overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}
