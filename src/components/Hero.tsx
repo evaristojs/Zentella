@@ -149,7 +149,7 @@ const Hero = () => {
       id="hero" 
       className="starfield min-h-screen relative overflow-hidden"
       style={{ 
-        height: 'calc(100vh - 120px)',
+        height: '100vh',
         width: '100%', 
         maxWidth: '100vw',
         overflowX: 'hidden',
