@@ -11,13 +11,25 @@ interface NavigationProps {
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isInHero, setIsInHero] = useState(true)
   const { toggleTheme, isDark } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      const heroSection = document.getElementById('hero')
+      const servicesSection = document.getElementById('services')
+      
+      if (heroSection && servicesSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight
+        const servicesTop = servicesSection.offsetTop
+        const scrollPosition = window.scrollY + 80 // Offset for navbar height
+        
+        setIsScrolled(window.scrollY > 20)
+        setIsInHero(scrollPosition < servicesTop)
+      }
     }
 
+    handleScroll() // Check initial position
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -43,8 +55,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       <motion.nav 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30' 
-            : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm'
+            ? (isInHero && !isDark
+              ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10' 
+              : 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30')
+            : (isInHero && !isDark
+              ? 'bg-white/20 backdrop-blur-sm'
+              : 'bg-white/10 dark:bg-gray-900/10 backdrop-blur-sm')
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -70,7 +86,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 <motion.a 
                   key={item.name}
                   href={item.href}
-                  className="relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
+                  className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg ${
+                    isInHero && !isDark
+                      ? 'text-gray-800 hover:text-gray-900 hover:bg-gray-100/50'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50'
+                  }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -85,7 +105,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
               <motion.button 
                 onClick={toggleTheme}
-                className="p-2 sm:p-2.5 lg:p-3 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200"
+                className={`p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 ${
+                  isInHero && !isDark
+                    ? 'bg-gray-100/90 text-gray-700 hover:bg-gray-200/90 hover:text-gray-900'
+                    : 'bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
                 aria-label="Cambiar tema"
                 whileHover={{ scale: 1.05, rotate: 15 }}
                 whileTap={{ scale: 0.95, rotate: -15 }}
@@ -108,7 +132,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className="md:hidden p-2 sm:p-2.5 rounded-xl bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 relative z-[60]"
+                className={`md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] ${
+                  isInHero && !isDark
+                    ? 'bg-gray-100/90 text-gray-700 hover:bg-gray-200/90 hover:text-gray-900'
+                    : 'bg-gray-100/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-gray-700/80 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
