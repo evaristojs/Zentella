@@ -141,8 +141,8 @@ const Services = () => {
                   <motion.div 
                     className="relative z-10 flex items-center justify-center text-white"
                     style={{ 
-                      width: '48px', 
-                      height: '48px'
+                      width: '64px', 
+                      height: '64px'
                     }}
                     whileHover={{ 
                       scale: 1.1,
