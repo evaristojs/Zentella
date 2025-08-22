@@ -40,6 +40,89 @@ const Services = () => {
   ]
 
   return (
+    <>
+    {/* Services Banner - Always Visible - Mejor Organizado */}
+    <motion.section
+      className="w-full overflow-hidden snap-start"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      style={{ height: '80px' }}
+    >
+      <motion.div
+        className="relative h-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
+        {/* Banner organizado con separación visual clara */}
+        <motion.div
+          className="flex items-center gap-8 sm:gap-12 lg:gap-16 whitespace-nowrap"
+          animate={{ x: ["0%", "-20%"] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 25,
+              ease: "linear",
+            },
+          }}
+          style={{
+            willChange: 'transform'
+          }}
+        >
+          {/* Patrón repetido: TODOS + separador + servicios */}
+          {[...Array(5)].map((_, groupIndex) => (
+            <div key={groupIndex} className="flex items-center gap-8 sm:gap-12 lg:gap-16">
+              {/* "TODOS" como elemento principal */}
+              <motion.span
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-color-primary"
+                style={{ 
+                  fontFamily: 'Poppins, sans-serif',
+                  letterSpacing: '-0.03em',
+                  textRendering: 'optimizeSpeed',
+                  backfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)',
+                  lineHeight: '1'
+                }}
+              >
+                TODOS
+              </motion.span>
+              
+              {/* Separador visual */}
+              <motion.div
+                className="w-1 sm:w-2 h-8 sm:h-12 lg:h-16 bg-gradient-to-b from-color-primary to-color-secondary rounded-full opacity-60"
+                style={{ 
+                  transform: 'translateZ(0)'
+                }}
+              />
+              
+              {/* Servicios agrupados de manera compacta */}
+              <div className="flex items-center gap-6 sm:gap-8 lg:gap-12">
+                {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
+                  <motion.span
+                    key={`${groupIndex}-${service}-${index}`}
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-text-primary-light dark:text-text-primary-dark"
+                    style={{ 
+                      fontFamily: 'Poppins, sans-serif',
+                      letterSpacing: '-0.02em',
+                      textRendering: 'optimizeSpeed',
+                      backfaceVisibility: 'hidden',
+                      transform: 'translateZ(0)',
+                      lineHeight: '1',
+                      opacity: 1
+                    }}
+                  >
+                    {service}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.section>
+    
     <motion.section 
       id="services" 
       className="min-h-screen py-24 md:py-32 bg-white dark:bg-gray-950 relative snap-start"
@@ -271,6 +354,7 @@ const Services = () => {
         </motion.div>
       </div>
     </motion.section>
+    </>
   )
 }
 
