@@ -147,7 +147,7 @@ const Hero = () => {
     <>
     <section 
       id="hero" 
-      className="starfield min-h-screen relative overflow-hidden snap-start"
+      className="starfield min-h-screen relative overflow-hidden snap-start bg-white dark:bg-black"
       style={{ 
         height: '100vh',
         width: '100%', 
@@ -190,7 +190,7 @@ const Hero = () => {
             >
               <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
                 <span 
-                  className="block font-black text-center bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent" 
+                  className="block font-black text-center text-black dark:text-white" 
                   style={{ 
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                     lineHeight: '0.9',
@@ -239,7 +239,7 @@ const Hero = () => {
                   </motion.span>
                 </div>
                 <span 
-                  className="block font-black text-center bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent -mt-1" 
+                  className="block font-black text-center text-black dark:text-white -mt-1" 
                   style={{ 
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                     lineHeight: '0.9',
