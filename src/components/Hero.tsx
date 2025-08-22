@@ -311,15 +311,56 @@ const Hero = () => {
               </motion.button>
             </motion.div>
 
+            {/* Services Pills - Mobile Only */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 pt-8 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.5 }}
+            >
+              {['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+                <motion.div
+                  key={service}
+                  className="group relative px-5 py-3 bg-white/10 dark:bg-black/20 backdrop-blur-sm border border-white/30 rounded-full text-sm font-medium text-white drop-shadow-sm cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    backgroundColor: "rgba(103, 0, 248, 0.1)",
+                    borderColor: "rgba(103, 0, 248, 0.5)" 
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {service}
+                  
+                  {/* Tooltip */}
+                  <motion.div
+                    className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-black/90 text-white text-xs rounded-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-200"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileHover={{ opacity: 1, y: 0 }}
+                  >
+                    {service === 'Branding' && 'Identidad visual y marca'}
+                    {service === 'Diseño Web' && 'Sitios web modernos y responsivos'}
+                    {service === 'Fotografía' && 'Fotografía profesional y comercial'}
+                    {service === 'Video' && 'Producción audiovisual creativa'}
+                    {service === 'Animación' && 'Motion graphics y animaciones'}
+                    
+                    {/* Tooltip arrow */}
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90"></div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
 
           </div>
         </div>
       </div>
     </section>
     
-    {/* Services Banner - Scrolling Animation at end of Hero */}
+    {/* Services Banner - Desktop Only */}
     <motion.section
-      className="w-full overflow-hidden"
+      className="hidden md:block w-full overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.5 }}
