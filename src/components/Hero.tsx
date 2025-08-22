@@ -311,29 +311,48 @@ const Hero = () => {
             </motion.div>
 
 
-            {/* Services Pills */}
+            {/* Services Banner - Scrolling Animation */}
             <motion.div
-              className="flex flex-wrap justify-center gap-3 pt-8"
+              className="w-full overflow-hidden pt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              {['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+              <motion.div
+                className="relative py-6 bg-white dark:bg-transparent"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.7 }}
+              >
                 <motion.div
-                  key={service}
-                  className="px-5 py-3 bg-white/10 dark:bg-black/20 backdrop-blur-sm border border-white/30 rounded-full text-sm font-medium text-white drop-shadow-sm"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    backgroundColor: "rgba(103, 0, 248, 0.1)",
-                    borderColor: "rgba(103, 0, 248, 0.5)" 
+                  className="flex gap-12 whitespace-nowrap"
+                  animate={{ x: [0, -100] }}
+                  transition={{
+                    x: {
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      duration: 15,
+                      ease: "linear",
+                    },
                   }}
                 >
-                  {service}
+                  {/* Duplicar servicios para efecto infinito */}
+                  {[...Array(3)].map((_, groupIndex) => (
+                    ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+                      <motion.span
+                        key={`${groupIndex}-${service}-${index}`}
+                        className="text-4xl md:text-6xl lg:text-7xl font-black text-black dark:text-white"
+                        style={{ 
+                          fontFamily: 'Poppins, sans-serif',
+                          letterSpacing: '-0.02em'
+                        }}
+                      >
+                        {service}
+                      </motion.span>
+                    ))
+                  ))}
                 </motion.div>
-              ))}
+              </motion.div>
             </motion.div>
           </div>
         </div>
