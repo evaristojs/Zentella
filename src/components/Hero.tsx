@@ -144,11 +144,12 @@ const Hero = () => {
   }
 
   return (
+    <>
     <section 
       id="hero" 
       className="starfield min-h-screen relative overflow-hidden"
       style={{ 
-        height: '100vh',
+        height: 'calc(100vh - 120px)',
         width: '100%', 
         maxWidth: '100vw',
         overflowX: 'hidden',
@@ -311,65 +312,63 @@ const Hero = () => {
             </motion.div>
 
 
-            {/* Services Banner - Scrolling Animation */}
-            <motion.div
-              className="absolute left-0 right-0 bottom-0 overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.5 }}
-              style={{ 
-                width: '100vw', 
-                marginLeft: 'calc(-50vw + 50%)',
-                height: '120px'
-              }}
-            >
-              <motion.div
-                className="relative h-full bg-white dark:bg-transparent flex items-center justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.7 }}
-              >
-                <motion.div
-                  className="flex gap-16 whitespace-nowrap"
-                  animate={{ x: ["0%", "-33.333%"] }}
-                  transition={{
-                    x: {
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      duration: 25,
-                      ease: "linear",
-                    },
-                  }}
-                  style={{
-                    willChange: 'transform'
-                  }}
-                >
-                  {/* Duplicar servicios para efecto infinito */}
-                  {[...Array(3)].map((_, groupIndex) => (
-                    ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
-                      <motion.span
-                        key={`${groupIndex}-${service}-${index}`}
-                        className="text-6xl md:text-8xl lg:text-9xl font-black text-black dark:text-white"
-                        style={{ 
-                          fontFamily: 'Poppins, sans-serif',
-                          letterSpacing: '-0.03em',
-                          textRendering: 'optimizeSpeed',
-                          backfaceVisibility: 'hidden',
-                          transform: 'translateZ(0)',
-                          lineHeight: '1'
-                        }}
-                      >
-                        {service}
-                      </motion.span>
-                    ))
-                  ))}
-                </motion.div>
-              </motion.div>
-            </motion.div>
           </div>
         </div>
       </div>
     </section>
+    
+    {/* Services Banner - Scrolling Animation at end of Hero */}
+    <motion.section
+      className="w-full overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 1.5 }}
+      style={{ height: '120px' }}
+    >
+      <motion.div
+        className="relative h-full bg-white dark:bg-transparent flex items-center justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.7 }}
+      >
+        <motion.div
+          className="flex gap-16 whitespace-nowrap"
+          animate={{ x: ["0%", "-33.333%"] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 25,
+              ease: "linear",
+            },
+          }}
+          style={{
+            willChange: 'transform'
+          }}
+        >
+          {/* Duplicar servicios para efecto infinito */}
+          {[...Array(3)].map((_, groupIndex) => (
+            ['Branding', 'Diseño Web', 'Fotografía', 'Video', 'Animación'].map((service, index) => (
+              <motion.span
+                key={`${groupIndex}-${service}-${index}`}
+                className="text-6xl md:text-8xl lg:text-9xl font-black text-black dark:text-white"
+                style={{ 
+                  fontFamily: 'Poppins, sans-serif',
+                  letterSpacing: '-0.03em',
+                  textRendering: 'optimizeSpeed',
+                  backfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)',
+                  lineHeight: '1'
+                }}
+              >
+                {service}
+              </motion.span>
+            ))
+          ))}
+        </motion.div>
+      </motion.div>
+    </motion.section>
+    </>
   )
 }
 
