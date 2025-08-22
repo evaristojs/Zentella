@@ -76,6 +76,8 @@ const Hero = () => {
 
   // Starfield.js initialization
   useEffect(() => {
+    let themeObserver: MutationObserver | null = null
+    
     // Load starfield.js script
     const script = document.createElement('script')
     script.src = '/starfield.js'
@@ -84,19 +86,36 @@ const Hero = () => {
     script.onload = () => {
       // Initialize Starfield with custom configuration
       if (window.Starfield) {
-        window.Starfield.setup({
-          numStars: 300,              // Más estrellas para mejor visibilidad
-          baseSpeed: 2.5,             // Mayor velocidad base para mejor visibilidad sin aceleración
-          trailLength: 0.7,           // Rastros más largos para mayor visibilidad
-          starColor: 'rgba(103,0,248,0.9)', // Mayor opacidad para mejor visibilidad
-          canvasColor: 'rgba(0,0,20,0.02)', // Fondo aún más transparente
-          hueJitter: 15,              // Menor variación para mantener color consistente
-          maxAcceleration: 4,         // Aceleración moderada
-          accelerationRate: 0.12,     // Aceleración equilibrada
-          decelerationRate: 0.18,     // Desaceleración suave
-          minSpawnRadius: 80,         // Radio mínimo de aparición (50-200)
-          maxSpawnRadius: 400,        // Radio máximo de aparición (300-800)
-          auto: false                 // Desactivar auto para control manual
+        // Función para configurar el starfield según el tema
+        const setupStarfield = () => {
+          const isDarkMode = document.documentElement.classList.contains('dark')
+          
+          window.Starfield.setup({
+            numStars: 300,              
+            baseSpeed: 2.5,             
+            trailLength: 0.6,           
+            starColor: isDarkMode ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Blanco en oscuro, purple en claro
+            canvasColor: isDarkMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)', // Fondo según tema
+            hueJitter: isDarkMode ? 0 : 20, // Sin variación en modo oscuro, variación en claro
+            maxAcceleration: 4,         
+            accelerationRate: 0.12,     
+            decelerationRate: 0.18,     
+            minSpawnRadius: 80,         
+            maxSpawnRadius: 400,        
+            auto: false                 
+          })
+        }
+        
+        setupStarfield()
+        
+        // Observer para cambios de tema
+        themeObserver = new MutationObserver(() => {
+          setupStarfield()
+        })
+        
+        themeObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ['class']
         })
       }
     }
@@ -110,6 +129,10 @@ const Hero = () => {
       }
       if (script.parentNode) {
         script.parentNode.removeChild(script)
+      }
+      // Cleanup del observer
+      if (themeObserver) {
+        themeObserver.disconnect()
       }
     }
   }, [])
