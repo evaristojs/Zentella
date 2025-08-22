@@ -59,7 +59,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               transition={{ duration: 0.2 }}
             >
               <img 
-                src="/positivozentella2025.svg" 
+                src={isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg"}
                 alt="Zentella" 
                 className="h-6 sm:h-8 lg:h-10 w-auto"
               />
@@ -163,7 +163,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 
                 <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700/60">
                   <img 
-                    src="/positivozentella2025.svg" 
+                    src={isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg"}
                     alt="Zentella" 
                     className="h-7 w-auto"
                   />
