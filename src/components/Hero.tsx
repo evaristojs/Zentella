@@ -95,7 +95,7 @@ const Hero = () => {
             baseSpeed: 2.5,             
             trailLength: 0.6,           
             starColor: isDarkMode ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Blanco en oscuro, purple en claro
-            canvasColor: isDarkMode ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)', // Fondo según tema
+            canvasColor: 'rgba(0, 0, 0, 0)', // Fondo transparente para que se vea el fondo de la sección
             hueJitter: isDarkMode ? 0 : 20, // Sin variación en modo oscuro, variación en claro
             maxAcceleration: 4,         
             accelerationRate: 0.12,     
@@ -104,6 +104,12 @@ const Hero = () => {
             maxSpawnRadius: 400,        
             auto: false                 
           })
+          
+          // Ajustar z-index del canvas para que esté encima del fondo pero debajo del texto
+          const canvas = document.querySelector('.starfield canvas')
+          if (canvas) {
+            canvas.style.zIndex = '1'
+          }
         }
         
         setupStarfield()
@@ -191,7 +197,7 @@ const Hero = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 10,
+          zIndex: 20,
           width: '100%',
           maxWidth: '100vw',
           textAlign: 'center',
