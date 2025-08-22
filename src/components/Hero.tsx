@@ -89,16 +89,13 @@ const Hero = () => {
     script.onload = () => {
       // Initialize Starfield with custom configuration
       if (window.Starfield) {
-        // Configurar el starfield inicialmente
-        const isDarkMode = document.documentElement.classList.contains('dark')
-        
         window.Starfield.setup({
           numStars: 300,              
           baseSpeed: 2.5,             
           trailLength: 0.6,           
-          starColor: isDarkMode ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Blanco en oscuro, purple en claro
-          canvasColor: 'rgba(0, 0, 0, 0)', // Fondo transparente
-          hueJitter: isDarkMode ? 0 : 20, // Sin variación en modo oscuro, variación en claro
+          starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Usar context theme
+          canvasColor: 'rgb(0, 0, 0)', // Fondo negro sólido para el canvas
+          hueJitter: isDark ? 0 : 20, // Usar context theme
           maxAcceleration: 4,         
           accelerationRate: 0.12,     
           decelerationRate: 0.18,     
@@ -107,25 +104,14 @@ const Hero = () => {
           auto: false                 
         })
         
-        // Ajustar z-index del canvas para que esté encima del fondo pero debajo del texto
-        const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
-        if (canvas) {
-          canvas.style.zIndex = '1'
-        }
-        
-        // Observer para cambios de tema - solo cambia colores sin reiniciar
-        themeObserver = new MutationObserver(() => {
-          if (window.Starfield && window.Starfield.config) {
-            const newIsDarkMode = document.documentElement.classList.contains('dark')
-            window.Starfield.config.starColor = newIsDarkMode ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)'
-            window.Starfield.config.hueJitter = newIsDarkMode ? 0 : 20
+        // Configurar z-index del canvas correctamente
+        setTimeout(() => {
+          const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
+          if (canvas) {
+            canvas.style.zIndex = '1'
+            canvas.style.pointerEvents = 'none' // Evitar interferencias
           }
-        })
-        
-        themeObserver.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ['class']
-        })
+        }, 100)
       }
     }
     
@@ -145,6 +131,14 @@ const Hero = () => {
       }
     }
   }, [])
+
+  // Efecto para actualizar starfield cuando cambia el tema
+  useEffect(() => {
+    if (window.Starfield && window.Starfield.config) {
+      window.Starfield.config.starColor = isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)'
+      window.Starfield.config.hueJitter = isDark ? 0 : 20
+    }
+  }, [isDark])
 
   // Event handlers para el botón Comenzar
   const handleComenzarHover = () => {
@@ -179,31 +173,16 @@ const Hero = () => {
     <>
     <section 
       id="hero" 
-      className="starfield min-h-screen relative overflow-hidden snap-start"
+      className="starfield min-h-screen relative overflow-hidden snap-start transition-colors duration-300"
       style={{ 
         height: '100vh',
         width: '100%', 
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundColor: 'transparent'
+        backgroundColor: isDark ? '#000000' : '#ffffff'
       }}
-      data-theme-bg="true"
     >
-      {/* Background Layer - Must be behind everything */}
-      <div 
-        className="absolute inset-0 w-full h-full transition-colors duration-300"
-        style={{ 
-          zIndex: -10,
-          backgroundColor: isDark ? '#000000' : '#ffffff',
-          minHeight: '100vh',
-          minWidth: '100vw',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0
-        }}
-      />
 
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
       
