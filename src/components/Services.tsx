@@ -118,22 +118,24 @@ const Services = () => {
               <div className="relative p-8 lg:p-10 h-full">
                 {/* Icon */}
                 <motion.div 
-                  className="w-16 h-16 mb-8 relative"
+                  className="w-20 h-20 lg:w-24 lg:h-24 mb-8 relative mx-auto"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-2xl flex items-center justify-center text-white shadow-lg">
-                    {service.icon}
+                  <div className="w-full h-full bg-gradient-to-br from-color-primary to-color-secondary rounded-3xl flex items-center justify-center text-white shadow-lg">
+                    <div className="w-8 h-8 lg:w-10 lg:h-10">
+                      {service.icon}
+                    </div>
                   </div>
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-color-primary to-color-secondary rounded-2xl opacity-0"
+                    className="absolute inset-0 bg-gradient-to-br from-color-primary to-color-secondary rounded-3xl opacity-0"
                     whileHover={{ opacity: 0.2, scale: 1.2 }}
                     transition={{ duration: 0.3 }}
                   />
                 </motion.div>
 
                 {/* Content */}
-                <div className="space-y-6">
+                <div className="space-y-6 text-center">
                   <motion.h3 
                     className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
@@ -150,12 +152,12 @@ const Services = () => {
                     {service.features.slice(0, 3).map((feature, idx) => (
                       <motion.div 
                         key={idx} 
-                        className="flex items-center gap-4 text-gray-700 dark:text-gray-300"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        className="flex items-center justify-center gap-4 text-gray-700 dark:text-gray-300"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 + idx * 0.1, duration: 0.5 }}
                       >
-                        <div className="w-1.5 h-1.5 bg-gradient-to-r from-color-primary to-color-secondary rounded-full flex-shrink-0" />
+                        <div className="w-2 h-2 bg-gradient-to-r from-color-primary to-color-secondary rounded-full flex-shrink-0" />
                         <span className="font-medium">{feature}</span>
                       </motion.div>
                     ))}
