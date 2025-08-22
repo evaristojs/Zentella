@@ -351,7 +351,7 @@ const Hero = () => {
       style={{ height: '80px' }}
     >
       <motion.div
-        className="relative h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl flex items-center justify-center"
+        className="relative h-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30 flex items-center justify-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.7 }}
