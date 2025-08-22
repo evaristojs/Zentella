@@ -311,58 +311,30 @@ const Hero = () => {
               </motion.button>
             </motion.div>
 
-            {/* Services Pills - Mobile/Tablet Only - Mejor Organizados */}
+            {/* Services Pills - Mobile/Tablet Only */}
             <motion.div
-              className="pt-8 lg:hidden"
+              className="flex flex-wrap justify-center gap-3 pt-8 lg:hidden max-w-sm mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              {/* Pill principal "Todos" más prominente */}
-              <motion.div
-                className="flex justify-center mb-4"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.6, duration: 0.3 }}
-              >
+              {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
                 <motion.div
-                  className="group relative px-8 py-4 bg-gradient-to-r from-color-primary/30 to-color-secondary/30 backdrop-blur-sm border-2 border-color-primary/50 rounded-full text-lg font-bold text-white drop-shadow-lg cursor-pointer"
+                  key={service}
+                  className="group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium text-white drop-shadow-sm cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
                   whileHover={{ 
-                    scale: 1.05,
-                    backgroundColor: "rgba(103, 0, 248, 0.4)",
-                    borderColor: "rgba(103, 0, 248, 0.7)" 
+                    scale: 1.05, 
+                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                    borderColor: "rgba(255, 255, 255, 0.6)" 
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Todos
+                  {service}
                 </motion.div>
-              </motion.div>
-
-              {/* Pills de servicios específicos organizados en fila compacta */}
-              <motion.div
-                className="flex flex-wrap justify-center gap-3 max-w-sm mx-auto"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.7 }}
-              >
-                {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
-                  <motion.div
-                    key={service}
-                    className="group relative px-5 py-2.5 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium text-white drop-shadow-sm cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.8 + index * 0.1, duration: 0.3 }}
-                    whileHover={{ 
-                      scale: 1.05, 
-                      backgroundColor: "rgba(255, 255, 255, 0.25)",
-                      borderColor: "rgba(255, 255, 255, 0.6)" 
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {service}
-                  </motion.div>
-                ))}
-              </motion.div>
+              ))}
             </motion.div>
 
           </div>
