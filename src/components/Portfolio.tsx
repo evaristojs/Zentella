@@ -556,7 +556,7 @@ const Portfolio = () => {
               transition={{ duration: 0.2, ease: "easeInOut" }}
             />
             <motion.div 
-              className="relative card-base-static max-w-4xl w-full max-h-[calc(100vh-8rem)] overflow-y-auto"
+              className="relative card-base-static max-w-2xl w-full max-h-[calc(100vh-6rem)] overflow-y-auto"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -577,7 +577,7 @@ const Portfolio = () => {
               </motion.button>
               
               {/* Media */}
-              <figure className="aspect-video bg-base-300 overflow-hidden">
+              <figure className="aspect-[16/10] bg-base-300 overflow-hidden">
                 {selectedItem.video ? (
                   <video 
                     controls 
@@ -597,8 +597,8 @@ const Portfolio = () => {
               </figure>
               
               {/* Content */}
-              <div className="p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-4">
+              <div className="p-4 md:p-6">
+                <div className="flex items-center gap-3 mb-3">
                   <div className="bg-color-primary text-white rounded-xl px-4 py-2 text-small font-medium capitalize">
                     {selectedItem.category}
                   </div>
@@ -607,30 +607,30 @@ const Portfolio = () => {
                   </div>
                 </div>
                 
-                <h3 className="heading-2 lg:text-3xl text-color-primary mb-4">
+                <h3 className="text-xl lg:text-2xl font-bold text-color-primary mb-3">
                   {selectedItem.title}
                 </h3>
                 
-                <p className="text-base mb-6 leading-relaxed">
+                <p className="text-sm mb-4 leading-relaxed">
                   {selectedItem.description}
                 </p>
                 
-                <div className="grid-mobile md:grid-tablet gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <div className="label-base">Cliente</div>
-                    <div className="heading-3 text-text-primary-light dark:text-text-primary-dark">{selectedItem.client}</div>
+                    <div className="text-base font-semibold text-text-primary-light dark:text-text-primary-dark">{selectedItem.client}</div>
                   </div>
                   <div>
                     <div className="label-base">Año</div>
-                    <div className="heading-3 text-text-primary-light dark:text-text-primary-dark">{selectedItem.year}</div>
+                    <div className="text-base font-semibold text-text-primary-light dark:text-text-primary-dark">{selectedItem.year}</div>
                   </div>
                 </div>
                 
-                <div className="mt-6">
-                  <div className="label-base mb-3">Tags</div>
+                <div className="mt-4">
+                  <div className="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark uppercase tracking-wider mb-2">Tags</div>
                   <div className="flex flex-wrap gap-2">
                     {selectedItem.tags.map(tag => (
-                      <div key={tag} className="border border-color-primary text-color-primary rounded px-2 py-1 text-small">
+                      <div key={tag} className="border border-color-primary text-color-primary rounded px-2 py-1 text-xs">
                         {tag}
                       </div>
                     ))}
