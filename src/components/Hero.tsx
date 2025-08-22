@@ -91,7 +91,7 @@ const Hero = () => {
         window.Starfield.setup({
           numStars: 300,              
           baseSpeed: 2.5,             
-          trailLength: 0.95,          // 0.95 = rastros muy cortos, fondo casi transparente
+          trailLength: 0.98,          // 0.98 = rastros mínimos, fondo apenas visible
           starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Usar context theme
           canvasColor: 'rgba(0, 0, 0, 0)', // Transparente completamente
           hueJitter: isDark ? 0 : 20, // Usar context theme
