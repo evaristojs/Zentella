@@ -21,13 +21,6 @@ declare global {
 const Hero = () => {
   const { isDark, isInitialized } = useTheme()
   
-  // 🔍 DEBUG: Log theme state
-  console.log('🎨 Hero Debug:', { 
-    isDark, 
-    isInitialized, 
-    documentClass: document.documentElement.className,
-    expectedBg: isDark ? '#000000' : '#ffffff'
-  })
   
   const phrases = [
     "brilles más",
@@ -100,7 +93,7 @@ const Hero = () => {
           baseSpeed: 2.5,             
           trailLength: 0.6,           
           starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Usar context theme
-          canvasColor: 'rgb(0, 0, 0)', // Fondo negro sólido para el canvas
+          canvasColor: 'rgba(0, 0, 0, 0)', // Transparente para mostrar fondo de sección
           hueJitter: isDark ? 0 : 20, // Usar context theme
           maxAcceleration: 4,         
           accelerationRate: 0.12,     
@@ -142,29 +135,6 @@ const Hero = () => {
     }
   }, [isDark])
 
-  // 🔍 DEBUG: Monitor theme changes and DOM state
-  useEffect(() => {
-    console.log('🔄 Theme Changed:', { isDark, isInitialized })
-    
-    // Check if canvas is interfering
-    setTimeout(() => {
-      const heroSection = document.getElementById('hero')
-      const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
-      
-      console.log('🔍 DOM Investigation:', {
-        heroSection: heroSection ? {
-          computedStyle: window.getComputedStyle(heroSection).backgroundColor,
-          inlineStyle: heroSection.style.backgroundColor,
-          classList: heroSection.classList.toString()
-        } : null,
-        canvas: canvas ? {
-          zIndex: canvas.style.zIndex,
-          backgroundColor: canvas.style.backgroundColor,
-          position: window.getComputedStyle(canvas).position
-        } : null
-      })
-    }, 500)
-  }, [isDark, isInitialized])
 
   // Event handlers para el botón Comenzar
   const handleComenzarHover = () => {
@@ -211,19 +181,6 @@ const Hero = () => {
         transition: 'background-color 300ms ease'
       }}
     >
-      {/* 🛡️ BACKUP Background Layer - In case canvas interferes */}
-      <div 
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          zIndex: -999,
-          backgroundColor: isDark ? '#000000' : '#ffffff',
-          width: '100vw',
-          height: '100vh',
-          top: 0,
-          left: 0
-        }}
-      />
-
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
       
       {/* Hero Content - starfield-origin según especificaciones oficiales */}
