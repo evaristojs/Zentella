@@ -61,7 +61,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <img 
                 src="/positivozentella2025.svg" 
                 alt="Zentella" 
-                className="h-8 sm:h-10 lg:h-12 w-auto"
+                className="h-6 sm:h-8 lg:h-10 w-auto"
               />
             </motion.div>
             
