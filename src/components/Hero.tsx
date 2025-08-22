@@ -19,7 +19,7 @@ declare global {
 }
 
 const Hero = () => {
-  const { isDark, isInitialized } = useTheme()
+  const { isDark } = useTheme()
   
   
   const phrases = [
