@@ -109,8 +109,8 @@ const About = () => {
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Nosotros
           </span>
-          <h2 className="heading-1 lg:text-4xl mb-4 text-text-primary-light dark:text-text-primary-dark">
-            Conoce a <span className="text-color-primary">Zentella</span>
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+            Conoce a Zentella
           </h2>
           <p className="text-base max-w-4xl mx-auto leading-relaxed">
             Nos dedicamos a la planificación, creación y comunicación en los diversos canales digitales para el posicionamiento de las marcas, a través de campañas impactantes y estrategias personalizadas para cada cliente.

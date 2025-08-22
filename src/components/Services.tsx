@@ -86,8 +86,8 @@ const Services = () => {
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Nuestros servicios
           </span>
-          <h2 className="heading-1 lg:text-4xl mb-4 text-text-primary-light dark:text-text-primary-dark">
-            Todo lo que necesitas para <span className="text-color-primary">hacer crecer</span> tu marca
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+            Todo lo que necesitas para hacer crecer tu marca
           </h2>
           <p className="text-base max-w-2xl mx-auto">
             Soluciones integrales de marketing digital diseñadas para transformar tu visión en resultados reales

@@ -82,8 +82,8 @@ const Testimonials = () => {
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Testimonios
           </span>
-          <h2 className="heading-1 lg:text-4xl mb-4 text-text-primary-light dark:text-text-primary-dark">
-            Lo que dicen nuestros <span className="text-color-primary">clientes</span>
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+            Lo que dicen nuestros clientes
           </h2>
           <p className="text-base max-w-2xl mx-auto">
             La confianza de nuestros clientes es nuestro mayor logro. Descubre cómo hemos transformado sus marcas
