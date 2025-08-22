@@ -86,10 +86,10 @@ const Hero = () => {
       if (window.Starfield) {
         window.Starfield.setup({
           numStars: 300,              // Más estrellas para mejor visibilidad
-          baseSpeed: 1.0,             // Velocidad base ligeramente mayor
-          trailLength: 0.5,           // Rastros medianos para equilibrio
-          starColor: 'rgba(103,0,248,0.8)', // Color principal #6700f8 con mayor opacidad
-          canvasColor: 'rgba(0,0,20,0.03)', // Fondo muy transparente
+          baseSpeed: 2.5,             // Mayor velocidad base para mejor visibilidad sin aceleración
+          trailLength: 0.7,           // Rastros más largos para mayor visibilidad
+          starColor: 'rgba(103,0,248,0.9)', // Mayor opacidad para mejor visibilidad
+          canvasColor: 'rgba(0,0,20,0.02)', // Fondo aún más transparente
           hueJitter: 15,              // Menor variación para mantener color consistente
           maxAcceleration: 4,         // Aceleración moderada
           accelerationRate: 0.12,     // Aceleración equilibrada
@@ -139,33 +139,7 @@ const Hero = () => {
         position: 'relative'
       }}
     >
-      {/* Video Background - Más sutil para que starfield sea protagonista */}
-      <div className="absolute inset-0 w-full h-full opacity-30">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster="/images/hero/hero-1.jpg"
-          className="w-full h-full object-cover"
-          style={{ filter: 'brightness(0.2) contrast(1.1) saturate(0.6) blur(2px)' }}
-          onError={(e) => {
-            // Fallback to poster image if video fails
-            e.currentTarget.style.display = 'none'
-          }}
-        >
-          <source src="/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4" type="video/mp4" />
-        </video>
-        {/* Fallback background image */}
-        <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ 
-            backgroundImage: 'url(/images/hero/hero-1.jpg)',
-            filter: 'brightness(0.2) contrast(1.1) saturate(0.6) blur(2px)'
-          }}
-        ></div>
-      </div>
+      {/* Video Background - Eliminado para mejor visibilidad del starfield */}
 
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
       
