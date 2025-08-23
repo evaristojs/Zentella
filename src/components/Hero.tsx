@@ -126,25 +126,24 @@ const Hero = () => {
         console.error('ERROR: window.Starfield no está disponible después de cargar el script')
       }
         
-        // Configurar z-index del canvas ENCIMA DE TODO para depuración
-        setTimeout(() => {
-          const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
-          if (canvas) {
-            canvas.style.zIndex = '9999'
-            canvas.style.pointerEvents = 'none'
-            canvas.style.opacity = '1'
-            canvas.style.display = 'block'
-            canvas.style.position = 'absolute'
-            canvas.style.top = '0'
-            canvas.style.left = '0'
-            canvas.style.width = '100%'
-            canvas.style.height = '100%'
-            console.log('DEBUG: Starfield canvas positioned ABOVE EVERYTHING:', canvas)
-          } else {
-            console.warn('Starfield canvas not found')
-          }
-        }, 200)
-      }
+      // Configurar z-index del canvas ENCIMA DE TODO para depuración
+      setTimeout(() => {
+        const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
+        if (canvas) {
+          canvas.style.zIndex = '9999'
+          canvas.style.pointerEvents = 'none'
+          canvas.style.opacity = '1'
+          canvas.style.display = 'block'
+          canvas.style.position = 'absolute'
+          canvas.style.top = '0'
+          canvas.style.left = '0'
+          canvas.style.width = '100%'
+          canvas.style.height = '100%'
+          console.log('DEBUG: Starfield canvas positioned ABOVE EVERYTHING:', canvas)
+        } else {
+          console.warn('Starfield canvas not found')
+        }
+      }, 200)
     }
     
     document.head.appendChild(script)
