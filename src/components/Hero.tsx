@@ -89,29 +89,36 @@ const Hero = () => {
       // Initialize Starfield with custom configuration
       if (window.Starfield) {
         window.Starfield.setup({
-          numStars: 300,              
-          baseSpeed: 2.5,             
-          trailLength: 0.98,          // 0.98 = rastros mínimos, fondo apenas visible
-          starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', // Usar context theme
-          canvasColor: 'rgba(0, 0, 0, 0)', // Transparente completamente
-          hueJitter: isDark ? 0 : 20, // Usar context theme
-          maxAcceleration: 4,         
-          accelerationRate: 0.12,     
-          decelerationRate: 0.18,     
-          minSpawnRadius: 80,         
-          maxSpawnRadius: 400,        
-          auto: true                 // Cambiar a auto para que use starfield-origin
+          numStars: 500,              // Más estrellas para mejor visibilidad
+          baseSpeed: 5,               // Velocidad más alta para movimiento visible
+          trailLength: 0.7,           // Rastros más visibles
+          starColor: isDark ? 'rgb(255, 255, 255)' : 'rgb(103, 0, 248)', 
+          canvasColor: 'rgba(0, 0, 0, 0)', // Transparente
+          hueJitter: isDark ? 0 : 50, // Más variación de color
+          maxAcceleration: 8,         // Más aceleración
+          accelerationRate: 0.25,     // Aceleración más rápida
+          decelerationRate: 0.15,     // Desaceleración más lenta
+          minSpawnRadius: 50,         // Más cerca del centro
+          maxSpawnRadius: 300,        // Radio menor para concentrar
+          auto: true                 
         })
         
         console.log('Starfield initialized with auto=true')
         
-        // Configurar z-index del canvas correctamente
+        // Configurar z-index del canvas ENCIMA DE TODO para depuración
         setTimeout(() => {
           const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
           if (canvas) {
-            canvas.style.zIndex = '10'
+            canvas.style.zIndex = '9999'
             canvas.style.pointerEvents = 'none'
-            console.log('Starfield canvas found and configured:', canvas)
+            canvas.style.opacity = '1'
+            canvas.style.display = 'block'
+            canvas.style.position = 'absolute'
+            canvas.style.top = '0'
+            canvas.style.left = '0'
+            canvas.style.width = '100%'
+            canvas.style.height = '100%'
+            console.log('DEBUG: Starfield canvas positioned ABOVE EVERYTHING:', canvas)
           } else {
             console.warn('Starfield canvas not found')
           }
@@ -186,12 +193,14 @@ const Hero = () => {
         zIndex: 1
       }}
     >
-      {/* Starfield Layer */}
+      {/* Starfield Layer - DEBUG: ENCIMA DE TODO */}
       <div 
         className="starfield absolute inset-0"
         style={{ 
-          zIndex: 10,
-          pointerEvents: 'none'
+          zIndex: 9999,
+          pointerEvents: 'none',
+          opacity: 1,
+          display: 'block'
         }}
       />
       
