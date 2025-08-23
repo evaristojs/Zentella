@@ -176,9 +176,8 @@ const Hero = () => {
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundColor: `${isDark ? '#000000' : '#ffffff'} !important`,
-        background: `${isDark ? '#000000' : '#ffffff'} !important`,
-        transition: 'background-color 300ms ease'
+        backgroundColor: '#ffffff !important',
+        background: '#ffffff !important'
       }}
     >
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
