@@ -185,7 +185,7 @@ const Hero = () => {
       <div 
         className="starfield absolute inset-0"
         style={{ 
-          zIndex: 2,
+          zIndex: 10,
           pointerEvents: 'none'
         }}
       />
@@ -198,7 +198,7 @@ const Hero = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 3,
+          zIndex: 20,
           width: '100%',
           maxWidth: '100vw',
           textAlign: 'center',
