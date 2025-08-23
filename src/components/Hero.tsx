@@ -100,17 +100,22 @@ const Hero = () => {
           decelerationRate: 0.18,     
           minSpawnRadius: 80,         
           maxSpawnRadius: 400,        
-          auto: false                 
+          auto: true                 // Cambiar a auto para que use starfield-origin
         })
+        
+        console.log('Starfield initialized with auto=true')
         
         // Configurar z-index del canvas correctamente
         setTimeout(() => {
           const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
           if (canvas) {
             canvas.style.zIndex = '10'
-            canvas.style.pointerEvents = 'none' // Evitar interferencias
+            canvas.style.pointerEvents = 'none'
+            console.log('Starfield canvas found and configured:', canvas)
+          } else {
+            console.warn('Starfield canvas not found')
           }
-        }, 100)
+        }, 200)
       }
     }
     
