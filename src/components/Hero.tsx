@@ -169,18 +169,26 @@ const Hero = () => {
     <>
     <section 
       id="hero" 
-      className="starfield min-h-screen relative overflow-hidden snap-start"
+      className="min-h-screen relative overflow-hidden snap-start"
       style={{ 
         height: '100vh',
         width: '100%', 
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundColor: '#ffffff !important',
-        background: '#ffffff !important'
+        backgroundColor: isDark ? '#191919' : '#F8F8FF',
+        background: isDark ? '#191919' : '#F8F8FF',
+        zIndex: 1
       }}
     >
-      {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
+      {/* Starfield Layer */}
+      <div 
+        className="starfield absolute inset-0"
+        style={{ 
+          zIndex: 2,
+          pointerEvents: 'none'
+        }}
+      />
       
       {/* Hero Content - starfield-origin según especificaciones oficiales */}
       <div 
@@ -190,7 +198,7 @@ const Hero = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          zIndex: 20,
+          zIndex: 3,
           width: '100%',
           maxWidth: '100vw',
           textAlign: 'center',
