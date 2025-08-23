@@ -107,7 +107,7 @@ const Hero = () => {
         setTimeout(() => {
           const canvas = document.querySelector('.starfield canvas') as HTMLCanvasElement
           if (canvas) {
-            canvas.style.zIndex = '1'
+            canvas.style.zIndex = '10'
             canvas.style.pointerEvents = 'none' // Evitar interferencias
           }
         }, 100)
