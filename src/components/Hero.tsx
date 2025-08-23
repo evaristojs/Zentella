@@ -80,14 +80,31 @@ const Hero = () => {
 
   // Starfield.js initialization
   useEffect(() => {
+    console.log('DEBUG: Iniciando carga de starfield.js')
+    
     // Load starfield.js script
     const script = document.createElement('script')
     script.src = '/starfield.js'
     script.async = true
     
+    script.onerror = (error) => {
+      console.error('ERROR: No se pudo cargar starfield.js:', error)
+    }
+    
     script.onload = () => {
+      console.log('DEBUG: starfield.js cargado exitosamente')
       // Initialize Starfield with custom configuration
       if (window.Starfield) {
+        console.log('DEBUG: window.Starfield encontrado, inicializando...')
+        
+        // Verificar que el contenedor existe
+        const container = document.querySelector('.starfield')
+        console.log('DEBUG: Contenedor .starfield encontrado:', container)
+        
+        // Verificar que el origen existe
+        const origin = document.querySelector('.starfield-origin')
+        console.log('DEBUG: Elemento .starfield-origin encontrado:', origin)
+        
         window.Starfield.setup({
           numStars: 500,              // Más estrellas para mejor visibilidad
           baseSpeed: 5,               // Velocidad más alta para movimiento visible
@@ -103,7 +120,11 @@ const Hero = () => {
           auto: true                 
         })
         
-        console.log('Starfield initialized with auto=true')
+        console.log('DEBUG: Starfield.setup() llamado con auto=true')
+        console.log('DEBUG: Configuración starfield:', window.Starfield.config)
+      } else {
+        console.error('ERROR: window.Starfield no está disponible después de cargar el script')
+      }
         
         // Configurar z-index del canvas ENCIMA DE TODO para depuración
         setTimeout(() => {
