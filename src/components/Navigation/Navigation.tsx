@@ -31,8 +31,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
         initial="hidden"
         animate="visible"
       >
-        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
+        <div className="max-w-full mx-auto px-5 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-14 lg:h-16">
             
             {/* Adaptive Logo with ultra-smooth transitions - moved left with margin */}
             <AdaptiveLogo 
@@ -50,7 +50,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
 
             {/* Controls */}
-            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-2 lg:space-x-3 transform translate-x-[10%]">
               <ThemeToggle 
                 isDark={isDark}
                 isInHero={!hasScrolled}
@@ -64,6 +64,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 isInHero={!hasScrolled}
                 toggleMenu={toggleMenu}
                 closeMenu={closeMenu}
+                activeSection={activeSection}
               />
             </div>
           </div>

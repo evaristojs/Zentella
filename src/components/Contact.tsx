@@ -99,7 +99,7 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <section id="contact" className="py-12 md:py-20 bg-white dark:bg-bg-base-dark">
+      <section className="py-12 md:py-20 bg-white dark:bg-bg-base-dark">
         <div className="layout-container">
           <motion.div 
             className="flex items-center justify-center min-h-[60vh]"
@@ -139,7 +139,6 @@ const Contact = () => {
 
   return (
     <section 
-      id="contact" 
       className="py-12 md:py-20 bg-bg-base-light dark:bg-bg-base-dark snap-start"
       ref={elementRef}
     >

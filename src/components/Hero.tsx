@@ -198,14 +198,14 @@ const Hero: React.FC = () => {
       window.Starfield.setAccelerate(true)
     }
 
-    // Esperar 1.5 segundos antes de hacer scroll para mostrar la aceleración
+    // Esperar 0.7 segundos antes de hacer scroll para mostrar la aceleración
     const scrollTimeout = setTimeout(() => {
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
       // Desactivar aceleración después del scroll
       if (window.Starfield) {
         window.Starfield.setAccelerate(false)
       }
-    }, 1500)
+    }, 700)
 
     // Store timeout for cleanup if component unmounts
     timeoutsRef.current.push(scrollTimeout)

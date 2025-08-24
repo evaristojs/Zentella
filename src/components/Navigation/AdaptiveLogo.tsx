@@ -40,18 +40,18 @@ const AdaptiveLogo = ({ isDark, className = '' }: AdaptiveLogoProps) => {
     const baseClasses = 'transition-all duration-500 ease-in-out object-contain'
     
     if (type === 'isotipo') {
-      // Isotipo: alineado al inicio del contenedor
-      return `h-12 w-12 md:h-18 lg:h-36 ${baseClasses}`
+      // Isotipo: alineado al inicio del contenedor  
+      return `h-11 w-11 md:h-10 lg:h-12 ${baseClasses}`
     } else {
       // Logotipo: alineado al inicio del contenedor
-      return `h-11 w-auto md:h-16 lg:h-19 ${baseClasses}`
+      return `h-10 w-auto md:h-9 lg:h-11 ${baseClasses}`
     }
   }
 
 
   return (
     <motion.div 
-      className={`flex-shrink-0 relative ${className} w-36 md:w-46 lg:w-50 flex items-center justify-start`}
+      className={`flex-shrink-0 relative ${className} w-36 md:w-32 lg:w-36 flex items-center justify-start`}
       whileHover={{ 
         scale: 1.05,
         filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -63,7 +63,7 @@ const AdaptiveLogo = ({ isDark, className = '' }: AdaptiveLogoProps) => {
           key={logoState.type}
           src={logoSrc}
           alt="Zentella"
-          className={`${getLogoSize()} object-contain`}
+          className={`${getLogoSize()}`}
           variants={logoVariants}
           initial="initial"
           animate="animate"

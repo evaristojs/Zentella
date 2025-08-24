@@ -53,7 +53,7 @@ const NavigationBar = ({ menuItems, isInHero, isDark, activeSection, setActiveSe
           role="menuitem"
           aria-current={isActive(item.href) ? 'page' : undefined}
           onClick={() => handleItemClick(item.name, item.href)}
-          className={`relative flex items-center justify-center px-2 lg:px-3 py-0.5 text-sm lg:text-base font-semibold rounded-xl transition-all duration-200 ${
+          className={`relative flex items-center justify-center px-2 lg:px-3 py-0.5 text-sm lg:text-sm font-semibold rounded-xl transition-all duration-200 ${
             isActive(item.href)
               ? 'text-white bg-gradient-to-r from-purple-600 to-color-accent shadow-lg'
               : isDark

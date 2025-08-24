@@ -126,53 +126,125 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {/* Misión */}
-            <div className="card-base-static">
-              <h3 className="heading-2 text-color-primary mb-4">Misión</h3>
-              <p className="text-base leading-relaxed">
-                Potenciar los proyectos de todos los emprendedores y hacerlos crecer sea cual sea el punto en el que se encuentren. Ofrecemos soluciones avanzadas de mercadeo de forma personalizada que permiten mejorar la competitividad y productividad de tu marca, producto o servicio, generando un impacto en conversiones efectivas al fidelizar el mercado y promover el crecimiento organizacional de nuestros clientes.
-              </p>
-            </div>
+            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
+              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
+            >
+              <div className="relative flex flex-col items-center text-center">
+                <motion.div 
+                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
+                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
+                >
+                  <div className="text-white">
+                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  </div>
+                </motion.div>
+
+                <div className="flex-1 space-y-4">
+                  <motion.h3 
+                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
+                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                  >
+                    Misión
+                  </motion.h3>
+                  
+                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium">
+                    Potenciar los proyectos de todos los emprendedores y hacerlos crecer sea cual sea el punto en el que se encuentren. Ofrecemos soluciones avanzadas de mercadeo de forma personalizada que permiten mejorar la competitividad y productividad de tu marca, producto o servicio.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Visión */}
-            <div className="card-base-static">
-              <h3 className="heading-2 text-color-primary mb-4">Visión</h3>
-              <p className="text-base leading-relaxed">
-                Nuestra visión es ser una Agencia de Marketing capaz de proponer campañas, técnicas y herramientas de comunicación a todas aquellas empresas que tengan algo que decir a quien quiera escuchar su mensaje. Favoreceremos el encuentro de nuestros clientes y su entorno logrando la satisfacción de todas las partes, siempre desde el compromiso ético, medio-ambiental y social.
-              </p>
-            </div>
+            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
+              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
+            >
+              <div className="relative flex flex-col items-center text-center">
+                <motion.div 
+                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
+                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
+                >
+                  <div className="text-white">
+                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                    </svg>
+                  </div>
+                </motion.div>
+
+                <div className="flex-1 space-y-4">
+                  <motion.h3 
+                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
+                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                  >
+                    Visión
+                  </motion.h3>
+                  
+                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium">
+                    Ser una Agencia de Marketing capaz de proponer campañas, técnicas y herramientas de comunicación a todas aquellas empresas que tengan algo que decir a quien quiera escuchar su mensaje.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Valores */}
-            <div className="card-base-static">
-              <h3 className="heading-2 text-color-primary mb-4">Valores</h3>
-              <p className="text-base leading-relaxed mb-6">
-                Destacamos la comunicación y la profesionalidad, ante todo, no solo con el cliente sino como cultura interna del equipo. Tomamos el <strong>Kaizen</strong> como filosofía de mejora continua para llegar a alcanzar todos nuestros objetivos y los de las empresas con las que trabajamos.
-              </p>
-              
-              <h4 className="heading-3 mb-4">¿Qué nos identifica?</h4>
-              <div className="grid-mobile md:grid-cols-3 gap-6">
-                {values.map((value, index) => (
-                  <motion.div
-                    key={value.title}
-                    className="text-center p-4 rounded-xl bg-color-primary/5 hover:bg-color-primary/10 transition-colors duration-300"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
+              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
+            >
+              <div className="relative flex flex-col items-center text-center">
+                <motion.div 
+                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
+                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
+                >
+                  <div className="text-white">
+                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l2.09 4.26 4.86.71-3.5 3.41.82 4.81L12 13.35l-4.27 2.84.82-4.81-3.5-3.41 4.86-.71L12 2z" />
+                    </svg>
+                  </div>
+                </motion.div>
+
+                <div className="flex-1 space-y-4 w-full">
+                  <motion.h3 
+                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
+                    style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
-                    <div className="w-16 h-16 bg-color-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <div className="text-color-primary">
-                        {value.icon}
-                      </div>
-                    </div>
-                    <h5 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
-                      {value.title}
-                    </h5>
-                    <p className="text-small">
-                      {value.description}
-                    </p>
-                  </motion.div>
-                ))}
+                    Valores
+                  </motion.h3>
+                  
+                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium mb-6">
+                    Destacamos la comunicación y la profesionalidad, ante todo, no solo con el cliente sino como cultura interna del equipo. Tomamos el <strong>Kaizen</strong> como filosofía de mejora continua.
+                  </p>
+                  
+                  <h4 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">¿Qué nos identifica?</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {values.map((value, index) => (
+                      <motion.div
+                        key={value.title}
+                        className="text-center p-4 rounded-xl bg-color-primary/5 hover:bg-color-primary/10 transition-colors duration-300"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                      >
+                        <div className="w-12 h-12 bg-color-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <div className="text-color-primary text-lg">
+                            {value.icon}
+                          </div>
+                        </div>
+                        <h5 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 text-sm">
+                          {value.title}
+                        </h5>
+                        <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                          {value.description}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
