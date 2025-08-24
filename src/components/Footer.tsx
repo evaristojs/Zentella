@@ -125,7 +125,7 @@ const Footer = () => {
       </motion.div>
     </motion.section>
     
-    <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <footer className="bg-bg-secondary-light dark:bg-bg-secondary-dark border-t border-gray-200 dark:border-gray-700">
       <div className="layout-container py-16">
         <div className="grid-mobile md:grid-tablet lg:grid-desktop-4 gap-12 mb-12">
           <div className="lg:col-span-2">
@@ -136,7 +136,7 @@ const Footer = () => {
                 className="h-12 w-auto hover-smooth hover:scale-105"
               />
             </div>
-            <p className="text-base mb-6 leading-relaxed">
+            <p className="text-base text-text-secondary-light dark:text-text-secondary-dark mb-6 leading-relaxed">
               Agencia creativa integral especializada en marketing, fotografía, 
               diseño gráfico, videografía y animación. Creamos experiencias 
               visuales que conectan marcas con sus audiencias.
@@ -234,7 +234,7 @@ const Footer = () => {
               href={social.href} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-12 h-12 bg-color-primary text-white rounded-xl flex items-center justify-center hover-smooth hover:bg-color-primary-hover"
+              className="relative w-12 h-12 bg-color-primary text-white rounded-xl flex items-center justify-center hover-smooth hover:bg-color-primary-hover"
               title={social.name}
             >
               {social.icon}

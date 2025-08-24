@@ -1,11 +1,28 @@
 import { useEffect, useRef } from 'react'
 import { useInView, useAnimation } from 'framer-motion'
+import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, scaleIn } from '../animations'
+import type { UseScrollAnimationOptions, UseScrollAnimationReturn } from '@/types/hooks'
 
-export const useScrollAnimation = (threshold = 0.1) => {
-  const ref = useRef(null)
+/**
+ * Custom hook for scroll-based animations
+ * 
+ * @param options - Configuration options for scroll animation
+ * @returns Object containing ref, controls, and isInView state
+ */
+export const useScrollAnimation = (
+  options: UseScrollAnimationOptions = {}
+): UseScrollAnimationReturn => {
+  const {
+    threshold = 0.1,
+    once = true,
+    rootMargin = '0px'
+  } = options
+
+  const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { 
     amount: threshold,
-    once: true 
+    once,
+    margin: rootMargin
   })
   const controls = useAnimation()
 
@@ -15,74 +32,8 @@ export const useScrollAnimation = (threshold = 0.1) => {
     }
   }, [isInView, controls])
 
-  return { ref, controls }
+  return { ref, controls, isInView }
 }
 
-export const fadeInUp = {
-  hidden: {
-    opacity: 0,
-    y: 50
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-}
-
-export const fadeInLeft = {
-  hidden: {
-    opacity: 0,
-    x: -50
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-}
-
-export const fadeInRight = {
-  hidden: {
-    opacity: 0,
-    x: 50
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut'
-    }
-  }
-}
-
-export const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-}
-
-export const scaleIn = {
-  hidden: {
-    opacity: 0,
-    scale: 0.8
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut'
-    }
-  }
-}
+// Re-export animations from centralized system for backward compatibility
+export { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, scaleIn }

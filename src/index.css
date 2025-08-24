@@ -14,6 +14,60 @@
     color-scheme: dark;
   }
   
+  /* Enhanced tooltips for better visibility */
+  [title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease-in-out forwards;
+  }
+  
+  html.dark [title]:hover::after {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+  }
+  
+  [title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    animation: tooltipFadeIn 0.2s ease-in-out forwards;
+  }
+  
+  html.dark [title]:hover::before {
+    border-top-color: rgba(255, 255, 255, 0.95);
+  }
+  
+  @keyframes tooltipFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
   /* Section snap points */
   section {
     scroll-snap-align: start;
@@ -173,6 +227,27 @@ body {
   
   .grid-desktop-4 {
     @apply grid grid-cols-4 gap-8;
+  }
+
+  @media (max-width: 480px) {
+    .portfolio-modal {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .portfolio-modal {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .portfolio-modal {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
   }
 }
 

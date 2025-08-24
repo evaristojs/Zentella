@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { devLog } from '../utils/logger'
 
 interface FormData {
   name: string
@@ -86,11 +87,11 @@ const Contact = () => {
     setIsSubmitting(true)
     try {
       await new Promise(resolve => setTimeout(resolve, 2000))
-      console.log('Formulario enviado:', formData)
+      devLog.info('Formulario enviado', formData, 'Contact')
       setIsSubmitted(true)
       setFormData({ name: '', email: '', phone: '', company: '', service: '', budget: '', message: '' })
     } catch (error) {
-      console.error('Error al enviar formulario:', error)
+      devLog.error('Error al enviar formulario', error, 'Contact')
     } finally {
       setIsSubmitting(false)
     }
@@ -118,7 +119,7 @@ const Contact = () => {
                 </svg>
               </motion.div>
               <h2 className="heading-2 text-color-success mb-4">¡Mensaje Enviado!</h2>
-              <p className="text-base mb-8">
+              <p className="text-base text-text-secondary-light dark:text-text-secondary-dark mb-8">
                 Gracias por contactarnos. Te responderemos en las próximas 24 horas.
               </p>
               <motion.button 
@@ -152,7 +153,7 @@ const Contact = () => {
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             CONTACTO
           </span>
-          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             Hablemos
           </h2>
           <p className="text-base max-w-2xl mx-auto">
@@ -357,7 +358,7 @@ const InfoCard = ({ icon, title, lines }: { icon: React.ReactNode; title: string
       </motion.div>
       <div>
         <h4 className="heading-3 text-color-primary mb-2">{title}</h4>
-        <div className="text-base">
+        <div className="text-base text-text-secondary-light dark:text-text-secondary-dark">
           {lines.map((line, i) => <p key={i}>{line}</p>)}
         </div>
       </div>

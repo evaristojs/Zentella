@@ -9,19 +9,20 @@ export default {
     extend: {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'display': ['Poppins', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Modern whites for light mode
         'bg-base-light': '#FDFEFF', // Modern off-white with slight cool tint
         'bg-secondary-light': '#F8FAFC', // Subtle gray-white for cards
-        'bg-base-dark': '#111111', // Modern dark gray, not pure black
-        'bg-secondary-dark': '#1A1A2E', // Slightly lighter dark
+        'bg-base-dark': '#0a0a0a',
+        'bg-secondary-dark': '#1a1a1a',
         
         // Text colors
         'text-primary-light': '#1E1E2E', // Dark purple-gray
-        'text-primary-dark': '#F8F9FE', // Modern white for dark mode
+        'text-primary-dark': '#ffffff',
         'text-secondary-light': '#64748B', // Balanced gray
-        'text-secondary-dark': '#94A3B8', // Light gray for dark mode
+        'text-secondary-dark': '#cccccc',
         
         // Purple brand palette
         'color-primary': '#6700f8', // Primary purple

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { devLog } from '../utils/logger'
 
 interface ThemeContextType {
   isDark: boolean
@@ -9,18 +10,11 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-const getInitialTheme = (): boolean => {
+const getCurrentTheme = (): boolean => {
   if (typeof window === 'undefined') return false
   
-  try {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      return savedTheme === 'dark'
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-  } catch {
-    return false
-  }
+  // Check current DOM state instead of recalculating
+  return document.documentElement.classList.contains('dark')
 }
 
 interface ThemeProviderProps {
@@ -28,8 +22,9 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [isDark, setIsDark] = useState<boolean>(false)
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  // Initialize with current DOM state (already set in main.tsx)
+  const [isDark, setIsDark] = useState<boolean>(() => getCurrentTheme())
+  const isInitialized = true
 
   const applyTheme = useCallback((dark: boolean) => {
     if (typeof window === 'undefined' || !document.documentElement) return
@@ -51,23 +46,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    const initialTheme = getInitialTheme()
-    setIsDark(initialTheme)
-    applyTheme(initialTheme)
-    setIsInitialized(true)
-  }, [applyTheme])
-
-  useEffect(() => {
-    if (!isInitialized) return
-    
-    applyTheme(isDark)
-    
+    // Save theme preference to localStorage when it changes
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    } catch {
-      console.warn('Failed to save theme preference')
+    } catch (error) {
+      devLog.warn('Failed to save theme preference', error, 'ThemeContext')
     }
-  }, [isDark, isInitialized, applyTheme])
+  }, [isDark])
 
   const toggleTheme = useCallback(() => {
     setIsDark(prev => {

@@ -1,28 +1,14 @@
 import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-
-// Declarar Starfield como global
-declare global {
-  interface Window {
-    Starfield: {
-      setup: (config: Record<string, unknown>) => void
-      cleanup: () => void
-      setAccelerate: (state: boolean) => void
-      setOrigin: (x: number, y: number) => void
-      setOriginX: (x: number) => void
-      setOriginY: (y: number) => void
-      resize: (width: number, height: number) => void
-      config: Record<string, unknown>
-    }
-  }
-}
+import type { StarfieldConfig } from '@/types/global'
 
 interface MinimalLoadingScreenProps {
+  /** Callback fired when loading screen completes */
   onComplete: () => void
 }
 
 // ⚡ Config elegante con baja opacidad
-const starfieldConfig = {
+const starfieldConfig: StarfieldConfig = {
   numStars: 400,
   starColor: "rgba(160, 120, 255, 0.3)", // Púrpura con baja opacidad
   hueJitter: 20,
@@ -135,7 +121,7 @@ const MinimalLoadingScreen = ({ onComplete }: MinimalLoadingScreenProps) => {
               animate={{ scale: [0.8, 1.1, 1] }}
               transition={{ duration: 1.2, ease: "easeOut" }}
             />
-            <h1 className="text-3xl md:text-4xl font-light text-gray-200 mb-3">
+            <h1 className="text-3xl md:text-4xl font-light text-text-primary-dark mb-3">
               Bienvenido a
             </h1>
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">

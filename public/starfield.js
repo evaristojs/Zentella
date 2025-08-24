@@ -103,7 +103,8 @@
     canvas.style.left = "0";
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-    canvas.style.zIndex = "-1";
+    canvas.style.zIndex = "1";
+    canvas.style.pointerEvents = "none";
     canvasRGB = parseRGBA(config.canvasColor);
 
     container.appendChild(canvas);
@@ -206,7 +207,7 @@
     draw() {
       const velMag = Math.sqrt(this.vel.x * this.vel.x + this.vel.y * this.vel.y);
       const alpha = map(velMag, 0, 10, 0, 1);
-      const weight = map(velMag, 0, 10, 1, 3);
+      const weight = map(velMag, 0, 10, 1, 2);
 
       ctx.lineWidth = weight;
 

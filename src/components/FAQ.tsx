@@ -55,18 +55,6 @@ const FAQ = () => {
     },
     {
       id: 4,
-      question: "¿Cuál es la experiencia de la agencia y quiénes forman parte del equipo?",
-      answer: "Contamos con un equipo altamente capacitado de especialistas en SEO, PPC, redes sociales, diseño web, fotografía, videografía y animación. Nuestros colaboradores tienen grados en Marketing, Diseño Gráfico y áreas relacionadas, además de certificaciones de plataformas líderes.",
-      details: [
-        "Certificaciones en Google Analytics y Google Ads",
-        "Especialistas en Facebook (META) Blueprint",
-        "Experiencia con startups, PYMES y e-commerce",
-        "Equipo multidisciplinario creativo",
-        "Enfoque personalizado y estratégico"
-      ]
-    },
-    {
-      id: 5,
       question: "¿Cuánto tiempo tomará el proyecto o cuáles son los plazos de entrega?",
       answer: "La duración es variable y depende de la información proporcionada por el cliente y la complejidad del proyecto. Los proyectos se dividen en fases, y cada fase incluye un 'entregable' que requiere tu aprobación.",
       details: [
@@ -77,7 +65,7 @@ const FAQ = () => {
       ]
     },
     {
-      id: 6,
+      id: 5,
       question: "¿Cómo manejan las modificaciones y los cambios en el alcance del proyecto?",
       answer: "Ofrecemos hasta dos modificaciones incluidas en el proyecto inicial. Si se necesitan más cambios, se aplicará una tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos, formalizándose en una enmienda al contrato.",
       details: [
@@ -88,18 +76,7 @@ const FAQ = () => {
       ]
     },
     {
-      id: 7,
-      question: "¿Utilizan contratistas o subcontratan parte del trabajo?",
-      answer: "Trabajamos con una red de colaboradores especializados para acceder a talento específico y gestionar proyectos complejos. Siempre hay un socio principal supervisando, y todos los trabajos pasan por nuestro proceso de revisión interna.",
-      details: [
-        "Red de colaboradores especializados",
-        "Supervisión constante por socio principal",
-        "Proceso de revisión interna riguroso",
-        "Responsabilidad total del resultado final"
-      ]
-    },
-    {
-      id: 8,
+      id: 6,
       question: "¿Es necesario que mi empresa esté presente en redes sociales?",
       answer: "Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.",
       details: [
@@ -111,19 +88,7 @@ const FAQ = () => {
       ]
     },
     {
-      id: 9,
-      question: "¿Cómo protegen mis datos y garantizan la privacidad?",
-      answer: "Implementamos medidas de seguridad rigurosas incluyendo encriptación de datos, firewalls y monitoreo constante. Cumplimos con todas las regulaciones de privacidad relevantes y trabajamos solo con proveedores certificados.",
-      details: [
-        "Encriptación de datos sensibles",
-        "Implementación de firewalls avanzados", 
-        "Monitoreo constante de amenazas",
-        "Cumplimiento de regulaciones de privacidad",
-        "Proveedores con medidas de seguridad certificadas"
-      ]
-    },
-    {
-      id: 10,
+      id: 7,
       question: "¿Cómo es el proceso de colaboración y comunicación durante el proyecto?",
       answer: "El proceso se construye mediante el aporte constante de ambas partes: tu visión de negocio y nuestra experiencia en diseño, comunicación y tecnología. Comenzamos con una consultoría inicial y mantenemos comunicación regular throughout el proyecto.",
       details: [
@@ -178,7 +143,7 @@ const FAQ = () => {
             </span>
           </motion.div>
           
-          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             Preguntas Frecuentes
           </h2>
           <p className="text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">

@@ -109,7 +109,7 @@ const About = () => {
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
             Nosotros
           </span>
-          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             Conoce a Zentella
           </h2>
           <p className="text-base max-w-4xl mx-auto leading-relaxed">
@@ -274,13 +274,12 @@ const About = () => {
               {teamMembers.map((member, index) => (
                 <div
                   key={index}
-                  className={`card ${getCardClass(index)}`}
+                  className={`card ${getCardClass(index)} bg-bg-secondary-light dark:bg-bg-secondary-dark`}
                   onClick={() => updateCarousel(index)}
                   style={{
                     position: 'absolute',
                     width: '280px',
                     height: '380px',
-                    background: 'white',
                     borderRadius: '20px',
                     overflow: 'hidden',
                     boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
@@ -388,9 +387,8 @@ const About = () => {
               {teamMembers[currentIndex].name}
             </h2>
             <p 
-              className="member-role"
+              className="member-role text-text-secondary-light dark:text-text-secondary-dark"
               style={{
-                color: '#848696',
                 fontSize: '1.5rem',
                 fontWeight: 500,
                 opacity: 0.8,
