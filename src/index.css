@@ -252,6 +252,12 @@ body {
 }
 
 @layer utilities {
+  /* 🚀 ChatBase.co style backdrop blur implementation */
+  .backdrop-blur-\[100px\], .backdrop-blur-md {
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);
+  }
+
   /* ✨ Interacciones predefinidas */
   .hover-smooth {
     @apply transition-all duration-200 ease-in-out;

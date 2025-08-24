@@ -10,44 +10,48 @@ interface AdaptiveLogoProps {
 const AdaptiveLogo = ({ isDark, className = '' }: AdaptiveLogoProps) => {
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
 
-  // Animation variants for smooth transitions
+  // Animation variants for ultra-smooth transitions
   const logoVariants = {
     initial: { 
       opacity: 0, 
-      scale: 0.95,
-      filter: 'blur(2px)'
+      scale: 0.92,
+      rotateY: 15,
+      filter: 'blur(4px)'
     },
     animate: { 
       opacity: 1, 
       scale: 1,
+      rotateY: 0,
       filter: 'blur(0px)'
     },
     exit: { 
       opacity: 0, 
-      scale: 1.05,
-      filter: 'blur(2px)'
+      scale: 0.92,
+      rotateY: -15,
+      filter: 'blur(4px)'
     }
   }
 
-  // Dynamic sizing based on logo type and scroll state
+  // Dynamic sizing - tamaños coherentes y alineación consistente
   const getLogoSize = () => {
-    const { type, isScrolled } = logoState
+    const { type } = logoState
+    
+    // Tamaño y positioning para alinear las "Z" del logo e isotipo
+    const baseClasses = 'transition-all duration-500 ease-in-out object-contain'
     
     if (type === 'isotipo') {
-      // Isotipo (icon only) - when scrolled
-      return 'h-8 w-auto md:h-10 lg:h-12 transition-all duration-300'
+      // Isotipo: alineado al inicio del contenedor
+      return `h-12 w-12 md:h-18 lg:h-36 ${baseClasses}`
     } else {
-      // Logotipo (full logo) - at top
-      return isScrolled 
-        ? 'h-6 w-auto md:h-8 lg:h-10 transition-all duration-300' // Should not happen
-        : 'h-8 w-auto md:h-10 lg:h-12 transition-all duration-300'  // Full size at top
+      // Logotipo: alineado al inicio del contenedor
+      return `h-11 w-auto md:h-16 lg:h-19 ${baseClasses}`
     }
   }
 
 
   return (
     <motion.div 
-      className={`flex-shrink-0 relative ${className}`}
+      className={`flex-shrink-0 relative ${className} w-36 md:w-46 lg:w-50 flex items-center justify-start`}
       whileHover={{ 
         scale: 1.05,
         filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -56,23 +60,25 @@ const AdaptiveLogo = ({ isDark, className = '' }: AdaptiveLogoProps) => {
     >
       <AnimatePresence mode="wait">
         <motion.img
-          key={`${logoState.variant}-${logoState.type}`}
+          key={logoState.type}
           src={logoSrc}
           alt="Zentella"
-          className={`${getLogoSize()} object-contain transition-all duration-300 ${
-            logoState.isScrolled 
-              ? 'filter brightness-110' 
-              : ''
-          }`}
+          className={`${getLogoSize()} object-contain`}
           variants={logoVariants}
           initial="initial"
           animate="animate"
           exit="exit"
           transition={{ 
-            duration: 0.3, 
-            ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother feel
-            scale: { duration: 0.2 },
-            opacity: { duration: 0.15 }
+            duration: 0.6, 
+            ease: [0.165, 0.84, 0.44, 1], // Cubic bezier para transición premium
+            scale: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+            opacity: { duration: 0.4 },
+            rotateY: { duration: 0.5, ease: [0.23, 1, 0.32, 1] },
+            filter: { duration: 0.3 }
+          }}
+          style={{
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden'
           }}
           onLoad={() => {
             if (process.env.NODE_ENV === 'development') {

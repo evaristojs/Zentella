@@ -13,7 +13,7 @@ const ThemeToggle = ({ isDark, isInHero, toggleTheme }: ThemeToggleProps) => {
   return (
     <motion.button 
       onClick={toggleTheme}
-      className={`min-h-[44px] min-w-[44px] flex items-center justify-center p-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-offset-2 focus:ring-offset-transparent shadow-sm hover:shadow-md ${
+      className={`min-h-[44px] min-w-[44px] flex items-center justify-center p-3 rounded-xl transition-all duration-200 focus:outline-none shadow-sm hover:shadow-md ${
         isInHero && !isDark
           ? 'bg-bg-secondary-light/95 text-text-secondary-light hover:bg-bg-secondary-light hover:text-color-primary hover:scale-105'
           : 'bg-bg-secondary-light/90 dark:bg-bg-secondary-dark/90 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-color-primary dark:hover:text-color-primary hover:scale-105'

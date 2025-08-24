@@ -1,19 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTheme } from "../hooks/useTheme";
+import { useSimpleScroll } from "../hooks/useUltraScrollDetection";
 
 export default function SimpleNavbar() {
   const { isDark, toggleTheme } = useTheme();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { isScrolled: scrolled } = useSimpleScroll(50);
 
   // Selección dinámica de logo según requerimientos
   const getLogo = () => {

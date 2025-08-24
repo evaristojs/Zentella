@@ -36,7 +36,7 @@ const MobileMenu = ({
     <>
       {/* Mobile Menu Toggle Button */}
       <motion.button 
-        className={`md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-3 rounded-xl transition-all duration-200 relative z-[60] focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-offset-2 focus:ring-offset-transparent shadow-sm hover:shadow-md ${
+        className={`md:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-3 rounded-xl transition-all duration-200 relative z-[60] focus:outline-none shadow-sm hover:shadow-md ${
           isInHero && !isDark
             ? 'bg-bg-secondary-light/95 text-text-secondary-light hover:bg-bg-secondary-light hover:text-color-primary hover:scale-105'
             : 'bg-bg-secondary-light/90 dark:bg-bg-secondary-dark/90 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-color-primary dark:hover:text-color-primary hover:scale-105'
@@ -112,7 +112,7 @@ const MobileMenu = ({
                   />
                   <motion.button 
                     onClick={closeMenu}
-                    className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light/80 dark:hover:bg-bg-secondary-dark/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-offset-2 focus:ring-offset-transparent"
+                    className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light/80 dark:hover:bg-bg-secondary-dark/80 transition-colors duration-200 focus:outline-none"
                     variants={buttonHover}
                     initial="rest"
                     whileHover="hover"
@@ -143,7 +143,7 @@ const MobileMenu = ({
                           onClick={closeMenu}
                           role="menuitem"
                           aria-current={isActive(item.href) ? 'page' : undefined}
-                          className={`block min-h-[44px] flex items-center px-3 py-3 text-base font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-offset-2 focus:ring-offset-transparent ${
+                          className={`block min-h-[44px] flex items-center px-3 py-3 text-base font-medium rounded-xl transition-all duration-200 focus:outline-none ${
                             isActive(item.href)
                               ? 'text-color-primary bg-color-primary/10 border-l-4 border-color-primary'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50'
@@ -166,7 +166,7 @@ const MobileMenu = ({
                   <motion.a
                     href="#contact"
                     onClick={closeMenu}
-                    className="w-full inline-flex items-center justify-center min-h-[44px] px-4 py-3 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-offset-2 focus:ring-offset-white"
+                    className="w-full inline-flex items-center justify-center min-h-[44px] px-4 py-3 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none"
                     whileHover={prefersReducedMotion ? {} : { scale: 1.03, y: -2 }}
                   >
                     Trabajemos juntos

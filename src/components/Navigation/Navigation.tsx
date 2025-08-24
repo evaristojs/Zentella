@@ -1,55 +1,31 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
 import { useTheme } from '../../hooks/useTheme'
-import { navSlideIn, transitions } from '../../animations'
+import { navSlideIn } from '../../animations'
 import { useNavigationState, NavigationProps } from './hooks/useNavigationState'
+import { useNavbarScroll } from '../../hooks/useUltraScrollDetection'
 import NavigationBar from './NavigationBar'
 import ThemeToggle from './ThemeToggle'
 import MobileMenu from './MobileMenu'
+import AdaptiveLogo from './AdaptiveLogo'
 
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { toggleMenu, closeMenu, menuItems, activeSection, setActiveSectionManually } = useNavigationState(isMenuOpen, setIsMenuOpen)
   
-  // Simple scroll detection
-  const [scrolled, setScrolled] = useState(false)
-  
-  useEffect(() => {
-    const handleScroll = (event) => {
-      console.log("Page scrolled!", window.scrollY)
-      const scrollPosition = window.scrollY || document.documentElement.scrollTop
-      if (scrollPosition > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  // Ultra-efficient scroll detection - trigger at 2px
+  const { isScrolled: scrolled } = useNavbarScroll(2)
   
   // Define hasScrolled for compatibility with existing components
   const hasScrolled = scrolled
-  
-  // TEMPORARY: Isotope changes based on scroll state
-  const selectedLogo = scrolled ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg"
-  
-  // Debug logging (remove in production)
-  console.log('🔄 Logo Debug:', { 
-    scrolled,
-    selectedLogo
-  })
 
   return (
     <>
       <motion.nav 
-        className={`fixed top-0 left-0 w-[calc(100%-17px)] z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-xl shadow-lg'
-            : 'bg-white/20 dark:bg-bg-base-dark/20 backdrop-blur-sm'
+            ? 'bg-white/60 dark:bg-gray-900/60 backdrop-blur-md border-b border-white/20 dark:border-gray-700/30 shadow-lg'
+            : 'bg-transparent'
         }`}
         variants={navSlideIn}
         initial="hidden"
@@ -58,25 +34,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
         <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
-            {/* Logo */}
-            <motion.div 
-              className="flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
-              transition={transitions.fast}
-            >
-              <motion.img 
-                key={selectedLogo} // Force re-render on logo change
-                src={selectedLogo}
-                alt="Zentella" 
-                className="h-6 sm:h-8 lg:h-10 w-auto"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={transitions.fast}
-                style={{ 
-                  border: scrolled ? '2px solid red' : '2px solid blue' 
-                }}
-              />
-            </motion.div>
+            {/* Adaptive Logo with ultra-smooth transitions - moved left with margin */}
+            <AdaptiveLogo 
+              isDark={isDark}
+              className="flex-shrink-0 -ml-2 sm:-ml-3 lg:-ml-4"
+            />
             
             {/* Desktop Navigation */}
             <NavigationBar 
