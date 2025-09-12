@@ -261,7 +261,6 @@ class UltraScrollManager {
 export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
   const {
     threshold = 20,
-    heroOffset = 80,
     enableVelocity = false,
     enableSections = false
   } = options

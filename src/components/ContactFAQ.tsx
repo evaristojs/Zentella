@@ -137,7 +137,7 @@ const ContactFAQ = () => {
       // Simular envío del formulario
       await new Promise(resolve => setTimeout(resolve, 2000))
       
-      devLog.success('Formulario enviado exitosamente', formData, 'ContactFAQ')
+      devLog.info('Formulario enviado exitosamente', formData, 'ContactFAQ')
       setSubmitSuccess(true)
       
       // Reset form
@@ -154,7 +154,7 @@ const ContactFAQ = () => {
       setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      devLog.error('Error al enviar formulario', error, 'ContactFAQ')
+      devLog.error('Error al enviar formulario', String(error), 'ContactFAQ')
     } finally {
       setIsSubmitting(false)
     }
