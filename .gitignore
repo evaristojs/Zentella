@@ -43,3 +43,16 @@ out/
 
 # ZIP files
 *.zip
+
+# TypeScript build info
+.tsbuildinfo
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build artifacts
+*.tgz
