@@ -2,8 +2,7 @@ import { useEffect, useRef, useCallback } from 'react'
 
 interface MagneticScrollOptions {
   sections: string[] // IDs of sections to magnetize
-  magneticForce?: number // How strong the magnetic pull is (0-1)
-  threshold?: number // Distance from section center to activate magnetism
+  threshold?: number // Distance from section top to activate magnetism
   snapDelay?: number // Time to wait before snapping (ms)
   enabled?: boolean // Enable/disable magnetic scroll
 }
@@ -11,7 +10,6 @@ interface MagneticScrollOptions {
 export const useMagneticScroll = (options: MagneticScrollOptions) => {
   const {
     sections,
-    magneticForce = 0.3, // Moderate magnetic force
     threshold = 200, // 200px threshold
     snapDelay = 300, // Wait 300ms after scroll stops
     enabled = true
