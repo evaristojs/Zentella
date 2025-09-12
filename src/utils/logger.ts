@@ -23,7 +23,7 @@ class Logger {
     this.isDevelopment = this.checkDevelopmentMode();
   }
 
-  private checkDevelopmentMode(): boolean {
+    private checkDevelopmentMode(): boolean {
     // Check Vite environment variables
     if (typeof import.meta !== 'undefined' && (import.meta as any).env) {
       return (import.meta as any).env.DEV === true || (import.meta as any).env.MODE === 'development';

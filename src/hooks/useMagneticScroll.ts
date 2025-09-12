@@ -1,5 +1,4 @@
 import { useEffect, useRef, useCallback } from 'react'
-import { useNavbarHeight } from '../contexts/NavbarHeightContext'
 
 interface MagneticScrollOptions {
   sections: string[] // IDs of sections to magnetize
@@ -16,7 +15,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     enabled = true
   } = options
 
-  const { navbarHeight } = useNavbarHeight()
+  const navbarHeight = 80 // Fixed navbar height
   const isScrollingRef = useRef(false)
   const scrollTimeoutRef = useRef<NodeJS.Timeout>()
   const lastScrollTime = useRef(0)

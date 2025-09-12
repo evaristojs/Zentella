@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
-import { NavbarHeightProvider } from './contexts/NavbarHeightContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
@@ -47,7 +46,6 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <NavbarHeightProvider>
           <AnimatePresence mode="wait">
             {showLoadingScreen ? (
               <ErrorBoundary>
@@ -90,7 +88,6 @@ function App() {
               </motion.div>
             )}
           </AnimatePresence>
-        </NavbarHeightProvider>
       </ThemeProvider>
     </ErrorBoundary>
   )

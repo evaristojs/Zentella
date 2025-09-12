@@ -3,8 +3,6 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../hooks/useLanguage'
-import { useNavbarHeight } from '../contexts/NavbarHeightContext'
-import { useEffect, useRef } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -18,20 +16,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const { setNavbarHeight } = useNavbarHeight()
-  const navRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    if (!navRef.current) return
-
-    const resizeObserver = new ResizeObserver(() => {
-      if (navRef.current) {
-        setNavbarHeight(navRef.current.offsetHeight)
-      }
-    })
-    resizeObserver.observe(navRef.current)
-    return () => resizeObserver.disconnect()
-  }, [setNavbarHeight])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -76,7 +60,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
 
   return (
     <>
-      <motion.nav ref={navRef} className={getNavbarClasses()}
+      <motion.nav className={getNavbarClasses()}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}

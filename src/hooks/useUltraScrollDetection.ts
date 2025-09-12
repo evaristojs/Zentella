@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useNavbarHeight } from '../contexts/NavbarHeightContext'
 
 interface ScrollState {
   scrollY: number
@@ -43,12 +42,9 @@ class UltraScrollManager {
     this.cacheElements()
   }
 
-  static getInstance(navbarHeight?: number): UltraScrollManager {
+  static getInstance(): UltraScrollManager {
     if (!UltraScrollManager.instance) {
       UltraScrollManager.instance = new UltraScrollManager()
-    }
-    if (navbarHeight) {
-      UltraScrollManager.instance.navbarHeight = navbarHeight
     }
     return UltraScrollManager.instance
   }
@@ -270,7 +266,6 @@ export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
     enableSections = false
   } = options
 
-  const { navbarHeight } = useNavbarHeight()
 
   const [state, setState] = useState<ScrollState>({
     scrollY: 0,
@@ -313,14 +308,14 @@ export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
   }, [threshold, enableVelocity, enableSections])
 
   useEffect(() => {
-    const manager = UltraScrollManager.getInstance(navbarHeight)
+    const manager = UltraScrollManager.getInstance()
     
     manager.addListener(handleScrollUpdate)
     
     return () => {
       manager.removeListener(handleScrollUpdate)
     }
-  }, [handleScrollUpdate, navbarHeight])
+  }, [handleScrollUpdate])
 
   return {
     ...state,
