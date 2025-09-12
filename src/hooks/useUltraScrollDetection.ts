@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useNavbarHeight } from '../contexts/NavbarHeightContext'
 
 interface ScrollState {
   scrollY: number
@@ -30,6 +31,7 @@ class UltraScrollManager {
   private direction: 'up' | 'down' | 'idle' = 'idle'
   private scrollContainer: Element | null = null
   private isActive = false
+  private navbarHeight = 80 // Default value
 
   // Cached elements for section detection
   private heroElement: HTMLElement | null = null
@@ -41,9 +43,12 @@ class UltraScrollManager {
     this.cacheElements()
   }
 
-  static getInstance(): UltraScrollManager {
+  static getInstance(navbarHeight?: number): UltraScrollManager {
     if (!UltraScrollManager.instance) {
       UltraScrollManager.instance = new UltraScrollManager()
+    }
+    if (navbarHeight) {
+      UltraScrollManager.instance.navbarHeight = navbarHeight
     }
     return UltraScrollManager.instance
   }
@@ -137,7 +142,7 @@ class UltraScrollManager {
 
     // Notify all listeners
     this.listeners.forEach(callback => {
-      const sectionInfo = this.getCurrentSection(currentScrollY, 80)
+      const sectionInfo = this.getCurrentSection(currentScrollY, this.navbarHeight)
       
       const state: ScrollState = {
         scrollY: currentScrollY,
@@ -174,7 +179,7 @@ class UltraScrollManager {
     
     // Immediately call with current state
     const currentScrollY = this.getScrollY()
-    const sectionInfo = this.getCurrentSection(currentScrollY, 80)
+    const sectionInfo = this.getCurrentSection(currentScrollY, this.navbarHeight)
     
     callback({
       scrollY: currentScrollY,
@@ -265,6 +270,8 @@ export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
     enableSections = false
   } = options
 
+  const { navbarHeight } = useNavbarHeight()
+
   const [state, setState] = useState<ScrollState>({
     scrollY: 0,
     isScrolled: false,
@@ -306,14 +313,14 @@ export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
   }, [threshold, enableVelocity, enableSections])
 
   useEffect(() => {
-    const manager = UltraScrollManager.getInstance()
+    const manager = UltraScrollManager.getInstance(navbarHeight)
     
     manager.addListener(handleScrollUpdate)
     
     return () => {
       manager.removeListener(handleScrollUpdate)
     }
-  }, [handleScrollUpdate])
+  }, [handleScrollUpdate, navbarHeight])
 
   return {
     ...state,

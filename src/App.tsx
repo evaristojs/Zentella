@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { NavbarHeightProvider } from './contexts/NavbarHeightContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
@@ -46,48 +47,50 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <AnimatePresence mode="wait">
-          {showLoadingScreen ? (
-            <ErrorBoundary>
-              <LoadingScreen key="loading" onComplete={handleLoadingComplete} />
-            </ErrorBoundary>
-          ) : (
-            <motion.div
-              key="main-app"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
-            >
-              <Navigation 
-                isMenuOpen={isMenuOpen} 
-                setIsMenuOpen={setIsMenuOpen}
-                scrollToSection={scrollToSection}
-              />
-              <main>
-                <section id="hero">
-                  <Hero scrollToSection={scrollToSection} />
-                </section>
-                <section id="services">
-                  <Services />
-                </section>
-                <section id="portfolio">
-                  <Portfolio />
-                </section>
-                <section id="about">
-                  <About />
-                </section>
-                <section id="testimonials">
-                  <Testimonials />
-                </section>
-                <section id="contact">
-                  <ContactFAQ />
-                </section>
-              </main>
-              <Footer />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <NavbarHeightProvider>
+          <AnimatePresence mode="wait">
+            {showLoadingScreen ? (
+              <ErrorBoundary>
+                <LoadingScreen key="loading" onComplete={handleLoadingComplete} />
+              </ErrorBoundary>
+            ) : (
+              <motion.div
+                key="main-app"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
+              >
+                <Navigation 
+                  isMenuOpen={isMenuOpen} 
+                  setIsMenuOpen={setIsMenuOpen}
+                  scrollToSection={scrollToSection}
+                />
+                <main>
+                  <section id="hero">
+                    <Hero scrollToSection={scrollToSection} />
+                  </section>
+                  <section id="services">
+                    <Services />
+                  </section>
+                  <section id="portfolio">
+                    <Portfolio />
+                  </section>
+                  <section id="about">
+                    <About />
+                  </section>
+                  <section id="testimonials">
+                    <Testimonials />
+                  </section>
+                  <section id="contact">
+                    <ContactFAQ />
+                  </section>
+                </main>
+                <Footer />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </NavbarHeightProvider>
       </ThemeProvider>
     </ErrorBoundary>
   )

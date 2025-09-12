@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react'
+import { useNavbarHeight } from '../contexts/NavbarHeightContext'
 
 interface MagneticScrollOptions {
   sections: string[] // IDs of sections to magnetize
@@ -15,6 +16,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     enabled = true
   } = options
 
+  const { navbarHeight } = useNavbarHeight()
   const isScrollingRef = useRef(false)
   const scrollTimeoutRef = useRef<NodeJS.Timeout>()
   const lastScrollTime = useRef(0)
@@ -59,7 +61,6 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
 
     const viewportHeight = window.innerHeight
     const scrollTop = window.pageYOffset
-    const navbarHeight = 80 // Height of navbar
 
     let closestSection: HTMLElement | null = null
     let closestDistance = Infinity
@@ -101,7 +102,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
         smoothScrollToPosition(targetScroll)
       }
     }
-  }, [enabled, sections, threshold])
+  }, [enabled, sections, threshold, navbarHeight])
 
   // Smooth scroll to position with easing
   const smoothScrollToPosition = useCallback((targetY: number) => {
@@ -163,7 +164,6 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     const rect = element.getBoundingClientRect()
     const scrollTop = window.pageYOffset
     const elementTop = scrollTop + rect.top
-    const navbarHeight = 80
     const targetScroll = Math.max(0, elementTop - navbarHeight)
 
     smoothScrollToPosition(targetScroll)
@@ -172,7 +172,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     setTimeout(() => {
       userScrolling.current = false
     }, 1000)
-  }, [smoothScrollToPosition])
+  }, [smoothScrollToPosition, navbarHeight])
 
   return { scrollToSection }
 }
