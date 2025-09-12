@@ -213,15 +213,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
             
             <motion.div 
-              className="absolute top-0 right-0 w-full max-w-[340px] h-full bg-white/95 dark:bg-bg-base-dark/95 backdrop-blur-xl shadow-2xl z-[50]"
+              className="absolute top-0 left-0 w-full h-full bg-white/95 dark:bg-bg-base-dark/95 backdrop-blur-xl shadow-2xl z-[50]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
             >
-              <div className="h-full flex flex-col">
-                <nav className="flex-1 px-4 pt-8 py-4">
-                  <ul className="space-y-1">
+              <div className="h-full flex flex-col items-center justify-center max-w-md mx-auto">
+                <nav className="flex-1 px-4 pt-8 py-4 w-full flex flex-col justify-center">
+                  <ul className="space-y-3">
                     {menuItems.map((item, index) => (
                       <motion.li 
                         key={item.name}
@@ -236,7 +236,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                         <motion.a 
                           href={item.href} 
                           onClick={closeMenu}
-                          className="block px-3 py-2.5 text-base font-medium text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 rounded-xl transition-all duration-200"
+                          className="block px-6 py-4 text-xl font-medium text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 rounded-xl transition-all duration-200 text-center"
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -248,7 +248,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </nav>
 
                 <motion.div 
-                  className="p-4"
+                  className="p-6 w-full"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.6 }}
@@ -256,7 +256,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   <motion.a
                     href="#contact"
                     onClick={closeMenu}
-                    className="w-full inline-flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                    className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-lg font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
