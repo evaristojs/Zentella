@@ -18,8 +18,8 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   
-  // Initialize magnetic scroll system
-  const { scrollToSection } = useMagneticScroll({
+  // Initialize magnetic scroll system with section tracking
+  const { scrollToSection, currentSection } = useMagneticScroll({
     sections: ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact'],
     threshold: 150, // 150px activation distance from top edge
     snapDelay: 300, // Wait 300ms after scroll stops
@@ -63,6 +63,7 @@ function App() {
                   isMenuOpen={isMenuOpen} 
                   setIsMenuOpen={setIsMenuOpen}
                   scrollToSection={scrollToSection}
+                  currentSection={currentSection}
                 />
                 <main>
                   <section id="hero">

@@ -11,7 +11,7 @@ interface NavigationProps {
   currentSection?: string
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
@@ -38,14 +38,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
   ]
 
   const handleNavClick = (sectionId: string) => {
-    console.log('Navigation clicked:', sectionId)
-    console.log('scrollToSection available:', !!scrollToSection)
-    
     if (scrollToSection) {
-      console.log('Using magnetic scroll')
       scrollToSection(sectionId)
     } else {
-      console.log('Using fallback scroll')
       // Fallback to traditional scroll
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
     }
@@ -126,7 +121,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
                 <motion.button 
                   key={item.name}
                   onClick={() => handleNavClick(item.section)}
-                  className="relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50"
+                  className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                    currentSection === item.section 
+                      ? 'text-color-primary' 
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
+                  }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -277,7 +276,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
                       >
                         <motion.button 
                           onClick={() => handleNavClick(item.section)}
-                          className="block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50"
+                          className={`block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                            currentSection === item.section
+                              ? 'text-color-primary'
+                              : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
+                          }`}
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
