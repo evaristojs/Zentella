@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, useMemo } from 'react';
 
 interface NavbarHeightContextType {
