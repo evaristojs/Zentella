@@ -11,7 +11,10 @@ interface NavigationProps {
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
-  const { isScrolled } = useNavbarScroll(20)
+  const { isScrolled, scrollY } = useNavbarScroll(20)
+
+  // Temporary debug log
+  console.log('Navigation scroll state:', { isScrolled, scrollY })
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
