@@ -64,6 +64,8 @@ export interface StarfieldConfig {
   minSpawnRadius?: number
   maxSpawnRadius?: number
   auto?: boolean
+  container?: HTMLElement | null
+  originElement?: HTMLElement | null
 }
 
 export interface StarfieldInstance {
