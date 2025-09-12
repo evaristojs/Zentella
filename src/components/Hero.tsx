@@ -116,7 +116,7 @@ const Hero: React.FC = () => {
             accelerate: false,          // Comenzar en modo normal, no hiper
             container: document.querySelector('.starfield') as HTMLElement | null,
             originElement: document.querySelector('.starfield-origin') as HTMLElement | null
-          })
+          } as any)
 
           devLog.config('Hero', 'Starfield configurado', { mode: isDarkMode ? 'oscuro' : 'claro' })
         }
