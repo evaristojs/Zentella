@@ -97,8 +97,8 @@ const Hero: React.FC = () => {
 
           window.Starfield.setup({
             numStars: 400,
-            baseSpeed: 0.8, // Velocidad normal más lenta
-            trailLength: 0.2,
+            baseSpeed: 1.2, // Velocidad normal para mejor visibilidad
+            trailLength: 0.05,
             // Colores mejorados para mejor visibilidad
             starColor: isDarkMode
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
