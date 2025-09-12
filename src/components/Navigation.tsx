@@ -13,9 +13,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled, scrollY } = useNavbarScroll(20)
 
-  // Temporary debug log
-  console.log('Navigation scroll state:', { isScrolled, scrollY })
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }

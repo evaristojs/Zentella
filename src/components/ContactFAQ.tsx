@@ -301,21 +301,21 @@ const ContactFAQ = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                Contact us
+                Contáctanos
               </h4>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      NAME
+                      NOMBRE
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Jonnie Dawson"
+                      placeholder="Juan Pérez"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.name ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -332,7 +332,7 @@ const ContactFAQ = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="hello@uiwiki.co"
+                      placeholder="hola@tuempresa.com"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.email ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -400,7 +400,7 @@ const ContactFAQ = () => {
 
                 <div>
                   <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                    MESSAGE
+                    MENSAJE
                   </label>
                   <textarea
                     name="message"
@@ -410,7 +410,7 @@ const ContactFAQ = () => {
                     className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark resize-none placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                       errors.message ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                     }`}
-                    placeholder="I'd love to learn more about your services"
+                    placeholder="Me encantaría conocer más sobre sus servicios"
                   />
                   {errors.message && <p className="mt-2 text-xs text-red-500">{errors.message}</p>}
                 </div>
@@ -422,7 +422,7 @@ const ContactFAQ = () => {
                     </svg>
                   </div>
                   <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-                    I agree to the Terms and Condition
+                    Acepto los términos y condiciones
                   </p>
                 </div>
 
@@ -439,7 +439,7 @@ const ContactFAQ = () => {
                   whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >
-                  {isSubmitting ? 'Enviando...' : submitSuccess ? '¡Mensaje enviado!' : 'Send now'}
+                  {isSubmitting ? 'Enviando...' : submitSuccess ? '¡Mensaje enviado!' : 'Enviar ahora'}
                 </motion.button>
               </form>
             </div>
