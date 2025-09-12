@@ -361,7 +361,7 @@ export class StarfieldSecurityManager {
             type: 'runtime',
             message: 'Missing required config properties',
             timestamp: Date.now(),
-            details: { missingProperties: missingProps } as Record<string, unknown>
+            details: { error: `Missing properties: ${missingProps.join(', ')}` }
           })
         }
       }
