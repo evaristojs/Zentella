@@ -154,14 +154,23 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
 
   // Manual scroll to section (for navigation) - snap to top edge
   const scrollToSection = useCallback((sectionId: string) => {
+    console.log('scrollToSection called with:', sectionId)
     const element = document.getElementById(sectionId)
-    if (!element) return
+    if (!element) {
+      console.log('Element not found:', sectionId)
+      return
+    }
+
+    console.log('Element found:', element)
+    console.log('Element offsetTop:', element.offsetTop)
+    console.log('Navbar height:', navbarHeight)
 
     // Temporarily disable magnetic effect
     userScrolling.current = true
     
     // Use simpler offsetTop calculation like the original implementation
     const targetScroll = Math.max(0, element.offsetTop - navbarHeight)
+    console.log('Target scroll position:', targetScroll)
 
     smoothScrollToPosition(targetScroll)
 

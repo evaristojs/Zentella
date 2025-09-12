@@ -38,9 +38,14 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
   ]
 
   const handleNavClick = (sectionId: string) => {
+    console.log('Navigation clicked:', sectionId)
+    console.log('scrollToSection available:', !!scrollToSection)
+    
     if (scrollToSection) {
+      console.log('Using magnetic scroll')
       scrollToSection(sectionId)
     } else {
+      console.log('Using fallback scroll')
       // Fallback to traditional scroll
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
     }
