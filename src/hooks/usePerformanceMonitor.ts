@@ -136,7 +136,7 @@ export const usePerformanceMonitor = (
   const frameTimesRef = useRef<number[]>([])
   const intervalRef = useRef<NodeJS.Timeout>()
   const rafRef = useRef<number>()
-  const lastMemoryCheckRef = useRef(0)
+  // const lastMemoryCheckRef = useRef(0) // Commented out as unused
   const alertHistoryRef = useRef<Map<string, number>>(new Map())
 
   // Performance observer for paint timing
@@ -224,9 +224,9 @@ export const usePerformanceMonitor = (
 
     // Log performance alerts
     if (severity === 'critical' || severity === 'high') {
-      devLog.error('Performance Alert', alert, 'PerformanceMonitor')
+      devLog.error('Performance Alert', JSON.stringify(alert), 'PerformanceMonitor')
     } else {
-      devLog.warn('Performance Alert', alert, 'PerformanceMonitor')
+      devLog.warn('Performance Alert', JSON.stringify(alert), 'PerformanceMonitor')
     }
   }, [onAlert])
 
@@ -345,7 +345,7 @@ export const usePerformanceMonitor = (
         
         paintObserverRef.current.observe({ entryTypes: ['paint', 'measure'] })
       } catch (error) {
-        devLog.warn('PerformanceObserver not supported', error, 'PerformanceMonitor')
+        devLog.warn('PerformanceObserver not supported', String(error), 'PerformanceMonitor')
       }
     }
 

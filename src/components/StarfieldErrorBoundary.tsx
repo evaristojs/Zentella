@@ -74,7 +74,7 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
     }
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     const errorContext = this.analyzeError(error, errorInfo)
     
     // Log error details in development
@@ -170,7 +170,7 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
     for (const line of lines) {
       const match = line.match(/in (\w+)/)
       if (match && match[1] !== 'ErrorBoundary') {
-        return match[1]
+        return match[1] || 'Unknown'
       }
     }
     return 'Unknown'
@@ -252,13 +252,13 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
   /**
    * Cleanup on unmount
    */
-  componentWillUnmount() {
+  override componentWillUnmount() {
     if (this.recoveryTimeout) {
       clearTimeout(this.recoveryTimeout)
     }
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       // Show recovery state
       if (this.state.isRecovering) {

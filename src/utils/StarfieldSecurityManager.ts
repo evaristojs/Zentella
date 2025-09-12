@@ -219,7 +219,7 @@ export class StarfieldSecurityManager {
             details: { 
               method: methodName,
               args,
-              error: error instanceof Error ? error.stack : String(error)
+              error: error instanceof Error ? (error.stack || 'No stack trace') : String(error)
             }
           })
           
@@ -305,7 +305,7 @@ export class StarfieldSecurityManager {
 
       return hashHex === this.config.expectedChecksum
     } catch (error) {
-      devLog.error('Checksum validation failed', error, 'StarfieldSecurity')
+      devLog.error('Checksum validation failed', String(error), 'StarfieldSecurity')
       return false
     }
   }
@@ -361,7 +361,7 @@ export class StarfieldSecurityManager {
             type: 'runtime',
             message: 'Missing required config properties',
             timestamp: Date.now(),
-            details: { missingProperties: missingProps }
+            details: { missingProperties: missingProps } as Record<string, unknown>
           })
         }
       }
