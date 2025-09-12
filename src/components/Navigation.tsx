@@ -213,7 +213,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             />
             
             <motion.div 
-              className="absolute top-0 left-0 w-full h-full bg-white/95 dark:bg-bg-base-dark/95 backdrop-blur-xl shadow-2xl z-[50]"
+              className="absolute top-0 left-0 w-full h-full bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-lg shadow-2xl z-[50]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
