@@ -19,13 +19,29 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       // Better hero detection: check if hero section exists and use its height
       const heroSection = document.getElementById('hero')
       const heroHeight = heroSection?.offsetHeight || 600 // fallback to 600px
-      setIsInHero(scrollY < heroHeight * 0.7) // 70% of hero height
+      const newIsInHero = scrollY < heroHeight * 0.7 // 70% of hero height
+      
+      // Debug log to check logo switching
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🔄 Logo state:', { 
+          scrollY, 
+          heroHeight, 
+          threshold: heroHeight * 0.7,
+          isInHero: newIsInHero,
+          isDark,
+          logoSrc: newIsInHero 
+            ? (isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg")
+            : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
+        })
+      }
+      
+      setIsInHero(newIsInHero)
     }
 
     handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isDark])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -74,7 +90,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 src={
                   isInHero 
                     ? (isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg")
-                    : (isDark ? "/isotipo-positivo.svg" : "/isotipo-negativo.svg")
+                    : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
                 }
                 alt="Zentella" 
                 className={`w-auto transition-all duration-300 ${
