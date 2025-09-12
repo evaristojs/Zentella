@@ -233,7 +233,7 @@ const Portfolio = () => {
   return (
     <section 
       id="portfolio" 
-      className="min-h-screen pt-20 pb-24 md:pt-24 md:pb-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative snap-start"
+      className="min-h-screen pt-20 pb-24 md:pt-24 md:pb-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
       ref={elementRef}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">

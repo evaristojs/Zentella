@@ -6,11 +6,8 @@ import { devLog } from '../utils/logger'
 interface FormData {
   name: string
   email: string
-  phone: string
-  company: string
-  service: string
-  budget: string
   message: string
+  terms: boolean
 }
 
 interface FormErrors {
@@ -22,33 +19,13 @@ const Contact = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    phone: '',
-    company: '',
-    service: '',
-    budget: '',
-    message: ''
+    message: '',
+    terms: false
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const services = [
-    'Marketing Digital',
-    'Fotografía',
-    'Diseño Gráfico',
-    'Videografía',
-    'Animación',
-    'Proyecto Integral'
-  ]
-
-  const budgetRanges = [
-    '$5,000 - $15,000 MXN',
-    '$15,000 - $30,000 MXN',
-    '$30,000 - $50,000 MXN',
-    '$50,000 - $100,000 MXN',
-    '$100,000+ MXN'
-  ]
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
@@ -60,23 +37,21 @@ const Contact = () => {
     if (!formData.email.trim()) newErrors.email = 'El email es requerido'
     else if (!emailRegex.test(formData.email)) newErrors.email = 'Ingresa un email válido'
 
-    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/
-    if (!formData.phone.trim()) newErrors.phone = 'El teléfono es requerido'
-    else if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) newErrors.phone = 'Ingresa un teléfono válido'
-
-    if (!formData.service) newErrors.service = 'Selecciona un servicio'
-    if (!formData.budget) newErrors.budget = 'Selecciona un rango de presupuesto'
-
     if (!formData.message.trim()) newErrors.message = 'El mensaje es requerido'
     else if (formData.message.trim().length < 10) newErrors.message = 'El mensaje debe tener al menos 10 caracteres'
+
+    if (!formData.terms) newErrors.terms = 'Debes aceptar los términos y condiciones'
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: type === 'checkbox' ? checked : value 
+    }))
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }))
   }
 
@@ -89,7 +64,7 @@ const Contact = () => {
       await new Promise(resolve => setTimeout(resolve, 2000))
       devLog.info('Formulario enviado', JSON.stringify(formData), 'Contact')
       setIsSubmitted(true)
-      setFormData({ name: '', email: '', phone: '', company: '', service: '', budget: '', message: '' })
+      setFormData({ name: '', email: '', message: '', terms: false })
     } catch (error) {
       devLog.error('Error al enviar formulario', String(error), 'Contact')
     } finally {

@@ -47,7 +47,7 @@ const Testimonials = () => {
   return (
     <section 
       id="testimonials" 
-      className="min-h-screen py-24 md:py-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative snap-start"
+      className="min-h-screen py-24 md:py-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
       ref={elementRef}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">

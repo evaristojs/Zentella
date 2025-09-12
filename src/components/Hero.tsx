@@ -17,7 +17,11 @@ const phrases = [
 
 import { useTheme } from '../hooks/useTheme'
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  scrollToSection?: (sectionId: string) => void
+}
+
+const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const { isDark } = useTheme()
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
@@ -201,7 +205,11 @@ const Hero: React.FC = () => {
 
     // Esperar 0.7 segundos antes de hacer scroll para mostrar la aceleración
     const scrollTimeout = setTimeout(() => {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+      if (scrollToSection) {
+        scrollToSection('contact')
+      } else {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+      }
       // Desactivar aceleración después del scroll
       if (window.Starfield) {
         window.Starfield.setAccelerate(false)
@@ -216,7 +224,7 @@ const Hero: React.FC = () => {
     <>
     <section
       id="hero"
-      className="starfield min-h-screen relative overflow-hidden snap-start bg-white dark:bg-black"
+      className="starfield min-h-screen relative overflow-hidden bg-white dark:bg-black"
       style={{
         height: '100vh',
         width: '100%',
@@ -353,7 +361,11 @@ const Hero: React.FC = () => {
               <motion.button
                 className="group flex-1 max-w-[160px] px-4 py-2.5 bg-transparent border-2 border-color-primary/40 text-color-primary dark:text-color-primary rounded-full font-semibold text-sm hover:border-color-primary hover:bg-gradient-to-r hover:from-color-primary/10 hover:to-color-secondary/10 transition-all duration-300 min-h-[40px] touch-manipulation backdrop-blur-sm"
                 onClick={() => {
-                  document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+                  if (scrollToSection) {
+                    scrollToSection('portfolio')
+                  } else {
+                    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+                  }
                 }}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}

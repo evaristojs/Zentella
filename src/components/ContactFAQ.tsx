@@ -172,7 +172,7 @@ const ContactFAQ = () => {
   return (
     <section 
       id="contact" 
-      className="min-h-screen py-24 md:py-32 bg-gradient-to-br from-bg-base-light via-bg-secondary-light/30 to-bg-base-light dark:from-bg-base-dark dark:via-bg-secondary-dark/30 dark:to-bg-base-dark relative overflow-hidden snap-start"
+      className="min-h-screen py-24 md:py-32 bg-gradient-to-br from-bg-base-light via-bg-secondary-light/30 to-bg-base-light dark:from-bg-base-dark dark:via-bg-secondary-dark/30 dark:to-bg-base-dark relative overflow-hidden"
       ref={elementRef}
     >
       {/* Background Pattern */}

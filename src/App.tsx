@@ -11,11 +11,22 @@ import About from './components/About'
 import Testimonials from './components/Testimonials'
 import ContactFAQ from './components/ContactFAQ'
 import Footer from './components/Footer'
+import { useSectionScroll } from './hooks/useSectionScroll'
 import './App.css'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  
+  // Initialize section scroll detection
+  const { currentSection, scrollToSection } = useSectionScroll([
+    'hero',
+    'services', 
+    'portfolio',
+    'about',
+    'testimonials',
+    'contact'
+  ])
 
   // Verificar si es la primera visita
   useEffect(() => {
@@ -50,10 +61,15 @@ function App() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
             >
-              <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+              <Navigation 
+                isMenuOpen={isMenuOpen} 
+                setIsMenuOpen={setIsMenuOpen}
+                scrollToSection={scrollToSection}
+                currentSection={currentSection}
+              />
               <main>
                 <section id="hero">
-                  <Hero />
+                  <Hero scrollToSection={scrollToSection} />
                 </section>
                 <section id="services">
                   <Services />

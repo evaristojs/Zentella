@@ -7,9 +7,11 @@ import { useLanguage } from '../hooks/useLanguage'
 interface NavigationProps {
   isMenuOpen: boolean
   setIsMenuOpen: (isOpen: boolean) => void
+  scrollToSection?: (sectionId: string) => void
+  currentSection?: string
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled, scrollY } = useNavbarScroll(20)
@@ -28,12 +30,22 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   }
 
   const menuItems = [
-    { name: t('nav.inicio'), href: '#hero' },
-    { name: t('nav.servicios'), href: '#services' },
-    { name: t('nav.portafolio'), href: '#portfolio' },
-    { name: t('nav.nosotros'), href: '#about' },
-    { name: t('nav.contacto'), href: '#contact' }
+    { name: t('nav.inicio'), section: 'hero' },
+    { name: t('nav.servicios'), section: 'services' },
+    { name: t('nav.portafolio'), section: 'portfolio' },
+    { name: t('nav.nosotros'), section: 'about' },
+    { name: t('nav.contacto'), section: 'contact' }
   ]
+
+  const handleNavClick = (sectionId: string) => {
+    if (scrollToSection) {
+      scrollToSection(sectionId)
+    } else {
+      // Fallback to traditional scroll
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+    }
+    closeMenu()
+  }
 
   // Simplified navbar styling logic
   const getNavbarClasses = () => {
@@ -106,10 +118,14 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             
             <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {menuItems.slice(0, -1).map((item, index) => (
-                <motion.a 
+                <motion.button 
                   key={item.name}
-                  href={item.href}
-                  className="relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50"
+                  onClick={() => handleNavClick(item.section)}
+                  className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                    currentSection === item.section 
+                      ? 'text-color-primary' 
+                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
+                  }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -117,11 +133,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.name}
-                </motion.a>
+                </motion.button>
               ))}
               
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={() => handleNavClick('contact')}
                 className="ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -130,7 +146,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 whileTap={{ scale: 0.98 }}
               >
                 {t('nav.trabajemos')}
-              </motion.a>
+              </motion.button>
             </div>
 
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
@@ -258,15 +274,18 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                           ease: "easeOut"
                         }}
                       >
-                        <motion.a 
-                          href={item.href} 
-                          onClick={closeMenu}
-                          className="block px-6 py-4 text-xl font-medium text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 rounded-xl transition-all duration-200 text-center"
+                        <motion.button 
+                          onClick={() => handleNavClick(item.section)}
+                          className={`block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                            currentSection === item.section
+                              ? 'text-color-primary'
+                              : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
+                          }`}
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           {item.name}
-                        </motion.a>
+                        </motion.button>
                       </motion.li>
                     ))}
                   </ul>
@@ -278,15 +297,14 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.6 }}
                 >
-                  <motion.a
-                    href="#contact"
-                    onClick={closeMenu}
+                  <motion.button
+                    onClick={() => handleNavClick('contact')}
                     className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-lg font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {t('nav.trabajemos')}
-                  </motion.a>
+                  </motion.button>
                 </motion.div>
               </div>
             </motion.div>
