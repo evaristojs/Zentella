@@ -40,3 +40,37 @@ export interface MenuItem {
   href: string
   icon?: React.ComponentType
 }
+
+/**
+ * Starfield Types
+ */
+export interface StarfieldConfig {
+  numStars?: number
+  baseSpeed?: number
+  trailLength?: number
+  starColor?: string
+  trailOpacity?: number
+  fadeInTime?: number
+  minStarSize?: number
+  maxStarSize?: number
+  canvas?: HTMLCanvasElement
+  width?: number
+  height?: number
+}
+
+export interface StarfieldInstance {
+  setup: (config?: StarfieldConfig) => void
+  start: () => void
+  stop: () => void
+  destroy: () => void
+  updateConfig: (config: Partial<StarfieldConfig>) => void
+}
+
+/**
+ * Global Window Extensions
+ */
+declare global {
+  interface Window {
+    Starfield: StarfieldInstance
+  }
+}
