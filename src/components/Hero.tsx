@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               : 'rgb(60, 20, 180)',   // Púrpura más oscuro para mayor contraste en modo claro
             canvasColor: isDarkMode
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro en lugar de negro puro
-              : 'rgb(248, 248, 252)', // Gris muy claro en lugar de blanco puro
+              : 'rgb(15, 23, 42)',   // Azul oscuro para modo claro, compatible con texto blanco
             hueJitter: 25, // Variación de color para ambos modos
             maxAcceleration: 6,
             accelerationRate: 0.15,
@@ -142,7 +142,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
             window.Starfield.config.canvasColor = isDarkMode
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro
-              : 'rgb(248, 248, 252)' // Gris muy claro
+              : 'rgb(15, 23, 42)'    // Azul oscuro para modo claro, compatible con texto blanco
 
             devLog.config('Hero', 'Colores del starfield actualizados', { mode: isDarkMode ? 'oscuro' : 'claro' })
           })
@@ -224,7 +224,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     <>
     <section
       id="hero"
-      className="starfield min-h-screen relative overflow-hidden bg-white dark:bg-black"
+      className="starfield min-h-screen relative overflow-hidden bg-gray-900 dark:bg-black"
       style={{
         height: '100vh',
         width: '100%',
@@ -267,11 +267,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             >
               <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
                 <span
-                  className="block font-black text-center text-black dark:text-white"
+                  className="block font-black text-center text-white dark:text-white"
                   style={{
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                     lineHeight: '0.9',
-                    letterSpacing: '-0.02em'
+                    letterSpacing: '-0.02em',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
                   }}
                 >
                   Haz que
@@ -311,11 +312,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   </motion.span>
                 </div>
                 <span
-                  className="block font-black text-center text-black dark:text-white -mt-1"
+                  className="block font-black text-center text-white dark:text-white -mt-1"
                   style={{
                     fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                     lineHeight: '0.9',
-                    letterSpacing: '-0.02em'
+                    letterSpacing: '-0.02em',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
                   }}
                 >
                   con Zentella
