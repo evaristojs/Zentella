@@ -297,145 +297,171 @@ const ContactFAQ = () => {
               Cuéntanos sobre tu proyecto
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Nombre *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark ${
-                      errors.name ? 'border-red-500' : 'border-white/20 dark:border-gray-700/20'
-                    }`}
-                  />
-                  {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+            <div className="bg-white/10 dark:bg-black/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-gray-700/20 shadow-2xl">
+              <h4 className="text-xl font-bold mb-6 text-text-primary-light dark:text-text-primary-dark flex items-center gap-3">
+                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-color-accent rounded-lg flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
+                Contact us
+              </h4>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      NAME
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Jonnie Dawson"
+                      className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
+                        errors.name ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
+                      }`}
+                    />
+                    {errors.name && <p className="mt-2 text-xs text-red-500">{errors.name}</p>}
+                  </div>
                 
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      EMAIL
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="hello@uiwiki.co"
+                      className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
+                        errors.email ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
+                      }`}
+                    />
+                    {errors.email && <p className="mt-2 text-xs text-red-500">{errors.email}</p>}
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      TELÉFONO
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+52 999 123 4567"
+                      className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      EMPRESA
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Tu empresa"
+                      className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      SERVICIO DE INTERÉS
+                    </label>
+                    <select
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer ${
+                        errors.service ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
+                      }`}
+                    >
+                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">Seleccionar servicio</option>
+                      {serviceOptions.map((option) => (
+                        <option key={option} value={option} className="bg-bg-base-light dark:bg-bg-base-dark">
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.service && <p className="mt-2 text-xs text-red-500">{errors.service}</p>}
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                      PRESUPUESTO ESTIMADO
+                    </label>
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer"
+                    >
+                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">Seleccionar rango</option>
+                      {budgetRanges.map((range) => (
+                        <option key={range} value={range} className="bg-bg-base-light dark:bg-bg-base-dark">
+                          {range}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Email *
+                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    MESSAGE
                   </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
+                  <textarea
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark ${
-                      errors.email ? 'border-red-500' : 'border-white/20 dark:border-gray-700/20'
+                    rows={4}
+                    className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark resize-none placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
+                      errors.message ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                     }`}
+                    placeholder="I'd love to learn more about your services"
                   />
-                  {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+                  {errors.message && <p className="mt-2 text-xs text-red-500">{errors.message}</p>}
                 </div>
-              </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Teléfono
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark"
-                  />
+                <div className="flex items-start gap-3 py-4">
+                  <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-sm flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                    I agree to the Terms and Condition
+                  </p>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Empresa
-                  </label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark"
-                  />
-                </div>
-              </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Servicio de interés *
-                  </label>
-                  <select
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark ${
-                      errors.service ? 'border-red-500' : 'border-white/20 dark:border-gray-700/20'
-                    }`}
-                  >
-                    <option value="">Seleccionar servicio</option>
-                    {serviceOptions.map((option) => (
-                      <option key={option} value={option} className="bg-bg-base-light dark:bg-bg-base-dark">
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.service && <p className="mt-1 text-xs text-red-500">{errors.service}</p>}
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                    Presupuesto estimado
-                  </label>
-                  <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border border-white/20 dark:border-gray-700/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark"
-                  >
-                    <option value="">Seleccionar rango</option>
-                    {budgetRanges.map((range) => (
-                      <option key={range} value={range} className="bg-bg-base-light dark:bg-bg-base-dark">
-                        {range}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                  Cuéntanos sobre tu proyecto *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className={`w-full px-4 py-3 bg-white/5 dark:bg-black/5 backdrop-blur-xl border rounded-xl focus:outline-none focus:ring-2 focus:ring-color-primary transition-all duration-200 text-text-primary-light dark:text-text-primary-dark resize-none ${
-                    errors.message ? 'border-red-500' : 'border-white/20 dark:border-gray-700/20'
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 px-8 rounded-2xl font-bold text-white transition-all duration-300 shadow-xl hover:shadow-2xl text-lg ${
+                    isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : submitSuccess
+                      ? 'bg-green-500'
+                      : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
                   }`}
-                  placeholder="Describe tu proyecto, objetivos, y cualquier detalle relevante..."
-                />
-                {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-white transition-all duration-300 shadow-lg hover:shadow-xl ${
-                  isSubmitting 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : submitSuccess
-                    ? 'bg-green-500'
-                    : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90'
-                }`}
-                whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-              >
-                {isSubmitting ? 'Enviando...' : submitSuccess ? '¡Mensaje enviado!' : 'Enviar mensaje'}
-              </motion.button>
-            </form>
+                  whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                >
+                  {isSubmitting ? 'Enviando...' : submitSuccess ? '¡Mensaje enviado!' : 'Send now'}
+                </motion.button>
+              </form>
+            </div>
 
             {submitSuccess && (
               <motion.div
