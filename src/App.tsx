@@ -11,19 +11,17 @@ import About from './components/About'
 import Testimonials from './components/Testimonials'
 import ContactFAQ from './components/ContactFAQ'
 import Footer from './components/Footer'
-import { useMagneticScroll } from './hooks/useMagneticScroll'
+import { useSectionScroll } from './hooks/useSectionScroll'
 import './App.css'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   
-  // Initialize magnetic scroll system with section tracking
-  const { scrollToSection, currentSection } = useMagneticScroll({
-    sections: ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact'],
-    threshold: 150, // 150px activation distance from top edge
-    snapDelay: 300, // Wait 300ms after scroll stops
-    enabled: true
+  // Initialize section scroll detection
+  const { currentSection, scrollToSection } = useSectionScroll({
+    threshold: 0.3,
+    rootMargin: '0px 0px -20% 0px'
   })
 
   // Verificar si es la primera visita
