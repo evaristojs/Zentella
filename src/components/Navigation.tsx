@@ -37,7 +37,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-3xl shadow-lg shadow-black/10 dark:shadow-black/30`
     }
     
-    return `${baseClasses} bg-white/20 dark:bg-bg-base-dark/20 backdrop-blur-md`
+    return `${baseClasses} bg-transparent`
   }
 
   return (
