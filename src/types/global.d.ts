@@ -56,6 +56,14 @@ export interface StarfieldConfig {
   canvas?: HTMLCanvasElement
   width?: number
   height?: number
+  canvasColor?: string
+  hueJitter?: number
+  maxAcceleration?: number
+  accelerationRate?: number
+  decelerationRate?: number
+  minSpawnRadius?: number
+  maxSpawnRadius?: number
+  auto?: boolean
 }
 
 export interface StarfieldInstance {
@@ -64,6 +72,10 @@ export interface StarfieldInstance {
   stop: () => void
   destroy: () => void
   updateConfig: (config: Partial<StarfieldConfig>) => void
+  cleanup: () => void
+  setAccelerate: (accelerate: boolean) => void
+  setOrigin: (x: number, y: number) => void
+  config: StarfieldConfig
 }
 
 /**
