@@ -15,14 +15,10 @@ export default {
         // Modern whites for light mode
         'bg-base-light': '#FDFEFF', // Modern off-white with slight cool tint
         'bg-secondary-light': '#F8FAFC', // Subtle gray-white for cards
-        'bg-base-dark': '#0a0a0a',
-        'bg-secondary-dark': '#1a1a1a',
         
         // Text colors
         'text-primary-light': '#1E1E2E', // Dark purple-gray
-        'text-primary-dark': '#ffffff',
         'text-secondary-light': '#64748B', // Balanced gray
-        'text-secondary-dark': '#cccccc',
         
         // Purple brand palette
         'color-primary': '#6700f8', // Primary purple
@@ -37,6 +33,15 @@ export default {
         'color-success': '#10B981', // Keep green
         'color-warning': '#F59E0B', // Keep amber
         'color-error': '#EF4444', // Keep red
+
+        // Dark theme from Linear
+        'bg-primary-dark': '#08090a',
+        'text-primary-dark': '#f7f8f8',
+        'text-secondary-dark': '#d0d6e0',
+        'border-translucent-dark': 'hsla(0,0%,100%,.05)',
+        'header-bg-dark': 'hsla(0,0%,4%,.8)',
+        'bg-base-dark': '#0a0a0a',
+        'bg-secondary-dark': '#1a1a1a',
       },
       spacing: {
         'mobile': '1rem',
