@@ -138,6 +138,34 @@ const Portfolio = () => {
         client: 'Ambiente Chic',
         year: 2024,
         tags: ['Evento', 'Grand Opening', 'Producción', 'Corporativo']
+      },
+      {
+        id: 17,
+        title: 'Beer O\'Clock - Campaña Navideña',
+        category: 'video',
+        description: 'Video promocional navideño para marca de cerveza artesanal, con enfoque festivo y familiar',
+        image: '/images/services/video-preview.jpg',
+        images: [
+          '/images/services/video-preview.jpg'
+        ],
+        video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
+        client: 'Beer O\'Clock',
+        year: 2024,
+        tags: ['Promocional', 'Navidad', 'Cerveza', 'Familiar']
+      },
+      {
+        id: 18,
+        title: 'Time Homes - María Teresa Condos',
+        category: 'video',
+        description: 'Video promocional inmobiliario destacando las características y ubicación del proyecto residencial',
+        image: '/images/services/video-preview.jpg',
+        images: [
+          '/images/services/video-preview.jpg'
+        ],
+        video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
+        client: 'Time Homes',
+        year: 2024,
+        tags: ['Inmobiliario', 'Condos', 'Promocional', 'Arquitectura']
       }
     ]
     
@@ -273,6 +301,13 @@ const Portfolio = () => {
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
+                {item.video && (
+                  <div className="absolute top-4 right-4 bg-color-primary text-white rounded-full p-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <h3 className="text-white text-lg font-bold text-center p-4">{item.title}</h3>
                 </div>
@@ -322,23 +357,36 @@ const Portfolio = () => {
               >
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
                   <div className="relative group">
-                    <img 
-                      src={selectedItem.image} 
-                      alt={selectedItem.title} 
-                      className="w-full h-auto rounded-lg mb-4 cursor-pointer" 
-                      onClick={() => openFullscreen(selectedItem.image)}
-                    />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
-                      <motion.div
-                        className="bg-white/20 backdrop-blur-sm rounded-full p-3"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                    {selectedItem.video ? (
+                      <video 
+                        src={selectedItem.video} 
+                        controls
+                        className="w-full h-auto rounded-lg mb-4"
+                        poster={selectedItem.image}
                       >
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </motion.div>
-                    </div>
+                        Tu navegador no soporta el elemento de video.
+                      </video>
+                    ) : (
+                      <>
+                        <img 
+                          src={selectedItem.image} 
+                          alt={selectedItem.title} 
+                          className="w-full h-auto rounded-lg mb-4 cursor-pointer" 
+                          onClick={() => openFullscreen(selectedItem.image)}
+                        />
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                          <motion.div
+                            className="bg-white/20 backdrop-blur-sm rounded-full p-3"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                          >
+                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                          </motion.div>
+                        </div>
+                      </>
+                    )}
                   </div>
                   <div className="flex-grow" />
                   <div className="flex space-x-2">
