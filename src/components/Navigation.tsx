@@ -22,16 +22,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
   const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (navRef.current) {
-      const resizeObserver = new ResizeObserver(() => {
-        if (navRef.current) {
-          setNavbarHeight(navRef.current.offsetHeight)
-        }
-      })
-      resizeObserver.observe(navRef.current)
-      return () => resizeObserver.disconnect()
-    }
-    return () => {} // Return empty cleanup function when navRef.current is null
+    if (!navRef.current) return
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (navRef.current) {
+        setNavbarHeight(navRef.current.offsetHeight)
+      }
+    })
+    resizeObserver.observe(navRef.current)
+    return () => resizeObserver.disconnect()
   }, [setNavbarHeight])
 
   const toggleMenu = () => {
