@@ -11,7 +11,7 @@ interface NavigationProps {
   currentSection?: string
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection, currentSection }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)

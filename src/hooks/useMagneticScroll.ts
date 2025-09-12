@@ -143,7 +143,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
   useEffect(() => {
     if (!enabled) return
 
-    const options = { passive: true }
+    const options: AddEventListenerOptions = { passive: true }
     window.addEventListener('scroll', handleScroll, options)
 
     // Cleanup
