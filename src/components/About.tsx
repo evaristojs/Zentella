@@ -456,7 +456,7 @@ const About = () => {
                 display: 'inline-block'
               }}
             >
-              {teamMembers[currentIndex].name}
+              {teamMembers[currentIndex]?.name}
             </h2>
             <p 
               className="member-role text-text-secondary-light dark:text-text-secondary-dark"
@@ -470,7 +470,7 @@ const About = () => {
                 marginTop: '-15px'
               }}
             >
-              {teamMembers[currentIndex].role}
+              {teamMembers[currentIndex]?.role}
             </p>
           </motion.div>
 

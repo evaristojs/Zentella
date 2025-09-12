@@ -20,7 +20,7 @@ export const useIntersectionObserver = (
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const isIntersecting = entry.isIntersecting
+        const isIntersecting = entry?.isIntersecting || false
         
         if (isIntersecting && (!triggerOnce || !hasTriggered)) {
           setIsVisible(true)

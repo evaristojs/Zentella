@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
-import { staggerContainerFast, fadeInDown } from '../../animations'
+import { staggerContainerFast } from '../../animations'
 import { MenuItem } from './hooks/useNavigationState'
-import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { spacing, interactive, motion as motionTokens, typography } from '../../design/tokens'
 import { useState } from 'react'
 
@@ -13,8 +12,7 @@ interface NavigationBarProps {
   setActiveSectionManually: (section: string) => void
 }
 
-const NavigationBar = ({ menuItems, isInHero, isDark, activeSection, setActiveSectionManually }: NavigationBarProps) => {
-  const prefersReducedMotion = useReducedMotion()
+const NavigationBar = ({ menuItems, isDark, activeSection, setActiveSectionManually }: NavigationBarProps) => {
   const [clickedItem, setClickedItem] = useState<string | null>(null)
   
   console.log('NavigationBar activeSection:', activeSection) // Debug log

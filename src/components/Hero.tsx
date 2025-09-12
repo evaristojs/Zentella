@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
   // Typing effect
   useEffect(() => {
     const typeNextCharacter = (i: number) => {
-      if (i > phrases[currentPhraseIndex].length) {
+      if (i > (phrases[currentPhraseIndex]?.length || 0)) {
         // Wait 2 seconds after typing is complete, then start next phrase
         const nextPhraseTimeout = setTimeout(() => {
           setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length)
@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
       }
 
       const timeoutId = setTimeout(() => {
-        setDisplayText(phrases[currentPhraseIndex].slice(0, i))
+        setDisplayText(phrases[currentPhraseIndex]?.slice(0, i) || '')
         typeNextCharacter(i + 1)
       }, 80) // 80ms between characters
       timeoutsRef.current.push(timeoutId)
@@ -163,7 +163,7 @@ const Hero: React.FC = () => {
         try {
           window.Starfield.cleanup()
         } catch (error) {
-          devLog.warn('Error during starfield cleanup', error, 'Hero')
+          devLog.warn('Error during starfield cleanup', String(error), 'Hero')
         }
       }
 

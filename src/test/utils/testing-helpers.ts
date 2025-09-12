@@ -1,4 +1,5 @@
 import { act } from '@testing-library/react'
+import { vi, expect } from 'vitest'
 
 /**
  * Utility function to simulate scroll events
@@ -45,7 +46,7 @@ export const waitForNextTick = () => new Promise(resolve => setTimeout(resolve, 
  */
 export const createMockElement = (rect: Partial<DOMRect>): HTMLElement => {
   const element = document.createElement('div')
-  element.getBoundingClientRect = jest.fn(() => ({
+  element.getBoundingClientRect = vi.fn(() => ({
     x: 0,
     y: 0,
     width: 100,
@@ -55,7 +56,7 @@ export const createMockElement = (rect: Partial<DOMRect>): HTMLElement => {
     bottom: 100,
     right: 100,
     ...rect,
-  })) as jest.Mock
+  })) as any
   
   return element
 }

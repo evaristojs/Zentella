@@ -92,11 +92,10 @@ export class StarfieldSecurityManager {
 
   constructor(config: SecurityConfig) {
     this.config = {
-      enableChecksumValidation: true,
-      enableSignatureValidation: true,
-      enableRuntimeMonitoring: true,
-      maxExecutionTime: 100, // 100ms max per operation
-      ...config
+      enableChecksumValidation: config.enableChecksumValidation ?? true,
+      enableSignatureValidation: config.enableSignatureValidation ?? true,
+      enableRuntimeMonitoring: config.enableRuntimeMonitoring ?? true,
+      maxExecutionTime: config.maxExecutionTime ?? 100 // 100ms max per operation
     }
     
     if (this.config.enableRuntimeMonitoring) {
@@ -138,7 +137,7 @@ export class StarfieldSecurityManager {
         type: 'runtime',
         message: `Security validation error: ${error instanceof Error ? error.message : 'Unknown error'}`,
         timestamp: Date.now(),
-        details: { error: error instanceof Error ? error.stack : String(error) }
+        details: { error: error instanceof Error ? (error.stack || 'No stack trace') : String(error) }
       })
     }
 
@@ -176,7 +175,7 @@ export class StarfieldSecurityManager {
       ;(secureWrapper as any)[methodName] = (...args: any[]) => {
         try {
           // Validate arguments
-          const expectedArgTypes = this.expectedSignatures[methodName]
+          const expectedArgTypes = this.expectedSignatures[methodName as keyof typeof this.expectedSignatures]
           if (!this.validateArguments(args, expectedArgTypes)) {
             this.logViolation({
               type: 'signature',
@@ -371,7 +370,7 @@ export class StarfieldSecurityManager {
         type: 'runtime',
         message: `Runtime behavior validation failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
         timestamp: Date.now(),
-        details: { error: error instanceof Error ? error.stack : String(error) }
+        details: { error: error instanceof Error ? (error.stack || 'No stack trace') : String(error) }
       })
     }
 
@@ -407,11 +406,11 @@ export class StarfieldSecurityManager {
           devLog.config('StarfieldSecurity', 'Starfield config changed', { property, value })
         }
         
-        target[property as string] = value
+        (target as any)[property as string] = value
         return true
       },
       get: (target, property) => {
-        return target[property as string]
+        return (target as any)[property as string]
       }
     })
   }
@@ -422,7 +421,7 @@ export class StarfieldSecurityManager {
   private logViolation(violation: SecurityViolation): void {
     this.violations.push(violation)
     
-    devLog.warn('Starfield Security Violation', violation, 'StarfieldSecurity')
+    devLog.warn('Starfield Security Violation', JSON.stringify(violation), 'StarfieldSecurity')
   }
 
   /**

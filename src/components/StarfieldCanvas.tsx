@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { StarfieldSecurityManager } from '../utils/StarfieldSecurityManager'
-import type { StarfieldConfig, StarfieldAPI } from '@/types/global'
+import type { StarfieldAPI } from '@/types/global'
 
 interface StarfieldCanvasProps {
   /**

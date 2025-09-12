@@ -1,6 +1,7 @@
 /**
  * Test fixtures and mock data for components and hooks
  */
+import { vi } from 'vitest'
 
 export const mockScrollPositions = {
   top: 0,

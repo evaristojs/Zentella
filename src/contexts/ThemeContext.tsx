@@ -50,7 +50,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     try {
       localStorage.setItem('theme', isDark ? 'dark' : 'light')
     } catch (error) {
-      devLog.warn('Failed to save theme preference', error, 'ThemeContext')
+      devLog.warn('Failed to save theme preference', String(error), 'ThemeContext')
     }
   }, [isDark])
 

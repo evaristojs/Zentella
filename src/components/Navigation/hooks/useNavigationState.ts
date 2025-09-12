@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useFullScroll } from '../../../hooks/useUltraScrollDetection'
 
 export interface MenuItem {

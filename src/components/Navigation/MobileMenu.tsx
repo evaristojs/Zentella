@@ -1,10 +1,10 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { NavigationMenuItem } from './hooks/useNavigationState';
+import { MenuItem } from './hooks/useNavigationState';
 
 interface MobileMenuProps {
   isMenuOpen: boolean;
-  menuItems: NavigationMenuItem[];
+  menuItems: MenuItem[];
   toggleMenu: () => void;
   closeMenu: () => void;
   activeSection: string;

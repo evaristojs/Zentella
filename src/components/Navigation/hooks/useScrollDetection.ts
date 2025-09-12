@@ -21,14 +21,14 @@ export const useScrollDetection = (isDark: boolean) => {
     
     for (let i = 0; i < SECTION_IDS.length; i++) {
       const sectionId = SECTION_IDS[i]
-      const section = sections[sectionId]
+      const section = sections[sectionId as keyof typeof sections]
       
       if (section) {
         const sectionTop = section.offsetTop
         const sectionBottom = sectionTop + section.offsetHeight
         
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-          newCurrentSection = sectionId
+          newCurrentSection = sectionId || 'hero'
           newIsInHero = sectionId === 'hero'
           break
         }

@@ -82,15 +82,15 @@ const Testimonials = () => {
             >
               <div className="flex flex-col items-center text-center">
                 <img
-                  src={testimonials[currentTestimonial].image}
-                  alt={testimonials[currentTestimonial].name}
+                  src={testimonials[currentTestimonial]?.image}
+                  alt={testimonials[currentTestimonial]?.name}
                   className="w-24 h-24 rounded-full object-cover mb-6 border-4 border-color-primary/20"
                 />
                 <blockquote className="text-xl lg:text-2xl text-text-secondary-light dark:text-text-secondary-dark leading-relaxed mb-6 font-medium">
-                  "{testimonials[currentTestimonial].text}"
+                  "{testimonials[currentTestimonial]?.text}"
                 </blockquote>
-                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">{testimonials[currentTestimonial].name}</div>
-                <div className="text-color-primary">{testimonials[currentTestimonial].role}</div>
+                <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">{testimonials[currentTestimonial]?.name}</div>
+                <div className="text-color-primary">{testimonials[currentTestimonial]?.role}</div>
               </div>
             </motion.div>
 

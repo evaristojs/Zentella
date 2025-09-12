@@ -114,7 +114,7 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
    */
   private analyzeError(error: Error, errorInfo: React.ErrorInfo): StarfieldErrorContext {
     const errorMessage = error.message.toLowerCase()
-    const componentStack = errorInfo.componentStack.toLowerCase()
+    const componentStack = errorInfo.componentStack?.toLowerCase() || ''
     
     let type: StarfieldErrorContext['type'] = 'unknown'
     let severity: StarfieldErrorContext['severity'] = 'medium'
@@ -152,7 +152,7 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
 
     return {
       type,
-      component: this.extractComponentName(errorInfo.componentStack),
+      component: this.extractComponentName(errorInfo.componentStack || ''),
       timestamp: Date.now(),
       userAgent: navigator.userAgent,
       url: window.location.href,
@@ -164,7 +164,8 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
   /**
    * Extract component name from stack trace
    */
-  private extractComponentName(componentStack: string): string {
+  private extractComponentName(componentStack: string | undefined): string {
+    if (!componentStack) return 'Unknown'
     const lines = componentStack.split('\n')
     for (const line of lines) {
       const match = line.match(/in (\w+)/)
@@ -226,7 +227,7 @@ class StarfieldErrorBoundary extends Component<StarfieldErrorBoundaryProps, Star
   /**
    * Report error to monitoring service
    */
-  private reportError(error: Error, errorInfo: React.ErrorInfo, context: StarfieldErrorContext) {
+  private reportError(_error: Error, _errorInfo: React.ErrorInfo, _context: StarfieldErrorContext) {
     // In production, report to error tracking service
     if (process.env.NODE_ENV === 'production') {
       // Example: Sentry, LogRocket, Bugsnag, etc.

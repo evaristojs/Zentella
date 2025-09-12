@@ -60,8 +60,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <MobileMenu 
                 isMenuOpen={isMenuOpen}
                 menuItems={menuItems}
-                isDark={isDark}
-                isInHero={!hasScrolled}
                 toggleMenu={toggleMenu}
                 closeMenu={closeMenu}
                 activeSection={activeSection}

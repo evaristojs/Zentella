@@ -26,7 +26,7 @@ class Logger {
   private checkDevelopmentMode(): boolean {
     // Check Vite environment variables
     if (typeof import.meta !== 'undefined' && import.meta.env) {
-      return import.meta.env.DEV === true || import.meta.env.MODE === 'development';
+      return (import.meta.env as any).DEV === true || (import.meta.env as any).MODE === 'development';
     }
     
     // Fallback to Node.js environment
