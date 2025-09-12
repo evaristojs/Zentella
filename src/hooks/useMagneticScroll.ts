@@ -101,7 +101,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
         smoothScrollToPosition(targetScroll)
       }
     }
-  }, [enabled, sections, threshold, navbarHeight])
+  }, [enabled, sections, threshold])
 
   // Smooth scroll to position with easing
   const smoothScrollToPosition = useCallback((targetY: number) => {
@@ -171,7 +171,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     setTimeout(() => {
       userScrolling.current = false
     }, 1000)
-  }, [smoothScrollToPosition, navbarHeight])
+  }, [smoothScrollToPosition])
 
   return { scrollToSection }
 }
