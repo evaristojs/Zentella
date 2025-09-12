@@ -1,531 +1,158 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import { useState } from 'react'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
 
-
-  const values = [
-    {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
-      title: 'Innovación',
-      description: 'Creamos ideas únicas y distintivas que moldean la identidad de tu marca.'
-    },
-    {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: 'Responsabilidad',
-      description: 'Comprometidos éticamente con el medio ambiente y la sociedad.'
-    },
-    {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      ),
-      title: 'Pasión',
-      description: 'Amor por lo que hacemos, reflejado en cada proyecto que desarrollamos.'
-    }
-  ]
-
   const teamMembers = [
-    { 
-      name: "Ángel Reyes", 
-      role: "Director Creativo",
-      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    {
+      name: "Nicole Pattinson",
+      role: "Operations Head", 
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
+      linkedin: "#",
+      twitter: "#"
     },
-    { 
-      name: "Stephanía García", 
-      role: "Directora de Marketing",
-      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    {
+      name: "Patrick Beckham", 
+      role: "CEO - Founder",
+      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
+      linkedin: "#",
+      twitter: "#"
     },
-    { 
-      name: "Ana García", 
-      role: "Community Manager",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmVzc2lvbmFsJTIwcGVvcGxlfGVufDB8fDB8fHww"
-    },
-    { 
-      name: "Colaborador Creativo", 
-      role: "Diseñador Senior",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmVzc2lvbmFsJTIwcGVvcGxlfGVufDB8fDB8fHww"
-    },
-    { 
-      name: "Especialista Digital", 
-      role: "Growth Manager",
-      image: "https://images.unsplash.com/photo-1655249481446-25d575f1c054?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fHByb2Zlc3Npb25hbCUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D"
-    },
-    { 
-      name: "Estratega de Marca", 
-      role: "Brand Manager",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    {
+      name: "Johan Cryuff",
+      role: "Marketing Head", 
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
+      linkedin: "#", 
+      twitter: "#"
     }
   ]
-
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-
-  const updateCarousel = (newIndex: number) => {
-    if (isAnimating) return
-    setIsAnimating(true)
-    setCurrentIndex((newIndex + teamMembers.length) % teamMembers.length)
-    
-    setTimeout(() => {
-      setIsAnimating(false)
-    }, 800)
-  }
-
-  const getCardClass = (index: number) => {
-    const offset = (index - currentIndex + teamMembers.length) % teamMembers.length
-    
-    if (offset === 0) return 'center'
-    if (offset === 1) return 'right-1'
-    if (offset === 2) return 'right-2'
-    if (offset === teamMembers.length - 1) return 'left-1'
-    if (offset === teamMembers.length - 2) return 'left-2'
-    return 'hidden'
-  }
 
   return (
     <section 
-      id="about" 
-      className="min-h-screen py-12 md:py-20 bg-white dark:bg-bg-base-dark snap-start"
       ref={elementRef}
+      className="py-20 bg-gray-900 text-white min-h-screen flex items-center"
     >
-      <div className="layout-container">
-        <motion.div 
-          className="text-center mb-16"
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
-            Nosotros
-          </span>
-          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Conoce a Zentella
-          </h2>
-          <p className="text-base max-w-4xl mx-auto leading-relaxed">
-            Nos dedicamos a la planificación, creación y comunicación en los diversos canales digitales para el posicionamiento de las marcas, a través de campañas impactantes y estrategias personalizadas para cada cliente.
-          </p>
+          {/* Our Team Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-block mb-8"
+          >
+            <span className="px-4 py-2 bg-gray-800 text-gray-300 text-sm font-medium rounded-full border border-gray-700">
+              Our Team
+            </span>
+          </motion.div>
+
+          {/* Main Title */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-5xl lg:text-6xl font-bold mb-6 text-white"
+          >
+            Meet the Creators
+          </motion.h2>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
+          >
+            Our team blends strategy, design, and passion to create
+            <br />
+            powerful, lasting impact
+          </motion.p>
         </motion.div>
 
-        {/* Misión, Visión y Valores */}
-        <div className="grid-mobile lg:grid-cols-1 gap-12 mb-16">
-          <motion.div
-            className="space-y-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* Misión */}
-            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
-              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
-            >
-              <div className="relative flex flex-col items-center text-center">
-                <motion.div 
-                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
-                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
-                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
-                >
-                  <div className="text-white">
-                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  </div>
-                </motion.div>
-
-                <div className="flex-1 space-y-4">
-                  <motion.h3 
-                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    Misión
-                  </motion.h3>
-                  
-                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium">
-                    Potenciar los proyectos de todos los emprendedores y hacerlos crecer sea cual sea el punto en el que se encuentren. Ofrecemos soluciones avanzadas de mercadeo de forma personalizada que permiten mejorar la competitividad y productividad de tu marca, producto o servicio.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Visión */}
-            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
-              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
-            >
-              <div className="relative flex flex-col items-center text-center">
-                <motion.div 
-                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
-                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
-                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
-                >
-                  <div className="text-white">
-                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                    </svg>
-                  </div>
-                </motion.div>
-
-                <div className="flex-1 space-y-4">
-                  <motion.h3 
-                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    Visión
-                  </motion.h3>
-                  
-                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium">
-                    Ser una Agencia de Marketing capaz de proponer campañas, técnicas y herramientas de comunicación a todas aquellas empresas que tengan algo que decir a quien quiera escuchar su mensaje.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Valores */}
-            <motion.div className="group relative cursor-pointer p-8 bg-bg-secondary-light dark:bg-bg-secondary-dark rounded-3xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
-              whileHover={{ y: -8, boxShadow: "0 35px 70px -12px rgba(103, 0, 248, 0.2), 0 15px 25px -5px rgba(0, 0, 0, 0.15)" }}
-            >
-              <div className="relative flex flex-col items-center text-center">
-                <motion.div 
-                  className="w-20 h-20 mb-6 relative flex items-center justify-center bg-gradient-to-br from-color-primary to-color-secondary rounded-full shadow-lg"
-                  whileHover={{ scale: 1.1, rotate: [0, -8, 8, 0] }}
-                  transition={{ scale: { duration: 0.3 }, rotate: { duration: 0.6, ease: "easeInOut" } }}
-                >
-                  <div className="text-white">
-                    <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l2.09 4.26 4.86.71-3.5 3.41.82 4.81L12 13.35l-4.27 2.84.82-4.81-3.5-3.41 4.86-.71L12 2z" />
-                    </svg>
-                  </div>
-                </motion.div>
-
-                <div className="flex-1 space-y-4 w-full">
-                  <motion.h3 
-                    className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
-                  >
-                    Valores
-                  </motion.h3>
-                  
-                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium mb-6">
-                    Destacamos la comunicación y la profesionalidad, ante todo, no solo con el cliente sino como cultura interna del equipo. Tomamos el <strong>Kaizen</strong> como filosofía de mejora continua.
-                  </p>
-                  
-                  <h4 className="text-xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">¿Qué nos identifica?</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {values.map((value, index) => (
-                      <motion.div
-                        key={value.title}
-                        className="text-center p-4 rounded-xl bg-color-primary/5 hover:bg-color-primary/10 transition-colors duration-300"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                      >
-                        <div className="w-12 h-12 bg-color-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                          <div className="text-color-primary text-lg">
-                            {value.icon}
-                          </div>
-                        </div>
-                        <h5 className="font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 text-sm">
-                          {value.title}
-                        </h5>
-                        <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                          {value.description}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* 3D Team Carousel */}
+        {/* Team Cards */}
         <motion.div
-          className="team-section relative"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          style={{ 
-            minHeight: '600px',
-            overflow: 'hidden',
-            perspective: '1000px'
-          }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
         >
-          {/* Team Title */}
-          <h1 
-            className="team-title"
-            style={{
-              fontSize: '6rem',
-              fontWeight: 900,
-              textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
-              position: 'absolute',
-              top: '20px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              pointerEvents: 'none',
-              whiteSpace: 'nowrap',
-              fontFamily: '"Arial Black", "Arial Bold", Arial, sans-serif',
-              background: 'linear-gradient(to bottom, rgba(103, 0, 248, 0.35) 30%, rgba(255, 255, 255, 0) 76%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
-              zIndex: 1
-            }}
-          >
-            NUESTRO EQUIPO
-          </h1>
-
-          {/* Carousel Container */}
-          <div 
-            className="carousel-container"
-            style={{
-              width: '100%',
-              maxWidth: '1200px',
-              height: '450px',
-              position: 'relative',
-              perspective: '1000px',
-              marginTop: '80px',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}
-          >
-            {/* Left Arrow */}
-            <button
-              className="nav-arrow left"
-              onClick={() => updateCarousel(currentIndex - 1)}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '20px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(103, 0, 248, 0.6)',
-                color: 'white',
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                zIndex: 20,
-                transition: 'all 0.3s ease',
-                fontSize: '1.5rem',
-                border: 'none',
-                outline: 'none',
-                paddingBottom: '4px',
-                paddingRight: '3px'
-              }}
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={member.name}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+              className="group"
             >
-              ‹
-            </button>
-
-            {/* Carousel Track */}
-            <div 
-              className="carousel-track"
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'relative',
-                transformStyle: 'preserve-3d',
-                transition: 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-              }}
-            >
-              {teamMembers.map((member, index) => (
-                <div
-                  key={index}
-                  className={`card ${getCardClass(index)} bg-bg-secondary-light dark:bg-bg-secondary-dark`}
-                  onClick={() => updateCarousel(index)}
-                  style={{
-                    position: 'absolute',
-                    width: '280px',
-                    height: '380px',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
-                    transition: 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    cursor: 'pointer',
-                    ...(getCardClass(index) === 'center' && {
-                      zIndex: 10,
-                      transform: 'scale(1.1) translateZ(0)'
-                    }),
-                    ...(getCardClass(index) === 'left-2' && {
-                      zIndex: 1,
-                      transform: 'translateX(-400px) scale(0.8) translateZ(-300px)',
-                      opacity: 0.7
-                    }),
-                    ...(getCardClass(index) === 'left-1' && {
-                      zIndex: 5,
-                      transform: 'translateX(-200px) scale(0.9) translateZ(-100px)',
-                      opacity: 0.9
-                    }),
-                    ...(getCardClass(index) === 'right-1' && {
-                      zIndex: 5,
-                      transform: 'translateX(200px) scale(0.9) translateZ(-100px)',
-                      opacity: 0.9
-                    }),
-                    ...(getCardClass(index) === 'right-2' && {
-                      zIndex: 1,
-                      transform: 'translateX(400px) scale(0.8) translateZ(-300px)',
-                      opacity: 0.7
-                    }),
-                    ...(getCardClass(index) === 'hidden' && {
-                      opacity: 0,
-                      pointerEvents: 'none'
-                    })
-                  }}
-                >
+              {/* Card Container */}
+              <div className="bg-gray-800 rounded-3xl overflow-hidden hover:bg-gray-750 transition-all duration-300 border border-gray-700 hover:border-gray-600">
+                {/* Image Container */}
+                <div className="relative overflow-hidden h-80">
                   <img
                     src={member.image}
                     alt={member.name}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                      filter: getCardClass(index) === 'center' ? 'none' : 'grayscale(100%)'
-                    }}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+                  
+                  {/* Social Icons */}
+                  <div className="absolute bottom-4 left-4 flex space-x-3">
+                    <a
+                      href={member.linkedin}
+                      className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors duration-200"
+                      aria-label={`${member.name} LinkedIn`}
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                    <a
+                      href={member.twitter}
+                      className="w-10 h-10 bg-black/50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black transition-colors duration-200"
+                      aria-label={`${member.name} Twitter`}
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Right Arrow */}
-            <button
-              className="nav-arrow right"
-              onClick={() => updateCarousel(currentIndex + 1)}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                right: '20px',
-                transform: 'translateY(-50%)',
-                background: 'rgba(103, 0, 248, 0.6)',
-                color: 'white',
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                zIndex: 20,
-                transition: 'all 0.3s ease',
-                fontSize: '1.5rem',
-                border: 'none',
-                outline: 'none',
-                paddingBottom: '4px',
-                paddingLeft: '3px'
-              }}
-            >
-              ›
-            </button>
-          </div>
-
-          {/* Member Info */}
-          <motion.div 
-            className="member-info"
-            key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              textAlign: 'center',
-              marginTop: '40px'
-            }}
-          >
-            <h2 
-              className="member-name"
-              style={{
-                color: 'rgb(103, 0, 248)',
-                fontSize: '2.5rem',
-                fontWeight: 700,
-                marginBottom: '10px',
-                position: 'relative',
-                display: 'inline-block'
-              }}
-            >
-              {teamMembers[currentIndex]?.name}
-            </h2>
-            <p 
-              className="member-role text-text-secondary-light dark:text-text-secondary-dark"
-              style={{
-                fontSize: '1.5rem',
-                fontWeight: 500,
-                opacity: 0.8,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                padding: '10px 0',
-                marginTop: '-15px'
-              }}
-            >
-              {teamMembers[currentIndex]?.role}
-            </p>
-          </motion.div>
-
-          {/* Dots Navigation */}
-          <div 
-            className="dots"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: '10px',
-              marginTop: '60px'
-            }}
-          >
-            {teamMembers.map((_, index) => (
-              <div
-                key={index}
-                className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => updateCarousel(index)}
-                style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  background: index === currentIndex ? 'rgb(103, 0, 248)' : 'rgba(103, 0, 248, 0.2)',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  transform: index === currentIndex ? 'scale(1.2)' : 'scale(1)'
-                }}
-              />
-            ))}
-          </div>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-200">
+                    {member.name}
+                  </h3>
+                  <div className="inline-block">
+                    <span className="px-3 py-1 bg-gray-700 text-gray-300 text-sm rounded-full border border-gray-600">
+                      {member.role}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
-        {/* CTA Final */}
+        {/* View All Button */}
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
           className="text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 1.0 }}
         >
-          <div className="card-base-static bg-gradient-to-r from-color-primary/5 to-color-secondary/5 border-color-primary/20">
-            <h3 className="heading-2 text-color-primary mb-4">
-              ¡Quédate con nosotros y despega!
-            </h3>
-            <p className="text-base mb-6">
-              Destacamos por crear ideas únicas y distintivas que moldean la identidad de tu marca, junto con estrategias de marketing personalizadas para cada uno de nuestros colaboradores.
-            </p>
-            <motion.button 
-              className="btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Contáctanos Ahora
-            </motion.button>
-          </div>
+          <button className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl">
+            View all
+            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </button>
         </motion.div>
       </div>
     </section>
