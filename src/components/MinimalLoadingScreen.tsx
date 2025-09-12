@@ -60,8 +60,8 @@ const MinimalLoadingScreen = ({ onComplete }: MinimalLoadingScreenProps) => {
           auto: false  // Desactivar auto para control manual completo
         })
         
-        // Acelerar desde el inicio
-        window.Starfield.setAccelerate(true)
+        // Comenzar en modo normal
+        window.Starfield.setAccelerate(false)
         
         // Siempre centrar en el centro de la pantalla
         const centerScreen = () => {

@@ -97,7 +97,7 @@ const Hero: React.FC = () => {
 
           window.Starfield.setup({
             numStars: 400,
-            baseSpeed: 1.8,
+            baseSpeed: 0.8, // Velocidad normal más lenta
             trailLength: 0.2,
             // Colores mejorados para mejor visibilidad
             starColor: isDarkMode
@@ -113,6 +113,7 @@ const Hero: React.FC = () => {
             minSpawnRadius: 100,
             maxSpawnRadius: 500,
             auto: false,                // Desactivar auto para control manual
+            accelerate: false,          // Comenzar en modo normal, no hiper
             container: document.querySelector('.starfield') as HTMLElement | null,
             originElement: document.querySelector('.starfield-origin') as HTMLElement | null
           })
