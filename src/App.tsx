@@ -6,11 +6,10 @@ import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Services from './components/Services'
-import FAQ from './components/FAQ'
 import Portfolio from './components/Portfolio'
 import About from './components/About'
 import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
+import ContactFAQ from './components/ContactFAQ'
 import Footer from './components/Footer'
 import './App.css'
 
@@ -68,12 +67,7 @@ function App() {
                 <section id="testimonials">
                   <Testimonials />
                 </section>
-                <section id="faq">
-                  <FAQ />
-                </section>
-                <section id="contact">
-                  <Contact />
-                </section>
+                <ContactFAQ />
               </main>
               <Footer />
             </motion.div>

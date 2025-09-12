@@ -56,7 +56,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     { name: 'Servicios', href: '#services' },
     { name: 'Portafolio', href: '#portfolio' },
     { name: 'Nosotros', href: '#about' },
-    { name: 'FAQ', href: '#faq' },
     { name: 'Contacto', href: '#contact' }
   ]
 
@@ -102,7 +101,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-              {menuItems.map((item, index) => (
+              {menuItems.slice(0, -1).map((item, index) => (
                 <motion.a 
                   key={item.name}
                   href={item.href}
@@ -116,6 +115,18 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   {item.name}
                 </motion.a>
               ))}
+              
+              <motion.a
+                href="#contact"
+                className="ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Trabajemos juntos
+              </motion.a>
             </div>
 
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
