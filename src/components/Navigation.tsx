@@ -14,19 +14,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.getElementById('hero')
-      const servicesSection = document.getElementById('services')
-      
-      if (heroSection && servicesSection) {
-        const servicesTop = servicesSection.offsetTop
-        const scrollPosition = window.scrollY + 80 // Offset for navbar height
-        
-        setIsScrolled(window.scrollY > 20)
-        setIsInHero(scrollPosition < servicesTop)
-      }
+      const scrollY = window.scrollY
+      setIsScrolled(scrollY > 20)
+      setIsInHero(scrollY < 500) // Simple threshold instead of DOM queries
     }
 
-    handleScroll() // Check initial position
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])

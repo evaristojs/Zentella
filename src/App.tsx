@@ -51,49 +51,31 @@ function App() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
             >
-              <ErrorBoundary>
-                <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-              </ErrorBoundary>
+              <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
               <main>
                 <section id="hero">
-                  <ErrorBoundary>
-                    <Hero />
-                  </ErrorBoundary>
+                  <Hero />
                 </section>
                 <section id="about">
-                  <ErrorBoundary>
-                    <About />
-                  </ErrorBoundary>
+                  <About />
                 </section>
                 <section id="services">
-                  <ErrorBoundary>
-                    <Services />
-                  </ErrorBoundary>
+                  <Services />
                 </section>
                 <section id="portfolio">
-                  <ErrorBoundary>
-                    <Portfolio />
-                  </ErrorBoundary>
+                  <Portfolio />
                 </section>
                 <section id="testimonials">
-                  <ErrorBoundary>
-                    <Testimonials />
-                  </ErrorBoundary>
+                  <Testimonials />
                 </section>
                 <section id="faq">
-                  <ErrorBoundary>
-                    <FAQ />
-                  </ErrorBoundary>
+                  <FAQ />
                 </section>
                 <section id="contact">
-                  <ErrorBoundary>
-                    <Contact />
-                  </ErrorBoundary>
+                  <Contact />
                 </section>
               </main>
-              <ErrorBoundary>
-                <Footer />
-              </ErrorBoundary>
+              <Footer />
             </motion.div>
           )}
         </AnimatePresence>
