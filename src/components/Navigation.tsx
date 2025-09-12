@@ -71,9 +71,17 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               transition={{ duration: 0.2 }}
             >
               <img 
-                src={isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg"}
+                src={
+                  isInHero 
+                    ? (isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg")
+                    : (isDark ? "/isotipo-positivo.svg" : "/isotipo-negativo.svg")
+                }
                 alt="Zentella" 
-                className="h-6 sm:h-8 lg:h-10 w-auto"
+                className={`w-auto transition-all duration-300 ${
+                  isInHero 
+                    ? "h-6 sm:h-8 lg:h-10" 
+                    : "h-5 sm:h-6 lg:h-8"
+                }`}
               />
             </motion.div>
             
