@@ -96,7 +96,16 @@ const Contact = () => {
       await new Promise(resolve => setTimeout(resolve, 2000))
       devLog.info('Formulario enviado', JSON.stringify(formData), 'Contact')
       setIsSubmitted(true)
-      setFormData({ name: '', email: '', message: '', terms: false })
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        company: '', 
+        service: '', 
+        budget: '', 
+        message: '', 
+        terms: false 
+      })
     } catch (error) {
       devLog.error('Error al enviar formulario', String(error), 'Contact')
     } finally {
