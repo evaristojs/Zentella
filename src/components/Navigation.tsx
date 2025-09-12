@@ -53,9 +53,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
 
   const menuItems = [
     { name: 'Inicio', href: '#hero' },
-    { name: 'Nosotros', href: '#about' },
     { name: 'Servicios', href: '#services' },
     { name: 'Portafolio', href: '#portfolio' },
+    { name: 'Nosotros', href: '#about' },
     { name: 'FAQ', href: '#faq' },
     { name: 'Contacto', href: '#contact' }
   ]
