@@ -27,6 +27,11 @@ const translations = {
 
     // Contact Form
     'contact.titulo': 'Contáctanos',
+    'contact.subtitulo': '¿Dudas? Hablemos',
+    'contact.titulo_principal': 'Resolvamos tus dudas y comencemos',
+    'contact.descripcion': 'Consulta nuestras preguntas frecuentes o contáctanos directamente. Estamos listos para hacer crecer tu negocio.',
+    'contact.faq_titulo': 'Preguntas Frecuentes',
+    'contact.form_titulo': 'Cuéntanos sobre tu proyecto',
     'contact.nombre': 'NOMBRE',
     'contact.email': 'EMAIL', 
     'contact.telefono': 'TELÉFONO',
@@ -78,6 +83,11 @@ const translations = {
 
     // Contact Form  
     'contact.titulo': 'Contact us',
+    'contact.subtitulo': 'Questions? Let\'s talk',
+    'contact.titulo_principal': 'Let\'s solve your doubts and get started',
+    'contact.descripcion': 'Check our frequently asked questions or contact us directly. We\'re ready to grow your business.',
+    'contact.faq_titulo': 'Frequently Asked Questions',
+    'contact.form_titulo': 'Tell us about your project',
     'contact.nombre': 'NAME',
     'contact.email': 'EMAIL',
     'contact.telefono': 'PHONE',

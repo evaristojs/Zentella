@@ -203,15 +203,15 @@ const ContactFAQ = () => {
           >
             <div className="w-2 h-2 bg-color-primary rounded-full animate-pulse" />
             <span className="text-small font-medium text-color-primary uppercase tracking-wider">
-              ¿Dudas? Hablemos
+              {t('contact.subtitulo')}
             </span>
           </motion.div>
           
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Resolvamos tus dudas y comencemos
+            {t('contact.titulo_principal')}
           </h2>
           <p className="text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
-            Consulta nuestras preguntas frecuentes o contáctanos directamente. Estamos listos para hacer crecer tu negocio.
+            {t('contact.descripcion')}
           </p>
         </motion.div>
 
@@ -223,7 +223,7 @@ const ContactFAQ = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <h3 className="text-2xl font-bold mb-8 text-text-primary-light dark:text-text-primary-dark">
-              Preguntas Frecuentes
+              {t('contact.faq_titulo')}
             </h3>
             
             <div className="space-y-4">
@@ -293,7 +293,7 @@ const ContactFAQ = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <h3 className="text-2xl font-bold mb-8 text-text-primary-light dark:text-text-primary-dark">
-              Cuéntanos sobre tu proyecto
+              {t('contact.form_titulo')}
             </h3>
 
             <div className="bg-white/10 dark:bg-black/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-gray-700/20 shadow-2xl">
