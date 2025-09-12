@@ -30,7 +30,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
           isInHero: newIsInHero,
           isDark,
           logoSrc: newIsInHero 
-            ? (isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg")
+            ? (isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg")
             : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
         })
       }
@@ -89,7 +89,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               <img 
                 src={
                   isInHero 
-                    ? (isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg")
+                    ? (isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg")
                     : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
                 }
                 alt="Zentella" 
@@ -207,7 +207,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 
                 <div className="flex items-center justify-between p-4 border-b border-text-secondary-light/20 dark:border-text-secondary-dark/20">
                   <img 
-                    src={isDark ? "/positivozentella2025.svg" : "/regularzentella2025.svg"}
+                    src={isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg"}
                     alt="Zentella" 
                     className="h-7 w-auto"
                   />
