@@ -137,7 +137,7 @@ const ContactFAQ = () => {
       // Simular envío del formulario
       await new Promise(resolve => setTimeout(resolve, 2000))
       
-      devLog.info('Formulario enviado exitosamente', formData, 'ContactFAQ')
+      devLog.info('Formulario enviado exitosamente', { ...formData }, 'ContactFAQ')
       setSubmitSuccess(true)
       
       // Reset form
