@@ -34,10 +34,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     const baseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
     
     if (isScrolled) {
-      return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30`
+      return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-3xl shadow-lg shadow-black/10 dark:shadow-black/30`
     }
     
-    return `${baseClasses} bg-white/20 dark:bg-bg-base-dark/20 backdrop-blur-sm`
+    return `${baseClasses} bg-white/20 dark:bg-bg-base-dark/20 backdrop-blur-md`
   }
 
   return (
