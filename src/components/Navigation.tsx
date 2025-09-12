@@ -14,7 +14,7 @@ interface NavigationProps {
 const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
-  const { isScrolled, scrollY } = useNavbarScroll(20)
+  const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
 
   const toggleMenu = () => {

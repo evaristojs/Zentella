@@ -6,6 +6,10 @@ import { devLog } from '../utils/logger'
 interface FormData {
   name: string
   email: string
+  phone: string
+  company: string
+  service: string
+  budget: string
   message: string
   terms: boolean
 }
@@ -14,11 +18,31 @@ interface FormErrors {
   [key: string]: string
 }
 
+const services = [
+  { value: '', label: 'Selecciona un servicio' },
+  { value: 'branding', label: 'Diseño & Branding' },
+  { value: 'marketing', label: 'Marketing Digital' },
+  { value: 'photography', label: 'Fotografía' },
+  { value: 'video', label: 'Video & Animación' }
+]
+
+const budgetRanges = [
+  { value: '', label: 'Selecciona tu presupuesto' },
+  { value: '5k-15k', label: '$5,000 - $15,000 MXN' },
+  { value: '15k-30k', label: '$15,000 - $30,000 MXN' },
+  { value: '30k-50k', label: '$30,000 - $50,000 MXN' },
+  { value: '50k+', label: 'Más de $50,000 MXN' }
+]
+
 const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
+    phone: '',
+    company: '',
+    service: '',
+    budget: '',
     message: '',
     terms: false
   })
@@ -37,6 +61,13 @@ const Contact = () => {
     if (!formData.email.trim()) newErrors.email = 'El email es requerido'
     else if (!emailRegex.test(formData.email)) newErrors.email = 'Ingresa un email válido'
 
+    if (formData.phone && formData.phone.trim().length > 0 && formData.phone.trim().length < 10) {
+      newErrors.phone = 'Ingresa un número de teléfono válido'
+    }
+
+    if (!formData.service) newErrors.service = 'Selecciona un servicio'
+    if (!formData.budget) newErrors.budget = 'Selecciona un presupuesto'
+
     if (!formData.message.trim()) newErrors.message = 'El mensaje es requerido'
     else if (formData.message.trim().length < 10) newErrors.message = 'El mensaje debe tener al menos 10 caracteres'
 
@@ -47,7 +78,8 @@ const Contact = () => {
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type } = e.target
+    const checked = 'checked' in e.target ? e.target.checked : false
     setFormData(prev => ({ 
       ...prev, 
       [name]: type === 'checkbox' ? checked : value 
@@ -269,7 +301,7 @@ const FormField = ({ name, label, error, ...props }: { name: string; label: stri
   </div>
 )
 
-const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: string[]; [key: string]: unknown }) => (
+const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: Array<{value: string, label: string}>; [key: string]: unknown }) => (
   <div>
     <label className="label-base">{label} *</label>
     <motion.div 
@@ -277,8 +309,7 @@ const FormSelect = ({ name, label, error, options, ...props }: { name: string; l
       whileFocus={{ scale: 1.01 }}
     >
       <select name={name} {...props}>
-        <option value="">Selecciona una opción</option>
-        {options.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+        {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
       </select>
     </motion.div>
     <AnimatePresence>

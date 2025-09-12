@@ -19,14 +19,10 @@ function App() {
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   
   // Initialize section scroll detection
-  const { currentSection, scrollToSection } = useSectionScroll([
-    'hero',
-    'services', 
-    'portfolio',
-    'about',
-    'testimonials',
-    'contact'
-  ])
+  const { currentSection, scrollToSection } = useSectionScroll({
+    threshold: 0.3,
+    rootMargin: '0px 0px -20% 0px'
+  })
 
   // Verificar si es la primera visita
   useEffect(() => {
