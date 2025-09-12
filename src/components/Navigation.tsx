@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
+import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
+import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -8,40 +9,9 @@ interface NavigationProps {
 }
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isInHero, setIsInHero] = useState(true)
   const { toggleTheme, isDark } = useTheme()
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      setIsScrolled(scrollY > 20)
-      // Better hero detection: check if hero section exists and use its height
-      const heroSection = document.getElementById('hero')
-      const heroHeight = heroSection?.offsetHeight || 600 // fallback to 600px
-      const newIsInHero = scrollY < heroHeight * 0.7 // 70% of hero height
-      
-      // Debug log to check logo switching
-      if (process.env.NODE_ENV === 'development') {
-        console.log('🔄 Logo state:', { 
-          scrollY, 
-          heroHeight, 
-          threshold: heroHeight * 0.7,
-          isInHero: newIsInHero,
-          isDark,
-          logoSrc: newIsInHero 
-            ? (isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg")
-            : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
-        })
-      }
-      
-      setIsInHero(newIsInHero)
-    }
-
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isDark])
+  const { logoSrc, logoState } = useAdaptiveLogo(isDark)
+  const { isScrolled } = useNavbarScroll(20)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -81,23 +51,55 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.div 
-              className="flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
+              className="flex-shrink-0 relative"
+              whileHover={{ 
+                scale: 1.05,
+                filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
+              }}
               transition={{ duration: 0.2 }}
             >
-              <img 
-                src={
-                  isInHero 
-                    ? (isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg")
-                    : (isDark ? "/isotipo-modo-oscuro.svg" : "/isotipo-modo-claro.svg")
-                }
-                alt="Zentella" 
-                className={`w-auto transition-all duration-300 ${
-                  isInHero 
-                    ? "h-6 sm:h-8 lg:h-10" 
-                    : "h-5 sm:h-6 lg:h-8"
-                }`}
-              />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={logoState.type}
+                  src={logoSrc}
+                  alt="Zentella"
+                  className={`w-auto transition-all duration-500 ease-in-out object-contain ${
+                    logoState.type === 'isotipo'
+                      ? "h-5 sm:h-6 lg:h-8" 
+                      : "h-6 sm:h-8 lg:h-10"
+                  }`}
+                  initial={{ 
+                    opacity: 0, 
+                    scale: 0.92,
+                    rotateY: 15,
+                    filter: 'blur(4px)'
+                  }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    rotateY: 0,
+                    filter: 'blur(0px)'
+                  }}
+                  exit={{ 
+                    opacity: 0, 
+                    scale: 0.92,
+                    rotateY: -15,
+                    filter: 'blur(4px)'
+                  }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: [0.165, 0.84, 0.44, 1],
+                    scale: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+                    opacity: { duration: 0.4 },
+                    rotateY: { duration: 0.5, ease: [0.23, 1, 0.32, 1] },
+                    filter: { duration: 0.3 }
+                  }}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    backfaceVisibility: 'hidden'
+                  }}
+                />
+              </AnimatePresence>
             </motion.div>
             
             <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
@@ -218,7 +220,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 
                 <div className="flex items-center justify-between p-4 border-b border-text-secondary-light/20 dark:border-text-secondary-dark/20">
                   <img 
-                    src={isDark ? "/logo-modo-oscuro.svg" : "/logo-modo-claro.svg"}
+                    src={logoSrc}
                     alt="Zentella" 
                     className="h-7 w-auto"
                   />

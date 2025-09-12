@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useLogoScroll } from './useUltraScrollDetection'
 
 export type LogoType = 'logotipo' | 'isotipo'
 
@@ -8,41 +9,36 @@ interface LogoState {
 }
 
 export const useAdaptiveLogo = (isDark: boolean) => {
+  // Ultra-efficient scroll detection - use 0 threshold for precise hero detection
+  const { isInHero, currentSection } = useLogoScroll(0)
+  
   const [logoState, setLogoState] = useState<LogoState>({
     type: 'logotipo',
     isInHero: true
   })
   
-  // Simple scroll detection for hero section
+  // Update logo state when scroll position changes (only when entering/leaving hero)
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      const isInHero = scrollY < 500 // Simple threshold
-      const logoType: LogoType = isInHero ? 'logotipo' : 'isotipo'
-      
-      setLogoState(prev => {
-        if (prev.type !== logoType || prev.isInHero !== isInHero) {
-          if (process.env.NODE_ENV === 'development') {
-            console.log('🔄 Logo type change:', { 
-              logoType,
-              isInHero,
-              scrollY,
-              theme: isDark ? 'dark' : 'light'
-            })
-          }
-          return {
-            type: logoType,
-            isInHero
-          }
+    const logoType: LogoType = isInHero ? 'logotipo' : 'isotipo'
+    
+    setLogoState(prev => {
+      if (prev.type !== logoType || prev.isInHero !== isInHero) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('🔄 Logo type change:', { 
+            logoType,
+            isInHero,
+            currentSection,
+            theme: isDark ? 'dark' : 'light'
+          })
         }
-        return prev
-      })
-    }
-
-    handleScroll() // Initial check
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isDark])
+        return {
+          type: logoType,
+          isInHero
+        }
+      }
+      return prev
+    })
+  }, [isInHero, currentSection, isDark])
 
   // Memoized logo source calculation for optimal performance
   const logoSrc = useMemo(() => {
@@ -62,6 +58,6 @@ export const useAdaptiveLogo = (isDark: boolean) => {
   return {
     logoSrc,
     logoState,
-    currentSection: logoState.isInHero ? 'hero' : 'other'
+    currentSection
   }
 }
