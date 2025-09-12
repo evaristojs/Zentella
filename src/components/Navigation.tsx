@@ -16,7 +16,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       setIsScrolled(scrollY > 20)
-      setIsInHero(scrollY < 500) // Simple threshold instead of DOM queries
+      // Better hero detection: check if hero section exists and use its height
+      const heroSection = document.getElementById('hero')
+      const heroHeight = heroSection?.offsetHeight || 600 // fallback to 600px
+      setIsInHero(scrollY < heroHeight * 0.7) // 70% of hero height
     }
 
     handleScroll()
@@ -34,24 +37,27 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
 
   const menuItems = [
     { name: 'Inicio', href: '#hero' },
+    { name: 'Nosotros', href: '#about' },
     { name: 'Servicios', href: '#services' },
     { name: 'Portafolio', href: '#portfolio' },
-    { name: 'Nosotros', href: '#about' },
+    { name: 'FAQ', href: '#faq' },
     { name: 'Contacto', href: '#contact' }
   ]
 
+  // Simplified navbar styling logic
+  const getNavbarClasses = () => {
+    const baseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    
+    if (isScrolled) {
+      return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30`
+    }
+    
+    return `${baseClasses} bg-white/20 dark:bg-bg-base-dark/20 backdrop-blur-sm`
+  }
+
   return (
     <>
-      <motion.nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? (isInHero && !isDark
-              ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10' 
-              : 'bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-xl shadow-lg shadow-black/10 dark:shadow-black/30')
-            : (isInHero && !isDark
-              ? 'bg-white/20 backdrop-blur-sm'
-              : 'bg-white/10 dark:bg-bg-base-dark/10 backdrop-blur-sm')
-        }`}
+      <motion.nav className={getNavbarClasses()}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -76,11 +82,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 <motion.a 
                   key={item.name}
                   href={item.href}
-                  className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg ${
-                    isInHero && !isDark
-                      ? 'text-text-primary-light hover:text-text-primary-light hover:bg-bg-secondary-light/50'
-                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50'
-                  }`}
+                  className="relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -95,11 +97,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
               <motion.button 
                 onClick={toggleTheme}
-                className={`p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 ${
-                  isInHero && !isDark
-                    ? 'bg-bg-secondary-light/90 text-text-secondary-light hover:bg-bg-secondary-light hover:text-text-primary-light'
-                    : 'bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
-                }`}
+                className="p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                 aria-label="Cambiar tema"
                 whileHover={{ scale: 1.05, rotate: 15 }}
                 whileTap={{ scale: 0.95, rotate: -15 }}
@@ -126,11 +124,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               </motion.button>
 
               <motion.button 
-                className={`md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] ${
-                  isInHero && !isDark
-                    ? 'bg-bg-secondary-light/90 text-text-secondary-light hover:bg-bg-secondary-light hover:text-text-primary-light'
-                    : 'bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
-                }`}
+                className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                 onClick={toggleMenu}
                 aria-label="Abrir menú"
                 whileHover={{ scale: 1.05 }}
