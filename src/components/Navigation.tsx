@@ -220,22 +220,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
               transition={{ type: "spring", bounce: 0, duration: 0.4 }}
             >
               <div className="h-full flex flex-col">
-                
-                <div className="flex items-center justify-end p-4 border-b border-text-secondary-light/20 dark:border-text-secondary-dark/20">
-                  <motion.button 
-                    onClick={closeMenu}
-                    className="p-1.5 rounded-xl bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light/80 dark:hover:bg-bg-secondary-dark/80 transition-colors duration-200"
-                    whileHover={{ scale: 1.05, rotate: 90 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="Cerrar menú"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </motion.button>
-                </div>
-
-                <nav className="flex-1 px-4 py-4">
+                <nav className="flex-1 px-4 pt-8 py-4">
                   <ul className="space-y-1">
                     {menuItems.map((item, index) => (
                       <motion.li 
@@ -263,7 +248,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </nav>
 
                 <motion.div 
-                  className="p-4 border-t border-text-secondary-light/20 dark:border-text-secondary-dark/20"
+                  className="p-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.6 }}
