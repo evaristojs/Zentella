@@ -198,23 +198,47 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
 
   const handleComenzarClick = () => {
+    devLog.info('Botón Comenzar clickeado', '', 'Hero')
+    
     // Activar aceleración del starfield
     if (window.Starfield) {
       window.Starfield.setAccelerate(true)
+      devLog.info('Starfield acelerado', '', 'Hero')
     }
 
-    // Esperar 0.7 segundos antes de hacer scroll para mostrar la aceleración
+    // Esperar menos tiempo para mejor UX y luego hacer scroll
     const scrollTimeout = setTimeout(() => {
+      devLog.info('Iniciando scroll a contact', '', 'Hero')
+      
+      // Verificar si existe el elemento antes de hacer scroll
+      const contactElement = document.getElementById('contact')
+      
       if (scrollToSection) {
-        scrollToSection('contact')
+        devLog.info('Usando scrollToSection personalizado', '', 'Hero')
+        try {
+          scrollToSection('contact')
+        } catch (error) {
+          devLog.error('Error en scrollToSection', String(error), 'Hero')
+          // Fallback to native scroll
+          if (contactElement) {
+            contactElement.scrollIntoView({ behavior: 'smooth' })
+          }
+        }
+      } else if (contactElement) {
+        devLog.info('Usando scrollIntoView nativo', '', 'Hero')
+        contactElement.scrollIntoView({ behavior: 'smooth' })
       } else {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+        devLog.warn('Elemento contact no encontrado', '', 'Hero')
       }
-      // Desactivar aceleración después del scroll
-      if (window.Starfield) {
-        window.Starfield.setAccelerate(false)
-      }
-    }, 700)
+      
+      // Desactivar aceleración después del scroll con un pequeño delay
+      setTimeout(() => {
+        if (window.Starfield) {
+          window.Starfield.setAccelerate(false)
+          devLog.info('Starfield desacelerado', '', 'Hero')
+        }
+      }, 300)
+    }, 500)
 
     // Store timeout for cleanup if component unmounts
     timeoutsRef.current.push(scrollTimeout)

@@ -79,7 +79,9 @@ function App() {
                 <section id="testimonials">
                   <Testimonials />
                 </section>
-                <ContactFAQ />
+                <section id="contact">
+                  <ContactFAQ />
+                </section>
               </main>
               <Footer />
             </motion.div>
