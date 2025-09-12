@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 import { devLog } from '../utils/logger'
 
 interface FAQItem {
@@ -25,6 +26,7 @@ interface FormErrors {
 
 const ContactFAQ = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
   const [openItem, setOpenItem] = useState<number | null>(null)
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -111,14 +113,14 @@ const ContactFAQ = () => {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
-    if (!formData.name.trim()) newErrors.name = 'El nombre es requerido'
+    if (!formData.name.trim()) newErrors.name = t('error.nombre_requerido')
     if (!formData.email.trim()) {
-      newErrors.email = 'El email es requerido'
+      newErrors.email = t('error.email_requerido')
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email inválido'
+      newErrors.email = t('error.email_invalido')
     }
-    if (!formData.service) newErrors.service = 'Selecciona un servicio'
-    if (!formData.message.trim()) newErrors.message = 'El mensaje es requerido'
+    if (!formData.service) newErrors.service = t('error.servicio_requerido')
+    if (!formData.message.trim()) newErrors.message = t('error.mensaje_requerido')
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -301,21 +303,21 @@ const ContactFAQ = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                Contáctanos
+                {t('contact.titulo')}
               </h4>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      NOMBRE
+                      {t('contact.nombre')}
                     </label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Juan Pérez"
+                      placeholder={t('placeholder.nombre')}
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.name ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -325,14 +327,14 @@ const ContactFAQ = () => {
                 
                   <div>
                     <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      EMAIL
+                      {t('contact.email')}
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="hola@tuempresa.com"
+                      placeholder={t('placeholder.email')}
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.email ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -343,14 +345,14 @@ const ContactFAQ = () => {
 
                 <div>
                   <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                    TELÉFONO
+                    {t('contact.telefono')}
                   </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="+52 999 123 4567"
+                    placeholder={t('placeholder.telefono')}
                     className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
                   />
                 </div>
@@ -358,7 +360,7 @@ const ContactFAQ = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      SERVICIO DE INTERÉS
+                      {t('contact.servicio')}
                     </label>
                     <select
                       name="service"
@@ -380,7 +382,7 @@ const ContactFAQ = () => {
                   
                   <div>
                     <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      PRESUPUESTO ESTIMADO
+                      {t('contact.presupuesto')}
                     </label>
                     <select
                       name="budget"
@@ -400,7 +402,7 @@ const ContactFAQ = () => {
 
                 <div>
                   <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                    MENSAJE
+                    {t('contact.mensaje')}
                   </label>
                   <textarea
                     name="message"
@@ -410,7 +412,7 @@ const ContactFAQ = () => {
                     className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark resize-none placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                       errors.message ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                     }`}
-                    placeholder="Me encantaría conocer más sobre sus servicios"
+                    placeholder={t('placeholder.mensaje')}
                   />
                   {errors.message && <p className="mt-2 text-xs text-red-500">{errors.message}</p>}
                 </div>
@@ -422,7 +424,7 @@ const ContactFAQ = () => {
                     </svg>
                   </div>
                   <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-                    Acepto los términos y condiciones
+                    {t('contact.terminos')}
                   </p>
                 </div>
 
@@ -439,7 +441,7 @@ const ContactFAQ = () => {
                   whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >
-                  {isSubmitting ? 'Enviando...' : submitSuccess ? '¡Mensaje enviado!' : 'Enviar ahora'}
+                  {isSubmitting ? t('contact.enviando') : submitSuccess ? t('contact.enviado') : t('contact.enviar')}
                 </motion.button>
               </form>
             </div>

@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLanguage } from '../hooks/useLanguage'
 import type { StarfieldConfig } from '@/types/global'
 
 interface MinimalLoadingScreenProps {
@@ -23,6 +24,7 @@ const starfieldConfig: StarfieldConfig = {
 }
 
 const MinimalLoadingScreen = ({ onComplete }: MinimalLoadingScreenProps) => {
+  const { t } = useLanguage()
 
   // Solo mostrar pantalla de bienvenida por 2 segundos
   useEffect(() => {
@@ -122,7 +124,7 @@ const MinimalLoadingScreen = ({ onComplete }: MinimalLoadingScreenProps) => {
               transition={{ duration: 1.2, ease: "easeOut" }}
             />
             <h1 className="text-3xl md:text-4xl font-light text-text-primary-dark mb-3">
-              Bienvenido a
+              {t('loading.bienvenido')}
             </h1>
             <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
               Zentella

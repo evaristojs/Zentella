@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
+import { useLanguage } from '../hooks/useLanguage'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -12,6 +13,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled, scrollY } = useNavbarScroll(20)
+  const { currentLanguage, setLanguage, t } = useLanguage()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -21,12 +23,16 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     setIsMenuOpen(false)
   }
 
+  const toggleLanguage = () => {
+    setLanguage(currentLanguage === 'es' ? 'en' : 'es')
+  }
+
   const menuItems = [
-    { name: 'Inicio', href: '#hero' },
-    { name: 'Servicios', href: '#services' },
-    { name: 'Portafolio', href: '#portfolio' },
-    { name: 'Nosotros', href: '#about' },
-    { name: 'Contacto', href: '#contact' }
+    { name: t('nav.inicio'), href: '#hero' },
+    { name: t('nav.servicios'), href: '#services' },
+    { name: t('nav.portafolio'), href: '#portfolio' },
+    { name: t('nav.nosotros'), href: '#about' },
+    { name: t('nav.contacto'), href: '#contact' }
   ]
 
   // Simplified navbar styling logic
@@ -123,15 +129,28 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Trabajemos juntos
+                {t('nav.trabajemos')}
               </motion.a>
             </div>
 
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+              {/* Language Toggle - Desktop: next to theme, Mobile: in between */}
+              <motion.button 
+                onClick={toggleLanguage}
+                className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
+                aria-label={t('nav.cambiar_idioma')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-xs font-bold uppercase tracking-wider">
+                  {currentLanguage === 'es' ? 'EN' : 'ES'}
+                </span>
+              </motion.button>
+
               <motion.button 
                 onClick={toggleTheme}
                 className="p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
-                aria-label="Cambiar tema"
+                aria-label={t('nav.cambiar_tema')}
                 whileHover={{ scale: 1.05, rotate: 15 }}
                 whileTap={{ scale: 0.95, rotate: -15 }}
               >
@@ -156,10 +175,23 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                 </AnimatePresence>
               </motion.button>
 
+              {/* Language Toggle - Mobile: between theme and burger */}
+              <motion.button 
+                onClick={toggleLanguage}
+                className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
+                aria-label={t('nav.cambiar_idioma')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-xs font-bold uppercase tracking-wider">
+                  {currentLanguage === 'es' ? 'EN' : 'ES'}
+                </span>
+              </motion.button>
+
               <motion.button 
                 className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                 onClick={toggleMenu}
-                aria-label="Abrir menú"
+                aria-label={t('nav.abrir_menu')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -253,7 +285,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Trabajemos juntos
+                    {t('nav.trabajemos')}
                   </motion.a>
                 </motion.div>
               </div>
