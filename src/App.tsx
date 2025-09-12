@@ -21,9 +21,9 @@ function App() {
   // Initialize magnetic scroll system
   const { scrollToSection } = useMagneticScroll({
     sections: ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact'],
-    magneticForce: 0.3, // Gentle magnetic pull
-    threshold: 250, // 250px activation distance  
-    snapDelay: 500, // Wait 500ms after scroll stops
+    magneticForce: 0.4, // Stronger magnetic pull for top snapping
+    threshold: 150, // 150px activation distance from top edge
+    snapDelay: 300, // Wait 300ms after scroll stops
     enabled: true
   })
 

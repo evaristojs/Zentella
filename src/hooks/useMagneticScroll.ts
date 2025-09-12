@@ -55,19 +55,19 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     }, snapDelay)
   }, [enabled, snapDelay])
 
-  // Apply magnetic effect to snap to nearest section
+  // Apply magnetic effect to snap sections to top edge (below navbar)
   const applyMagneticEffect = useCallback(() => {
     if (!enabled || userScrolling.current) return
 
     const viewportHeight = window.innerHeight
     const scrollTop = window.pageYOffset
-    const viewportCenter = scrollTop + (viewportHeight / 2)
+    const navbarHeight = 80 // Height of navbar
 
     let closestSection: HTMLElement | null = null
     let closestDistance = Infinity
     let targetScroll = 0
 
-    // Find the section most centered in viewport
+    // Find the section closest to top edge
     sections.forEach(sectionId => {
       const element = document.getElementById(sectionId)
       if (!element) return
@@ -76,33 +76,30 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
       const elementTop = scrollTop + rect.top
       const elementBottom = elementTop + rect.height
       
-      // Check if section is significantly visible in viewport
-      const visibleTop = Math.max(elementTop, scrollTop)
-      const visibleBottom = Math.min(elementBottom, scrollTop + viewportHeight)
-      const visibleHeight = Math.max(0, visibleBottom - visibleTop)
-      const visibilityRatio = visibleHeight / viewportHeight
+      // Check if section is visible in viewport
+      const isVisible = elementTop < scrollTop + viewportHeight && elementBottom > scrollTop
+      if (!isVisible) return
 
-      // Only consider sections that are at least 30% visible
-      if (visibilityRatio < 0.3) return
+      // Distance from section top to viewport top (considering navbar)
+      const distanceFromTop = Math.abs(rect.top - navbarHeight)
+      
+      // Only consider sections that are reasonably close to the top
+      if (distanceFromTop > threshold) return
 
-      const elementCenter = elementTop + (rect.height / 2)
-      const distance = Math.abs(viewportCenter - elementCenter)
-
-      if (distance < closestDistance) {
-        closestDistance = distance
+      if (distanceFromTop < closestDistance) {
+        closestDistance = distanceFromTop
         closestSection = element
-        // Calculate optimal scroll position to center the section
-        targetScroll = Math.max(0, elementTop - (viewportHeight - rect.height) / 2)
+        // Target scroll position: section top minus navbar height
+        targetScroll = Math.max(0, elementTop - navbarHeight)
       }
     })
 
-    // Apply gentle magnetic scroll if close enough and worth adjusting
+    // Apply magnetic snap to top if close enough
     if (closestSection && closestDistance < threshold) {
       const currentDistance = Math.abs(scrollTop - targetScroll)
       
-      // Only apply magnetism if the adjustment is meaningful (more than 80px)
-      // but not too large (less than viewport height)
-      if (currentDistance > 80 && currentDistance < viewportHeight) {
+      // Apply magnetism if the adjustment is meaningful (more than 20px)
+      if (currentDistance > 20 && currentDistance < viewportHeight / 2) {
         smoothScrollToPosition(targetScroll)
       }
     }
@@ -112,7 +109,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
   const smoothScrollToPosition = useCallback((targetY: number) => {
     const startY = window.pageYOffset
     const distance = targetY - startY
-    const duration = Math.min(800, Math.abs(distance) * 2) // Dynamic duration
+    const duration = Math.min(600, Math.max(300, Math.abs(distance) * 1.5)) // Dynamic duration
     let startTime: number | null = null
 
     const step = (timestamp: number) => {
@@ -123,10 +120,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
       // Ease-out cubic function for smooth deceleration
       const easeOutCubic = 1 - Math.pow(1 - progress, 3)
       
-      // Apply magnetic force - less aggressive snapping
-      const adjustedProgress = progress * magneticForce + (1 - magneticForce) * easeOutCubic
-      
-      const currentY = startY + (distance * adjustedProgress)
+      const currentY = startY + (distance * easeOutCubic)
       window.scrollTo(0, currentY)
 
       if (progress < 1) {
@@ -137,7 +131,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     }
 
     magneticAnimationRef.current = requestAnimationFrame(step)
-  }, [magneticForce])
+  }, [])
 
   // Setup scroll listener
   useEffect(() => {
@@ -160,7 +154,7 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     }
   }, [handleScroll, enabled])
 
-  // Manual scroll to section (for navigation)
+  // Manual scroll to section (for navigation) - snap to top edge
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (!element) return
@@ -168,11 +162,11 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     // Temporarily disable magnetic effect
     userScrolling.current = true
     
-    const viewportHeight = window.innerHeight
     const rect = element.getBoundingClientRect()
     const scrollTop = window.pageYOffset
     const elementTop = scrollTop + rect.top
-    const targetScroll = elementTop - ((viewportHeight - rect.height) / 2)
+    const navbarHeight = 80
+    const targetScroll = Math.max(0, elementTop - navbarHeight)
 
     smoothScrollToPosition(targetScroll)
 
