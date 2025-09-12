@@ -14,7 +14,6 @@ interface FormData {
   name: string
   email: string
   phone: string
-  company: string
   service: string
   budget: string
   message: string
@@ -31,7 +30,6 @@ const ContactFAQ = () => {
     name: '',
     email: '',
     phone: '',
-    company: '',
     service: '',
     budget: '',
     message: ''
@@ -145,7 +143,6 @@ const ContactFAQ = () => {
         name: '',
         email: '',
         phone: '',
-        company: '',
         service: '',
         budget: '',
         message: ''
@@ -344,34 +341,18 @@ const ContactFAQ = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      TELÉFONO
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+52 999 123 4567"
-                      className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
-                      EMPRESA
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Tu empresa"
-                      className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    TELÉFONO
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+52 999 123 4567"
+                    className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
+                  />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">

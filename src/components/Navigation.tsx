@@ -54,7 +54,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.div 
-              className="flex-shrink-0 relative"
+              className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 flex items-center"
               whileHover={{ 
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -66,11 +66,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
                   key={logoState.type}
                   src={logoSrc}
                   alt="Zentella"
-                  className={`w-auto transition-all duration-500 ease-in-out object-contain ${
-                    logoState.type === 'isotipo'
-                      ? "h-5 sm:h-6 lg:h-8" 
-                      : "h-6 sm:h-8 lg:h-10"
-                  }`}
+                  className="w-auto h-full transition-all duration-500 ease-in-out object-contain"
                   initial={{ 
                     opacity: 0, 
                     scale: 0.92,
