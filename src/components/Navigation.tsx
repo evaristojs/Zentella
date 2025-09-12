@@ -31,6 +31,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, scrollToSection }: NavigationPr
       resizeObserver.observe(navRef.current)
       return () => resizeObserver.disconnect()
     }
+    return () => {} // Return empty cleanup function when navRef.current is null
   }, [setNavbarHeight])
 
   const toggleMenu = () => {
