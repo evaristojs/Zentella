@@ -68,10 +68,11 @@
     }
   }
   
-  /* Section snap points */
+  /* Sections for magnetic scroll - no snap properties */
   section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    /* Remove scroll-snap for magnetic scroll system */
+    /* scroll-snap-align: start; */
+    /* scroll-snap-stop: always; */
   }
 }
 
