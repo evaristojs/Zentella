@@ -160,10 +160,8 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
     // Temporarily disable magnetic effect
     userScrolling.current = true
     
-    const rect = element.getBoundingClientRect()
-    const scrollTop = window.pageYOffset
-    const elementTop = scrollTop + rect.top
-    const targetScroll = Math.max(0, elementTop - navbarHeight)
+    // Use simpler offsetTop calculation like the original implementation
+    const targetScroll = Math.max(0, element.offsetTop - navbarHeight)
 
     smoothScrollToPosition(targetScroll)
 
