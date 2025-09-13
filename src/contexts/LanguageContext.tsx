@@ -685,7 +685,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
   // Translation function
   const t = useCallback((key: string): string => {
-    const translation = translations[currentLanguage]?.[key as keyof typeof translations[typeof currentLanguage]]
+    const translation = translations[currentLanguage]?.[key]
     if (!translation) {
       console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`)
       return key // Return the key as fallback
