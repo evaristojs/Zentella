@@ -333,8 +333,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
                     minHeight: 'clamp(4rem, 8vw, 8rem)',
-                    maxWidth: '100vw',
-                    padding: '0 1rem'
+                    maxWidth: '100%',
+                    padding: '0 0.5rem'
                   }}
                 >
                   <motion.span
@@ -345,7 +345,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                       lineHeight: '1.1',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: '95%',
+                      maxWidth: 'none',
                       wordBreak: 'keep-all',
                       overflow: 'visible',
                       fontWeight: 'bold'
