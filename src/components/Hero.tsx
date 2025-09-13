@@ -9,7 +9,6 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
-  const { isDark } = useTheme()
   const { t } = useLanguage()
   
   // Use DOM state directly to prevent hydration mismatches
