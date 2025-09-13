@@ -23,7 +23,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     t('hero.phrase.tu_contenido'),
     t('hero.phrase.tu_comunidad'),
     t('hero.phrase.tu_presencia'),
-    t('hero.phrase.tu_crecimiento')
+    t('hero.phrase.tu_crecimiento'),
+    t('hero.phrase.tu_impacto'),
+    t('hero.phrase.tu_alcance'),
+    t('hero.phrase.tu_audiencia'),
+    t('hero.phrase.tu_estrategia'),
+    t('hero.phrase.tu_vision')
   ]
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
@@ -306,7 +311,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <div
                   className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
-                    minHeight: 'clamp(4rem, 8vw, 8rem)',
+                    minHeight: 'clamp(5rem, 10vw, 10rem)',
                     maxWidth: '100vw',
                     padding: '0 1rem'
                   }}
@@ -314,12 +319,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                      fontSize: 'clamp(2rem, 5.5vw, 6.5rem)',
                       whiteSpace: 'nowrap',
                       lineHeight: '1.1',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: '95%',
+                      maxWidth: '90%',
                       wordBreak: 'keep-all',
                       overflow: 'visible'
                     }}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 
 interface FAQItem {
   id: number
@@ -11,92 +12,93 @@ interface FAQItem {
 
 const FAQ = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
   const [openItem, setOpenItem] = useState<number | null>(null)
 
   const faqData: FAQItem[] = [
     {
       id: 1,
-      question: "¿Cuánto cuesta el servicio/proyecto o cuál es el presupuesto necesario?",
-      answer: "Los costos pueden variar enormemente, desde el 0 al infinito, dependiendo de los objetivos y recursos, así como de la fase del proyecto y la exposición de la marca. Factores como la industria, la competencia, la ubicación geográfica, el alcance y los objetivos del proyecto, la reputación y experiencia de la agencia, y la personalización de los servicios influyen en el precio.",
+      question: t('faq.q1.question'),
+      answer: t('faq.q1.answer'),
       details: [
-        "Publicidad PPC: $1,500-$10,000/mes",
-        "SEO: $1,000-$7,500/mes", 
-        "Marketing en redes sociales: $1,000-$3,500/mes",
-        "Marketing de contenido: $1,800-$12,000/mes",
-        "Email marketing: $1,500-$7,500/mes",
-        "Videos corporativos: entre $20,000-$100,000 MXN"
+        t('faq.q1.detail1'),
+        t('faq.q1.detail2'),
+        t('faq.q1.detail3'),
+        t('faq.q1.detail4'),
+        t('faq.q1.detail5'),
+        t('faq.q1.detail6')
       ]
     },
     {
       id: 2,
-      question: "¿Qué servicios ofrecen y cómo pueden ayudar a mi negocio?",
-      answer: "Ofrecemos una amplia gama de servicios para mejorar la visibilidad, relevancia y posicionamiento de tu negocio. Nuestros servicios incluyen posicionamiento SEO, campañas SEM, diseño y desarrollo web, estrategias de contenido, diseño gráfico, fotografía, videografía, animación y gestión de redes sociales.",
+      question: t('faq.q2.question'),
+      answer: t('faq.q2.answer'),
       details: [
-        "Posicionamiento SEO y campañas SEM",
-        "Diseño y desarrollo web (WordPress, Woocommerce)",
-        "Estrategias de contenido y marketing digital",
-        "Diseño gráfico e identidad visual",
-        "Fotografía comercial y de producto",
-        "Videografía y animación 2D/3D",
-        "Gestión de redes sociales"
+        t('faq.q2.detail1'),
+        t('faq.q2.detail2'),
+        t('faq.q2.detail3'),
+        t('faq.q2.detail4'),
+        t('faq.q2.detail5'),
+        t('faq.q2.detail6'),
+        t('faq.q2.detail7')
       ]
     },
     {
       id: 3,
-      question: "¿Qué resultados puedo esperar y cómo se mide el éxito?",
-      answer: "Puedes esperar un aumento en el tráfico web, mayor visibilidad en los motores de búsqueda y un incremento en las conversiones. Utilizamos métricas específicas y objetivos SMART para medir el éxito de nuestras estrategias.",
+      question: t('faq.q3.question'),
+      answer: t('faq.q3.answer'),
       details: [
-        "Análisis de datos de SEO y SEM",
-        "Seguimiento de conversiones y ROI",
-        "Métricas de engagement en redes sociales",
-        "Informes regulares de rendimiento",
-        "Objetivos SMART (Específicos, Medibles, Alcanzables, Relevantes, Temporales)"
+        t('faq.q3.detail1'),
+        t('faq.q3.detail2'),
+        t('faq.q3.detail3'),
+        t('faq.q3.detail4'),
+        t('faq.q3.detail5')
       ]
     },
     {
       id: 4,
-      question: "¿Cuánto tiempo tomará el proyecto o cuáles son los plazos de entrega?",
-      answer: "La duración es variable y depende de la información proporcionada por el cliente y la complejidad del proyecto. Los proyectos se dividen en fases, y cada fase incluye un 'entregable' que requiere tu aprobación.",
+      question: t('faq.q4.question'),
+      answer: t('faq.q4.answer'),
       details: [
-        "Los tiempos dependen de la información inicial proporcionada",
-        "Cada fase requiere aprobación del cliente",
-        "Los retrasos en feedback pueden afectar tiempos",
-        "Proporcionamos cronograma detallado antes de iniciar"
+        t('faq.q4.detail1'),
+        t('faq.q4.detail2'),
+        t('faq.q4.detail3'),
+        t('faq.q4.detail4')
       ]
     },
     {
       id: 5,
-      question: "¿Cómo manejan las modificaciones y los cambios en el alcance del proyecto?",
-      answer: "Ofrecemos hasta dos modificaciones incluidas en el proyecto inicial. Si se necesitan más cambios, se aplicará una tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos, formalizándose en una enmienda al contrato.",
+      question: t('faq.q5.question'),
+      answer: t('faq.q5.answer'),
       details: [
-        "Máximo dos modificaciones incluidas",
-        "Cambios adicionales con tarifa preferencial",
-        "Reevaluación de tiempo y costos para cambios de alcance",
-        "Comunicación transparente sobre impactos en el proyecto"
+        t('faq.q5.detail1'),
+        t('faq.q5.detail2'),
+        t('faq.q5.detail3'),
+        t('faq.q5.detail4')
       ]
     },
     {
       id: 6,
-      question: "¿Es necesario que mi empresa esté presente en redes sociales?",
-      answer: "Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.",
+      question: t('faq.q6.question'),
+      answer: t('faq.q6.answer'),
       details: [
-        "Conseguir nuevos clientes y leads",
-        "Demostrar modernidad y relevancia",
-        "Múltiples canales de contacto",
-        "Interacción bidireccional con audiencia",
-        "Ventaja competitiva en el mercado"
+        t('faq.q6.detail1'),
+        t('faq.q6.detail2'),
+        t('faq.q6.detail3'),
+        t('faq.q6.detail4'),
+        t('faq.q6.detail5')
       ]
     },
     {
       id: 7,
-      question: "¿Cómo es el proceso de colaboración y comunicación durante el proyecto?",
-      answer: "El proceso se construye mediante el aporte constante de ambas partes: tu visión de negocio y nuestra experiencia en diseño, comunicación y tecnología. Comenzamos con una consultoría inicial y mantenemos comunicación regular throughout el proyecto.",
+      question: t('faq.q7.question'),
+      answer: t('faq.q7.answer'),
       details: [
-        "Consultoría inicial para definir objetivos",
-        "Seguimiento constante con informes regulares",
-        "Comunicación clara y transparente",
-        "Colaboración estrecha cliente-agencia",
-        "Adaptación de estrategias según necesidades"
+        t('faq.q7.detail1'),
+        t('faq.q7.detail2'),
+        t('faq.q7.detail3'),
+        t('faq.q7.detail4'),
+        t('faq.q7.detail5')
       ]
     }
   ]
@@ -139,15 +141,15 @@ const FAQ = () => {
           >
             <div className="w-2 h-2 bg-color-primary rounded-full animate-pulse" />
             <span className="text-small font-medium text-color-primary uppercase tracking-wider">
-              FAQ
+              {t('faq.badge')}
             </span>
           </motion.div>
           
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Preguntas Frecuentes
+            {t('faq.titulo')}
           </h2>
           <p className="text-center-hyphens text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark">
-            Resolvemos las dudas más comunes sobre nuestros servicios de marketing digital, diseño y producción audiovisual
+            {t('faq.subtitulo')}
           </p>
         </motion.div>
 
@@ -214,7 +216,7 @@ const FAQ = () => {
                       {item.details && (
                         <div className="space-y-2">
                           <h4 className="text-sm font-medium text-color-primary uppercase tracking-wider">
-                            Detalles específicos:
+                            {t('faq.detalles_especificos')}
                           </h4>
                           <ul className="space-y-2">
                             {item.details.map((detail, idx) => (
@@ -245,7 +247,7 @@ const FAQ = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <p className="text-center-hyphens text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl mx-auto">
-            ¿No encontraste la respuesta que buscabas? Contáctanos directamente y resolveremos todas tus dudas.
+            {t('faq.no_respuesta')}
           </p>
           <motion.button 
             className="px-8 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300"
@@ -253,7 +255,7 @@ const FAQ = () => {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
           >
-            Contactar ahora
+            {t('faq.contactar_ahora')}
           </motion.button>
         </motion.div>
       </div>

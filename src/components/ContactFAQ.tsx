@@ -43,67 +43,67 @@ const ContactFAQ = () => {
   const faqData: FAQItem[] = [
     {
       id: 1,
-      question: "¿Cuánto cuesta el servicio/proyecto?",
-      answer: "Los costos varían según objetivos, recursos y complejidad del proyecto. Factores como industria, competencia, alcance y personalización influyen en el precio.",
+      question: t('contact.faq.q1.question'),
+      answer: t('contact.faq.q1.answer'),
       details: [
-        "Publicidad PPC: $1,500-$10,000/mes",
-        "SEO: $1,000-$7,500/mes", 
-        "Marketing en redes sociales: $1,000-$3,500/mes",
-        "Videos corporativos: $20,000-$100,000 MXN"
+        t('contact.faq.q1.detail1'),
+        t('contact.faq.q1.detail2'),
+        t('contact.faq.q1.detail3'),
+        t('contact.faq.q1.detail4')
       ]
     },
     {
       id: 2,
-      question: "¿Qué servicios ofrecen?",
-      answer: "Ofrecemos servicios completos de marketing digital, diseño gráfico, fotografía, videografía, animación y desarrollo web para mejorar la presencia digital de tu negocio.",
+      question: t('contact.faq.q2.question'),
+      answer: t('contact.faq.q2.answer'),
       details: [
-        "Posicionamiento SEO y campañas SEM",
-        "Diseño y desarrollo web",
-        "Fotografía comercial y de producto",
-        "Videografía y animación 2D/3D",
-        "Gestión de redes sociales"
+        t('contact.faq.q2.detail1'),
+        t('contact.faq.q2.detail2'),
+        t('contact.faq.q2.detail3'),
+        t('contact.faq.q2.detail4'),
+        t('contact.faq.q2.detail5')
       ]
     },
     {
       id: 3,
-      question: "¿Cuánto tiempo toma un proyecto?",
-      answer: "La duración depende de la complejidad del proyecto y la información proporcionada. Los proyectos se dividen en fases con entregables que requieren tu aprobación.",
+      question: t('contact.faq.q3.question'),
+      answer: t('contact.faq.q3.answer'),
       details: [
-        "Tiempos según información inicial",
-        "Cada fase requiere aprobación",
-        "Cronograma detallado antes de iniciar"
+        t('contact.faq.q3.detail1'),
+        t('contact.faq.q3.detail2'),
+        t('contact.faq.q3.detail3')
       ]
     },
     {
       id: 4,
-      question: "¿Cómo manejan las modificaciones?",
-      answer: "Incluimos hasta dos modificaciones. Cambios adicionales tienen tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos.",
+      question: t('contact.faq.q4.question'),
+      answer: t('contact.faq.q4.answer'),
       details: [
-        "Máximo dos modificaciones incluidas",
-        "Cambios adicionales con tarifa preferencial",
-        "Comunicación transparente sobre impactos"
+        t('contact.faq.q4.detail1'),
+        t('contact.faq.q4.detail2'),
+        t('contact.faq.q4.detail3')
       ]
     }
   ]
 
   const serviceOptions = [
-    'Marketing Digital',
-    'Diseño Gráfico',
-    'Fotografía',
-    'Videografía',
-    'Animación',
-    'Desarrollo Web',
-    'Consultoría',
-    'Otro'
+    t('contact.servicio_marketing_digital'),
+    t('contact.servicio_diseno_grafico'),
+    t('contact.servicio_fotografia'),
+    t('contact.servicio_videografia'),
+    t('contact.servicio_animacion'),
+    t('contact.servicio_desarrollo_web'),
+    t('contact.servicio_consultoria'),
+    t('contact.servicio_otro')
   ]
 
   const budgetRanges = [
-    'Menos de $10,000 MXN',
-    '$10,000 - $25,000 MXN',
-    '$25,000 - $50,000 MXN',
-    '$50,000 - $100,000 MXN',
-    'Más de $100,000 MXN',
-    'Por definir'
+    t('contact.presupuesto_menos_10k'),
+    t('contact.presupuesto_10k_25k'),
+    t('contact.presupuesto_25k_50k'),
+    t('contact.presupuesto_50k_100k'),
+    t('contact.presupuesto_mas_100k'),
+    t('contact.presupuesto_por_definir')
   ]
 
   const toggleItem = (id: number) => {
@@ -370,7 +370,7 @@ const ContactFAQ = () => {
                         errors.service ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
                     >
-                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">Seleccionar servicio</option>
+                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">{t('contact.seleccionar_servicio')}</option>
                       {serviceOptions.map((option) => (
                         <option key={option} value={option} className="bg-bg-base-light dark:bg-bg-base-dark">
                           {option}
@@ -390,7 +390,7 @@ const ContactFAQ = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">Seleccionar rango</option>
+                      <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">{t('contact.seleccionar_rango')}</option>
                       {budgetRanges.map((range) => (
                         <option key={range} value={range} className="bg-bg-base-light dark:bg-bg-base-dark">
                           {range}
@@ -452,7 +452,7 @@ const ContactFAQ = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="mt-4 p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-xl text-green-700 dark:text-green-300"
               >
-                ¡Gracias por contactarnos! Te responderemos dentro de 24 horas.
+                {t('contact.success_message')}
               </motion.div>
             )}
           </motion.div>

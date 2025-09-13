@@ -1,37 +1,39 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 import { useState } from 'react'
 
 const Testimonials = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
   const testimonials = [
     {
       id: 1,
-      name: "María González",
-      role: "CEO, TechStart",
-      company: "TechStart Solutions",
+      name: t('testimonials.maria.name'),
+      role: t('testimonials.maria.role'),
+      company: t('testimonials.maria.company'),
       image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      text: "Zentella transformó completamente nuestra presencia digital. Su equipo no solo entendió nuestra visión, sino que la llevó al siguiente nivel. Los resultados fueron excepcionales.",
+      text: t('testimonials.maria.text'),
       rating: 5
     },
     {
       id: 2,
-      name: "Carlos Mendoza",
-      role: "Director de Marketing",
-      company: "Innovate Corp",
+      name: t('testimonials.carlos.name'),
+      role: t('testimonials.carlos.role'),
+      company: t('testimonials.carlos.company'),
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      text: "La estrategia de branding que desarrolló Zentella para nosotros fue extraordinaria. Nuestro reconocimiento de marca aumentó un 300% en solo 6 meses.",
+      text: t('testimonials.carlos.text'),
       rating: 5
     },
     {
       id: 3,
-      name: "Ana Rodríguez",
-      role: "Fundadora",
-      company: "Creative Studio",
+      name: t('testimonials.ana.name'),
+      role: t('testimonials.ana.role'),
+      company: t('testimonials.ana.company'),
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      text: "Profesionalismo, creatividad y resultados. Zentella es el partner perfecto para cualquier empresa que busque destacar en el mundo digital.",
+      text: t('testimonials.ana.text'),
       rating: 5
     },
   ]
@@ -58,13 +60,13 @@ const Testimonials = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
-            Testimonios
+            {t('testimonials.badge')}
           </span>
           <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 mt-6 leading-tight font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Lo que dicen nuestros clientes
+            {t('testimonials.titulo')}
           </h2>
           <p className="text-center-hyphens text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
-            La confianza de nuestros clientes es nuestro mayor logro.
+            {t('testimonials.subtitulo')}
           </p>
         </motion.div>
 
