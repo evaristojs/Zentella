@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           window.Starfield.setup({
             numStars: 400,
             baseSpeed: 1.2, // Velocidad normal para mejor visibilidad
-            trailLength: 1,
+            trailLength: 0,
             // Colores mejorados para mejor visibilidad
             starColor: isDarkMode
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
