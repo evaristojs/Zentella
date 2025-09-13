@@ -132,9 +132,9 @@ const Portfolio = () => {
         title: 'Ambiente Chic - Grand Opening',
         category: 'video',
         description: 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/ambiente-chic-grand-opening.jpg',
         images: [
-          '/images/services/video-preview.jpg'
+          '/images/portfolio/video/ambiente-chic-grand-opening.jpg'
         ],
         video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
         client: 'Ambiente Chic',
@@ -146,9 +146,9 @@ const Portfolio = () => {
         title: 'Beer O\'Clock - Campaña Navideña',
         category: 'video',
         description: 'Video promocional navideño para marca de cerveza artesanal, con enfoque festivo y familiar',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/beeroclock-navidad.jpg',
         images: [
-          '/images/services/video-preview.jpg'
+          '/images/portfolio/video/beeroclock-navidad.jpg'
         ],
         video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
         client: 'Beer O\'Clock',
@@ -160,9 +160,9 @@ const Portfolio = () => {
         title: 'Time Homes - María Teresa Condos',
         category: 'video',
         description: 'Video promocional inmobiliario destacando las características y ubicación del proyecto residencial',
-        image: '/images/services/video-preview.jpg',
+        image: '/images/portfolio/video/teresa-condos.jpg',
         images: [
-          '/images/services/video-preview.jpg'
+          '/images/portfolio/video/teresa-condos.jpg'
         ],
         video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
         client: 'Time Homes',
