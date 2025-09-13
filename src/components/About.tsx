@@ -1,30 +1,32 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
 
   const teamMembers = [
     {
-      name: "Nicole Pattinson",
-      role: "Operations Head", 
+      name: t('about.nicole.nombre'),
+      role: t('about.nicole.rol'), 
       image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
-      linkedin: "#",
-      twitter: "#"
+      linkedin: "https://www.linkedin.com/company/76315700/",
+      twitter: "https://www.instagram.com/agenciazentella"
     },
     {
-      name: "Patrick Beckham", 
-      role: "CEO - Founder",
+      name: t('about.patrick.nombre'), 
+      role: t('about.patrick.rol'),
       image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
-      linkedin: "#",
-      twitter: "#"
+      linkedin: "https://www.linkedin.com/company/76315700/",
+      twitter: "https://www.instagram.com/agenciazentella"
     },
     {
-      name: "Johan Cryuff",
-      role: "Marketing Head", 
+      name: t('about.johan.nombre'),
+      role: t('about.johan.rol'), 
       image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3",
-      linkedin: "#", 
-      twitter: "#"
+      linkedin: "https://www.linkedin.com/company/76315700/", 
+      twitter: "https://www.instagram.com/agenciazentella"
     }
   ]
 
@@ -47,8 +49,8 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-8"
           >
-            <span className="px-4 py-2 bg-gray-800 text-gray-300 text-sm font-medium rounded-full border border-gray-700">
-              Our Team
+            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
+              {t('about.nuestro_equipo')}
             </span>
           </motion.div>
 
@@ -59,7 +61,7 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-5xl lg:text-6xl font-bold mb-6 text-white"
           >
-            Meet the Creators
+            {t('about.conoce_creadores')}
           </motion.h2>
 
           {/* Subtitle */}
@@ -69,9 +71,7 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
           >
-            Our team blends strategy, design, and passion to create
-            <br />
-            powerful, lasting impact
+            {t('about.descripcion_equipo')}
           </motion.p>
         </motion.div>
 

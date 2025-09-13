@@ -1,21 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { devLog } from '../utils/logger'
-
-const phrases = [
-  "brilles más",
-  "crezcas hoy",
-  "todo cuente",
-  "impactes ya",
-  "vivas libre",
-  "funcione bien",
-  "vendas más",
-  "destaques ya",
-  "triunfes hoy",
-  "seas único"
-]
-
 import { useTheme } from '../hooks/useTheme'
+import { useLanguage } from '../hooks/useLanguage'
 
 interface HeroProps {
   scrollToSection?: (sectionId: string) => void
@@ -23,6 +10,21 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const { isDark } = useTheme()
+  const { t } = useLanguage()
+  
+  // Dynamic phrases based on language
+  const phrases = [
+    t('hero.phrase.brilles_mas'),
+    t('hero.phrase.crezcas_hoy'),
+    t('hero.phrase.todo_cuente'),
+    t('hero.phrase.impactes_ya'),
+    t('hero.phrase.vivas_libre'),
+    t('hero.phrase.funcione_bien'),
+    t('hero.phrase.vendas_mas'),
+    t('hero.phrase.destaques_ya'),
+    t('hero.phrase.triunfes_hoy'),
+    t('hero.phrase.seas_unico')
+  ]
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
@@ -299,7 +301,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
                 >
-                  Haz que
+                  {t('hero.haz_que')}
                 </span>
                 <div
                   className="relative w-full text-center flex items-center justify-center overflow-hidden -mt-1"
@@ -309,12 +311,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   }}
                 >
                   <motion.span
-                    className="flex items-center justify-center font-black"
+                    className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      background: 'linear-gradient(135deg, #6700f8 0%, #ac00d3 50%, #ff0080 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
                       fontSize: 'clamp(3.5rem, 7vw, 7rem)',
                       whiteSpace: 'nowrap',
                       lineHeight: '0.9',
@@ -344,7 +342,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
                 >
-                  con Zentella
+                  {t('hero.con_zentella')}
                 </span>
               </h1>
             </motion.div>
@@ -366,7 +364,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 whileTap={{ scale: 0.97 }}
               >
                 <span className="relative z-10 flex items-center justify-center gap-1.5">
-                  Comenzar
+                  {t('hero.comenzar')}
                   <motion.svg
                     className="w-3.5 h-3.5"
                     fill="none"
@@ -397,7 +395,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 whileTap={{ scale: 0.97 }}
               >
                 <span className="flex items-center justify-center gap-1.5">
-                  Portfolio
+                  {t('hero.portfolio')}
                   <motion.svg
                     className="w-3.5 h-3.5"
                     fill="none"
@@ -420,7 +418,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
             >
-              {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
+              {[
+                t('hero.fotografia'), 
+                t('hero.diseno'), 
+                t('hero.video'), 
+                t('hero.animacion')
+              ].map((service, index) => (
                 <motion.div
                   key={service}
                   className={`group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium ${isDark ? 'text-white' : 'text-black'} drop-shadow-sm cursor-pointer`}

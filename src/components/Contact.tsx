@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 import { devLog } from '../utils/logger'
 
 interface FormData {
@@ -18,23 +19,26 @@ interface FormErrors {
   [key: string]: string
 }
 
-const services = [
-  { value: '', label: 'Selecciona un servicio' },
-  { value: 'branding', label: 'Diseño & Branding' },
-  { value: 'marketing', label: 'Marketing Digital' },
-  { value: 'photography', label: 'Fotografía' },
-  { value: 'video', label: 'Video & Animación' }
-]
-
-const budgetRanges = [
-  { value: '', label: 'Selecciona tu presupuesto' },
-  { value: '5k-15k', label: '$5,000 - $15,000 MXN' },
-  { value: '15k-30k', label: '$15,000 - $30,000 MXN' },
-  { value: '30k-50k', label: '$30,000 - $50,000 MXN' },
-  { value: '50k+', label: 'Más de $50,000 MXN' }
-]
-
 const Contact = () => {
+  const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
+
+  const services = [
+    { value: '', label: t('contact.selecciona_servicio') },
+    { value: 'branding', label: t('contact.servicio_branding') },
+    { value: 'marketing', label: t('contact.servicio_marketing') },
+    { value: 'photography', label: t('contact.servicio_fotografia') },
+    { value: 'video', label: t('contact.servicio_video') }
+  ]
+
+  const budgetRanges = [
+    { value: '', label: t('contact.selecciona_presupuesto') },
+    { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
+    { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
+    { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
+    { value: '50k+', label: t('contact.presupuesto_50k_mas') }
+]
+
   const { elementRef, isVisible } = useIntersectionObserver()
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -166,13 +170,13 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
         >
           <span className="bg-color-primary/10 text-color-primary rounded-xl px-4 py-2 text-small font-medium mb-4 inline-block">
-            CONTACTO
+            {t('contact.badge').toUpperCase()}
           </span>
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Hablemos
+            {t('contact.titulo')}
           </h2>
           <p className="text-base max-w-2xl mx-auto">
-            Cuéntanos sobre tu proyecto y cómo podemos ayudarte a hacerlo realidad.
+            {t('contact.descripcion')}
           </p>
         </motion.div>
 
@@ -184,9 +188,9 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} title="Oficina" lines={['Mérida, Yucatán', 'México']} />
-              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} title="Email" lines={['hello@zentella.com', 'proyectos@zentella.com']} />
-              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>} title="Teléfono" lines={['+52 999 123 4567']} />
+              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} title="Oficina" lines={['Torre Naco 2000', 'Santo Domingo, RD']} />
+              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} title="Email" lines={['hola@agenciazentella.com']} />
+              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>} title="Teléfono" lines={['+1 (809) 676-2429']} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} title="Horarios" lines={['Lun - Vie: 9:00 - 18:00', 'Sáb: 9:00 - 14:00']} />
             </div>
 
@@ -233,7 +237,7 @@ const Contact = () => {
               </div>
 
               <div className="grid-mobile md:grid-tablet gap-6">
-                <FormField name="phone" type="tel" label="Teléfono" placeholder="+52 999 123 4567" value={formData.phone} error={errors.phone} onChange={handleInputChange} />
+                <FormField name="phone" type="tel" label="Teléfono" placeholder="+1 (809) 676-2429" value={formData.phone} error={errors.phone} onChange={handleInputChange} />
                 <FormField name="company" label="Empresa" placeholder="Nombre de tu empresa" value={formData.company} error={errors.company} onChange={handleInputChange} />
               </div>
 

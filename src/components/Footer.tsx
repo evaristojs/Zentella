@@ -1,41 +1,43 @@
 import { motion } from 'framer-motion'
+import { useLanguage } from '../hooks/useLanguage'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const { t } = useLanguage()
 
   const quickLinks = [
-    { name: 'Inicio', href: '#hero' },
-    { name: 'Servicios', href: '#services' },
-    { name: 'Portafolio', href: '#portfolio' },
-    { name: 'Nosotros', href: '#about' },
-    { name: 'Contacto', href: '#contact' }
+    { name: t('nav.inicio'), href: '#hero' },
+    { name: t('nav.servicios'), href: '#services' },
+    { name: t('nav.portafolio'), href: '#portfolio' },
+    { name: t('nav.nosotros'), href: '#about' },
+    { name: t('nav.contacto'), href: '#contact' }
   ]
 
   const services = [
-    'Marketing Digital',
-    'Fotografía',
-    'Diseño Gráfico',
-    'Videografía',
-    'Animación'
+    t('footer.servicios.marketing'),
+    t('footer.servicios.fotografia'),
+    t('footer.servicios.diseno'),
+    t('footer.servicios.video'),
+    t('footer.servicios.animacion')
   ]
 
   const socialLinks = [
-    { name: 'Instagram', href: 'https://instagram.com/zentella', icon: (
+    { name: 'Instagram', href: 'https://www.instagram.com/agenciazentella', icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
       </svg>
     ) },
-    { name: 'Behance', href: 'https://behance.net/zentella', icon: (
+    { name: 'YouTube', href: 'https://www.youtube.com/channel/UCWe13OOmbJCMTGe3Sht-pMg', icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.498 1.21.906.26 1.576.72 2.022 1.37.448.66.672 1.45.672 2.38 0 .75-.13 1.39-.41 1.93-.28.55-.67 1-1.16 1.35-.48.348-1.05.6-1.67.76-.622.16-1.29.24-1.985.24H0V4.51h6.938v-.007zM16.94 16.665c.44.428 1.073.643 1.894.643.59 0 1.1-.148 1.53-.447.424-.29.68-.61.78-.94h2.588c-.403 1.28-1.048 2.2-1.9 2.75-.85.56-1.884.83-3.08.83-.837 0-1.584-.13-2.272-.4-.673-.27-1.24-.65-1.7-1.14-.46-.49-.814-1.08-1.063-1.77-.25-.69-.373-1.45-.373-2.28 0-.85.125-1.61.373-2.28.25-.67.603-1.26 1.063-1.75.46-.49 1.027-.87 1.7-1.14.688-.27 1.435-.41 2.272-.41.86 0 1.622.15 2.287.45.666.3 1.224.73 1.68 1.27.456.54.78 1.18.974 1.91.194.73.29 1.53.29 2.4 0 .2-.007.38-.02.55H14.088c-.013.97.334 1.85.853 2.01zm-4.016-9.48V5.64h7.5v1.545h-7.5z"/>
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
       </svg>
     ) },
-    { name: 'LinkedIn', href: 'https://linkedin.com/company/zentella', icon: (
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/76315700/', icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
       </svg>
     ) },
-    { name: 'Facebook', href: 'https://facebook.com/zentella', icon: (
+    { name: 'Facebook', href: 'https://www.facebook.com/106240628100307/', icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
       </svg>
@@ -149,7 +151,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="text-small">hello@zentella.com</span>
+                <span className="text-small">hola@agenciazentella.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 text-color-primary">
@@ -157,7 +159,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="text-small">+52 999 123 4567</span>
+                <span className="text-small">+1 (809) 676-2429</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 text-color-primary">
@@ -166,7 +168,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <span className="text-small">Mérida, Yucatán, México</span>
+                <span className="text-small">Torre Naco 2000, Santo Domingo, RD</span>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 
 interface PortfolioItem {
   id: number
@@ -24,91 +25,92 @@ const Portfolio = () => {
   const [fullscreenImage, setFullscreenImage] = useState('')
   const [itemsToShow, setItemsToShow] = useState(6)
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
 
   const categories = [
-    { id: 'all', name: 'Todos' },
-    { id: 'photography', name: 'Fotografía' },
-    { id: 'design', name: 'Diseño' },
-    { id: 'video', name: 'Video' },
-    { id: 'animation', name: 'Animación' },
+    { id: 'all', name: t('portfolio.todos') },
+    { id: 'photography', name: t('portfolio.fotografia') },
+    { id: 'design', name: t('portfolio.diseno') },
+    { id: 'video', name: t('portfolio.video') },
+    { id: 'animation', name: t('portfolio.animacion') },
   ]
 
   useEffect(() => {
     const realPortfolio: PortfolioItem[] = [
       {
         id: 1,
-        title: 'AJF Panadería - Fotografía de Producto',
+        title: t('portfolio.ajf_panaderia.titulo'),
         category: 'photography',
-        description: 'Fotografía especializada de productos de panadería artesanal, destacando la calidad y frescura de cada producto',
+        description: t('portfolio.ajf_panaderia.descripcion'),
         image: '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
         images: [
           '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
           '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-2.jpg',
           '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-3.jpg'
         ],
-        client: 'AJF Panadería',
+        client: t('portfolio.ajf_panaderia.cliente'),
         year: 2024,
-        tags: ['Producto', 'Food Photography', 'Artesanal', 'Comercial']
+        tags: t('portfolio.ajf_panaderia.tags').split(', ')
       },
       {
         id: 2,
-        title: 'El Cayuco Restaurante - Fotografía Gastronómica',
+        title: t('portfolio.el_cayuco.titulo'),
         category: 'photography',
-        description: 'Sesión fotográfica completa para restaurante, capturando la esencia culinaria y ambiente único',
+        description: t('portfolio.el_cayuco.descripcion'),
         image: '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
         images: [
           '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
           '/images/portfolio/photography/el-cayuco/el-cayuco-2.jpg',
           '/images/portfolio/photography/el-cayuco/el-cayuco-3.jpg'
         ],
-        client: 'El Cayuco Restaurante',
+        client: t('portfolio.el_cayuco.cliente'),
         year: 2024,
-        tags: ['Gastronomía', 'Ambiente', 'Restaurante', 'Lifestyle']
+        tags: t('portfolio.el_cayuco.tags').split(', ')
       },
       {
         id: 3,
-        title: 'Esvi Hair Studio - Fotografía de Servicios',
+        title: t('portfolio.esvi_hair.titulo'),
         category: 'photography',
-        description: 'Fotografía profesional de servicios de belleza, mostrando técnicas y resultados de alta calidad',
+        description: t('portfolio.esvi_hair.descripcion'),
         image: '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
         images: [
           '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
           '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-2.jpg',
           '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-3.jpg'
         ],
-        client: 'Esvi Hair Studio',
+        client: t('portfolio.esvi_hair.cliente'),
         year: 2024,
-        tags: ['Belleza', 'Servicios', 'Profesional', 'Lifestyle']
+        tags: t('portfolio.esvi_hair.tags').split(', ')
       },
       {
         id: 6,
-        title: 'Better Health Nevada - Identidad Corporativa',
+        title: t('portfolio.better_health.titulo'),
         category: 'design',
-        description: 'Desarrollo completo de identidad visual para centro de salud, transmitiendo confianza y profesionalismo',
+        description: t('portfolio.better_health.descripcion'),
         image: '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
         images: [
           '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
           '/images/portfolio/branding/better-health-nevada/better-health-nevada-2.jpg',
           '/images/portfolio/branding/better-health-nevada/better-health-nevada-3.jpg'
         ],
-        client: 'Better Health Nevada',
+        client: t('portfolio.better_health.cliente'),
         year: 2024,
-        tags: ['Branding', 'Healthcare', 'Identidad Visual', 'Corporativo']
+        tags: t('portfolio.better_health.tags').split(', ')
       },
       {
         id: 7,
-        title: 'Kaccao Kitchen - Desarrollo de Marca',
+        title: t('portfolio.kaccao.titulo'),
         category: 'design',
-        description: 'Creación de identidad visual completa para cocina gourmet, enfocada en calidad y sofisticación',
+        description: t('portfolio.kaccao.descripcion'),
         image: '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
         images: [
           '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
           '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-2.jpg',
           '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-3.jpg'
         ],
-        client: 'Kaccao Kitchen',
+        client: t('portfolio.kaccao.cliente'),
         year: 2024,
-        tags: ['Branding', 'Gourmet', 'Logo Design', 'Gastronomía']
+        tags: t('portfolio.kaccao.tags').split(', ')
       },
       {
         id: 13,
@@ -243,11 +245,23 @@ const Portfolio = () => {
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
         >
+          {/* Portfolio Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-block mb-8"
+          >
+            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
+              {t('portfolio.badge')}
+            </span>
+          </motion.div>
+
           <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
-            Trabajos Destacados
+            {t('portfolio.titulo_destacados')}
           </h2>
           <p className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-3xl mx-auto">
-            Una selección de nuestros proyectos más impactantes.
+            {t('portfolio.descripcion')}
           </p>
         </motion.div>
 
