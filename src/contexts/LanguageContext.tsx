@@ -279,6 +279,18 @@ const translations = {
     'contact.seleccionar_rango': 'Seleccionar rango',
     'contact.success_message': '¡Gracias por contactarnos! Te responderemos dentro de 24 horas.',
 
+    // Contact form service options
+    'contact.servicio_branding': 'Diseño & Branding',
+    'contact.servicio_marketing': 'Marketing Digital',
+    'contact.servicio_fotografia': 'Fotografía',
+    'contact.servicio_video': 'Video & Animación',
+
+    // Contact form budget options
+    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
+    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
+    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
+    'contact.presupuesto_50k_mas': 'Más de DOP 250,000',
+
     // Testimonials
     'testimonials.badge': 'Testimonios',
     'testimonials.titulo': 'Lo que dicen nuestros clientes',
@@ -567,6 +579,18 @@ const translations = {
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
     'contact.success_message': 'Thank you for contacting us! We will respond within 24 hours.',
+
+    // Contact form service options
+    'contact.servicio_branding': 'Design & Branding',
+    'contact.servicio_marketing': 'Digital Marketing',
+    'contact.servicio_fotografia': 'Photography',
+    'contact.servicio_video': 'Video & Animation',
+
+    // Contact form budget options
+    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
+    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
+    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
+    'contact.presupuesto_50k_mas': 'More than DOP 250,000',
 
     // Testimonials
     'testimonials.badge': 'Testimonials',
