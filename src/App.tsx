@@ -19,7 +19,7 @@ function App() {
   const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   
   // Initialize section scroll detection
-  const { currentSection, scrollToSection } = useSectionScroll({
+  const { currentSection } = useSectionScroll({
     threshold: 0.3,
     rootMargin: '0px 0px -20% 0px'
   })
@@ -60,12 +60,11 @@ function App() {
                 <Navigation 
                   isMenuOpen={isMenuOpen} 
                   setIsMenuOpen={setIsMenuOpen}
-                  scrollToSection={scrollToSection}
                   currentSection={currentSection}
                 />
                 <main>
                   <section id="hero">
-                    <Hero scrollToSection={scrollToSection} />
+                    <Hero />
                   </section>
                   <section id="services">
                     <Services />
