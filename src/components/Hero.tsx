@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { devLog } from '../utils/logger'
-import { useTheme } from '../hooks/useTheme'
 import { useLanguage } from '../hooks/useLanguage'
 
 interface HeroProps {
@@ -124,7 +123,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       if (window.Starfield) {
         // Función para configurar el starfield según el tema
         const setupStarfield = () => {
-          const isDarkMode = document.documentElement.classList.contains('dark')
 
           window.Starfield.setup({
             numStars: 400,
@@ -149,7 +147,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             originElement: document.querySelector('.starfield-origin') as HTMLElement | null
           } as any)
 
-          devLog.config('Hero', 'Starfield configurado', { mode: isDarkMode ? 'oscuro' : 'claro' })
+          devLog.config('Hero', 'Starfield configurado', { mode: domIsDark ? 'oscuro' : 'claro' })
         }
 
         setupStarfield()
@@ -160,8 +158,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           themeObserverRef.current = new MutationObserver(() => {
             if (!window.Starfield || !window.Starfield.config) return
 
-            const isDarkMode = document.documentElement.classList.contains('dark')
-
             // Actualizar solo los colores sin recrear el starfield
             window.Starfield.config.starColor = domIsDark
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
@@ -171,7 +167,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro
               : 'rgb(248, 248, 252)' // Gris muy claro para modo claro
 
-            devLog.config('Hero', 'Colores del starfield actualizados', { mode: isDarkMode ? 'oscuro' : 'claro' })
+            devLog.config('Hero', 'Colores del starfield actualizados', { mode: domIsDark ? 'oscuro' : 'claro' })
           })
 
           themeObserverRef.current.observe(document.documentElement, {
