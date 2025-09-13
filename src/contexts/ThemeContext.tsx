@@ -13,8 +13,18 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 const getCurrentTheme = (): boolean => {
   if (typeof window === 'undefined') return false
   
-  // Check current DOM state instead of recalculating
-  return document.documentElement.classList.contains('dark')
+  try {
+    // First check localStorage for saved preference
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme) {
+      return savedTheme === 'dark'
+    }
+    // Fallback to DOM state if no saved preference
+    return document.documentElement.classList.contains('dark')
+  } catch {
+    // Final fallback to DOM state
+    return document.documentElement.classList.contains('dark')
+  }
 }
 
 interface ThemeProviderProps {
@@ -22,9 +32,9 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  // Initialize with current DOM state (already set in main.tsx)
+  // Initialize with current theme from localStorage/DOM
   const [isDark, setIsDark] = useState<boolean>(() => getCurrentTheme())
-  const isInitialized = true
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
 
   const applyTheme = useCallback((dark: boolean) => {
     if (typeof window === 'undefined' || !document.documentElement) return
@@ -44,6 +54,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Force repaint
     void document.documentElement.offsetHeight
   }, [])
+
+  // Ensure DOM is in sync with state on initialization
+  useEffect(() => {
+    applyTheme(isDark)
+    setIsInitialized(true)
+  }, [applyTheme]) // Only run once on mount
 
   useEffect(() => {
     // Save theme preference to localStorage when it changes
