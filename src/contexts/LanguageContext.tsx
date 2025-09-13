@@ -153,17 +153,9 @@ const translations = {
     
     // Services options
     'contact.selecciona_servicio': 'Selecciona un servicio',
-    'contact.servicio_branding': 'Diseño & Branding',
-    'contact.servicio_marketing': 'Marketing Digital',
-    'contact.servicio_fotografia': 'Fotografía',
-    'contact.servicio_video': 'Video & Animación',
     
     // Budget options
     'contact.selecciona_presupuesto': 'Selecciona tu presupuesto',
-    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
-    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
-    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
-    'contact.presupuesto_50k_mas': 'Más de DOP 250,000',
 
     // Placeholders
     'placeholder.nombre': 'Juan Pérez',
@@ -282,22 +274,6 @@ const translations = {
     'contact.faq.q4.detail2': 'Cambios adicionales con tarifa preferencial',
     'contact.faq.q4.detail3': 'Comunicación transparente sobre impactos',
 
-    // Contact form options
-    'contact.servicio_marketing_digital': 'Marketing Digital',
-    'contact.servicio_diseno_grafico': 'Diseño Gráfico',
-    'contact.servicio_fotografia': 'Fotografía',
-    'contact.servicio_videografia': 'Videografía',
-    'contact.servicio_animacion': 'Animación',
-    'contact.servicio_desarrollo_web': 'Desarrollo Web',
-    'contact.servicio_consultoria': 'Consultoría',
-    'contact.servicio_otro': 'Otro',
-
-    'contact.presupuesto_menos_10k': 'Menos de $10,000 MXN',
-    'contact.presupuesto_10k_25k': '$10,000 - $25,000 MXN',
-    'contact.presupuesto_25k_50k': '$25,000 - $50,000 MXN',
-    'contact.presupuesto_50k_100k': '$50,000 - $100,000 MXN',
-    'contact.presupuesto_mas_100k': 'Más de $100,000 MXN',
-    'contact.presupuesto_por_definir': 'Por definir',
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
     'contact.seleccionar_rango': 'Seleccionar rango',
@@ -322,42 +298,6 @@ const translations = {
     'testimonials.ana.role': 'Fundadora',
     'testimonials.ana.company': 'Creative Studio',
     'testimonials.ana.text': 'Profesionalismo, creatividad y resultados. Zentella es el partner perfecto para cualquier empresa que busque destacar en el mundo digital.',
-
-    // About Team
-    'about.stephanie.nombre': 'Stephanía García',
-    'about.stephanie.descripcion': 'Especialista en estrategias digitales con más de 5 años de experiencia. Lidera campañas creativas que generan impacto y resultados medibles.',
-    'about.angel.nombre': 'Ángel Reyes',
-    'about.angel.descripcion': 'Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.',
-    'about.ana_garcia.nombre': 'Ana García',
-    'about.ana_garcia.descripcion': 'Experta en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas.',
-
-    // Contact specific
-    'contact.email_valido': 'Ingresa un email válido',
-    'contact.telefono_valido': 'Ingresa un número de teléfono válido',
-    'contact.aceptar_terminos': 'Debes aceptar los términos y condiciones',
-    'contact.telefono_label': 'Teléfono',
-    'contact.horarios_label': 'Horarios',
-    'contact.horarios_lun_vie': 'Lun - Vie: 9:00 - 18:00',
-    'contact.horarios_sab': 'Sáb: 9:00 - 14:00',
-    'contact.telefono_placeholder': '+1 (809) 676-2429',
-    'contact.servicio_interes': 'Servicio de Interés',
-    'contact.mensaje_placeholder': 'Cuéntanos sobre tu proyecto...',
-
-    // Hero
-    'hero.boton_comenzar_log': 'Botón Comenzar clickeado',
-
-    // Portfolio additional items
-    'portfolio.chavalines.titulo': 'Chavalines RP - Animación 3D Logo',
-    'portfolio.chavalines.descripcion': 'Animación 3D profesional para entrada de logo corporativo, creando impacto visual memorable',
-    'portfolio.inauguracion.descripcion': 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
-    'portfolio.inauguracion.tags': 'Evento, Grand Opening, Producción, Corporativo',
-    'portfolio.beer_oclock.titulo': 'Beer O\'Clock - Campaña Navideña',
-    'portfolio.beer_oclock.descripcion': 'Video promocional navideño para marca de cerveza artesanal, con enfoque festivo y familiar',
-    'portfolio.time_homes.titulo': 'Time Homes - María Teresa Condos',
-    'portfolio.time_homes.descripcion': 'Video promocional inmobiliario destacando las características y ubicación del proyecto residencial',
-
-    // Footer
-    'footer.servicios_lista': 'Fotografía, Diseño, Video, Animación',
   },
   en: {
     // Navigation
@@ -502,17 +442,9 @@ const translations = {
     
     // Services options
     'contact.selecciona_servicio': 'Select a service',
-    'contact.servicio_branding': 'Design & Branding',
-    'contact.servicio_marketing': 'Digital Marketing',
-    'contact.servicio_fotografia': 'Photography',
-    'contact.servicio_video': 'Video & Animation',
     
     // Budget options
     'contact.selecciona_presupuesto': 'Select your budget',
-    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
-    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
-    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
-    'contact.presupuesto_50k_mas': 'More than DOP 250,000',
 
     // Placeholders
     'placeholder.nombre': 'John Doe',
@@ -631,22 +563,6 @@ const translations = {
     'contact.faq.q4.detail2': 'Additional changes with preferential rate',
     'contact.faq.q4.detail3': 'Transparent communication about impacts',
 
-    // Contact form options
-    'contact.servicio_marketing_digital': 'Digital Marketing',
-    'contact.servicio_diseno_grafico': 'Graphic Design',
-    'contact.servicio_fotografia': 'Photography',
-    'contact.servicio_videografia': 'Videography',
-    'contact.servicio_animacion': 'Animation',
-    'contact.servicio_desarrollo_web': 'Web Development',
-    'contact.servicio_consultoria': 'Consulting',
-    'contact.servicio_otro': 'Other',
-
-    'contact.presupuesto_menos_10k': 'Less than $10,000 MXN',
-    'contact.presupuesto_10k_25k': '$10,000 - $25,000 MXN',
-    'contact.presupuesto_25k_50k': '$25,000 - $50,000 MXN',
-    'contact.presupuesto_50k_100k': '$50,000 - $100,000 MXN',
-    'contact.presupuesto_mas_100k': 'More than $100,000 MXN',
-    'contact.presupuesto_por_definir': 'To be defined',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
@@ -665,48 +581,12 @@ const translations = {
     'testimonials.carlos.name': 'Carlos Mendoza',
     'testimonials.carlos.role': 'Marketing Director',
     'testimonials.carlos.company': 'Innovate Corp',
-    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. Our brand recognition increased by 300% in just 6 months.',
+    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. Our brand recognition increased by 300% in just 6 meses.',
 
     'testimonials.ana.name': 'Ana Rodríguez',
     'testimonials.ana.role': 'Founder',
     'testimonials.ana.company': 'Creative Studio',
     'testimonials.ana.text': 'Professionalism, creativity and results. Zentella is the perfect partner for any company looking to stand out in the digital world.',
-
-    // About Team
-    'about.stephanie.nombre': 'Stephanía García',
-    'about.stephanie.descripcion': 'Digital strategy specialist with over 5 years of experience. Leads creative campaigns that generate impact and measurable results.',
-    'about.angel.nombre': 'Ángel Reyes',
-    'about.angel.descripcion': 'Photographer and visual designer with a unique eye for capturing authentic moments. Transforms ideas into memorable visual experiences.',
-    'about.ana_garcia.nombre': 'Ana García',
-    'about.ana_garcia.descripcion': 'Expert in digital community management and content creation. Connects brands with audiences through effective communication strategies.',
-
-    // Contact specific
-    'contact.email_valido': 'Enter a valid email',
-    'contact.telefono_valido': 'Enter a valid phone number',
-    'contact.aceptar_terminos': 'You must accept the terms and conditions',
-    'contact.telefono_label': 'Phone',
-    'contact.horarios_label': 'Hours',
-    'contact.horarios_lun_vie': 'Mon - Fri: 9:00 - 18:00',
-    'contact.horarios_sab': 'Sat: 9:00 - 14:00',
-    'contact.telefono_placeholder': '+1 (809) 676-2429',
-    'contact.servicio_interes': 'Service of Interest',
-    'contact.mensaje_placeholder': 'Tell us about your project...',
-
-    // Hero
-    'hero.boton_comenzar_log': 'Get Started button clicked',
-
-    // Portfolio additional items
-    'portfolio.chavalines.titulo': 'Chavalines RP - 3D Logo Animation',
-    'portfolio.chavalines.descripcion': 'Professional 3D animation for corporate logo entrance, creating memorable visual impact',
-    'portfolio.inauguracion.descripcion': 'Complete audiovisual production for inauguration event, capturing the elegance of the moment',
-    'portfolio.inauguracion.tags': 'Event, Grand Opening, Production, Corporate',
-    'portfolio.beer_oclock.titulo': 'Beer O\'Clock - Christmas Campaign',
-    'portfolio.beer_oclock.descripcion': 'Christmas promotional video for craft beer brand, with festive and family focus',
-    'portfolio.time_homes.titulo': 'Time Homes - María Teresa Condos',
-    'portfolio.time_homes.descripcion': 'Real estate promotional video highlighting the features and location of the residential project',
-
-    // Footer
-    'footer.servicios_lista': 'Photography, Design, Video, Animation',
   }
 }
 
