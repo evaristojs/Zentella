@@ -23,21 +23,31 @@ const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t, currentLanguage } = useLanguage()
 
-  const services = useMemo(() => [
-    { value: '', label: t('contact.selecciona_servicio') },
-    { value: 'branding', label: t('contact.servicio_branding') },
-    { value: 'marketing', label: t('contact.servicio_marketing') },
-    { value: 'photography', label: t('contact.servicio_fotografia') },
-    { value: 'video', label: t('contact.servicio_video') }
-  ], [currentLanguage, t])
+  const services = useMemo(() => {
+    console.log('Creating services array with language:', currentLanguage)
+    const servicesArray = [
+      { value: '', label: t('contact.selecciona_servicio') },
+      { value: 'branding', label: t('contact.servicio_branding') },
+      { value: 'marketing', label: t('contact.servicio_marketing') },
+      { value: 'photography', label: t('contact.servicio_fotografia') },
+      { value: 'video', label: t('contact.servicio_video') }
+    ]
+    console.log('Services array created:', servicesArray)
+    return servicesArray
+  }, [currentLanguage, t])
 
-  const budgetRanges = useMemo(() => [
-    { value: '', label: t('contact.selecciona_presupuesto') },
-    { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
-    { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
-    { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
-    { value: '50k+', label: t('contact.presupuesto_50k_mas') }
-  ], [currentLanguage, t])
+  const budgetRanges = useMemo(() => {
+    console.log('Creating budget array with language:', currentLanguage)
+    const budgetArray = [
+      { value: '', label: t('contact.selecciona_presupuesto') },
+      { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
+      { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
+      { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
+      { value: '50k+', label: t('contact.presupuesto_50k_mas') }
+    ]
+    console.log('Budget array created:', budgetArray)
+    return budgetArray
+  }, [currentLanguage, t])
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
