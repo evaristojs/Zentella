@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
@@ -21,23 +21,23 @@ interface FormErrors {
 
 const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
-  const { t } = useLanguage()
+  const { t, currentLanguage } = useLanguage()
 
-  const services = [
+  const services = useMemo(() => [
     { value: '', label: t('contact.selecciona_servicio') },
     { value: 'branding', label: t('contact.servicio_branding') },
     { value: 'marketing', label: t('contact.servicio_marketing') },
     { value: 'photography', label: t('contact.servicio_fotografia') },
     { value: 'video', label: t('contact.servicio_video') }
-  ]
+  ], [currentLanguage, t])
 
-  const budgetRanges = [
+  const budgetRanges = useMemo(() => [
     { value: '', label: t('contact.selecciona_presupuesto') },
     { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
     { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
     { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
     { value: '50k+', label: t('contact.presupuesto_50k_mas') }
-]
+  ], [currentLanguage, t])
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
