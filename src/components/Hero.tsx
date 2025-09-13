@@ -356,7 +356,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(1.5rem, 4vw, 6rem)',
+                      fontSize: 'clamp(2rem, 5vw, 6.5rem)',
                       whiteSpace: isMobile ? 'normal' : 'nowrap',
                       lineHeight: '1.1',
                       letterSpacing: '-0.02em',
