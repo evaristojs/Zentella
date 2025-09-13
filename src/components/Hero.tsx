@@ -305,7 +305,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           padding: '0'
         }}
       >
-        <div className="w-full" style={{ maxWidth: '100%' }}>
+        <div className="w-full px-4" style={{ maxWidth: '100%' }}>
 
           {/* Main Content - Centered Layout */}
           <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}>
@@ -320,13 +320,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             >
               <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
                 <span
-                  className="block font-black text-center"
+                  className="block font-black text-center text-black dark:text-white"
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em',
-                    color: domIsDark ? '#ffffff' : '#000000',
-                    fontWeight: 'bold'
+                    textShadow: domIsDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
                 >
                   {t('hero.haz_que')}
@@ -334,24 +333,22 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <div
                   className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
-                    minHeight: 'clamp(4rem, 12vw, 12rem)',
-                    maxWidth: '100%',
-                    padding: '0'
+                    minHeight: 'clamp(4rem, 8vw, 8rem)',
+                    maxWidth: '100vw',
+                    padding: '0 1rem'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2rem, 5vw, 6.5rem)',
-                      whiteSpace: 'normal',
-                      lineHeight: '1.2',
+                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                      whiteSpace: 'nowrap',
+                      lineHeight: '1.1',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: '90%',
-                      wordBreak: 'break-word',
-                      textAlign: 'center',
-                      overflow: 'visible',
-                      fontWeight: 'bold'
+                      maxWidth: '95%',
+                      wordBreak: 'keep-all',
+                      overflow: 'visible'
                     }}
                   >
                     {displayText}
@@ -369,13 +366,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   </motion.span>
                 </div>
                 <span
-                  className="block font-black text-center"
+                  className="block font-black text-center text-black dark:text-white -mt-1"
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em',
-                    color: domIsDark ? '#ffffff' : '#000000',
-                    fontWeight: 'bold'
+                    textShadow: domIsDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
                 >
                   {t('hero.con_zentella')}
