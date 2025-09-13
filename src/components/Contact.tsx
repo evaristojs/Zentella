@@ -138,7 +138,7 @@ const Contact = () => {
                 </svg>
               </motion.div>
               <h2 className="heading-2 text-color-success mb-4">¡Mensaje Enviado!</h2>
-              <p className="text-justify-clean-center text-base text-text-secondary-light dark:text-text-secondary-dark mb-8">
+              <p className="text-center-hyphens text-base text-text-secondary-light dark:text-text-secondary-dark mb-8">
                 Gracias por contactarnos. Te responderemos en las próximas 24 horas.
               </p>
               <motion.button 
@@ -174,7 +174,7 @@ const Contact = () => {
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             {t('contact.titulo')}
           </h2>
-          <p className="text-justify-clean-center text-base max-w-2xl mx-auto">
+          <p className="text-center-hyphens text-base max-w-2xl mx-auto">
             {t('contact.descripcion')}
           </p>
         </motion.div>

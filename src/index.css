@@ -313,31 +313,29 @@ body::-webkit-scrollbar {
     }
   }
 
-  /* 📝 Text Justification without gaps */
-  .text-justify-clean {
-    text-align: justify;
-    text-align-last: left;
-    text-justify: inter-word;
-    word-spacing: 0.05em;
-    letter-spacing: 0.01em;
+  /* 📝 Text alignment with smart hyphenation */
+  .text-left-hyphens {
+    text-align: left;
     hyphens: auto;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
     line-height: 1.6;
+    letter-spacing: 0.005em;
   }
   
-  .text-justify-clean-center {
-    text-align: justify;
-    text-align-last: center;
-    text-justify: inter-word;
-    word-spacing: 0.05em;
-    letter-spacing: 0.01em;
+  .text-center-hyphens {
+    text-align: center;
     hyphens: auto;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
     -ms-hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
     line-height: 1.6;
+    letter-spacing: 0.005em;
   }
 }
 

@@ -63,7 +63,7 @@ const Testimonials = () => {
           <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 mt-6 leading-tight font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             Lo que dicen nuestros clientes
           </h2>
-          <p className="text-justify-clean-center text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
+          <p className="text-center-hyphens text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
             La confianza de nuestros clientes es nuestro mayor logro.
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ const Testimonials = () => {
                   alt={testimonials[currentTestimonial]?.name}
                   className="w-24 h-24 rounded-full object-cover mb-6 border-4 border-color-primary/20"
                 />
-                <blockquote className="text-justify-clean-center text-xl lg:text-2xl text-text-secondary-light dark:text-text-secondary-dark mb-6 font-medium">
+                <blockquote className="text-center-hyphens text-xl lg:text-2xl text-text-secondary-light dark:text-text-secondary-dark mb-6 font-medium">
                   "{testimonials[currentTestimonial]?.text}"
                 </blockquote>
                 <div className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark">{testimonials[currentTestimonial]?.name}</div>
