@@ -39,7 +39,6 @@ const Contact = () => {
     { value: '50k+', label: t('contact.presupuesto_50k_mas') }
 ]
 
-  const { elementRef, isVisible } = useIntersectionObserver()
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
