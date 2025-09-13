@@ -73,7 +73,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto"
+            className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto"
           >
             Profesionales apasionados por crear experiencias digitales excepcionales.
           </motion.p>
@@ -122,7 +122,7 @@ const About = () => {
                 {/* Hover Content - Description */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0">
                   <div className="text-center max-w-xs">
-                    <p className="text-sm leading-relaxed mb-6 backdrop-blur-sm bg-black/20 p-4 rounded-xl">
+                    <p className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-sm leading-relaxed mb-6 backdrop-blur-sm bg-black/20 p-4 rounded-xl">
                       {member.description}
                     </p>
                     

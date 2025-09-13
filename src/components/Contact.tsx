@@ -138,7 +138,7 @@ const Contact = () => {
                 </svg>
               </motion.div>
               <h2 className="heading-2 text-color-success mb-4">¡Mensaje Enviado!</h2>
-              <p className="text-base text-text-secondary-light dark:text-text-secondary-dark mb-8">
+              <p className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-base text-text-secondary-light dark:text-text-secondary-dark mb-8">
                 Gracias por contactarnos. Te responderemos en las próximas 24 horas.
               </p>
               <motion.button 
@@ -174,7 +174,7 @@ const Contact = () => {
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             {t('contact.titulo')}
           </h2>
-          <p className="text-base max-w-2xl mx-auto">
+          <p className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-base max-w-2xl mx-auto">
             {t('contact.descripcion')}
           </p>
         </motion.div>
@@ -187,7 +187,7 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} title="Oficina" lines={['Torre Naco 2000', 'Santo Domingo, RD']} />
+              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} title="Oficina" lines={['Torre Naco 2000', 'Santo Domingo, RD']} isLocation={true} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} title="Email" lines={['hola@agenciazentella.com']} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>} title="Teléfono" lines={['+1 (809) 676-2429']} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} title="Horarios" lines={['Lun - Vie: 9:00 - 18:00', 'Sáb: 9:00 - 14:00']} />
@@ -361,10 +361,11 @@ const FormError = ({ message }: { message: string }) => (
   </motion.p>
 )
 
-const InfoCard = ({ icon, title, lines }: { icon: React.ReactNode; title: string; lines: string[] }) => (
+const InfoCard = ({ icon, title, lines, isLocation = false }: { icon: React.ReactNode; title: string; lines: string[]; isLocation?: boolean }) => (
   <motion.div 
-    className="card-base-static hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+    className={`card-base-static hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ${isLocation ? 'cursor-pointer' : ''}`}
     whileHover={{ scale: 1.03 }}
+    onClick={isLocation ? () => window.open('https://maps.app.goo.gl/J9sjnBvKeBk2rzCb7', '_blank') : undefined}
   >
     <div className="flex items-start gap-4">
       <motion.div 
@@ -374,9 +375,10 @@ const InfoCard = ({ icon, title, lines }: { icon: React.ReactNode; title: string
         {icon}
       </motion.div>
       <div>
-        <h4 className="heading-3 text-color-primary mb-2">{title}</h4>
+        <h4 className="heading-3 text-color-primary mb-2">{title}{isLocation && ' 📍'}</h4>
         <div className="text-base text-text-secondary-light dark:text-text-secondary-dark">
           {lines.map((line, i) => <p key={i}>{line}</p>)}
+          {isLocation && <p className="text-xs text-color-primary mt-1 opacity-75">Clic para abrir en Google Maps</p>}
         </div>
       </div>
     </div>

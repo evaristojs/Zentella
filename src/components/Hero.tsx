@@ -14,16 +14,16 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   
   // Dynamic phrases based on language
   const phrases = [
-    t('hero.phrase.brilles_mas'),
-    t('hero.phrase.crezcas_hoy'),
-    t('hero.phrase.todo_cuente'),
-    t('hero.phrase.impactes_ya'),
-    t('hero.phrase.vivas_libre'),
-    t('hero.phrase.funcione_bien'),
-    t('hero.phrase.vendas_mas'),
-    t('hero.phrase.destaques_ya'),
-    t('hero.phrase.triunfes_hoy'),
-    t('hero.phrase.seas_unico')
+    t('hero.phrase.tu_marca'),
+    t('hero.phrase.tu_negocio'),
+    t('hero.phrase.tu_exito'),
+    t('hero.phrase.tu_historia'),
+    t('hero.phrase.tus_ventas'),
+    t('hero.phrase.tus_redes'),
+    t('hero.phrase.tu_contenido'),
+    t('hero.phrase.tu_comunidad'),
+    t('hero.phrase.tu_presencia'),
+    t('hero.phrase.tu_crecimiento')
   ]
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)

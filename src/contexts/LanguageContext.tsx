@@ -33,16 +33,16 @@ const translations = {
     'hero.video': 'Video',
     'hero.animacion': 'Animación',
     // Hero phrases
-    'hero.phrase.brilles_mas': 'brilles más',
-    'hero.phrase.crezcas_hoy': 'crezcas hoy',
-    'hero.phrase.todo_cuente': 'todo cuente',
-    'hero.phrase.impactes_ya': 'impactes ya',
-    'hero.phrase.vivas_libre': 'vivas libre',
-    'hero.phrase.funcione_bien': 'funcione bien',
-    'hero.phrase.vendas_mas': 'vendas más',
-    'hero.phrase.destaques_ya': 'destaques ya',
-    'hero.phrase.triunfes_hoy': 'triunfes hoy',
-    'hero.phrase.seas_unico': 'seas único',
+    'hero.phrase.tu_marca': 'tu marca',
+    'hero.phrase.tu_negocio': 'tu negocio',
+    'hero.phrase.tu_exito': 'tu éxito',
+    'hero.phrase.tu_historia': 'tu historia',
+    'hero.phrase.tus_ventas': 'tus ventas',
+    'hero.phrase.tus_redes': 'tus redes',
+    'hero.phrase.tu_contenido': 'tu contenido',
+    'hero.phrase.tu_comunidad': 'tu comunidad',
+    'hero.phrase.tu_presencia': 'tu presencia',
+    'hero.phrase.tu_crecimiento': 'tu crecimiento',
 
     // Services
     'services.badge': 'Servicios',
@@ -155,10 +155,10 @@ const translations = {
     
     // Budget options
     'contact.selecciona_presupuesto': 'Selecciona tu presupuesto',
-    'contact.presupuesto_5k_15k': 'RD$25,000 - RD$75,000',
-    'contact.presupuesto_15k_30k': 'RD$75,000 - RD$150,000',
-    'contact.presupuesto_30k_50k': 'RD$150,000 - RD$250,000',
-    'contact.presupuesto_50k_mas': 'Más de RD$250,000',
+    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
+    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
+    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
+    'contact.presupuesto_50k_mas': 'Más de DOP 250,000',
 
     // Placeholders
     'placeholder.nombre': 'Juan Pérez',
@@ -197,7 +197,7 @@ const translations = {
 
     // Hero
     'hero.bienvenido': 'Welcome to',
-    'hero.haz_que': 'Make',
+    'hero.haz_que': 'Boost',
     'hero.con_zentella': 'with Zentella',
     'hero.comenzar': 'Get Started',
     'hero.portfolio': 'Portfolio',
@@ -206,16 +206,16 @@ const translations = {
     'hero.video': 'Video',
     'hero.animacion': 'Animation',
     // Hero phrases
-    'hero.phrase.brilles_mas': 'shine brighter',
-    'hero.phrase.crezcas_hoy': 'grow today',
-    'hero.phrase.todo_cuente': 'everything count',
-    'hero.phrase.impactes_ya': 'impact now',
-    'hero.phrase.vivas_libre': 'live free',
-    'hero.phrase.funcione_bien': 'work well',
-    'hero.phrase.vendas_mas': 'sell more',
-    'hero.phrase.destaques_ya': 'stand out now',
-    'hero.phrase.triunfes_hoy': 'triumph today',
-    'hero.phrase.seas_unico': 'be unique',
+    'hero.phrase.tu_marca': 'your brand',
+    'hero.phrase.tu_negocio': 'your business',
+    'hero.phrase.tu_exito': 'your success',
+    'hero.phrase.tu_historia': 'your story',
+    'hero.phrase.tus_ventas': 'your sales',
+    'hero.phrase.tus_redes': 'your social media',
+    'hero.phrase.tu_contenido': 'your content',
+    'hero.phrase.tu_comunidad': 'your community',
+    'hero.phrase.tu_presencia': 'your presence',
+    'hero.phrase.tu_crecimiento': 'your growth',
 
     // Services
     'services.badge': 'Services',
@@ -328,10 +328,10 @@ const translations = {
     
     // Budget options
     'contact.selecciona_presupuesto': 'Select your budget',
-    'contact.presupuesto_5k_15k': 'RD$25,000 - RD$75,000',
-    'contact.presupuesto_15k_30k': 'RD$75,000 - RD$150,000',
-    'contact.presupuesto_30k_50k': 'RD$150,000 - RD$250,000',
-    'contact.presupuesto_50k_mas': 'More than RD$250,000',
+    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
+    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
+    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
+    'contact.presupuesto_50k_mas': 'More than DOP 250,000',
 
     // Placeholders
     'placeholder.nombre': 'John Doe',
