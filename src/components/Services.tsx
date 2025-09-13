@@ -71,7 +71,7 @@ const Services = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-3xl mx-auto leading-relaxed"
+            className="text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-3xl mx-auto leading-relaxed" style={{textAlign: 'justify', textAlignLast: 'center', hyphens: 'auto', wordSpacing: 'normal'}}
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -109,7 +109,7 @@ const Services = () => {
                     {service.title}
                   </motion.h3>
                   
-                  <p className="text-justify [text-justify:inter-word] [hyphens:auto] [text-wrap:balance] text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium">
+                  <p className="text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed max-w-sm mx-auto font-medium" style={{textAlign: 'justify', textAlignLast: 'center', hyphens: 'auto', wordSpacing: 'normal'}}>
                     {service.description}
                   </p>
                 </div>
