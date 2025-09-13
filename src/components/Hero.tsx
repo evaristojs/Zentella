@@ -261,7 +261,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         width: '100%',
         maxWidth: '100vw',
         overflowX: 'hidden',
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: isDark ? '#000000' : '#ffffff'
       }}
     >
       {/* Video Background - Eliminado para mejor visibilidad del starfield */}
@@ -298,13 +299,14 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             >
               <h1 className="heading-1 font-black leading-none tracking-tight flex flex-col items-center justify-center w-full">
                 <span
-                  className="block font-black text-center text-black dark:text-white"
+                  className="block font-black text-center"
                   style={{
                     fontSize: 'clamp(3.5rem, 8vw, 9rem)',
                     lineHeight: '0.9',
                     letterSpacing: '-0.03em',
-                    textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)',
-                    marginBottom: '-0.3em'
+                    marginBottom: '-0.3em',
+                    color: isDark ? '#ffffff' : '#000000',
+                    fontWeight: 'bold'
                   }}
                 >
                   {t('hero.haz_que')}
@@ -345,12 +347,13 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   </motion.span>
                 </div>
                 <span
-                  className="block font-black text-center text-black dark:text-white"
+                  className="block font-black text-center"
                   style={{
                     fontSize: 'clamp(3.5rem, 8vw, 9rem)',
                     lineHeight: '0.9',
                     letterSpacing: '-0.03em',
-                    textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
+                    color: isDark ? '#ffffff' : '#000000',
+                    fontWeight: 'bold'
                   }}
                 >
                   {t('hero.con_zentella')}
