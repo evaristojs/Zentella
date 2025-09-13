@@ -16,6 +16,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     return document.documentElement.classList.contains('dark')
   })
   
+  // Responsive whiteSpace for typewriter
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.innerWidth < 768
+  })
+  
   // Sync with DOM changes
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -29,6 +35,16 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     })
     
     return () => observer.disconnect()
+  }, [])
+  
+  // Sync with window resize for responsive behavior
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
   
   // Dynamic phrases based on language
@@ -300,10 +316,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           width: '100%',
           maxWidth: '100vw',
           textAlign: 'center',
-          padding: '0 1rem'
+          padding: '0'
         }}
       >
-        <div className="w-full px-4" style={{ maxWidth: '100%' }}>
+        <div className="w-full" style={{ maxWidth: '100%' }}>
 
           {/* Main Content - Centered Layout */}
           <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}>
@@ -334,14 +350,14 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     minHeight: 'clamp(4rem, 8vw, 8rem)',
                     maxWidth: '100%',
-                    padding: '0 0.5rem'
+                    padding: '0'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
-                      whiteSpace: 'nowrap',
+                      fontSize: 'clamp(1.5rem, 4vw, 6rem)',
+                      whiteSpace: isMobile ? 'normal' : 'nowrap',
                       lineHeight: '1.1',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
