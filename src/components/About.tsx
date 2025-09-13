@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
-import { useLanguage } from '../hooks/useLanguage'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
-  const { t } = useLanguage()
 
   const teamMembers = [
     {
