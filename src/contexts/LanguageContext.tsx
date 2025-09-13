@@ -302,8 +302,7 @@ const translations = {
     'footer.navegacion': 'Navegación',
     'footer.descripcion_empresa': 'Agencia creativa integral especializada en marketing, fotografía, diseño gráfico, videografía y animación. Creamos experiencias visuales que conectan marcas con sus audiencias.',
 
-    // About/Team
-    'about.nuestro_equipo': 'Nuestro Equipo',
+    // About/Team  
     'about.profesionales_desc': 'Profesionales apasionados por crear experiencias digitales excepcionales.',
     'about.conócenos': 'Conócenos',
     'about.stephania.desc': 'Especialista en estrategias digitales con más de 5 años de experiencia. Lidera campañas creativas que generan impacto y resultados medibles.',
@@ -623,7 +622,6 @@ const translations = {
     'footer.descripcion_empresa': 'Comprehensive creative agency specialized in marketing, photography, graphic design, videography and animation. We create visual experiences that connect brands with their audiences.',
 
     // About/Team
-    'about.nuestro_equipo': 'Our Team',
     'about.profesionales_desc': 'Professionals passionate about creating exceptional digital experiences.',
     'about.conócenos': 'Get to know us',
     'about.stephania.desc': 'Digital strategies specialist with over 5 years of experience. Leads creative campaigns that generate impact and measurable results.',
