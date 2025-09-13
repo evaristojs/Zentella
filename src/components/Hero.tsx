@@ -301,8 +301,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center"
                   style={{
-                    fontSize: 'clamp(3.5rem, 8vw, 9rem)',
-                    lineHeight: '0.9',
+                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    lineHeight: '1.1',
                     letterSpacing: '-0.03em',
                     marginBottom: '-0.3em',
                     color: isDark ? '#ffffff' : '#000000',
@@ -314,18 +314,18 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <div
                   className="relative w-full text-center flex items-center justify-center overflow-visible"
                   style={{
-                    minHeight: 'clamp(3.5rem, 8vw, 9rem)',
-                    maxWidth: '95vw',
-                    padding: '0 0.5rem',
+                    minHeight: 'clamp(4rem, 8vw, 8rem)',
+                    maxWidth: '100vw',
+                    padding: '0 1rem',
                     marginBottom: '-0.2em'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2.8rem, 7.5vw, 8.5rem)',
+                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                       whiteSpace: 'nowrap',
-                      lineHeight: '0.9',
+                      lineHeight: '1.1',
                       letterSpacing: '-0.03em',
                       color: '#6700f8', // Fallback color
                       maxWidth: '95%',
@@ -351,8 +351,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center"
                   style={{
-                    fontSize: 'clamp(3.5rem, 8vw, 9rem)',
-                    lineHeight: '0.9',
+                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    lineHeight: '1.1',
                     letterSpacing: '-0.03em',
                     color: isDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
