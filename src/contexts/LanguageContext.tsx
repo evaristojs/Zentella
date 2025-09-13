@@ -93,6 +93,8 @@ const translations = {
     
     'portfolio.esvi_hair.titulo': 'Esvi Hair Studio - Fotografía de Servicios',
     'portfolio.esvi_hair.descripcion': 'Fotografía profesional de servicios de belleza, mostrando técnicas y resultados de alta calidad',
+    'portfolio.cargar_mas': 'Cargar más proyectos',
+    'portfolio.mostrar_menos': 'Mostrar menos',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Belleza, Servicios, Profesional, Lifestyle',
     
@@ -412,6 +414,8 @@ const translations = {
     
     'portfolio.esvi_hair.titulo': 'Esvi Hair Studio - Service Photography',
     'portfolio.esvi_hair.descripcion': 'Professional photography of beauty services, showcasing high-quality techniques and results',
+    'portfolio.cargar_mas': 'Load more projects',
+    'portfolio.mostrar_menos': 'Show less',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Beauty, Services, Professional, Lifestyle',
     

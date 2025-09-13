@@ -185,6 +185,18 @@ const Portfolio = () => {
     setItemsToShow(prev => prev + 6)
   }
 
+  const showLess = () => {
+    setItemsToShow(6)
+  }
+
+  const toggleItems = () => {
+    if (hasMoreItems) {
+      loadMore()
+    } else {
+      showLess()
+    }
+  }
+
   const openModal = (item: PortfolioItem) => {
     setSelectedItem(item)
     setIsModalOpen(true)
@@ -330,7 +342,7 @@ const Portfolio = () => {
           </motion.div>
         </AnimatePresence>
 
-        {hasMoreItems && (
+        {(hasMoreItems || itemsToShow > 6) && (
           <motion.div 
             className="text-center mt-16"
             initial={{ opacity: 0, y: 20 }}
@@ -338,20 +350,21 @@ const Portfolio = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             <motion.button
-              onClick={loadMore}
+              onClick={toggleItems}
               className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border border-color-primary/20"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.97 }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
-                Cargar más proyectos
+                {hasMoreItems ? t('portfolio.cargar_mas') : t('portfolio.mostrar_menos')}
                 <motion.svg
                   className="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  whileHover={{ y: 3 }}
+                  whileHover={{ y: hasMoreItems ? 3 : -3 }}
                   transition={{ duration: 0.2 }}
+                  animate={{ rotate: hasMoreItems ? 0 : 180 }}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </motion.svg>
