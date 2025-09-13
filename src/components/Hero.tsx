@@ -10,28 +10,6 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const { t, currentLanguage } = useLanguage()
   
-  // Use DOM state directly to prevent hydration mismatches
-  const [domIsDark, setDomIsDark] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return document.documentElement.classList.contains('dark')
-  })
-  
-  
-  // Sync with DOM changes
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const currentDomState = document.documentElement.classList.contains('dark')
-      setDomIsDark(currentDomState)
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    })
-    
-    return () => observer.disconnect()
-  }, [])
-  
   
   // Dynamic phrases based on language
   const phrases = useMemo(() => [
@@ -289,7 +267,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundColor: domIsDark ? '#000000' : '#ffffff'
+        // backgroundColor handled by Tailwind classes
       }}
     >
       {/* Video Background - Eliminado para mejor visibilidad del starfield */}
@@ -330,8 +308,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
-                    letterSpacing: '-0.02em',
-                    textShadow: domIsDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
+                    letterSpacing: '-0.02em'
+                    // textShadow handled by Tailwind classes
                   }}
                 >
                   {t('hero.haz_que')}
@@ -376,8 +354,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
-                    letterSpacing: '-0.02em',
-                    textShadow: domIsDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
+                    letterSpacing: '-0.02em'
+                    // textShadow handled by Tailwind classes
                   }}
                 >
                   {t('hero.con_zentella')}
@@ -464,7 +442,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               ].map((service, index) => (
                 <motion.div
                   key={service.key}
-                  className={`group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium ${domIsDark ? 'text-white' : 'text-black'} drop-shadow-sm cursor-pointer`}
+                  className="group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium text-black dark:text-white drop-shadow-sm cursor-pointer"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}

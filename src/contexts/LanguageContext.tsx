@@ -291,6 +291,25 @@ const translations = {
     'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
     'contact.presupuesto_50k_mas': 'Más de DOP 250,000',
 
+    // Footer
+    'footer.mantente_al_dia': 'Mantente al día',
+    'footer.suscribirse_desc': 'Suscríbete para recibir noticias sobre nuestros últimos proyectos y tendencias creativas.',
+    'footer.email_placeholder': 'tu@email.com',
+    'footer.suscribirse': 'Suscribirse',
+    'footer.derechos_completos': 'Todos los derechos reservados.',
+    'footer.politica_privacidad': 'Política de Privacidad',
+    'footer.terminos_servicio': 'Términos de Servicio',
+    'footer.navegacion': 'Navegación',
+    'footer.descripcion_empresa': 'Agencia creativa integral especializada en marketing, fotografía, diseño gráfico, videografía y animación. Creamos experiencias visuales que conectan marcas con sus audiencias.',
+
+    // About/Team
+    'about.nuestro_equipo': 'Nuestro Equipo',
+    'about.profesionales_desc': 'Profesionales apasionados por crear experiencias digitales excepcionales.',
+    'about.conócenos': 'Conócenos',
+    'about.stephania.desc': 'Especialista en estrategias digitales con más de 5 años de experiencia. Lidera campañas creativas que generan impacto y resultados medibles.',
+    'about.angel.desc': 'Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.',
+    'about.ana.desc': 'Experta en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas.',
+
     // Testimonials
     'testimonials.badge': 'Testimonios',
     'testimonials.titulo': 'Lo que dicen nuestros clientes',
@@ -592,6 +611,25 @@ const translations = {
     'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
     'contact.presupuesto_50k_mas': 'More than DOP 250,000',
 
+    // Footer
+    'footer.mantente_al_dia': 'Stay updated',
+    'footer.suscribirse_desc': 'Subscribe to receive news about our latest projects and creative trends.',
+    'footer.email_placeholder': 'your@email.com',
+    'footer.suscribirse': 'Subscribe',
+    'footer.derechos_completos': 'All rights reserved.',
+    'footer.politica_privacidad': 'Privacy Policy',
+    'footer.terminos_servicio': 'Terms of Service',
+    'footer.navegacion': 'Navigation',
+    'footer.descripcion_empresa': 'Comprehensive creative agency specialized in marketing, photography, graphic design, videography and animation. We create visual experiences that connect brands with their audiences.',
+
+    // About/Team
+    'about.nuestro_equipo': 'Our Team',
+    'about.profesionales_desc': 'Professionals passionate about creating exceptional digital experiences.',
+    'about.conócenos': 'Get to know us',
+    'about.stephania.desc': 'Digital strategies specialist with over 5 years of experience. Leads creative campaigns that generate impact and measurable results.',
+    'about.angel.desc': 'Photographer and visual designer with a unique eye for capturing authentic moments. Transforms ideas into memorable visual experiences.',
+    'about.ana.desc': 'Expert in digital community management and content creation. Connects brands with audiences through effective communication strategies.',
+
     // Testimonials
     'testimonials.badge': 'Testimonials',
     'testimonials.titulo': 'What our clients say',
@@ -605,7 +643,7 @@ const translations = {
     'testimonials.carlos.name': 'Carlos Mendoza',
     'testimonials.carlos.role': 'Marketing Director',
     'testimonials.carlos.company': 'Innovate Corp',
-    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. Our brand recognition increased by 300% in just 6 meses.',
+    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. Our brand recognition increased by 300% in just 6 months.',
 
     'testimonials.ana.name': 'Ana Rodríguez',
     'testimonials.ana.role': 'Founder',

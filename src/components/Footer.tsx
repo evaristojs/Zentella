@@ -139,9 +139,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-base text-text-secondary-light dark:text-text-secondary-dark mb-6 leading-relaxed">
-              Agencia creativa integral especializada en marketing, fotografía, 
-              diseño gráfico, videografía y animación. Creamos experiencias 
-              visuales que conectan marcas con sus audiencias.
+              {t('footer.descripcion_empresa')}
             </p>
             
             <div className="space-y-3">
@@ -174,7 +172,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Navegación</h4>
+            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">{t('footer.navegacion')}</h4>
             <ul className="space-y-2">
               {quickLinks.map(link => (
                 <li key={link.name}>
@@ -208,14 +206,14 @@ const Footer = () => {
 
         <div className="card-base mb-12">
           <div className="text-center max-w-2xl mx-auto">
-            <h4 className="heading-2 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Mantente al día</h4>
+            <h4 className="heading-2 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">{t('footer.mantente_al_dia')}</h4>
             <p className="text-base mb-6">
-              Suscríbete para recibir noticias sobre nuestros últimos proyectos y tendencias creativas.
+              {t('footer.suscribirse_desc')}
             </p>
             <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input 
                 type="email" 
-                placeholder="tu@email.com" 
+                placeholder={t('footer.email_placeholder')} 
                 className="input-base flex-1"
                 required 
               />
@@ -223,7 +221,7 @@ const Footer = () => {
                 type="submit"
                 className="btn-primary"
               >
-                Suscribirse
+                {t('footer.suscribirse')}
               </button>
             </form>
           </div>
@@ -248,14 +246,14 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
               <p className="text-small mb-2">
-                &copy; {currentYear} Zentella. Todos los derechos reservados.
+                &copy; {currentYear} Zentella. {t('footer.derechos_completos')}
               </p>
               <div className="flex gap-4">
                 <a href="/privacy" className="text-small hover:text-color-primary hover-smooth">
-                  Política de Privacidad
+                  {t('footer.politica_privacidad')}
                 </a>
                 <a href="/terms" className="text-small hover:text-color-primary hover-smooth">
-                  Términos de Servicio
+                  {t('footer.terminos_servicio')}
                 </a>
               </div>
             </div>

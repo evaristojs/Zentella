@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useLanguage } from '../hooks/useLanguage'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
+  const { t } = useLanguage()
 
   const teamMembers = [
     {
       name: "Stephanía García",
       role: "Directora de Marketing", 
-      description: "Especialista en estrategias digitales con más de 5 años de experiencia. Lidera campañas creativas que generan impacto y resultados medibles.",
+      description: t('about.stephania.desc'),
       image: "/images/team/Stephanía-García-Directora-de-Marketing.jpg",
       linkedin: "https://www.linkedin.com/in/stephania-garcia-450b211b2/",
       instagram: "https://www.instagram.com/stephaniagarciar/",
@@ -17,7 +19,7 @@ const About = () => {
     {
       name: "Ángel Reyes", 
       role: "Director Creativo",
-      description: "Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.",
+      description: t('about.angel.desc'),
       image: "/images/team/Ángel-Reyes-Director-Creativo.jpg",
       linkedin: "https://www.linkedin.com/in/%C3%A1ngel-reyes-1b72b2207/",
       instagram: "https://www.instagram.com/vektorprods/",
@@ -26,7 +28,7 @@ const About = () => {
     {
       name: "Ana García",
       role: "Community Manager", 
-      description: "Experta en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas.",
+      description: t('about.ana.desc'),
       image: "/images/team/Ana-García-Community-Manager.jpg",
       linkedin: "https://www.linkedin.com/in/ana-maria-garc%C3%ADa-romero-44200216a/", 
       instagram: "https://www.instagram.com/agarciaromeroo/"
@@ -54,7 +56,7 @@ const About = () => {
             className="inline-block mb-8"
           >
             <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
-              Nuestro Equipo
+{t('about.nuestro_equipo')}
             </span>
           </motion.div>
 
@@ -65,7 +67,7 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 leading-tight font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent"
           >
-            Conócenos
+            {t('about.conócenos')}
           </motion.h2>
 
           {/* Subtitle */}
@@ -75,7 +77,7 @@ const About = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center-hyphens text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto"
           >
-            Profesionales apasionados por crear experiencias digitales excepcionales.
+            {t('about.profesionales_desc')}
           </motion.p>
         </motion.div>
 
