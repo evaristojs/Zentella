@@ -300,31 +300,33 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center text-black dark:text-white"
                   style={{
-                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
-                    lineHeight: '1.1',
-                    letterSpacing: '-0.02em',
-                    textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
+                    fontSize: 'clamp(3.5rem, 8vw, 9rem)',
+                    lineHeight: '0.9',
+                    letterSpacing: '-0.03em',
+                    textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)',
+                    marginBottom: '-0.3em'
                   }}
                 >
                   {t('hero.haz_que')}
                 </span>
                 <div
-                  className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
+                  className="relative w-full text-center flex items-center justify-center overflow-visible"
                   style={{
-                    minHeight: 'clamp(5rem, 10vw, 10rem)',
-                    maxWidth: '100vw',
-                    padding: '0 1rem'
+                    minHeight: 'clamp(3.5rem, 8vw, 9rem)',
+                    maxWidth: '95vw',
+                    padding: '0 0.5rem',
+                    marginBottom: '-0.2em'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2rem, 5.5vw, 6.5rem)',
+                      fontSize: 'clamp(2.8rem, 7.5vw, 8.5rem)',
                       whiteSpace: 'nowrap',
-                      lineHeight: '1.1',
-                      letterSpacing: '-0.02em',
+                      lineHeight: '0.9',
+                      letterSpacing: '-0.03em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: '90%',
+                      maxWidth: '95%',
                       wordBreak: 'keep-all',
                       overflow: 'visible'
                     }}
@@ -343,11 +345,11 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   </motion.span>
                 </div>
                 <span
-                  className="block font-black text-center text-black dark:text-white -mt-1"
+                  className="block font-black text-center text-black dark:text-white"
                   style={{
-                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
-                    lineHeight: '1.1',
-                    letterSpacing: '-0.02em',
+                    fontSize: 'clamp(3.5rem, 8vw, 9rem)',
+                    lineHeight: '0.9',
+                    letterSpacing: '-0.03em',
                     textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
                 >
