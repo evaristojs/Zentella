@@ -146,7 +146,7 @@ const FAQ = () => {
           <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
             Preguntas Frecuentes
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark leading-relaxed" style={{textAlign: 'justify', textAlignLast: 'center', hyphens: 'auto', wordSpacing: 'normal'}}>
+          <p className="text-justify-clean-center text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark">
             Resolvemos las dudas más comunes sobre nuestros servicios de marketing digital, diseño y producción audiovisual
           </p>
         </motion.div>
@@ -205,7 +205,7 @@ const FAQ = () => {
                     className="overflow-hidden border-t border-white/10 dark:border-gray-700/10"
                   >
                     <div className="p-6 space-y-4">
-                      <p className="text-base text-text-secondary-light dark:text-text-secondary-dark leading-relaxed" style={{textAlign: 'justify', textAlignLast: 'left', hyphens: 'auto', wordSpacing: 'normal'}}>
+                      <p className="text-justify-clean text-base text-text-secondary-light dark:text-text-secondary-dark">
                         {item.answer}
                       </p>
                       
@@ -242,7 +242,7 @@ const FAQ = () => {
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <p className="text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl mx-auto leading-relaxed" style={{textAlign: 'justify', textAlignLast: 'center', hyphens: 'auto', wordSpacing: 'normal'}}>
+          <p className="text-justify-clean-center text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl mx-auto">
             ¿No encontraste la respuesta que buscabas? Contáctanos directamente y resolveremos todas tus dudas.
           </p>
           <motion.button 

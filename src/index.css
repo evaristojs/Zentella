@@ -314,6 +314,34 @@ body::-webkit-scrollbar {
   }
 }
 
+  /* 📝 Text Justification without gaps */
+  .text-justify-clean {
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-word;
+    word-spacing: 0.05em;
+    letter-spacing: 0.01em;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    line-height: 1.6;
+  }
+  
+  .text-justify-clean-center {
+    text-align: justify;
+    text-align-last: center;
+    text-justify: inter-word;
+    word-spacing: 0.05em;
+    letter-spacing: 0.01em;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    line-height: 1.6;
+  }
+}
+
 @layer utilities {
   /* 🚀 ChatBase.co style backdrop blur implementation */
   .backdrop-blur-\[100px\], .backdrop-blur-md {
