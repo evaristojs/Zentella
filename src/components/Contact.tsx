@@ -21,7 +21,7 @@ interface FormErrors {
 
 const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
-  const { t, currentLanguage } = useLanguage()
+  const { t } = useLanguage()
 
 
   const [formData, setFormData] = useState<FormData>({
