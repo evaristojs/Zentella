@@ -55,7 +55,7 @@ function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
+                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark snap-y snap-mandatory"
               >
                 <Navigation 
                   isMenuOpen={isMenuOpen} 
@@ -63,22 +63,22 @@ function App() {
                   currentSection={currentSection}
                 />
                 <main>
-                  <section id="hero">
+                  <section id="hero" className="snap-start min-h-screen">
                     <Hero />
                   </section>
-                  <section id="services">
+                  <section id="services" className="snap-start min-h-screen">
                     <Services />
                   </section>
-                  <section id="portfolio">
+                  <section id="portfolio" className="snap-start min-h-screen">
                     <Portfolio />
                   </section>
-                  <section id="about">
+                  <section id="about" className="snap-start min-h-screen">
                     <About />
                   </section>
-                  <section id="testimonials">
+                  <section id="testimonials" className="snap-start min-h-screen">
                     <Testimonials />
                   </section>
-                  <section id="contact">
+                  <section id="contact" className="snap-start min-h-screen">
                     <ContactFAQ />
                   </section>
                 </main>
