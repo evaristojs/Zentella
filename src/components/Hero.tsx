@@ -325,7 +325,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em',
-,
                     color: domIsDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
                   }}
