@@ -25,7 +25,7 @@ const translations = {
     // Hero
     'hero.bienvenido': 'Bienvenido a',
     'hero.haz_que': 'Impulsa',
-    'hero.con_zentella': 'con Zentella. Hazlo más grande',
+    'hero.con_zentella': 'con Zentella',
     'hero.comenzar': 'Comenzar',
     'hero.portfolio': 'Portfolio',
     'hero.fotografia': 'Fotografía',
