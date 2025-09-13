@@ -20,7 +20,7 @@ const About = () => {
       description: "Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.",
       image: "/images/team/Ángel-Reyes-Director-Creativo.jpg",
       linkedin: "https://www.linkedin.com/in/%C3%A1ngel-reyes-1b72b2207/",
-      instagram: "https://www.instagram.com/vektorphotos/",
+      instagram: "https://www.instagram.com/vektorprods/",
       twitter: "https://twitter.com/vektorcreativo"
     },
     {
