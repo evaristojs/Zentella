@@ -330,7 +330,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                       color: '#6700f8', // Fallback color
                       maxWidth: '95%',
                       wordBreak: 'keep-all',
-                      overflow: 'visible'
+                      overflow: 'visible',
+                      fontWeight: 'bold'
                     }}
                   >
                     {displayText}
@@ -339,7 +340,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                       animate={{ opacity: showCursor ? 1 : 0 }}
                       transition={{ duration: 0.1 }}
                       style={{
-                        fontSize: 'inherit'
+                        fontSize: 'inherit',
+                        fontWeight: 'bold'
                       }}
                     >
                       |
