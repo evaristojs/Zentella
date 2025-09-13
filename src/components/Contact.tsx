@@ -142,12 +142,28 @@ const Contact = () => {
                 Gracias por contactarnos. Te responderemos en las próximas 24 horas.
               </p>
               <motion.button 
-                className="btn-primary"
+                className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border border-color-primary/20"
                 onClick={() => setIsSubmitted(false)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
               >
-                Enviar otro mensaje
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  Enviar otro mensaje
+                  <motion.svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </motion.svg>
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-color-secondary to-color-primary opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                  whileHover={{ opacity: 1 }}
+                />
               </motion.button>
             </div>
           </motion.div>
@@ -251,7 +267,7 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`btn-primary w-full flex items-center justify-center gap-2 ${isSubmitting ? 'btn-disabled' : ''}`}
+                className={`group relative overflow-hidden w-full px-8 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border border-color-primary/20 flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
@@ -262,7 +278,7 @@ const Contact = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2"
+                      className="relative z-10 flex items-center gap-2"
                     >
                       <motion.div 
                         className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
@@ -277,15 +293,28 @@ const Contact = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="flex items-center gap-2"
+                      className="relative z-10 flex items-center gap-2"
                     >
                       Enviar Mensaje
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <motion.svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        whileHover={{ x: 3 }}
+                        transition={{ duration: 0.2 }}
+                      >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                      </svg>
+                      </motion.svg>
                     </motion.div>
                   )}
                 </AnimatePresence>
+                {!isSubmitting && (
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-color-secondary to-color-primary opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                    whileHover={{ opacity: 1 }}
+                  />
+                )}
               </motion.button>
             </form>
           </motion.div>

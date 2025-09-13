@@ -339,11 +339,27 @@ const Portfolio = () => {
           >
             <motion.button
               onClick={loadMore}
-              className="px-8 py-4 bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-primary-light dark:text-text-primary-dark rounded-full font-medium hover:bg-color-primary transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-color-primary to-color-secondary text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border border-color-primary/20"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
             >
-              Cargar más proyectos
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Cargar más proyectos
+                <motion.svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  whileHover={{ y: 3 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </motion.svg>
+              </span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-color-secondary to-color-primary opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                whileHover={{ opacity: 1 }}
+              />
             </motion.button>
           </motion.div>
         )}
