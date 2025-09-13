@@ -16,11 +16,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     return document.documentElement.classList.contains('dark')
   })
   
-  // Responsive whiteSpace for typewriter
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.innerWidth < 768
-  })
   
   // Sync with DOM changes
   useEffect(() => {
@@ -37,15 +32,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     return () => observer.disconnect()
   }, [])
   
-  // Sync with window resize for responsive behavior
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
   
   // Dynamic phrases based on language
   const phrases = [
@@ -348,7 +334,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <div
                   className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
-                    minHeight: 'clamp(4rem, 8vw, 8rem)',
+                    minHeight: 'clamp(4rem, 12vw, 12rem)',
                     maxWidth: '100%',
                     padding: '0'
                   }}
@@ -357,12 +343,13 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
                       fontSize: 'clamp(2rem, 5vw, 6.5rem)',
-                      whiteSpace: isMobile ? 'normal' : 'nowrap',
-                      lineHeight: '1.1',
+                      whiteSpace: 'normal',
+                      lineHeight: '1.2',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: 'none',
-                      wordBreak: 'keep-all',
+                      maxWidth: '90%',
+                      wordBreak: 'break-word',
+                      textAlign: 'center',
                       overflow: 'visible',
                       fontWeight: 'bold'
                     }}
