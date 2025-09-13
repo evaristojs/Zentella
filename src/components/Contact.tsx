@@ -248,21 +248,21 @@ const Contact = () => {
               <input type="hidden" name="bot-field" />
               
               <div className="grid-mobile md:grid-tablet gap-6">
-                <FormField name="name" label="Nombre" placeholder="Tu nombre completo" value={formData.name} error={errors.name} onChange={handleInputChange} />
-                <FormField name="email" type="email" label="Email" placeholder="tu@email.com" value={formData.email} error={errors.email} onChange={handleInputChange} />
+                <FormField name="name" label={t('contact.nombre')} placeholder="Tu nombre completo" value={formData.name} error={errors.name} onChange={handleInputChange} />
+                <FormField name="email" type="email" label={t('contact.email')} placeholder="tu@email.com" value={formData.email} error={errors.email} onChange={handleInputChange} />
               </div>
 
               <div className="grid-mobile md:grid-tablet gap-6">
-                <FormField name="phone" type="tel" label="Teléfono" placeholder="+1 (809) 676-2429" value={formData.phone} error={errors.phone} onChange={handleInputChange} />
-                <FormField name="company" label="Empresa" placeholder="Nombre de tu empresa" value={formData.company} error={errors.company} onChange={handleInputChange} />
+                <FormField name="phone" type="tel" label={t('contact.telefono')} placeholder="+1 (809) 676-2429" value={formData.phone} error={errors.phone} onChange={handleInputChange} />
+                <FormField name="company" label={t('contact.empresa')} placeholder="Nombre de tu empresa" value={formData.company} error={errors.company} onChange={handleInputChange} />
               </div>
 
               <div className="grid-mobile md:grid-tablet gap-6">
-                <FormSelect name="service" label="Servicio de Interés" value={formData.service} error={errors.service} options={services} onChange={handleInputChange} />
-                <FormSelect name="budget" label="Presupuesto" value={formData.budget} error={errors.budget} options={budgetRanges} onChange={handleInputChange} />
+                <FormSelect name="service" label={t('contact.servicio')} value={formData.service} error={errors.service} options={services} onChange={handleInputChange} />
+                <FormSelect name="budget" label={t('contact.presupuesto')} value={formData.budget} error={errors.budget} options={budgetRanges} onChange={handleInputChange} />
               </div>
 
-              <FormTextarea name="message" label="Mensaje" placeholder="Cuéntanos sobre tu proyecto..." value={formData.message} error={errors.message} onChange={handleInputChange} />
+              <FormTextarea name="message" label={t('contact.mensaje')} placeholder="Cuéntanos sobre tu proyecto..." value={formData.message} error={errors.message} onChange={handleInputChange} />
 
               <motion.button
                 type="submit"
