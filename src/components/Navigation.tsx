@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
-import { useLanguage } from '../hooks/useLanguage'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface NavigationProps {
   isMenuOpen: boolean

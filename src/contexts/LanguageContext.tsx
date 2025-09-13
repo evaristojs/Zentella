@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 
 export type Language = 'es' | 'en'
 
-interface LanguageState {
+interface LanguageContextType {
   currentLanguage: Language
   setLanguage: (lang: Language) => void
   t: (key: string) => string
@@ -360,7 +360,13 @@ const translations = {
 
 const LANGUAGE_STORAGE_KEY = 'zentella-language'
 
-export const useLanguage = (): LanguageState => {
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+
+interface LanguageProviderProps {
+  children: ReactNode
+}
+
+export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   // Initialize with Spanish as default, or load from localStorage
   const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
     if (typeof window !== 'undefined') {
@@ -396,9 +402,21 @@ export const useLanguage = (): LanguageState => {
     setCurrentLanguage(lang)
   }, [])
 
-  return {
-    currentLanguage,
-    setLanguage,
-    t
+  return (
+    <LanguageContext.Provider value={{
+      currentLanguage,
+      setLanguage,
+      t
+    }}>
+      {children}
+    </LanguageContext.Provider>
+  )
+}
+
+export const useLanguage = (): LanguageContextType => {
+  const context = useContext(LanguageContext)
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider')
   }
+  return context
 }
