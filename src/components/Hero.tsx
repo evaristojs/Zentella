@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { devLog } from '../utils/logger'
 import { useLanguage } from '../hooks/useLanguage'
 
@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
-  const { t } = useLanguage()
+  const { t, currentLanguage } = useLanguage()
   
   // Use DOM state directly to prevent hydration mismatches
   const [domIsDark, setDomIsDark] = useState(() => {
@@ -34,7 +34,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   
   
   // Dynamic phrases based on language
-  const phrases = [
+  const phrases = useMemo(() => [
     t('hero.phrase.tu_marca'),
     t('hero.phrase.tu_negocio'),
     t('hero.phrase.tu_exito'),
@@ -50,11 +50,17 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     t('hero.phrase.tu_audiencia'),
     t('hero.phrase.tu_estrategia'),
     t('hero.phrase.tu_vision')
-  ]
+  ], [currentLanguage, t])
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
+
+  // Reset typewriter when language changes
+  useEffect(() => {
+    setCurrentPhraseIndex(0)
+    setDisplayText('')
+  }, [currentLanguage])
 
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const themeObserverRef = useRef<MutationObserver | null>(null)
@@ -90,7 +96,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       timeoutsRef.current.forEach(id => clearTimeout(id))
       timeoutsRef.current = []
     }
-  }, [currentPhraseIndex])
+  }, [currentPhraseIndex, phrases])
 
   // Cursor blink effect
   useEffect(() => {
@@ -451,13 +457,13 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               transition={{ duration: 0.6, delay: 1.5 }}
             >
               {[
-                t('hero.fotografia'), 
-                t('hero.diseno'), 
-                t('hero.video'), 
-                t('hero.animacion')
+                { key: 'photography', text: t('hero.fotografia') },
+                { key: 'design', text: t('hero.diseno') },
+                { key: 'video', text: t('hero.video') },
+                { key: 'animation', text: t('hero.animacion') }
               ].map((service, index) => (
                 <motion.div
-                  key={service}
+                  key={service.key}
                   className={`group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium ${domIsDark ? 'text-white' : 'text-black'} drop-shadow-sm cursor-pointer`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -469,7 +475,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {service}
+                  {service.text}
                 </motion.div>
               ))}
             </motion.div>

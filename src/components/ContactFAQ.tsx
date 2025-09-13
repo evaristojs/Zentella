@@ -431,17 +431,55 @@ const ContactFAQ = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 px-8 rounded-2xl font-bold text-white transition-all duration-300 shadow-xl hover:shadow-2xl text-lg ${
+                  className={`group relative overflow-hidden w-full px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border flex items-center justify-center gap-2 ${
                     isSubmitting 
-                      ? 'bg-gray-400 cursor-not-allowed' 
+                      ? 'bg-gray-400 cursor-not-allowed opacity-70 border-gray-400/20' 
                       : submitSuccess
-                      ? 'bg-green-500'
-                      : 'bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700'
+                      ? 'bg-green-500 border-green-500/20'
+                      : 'bg-gradient-to-r from-color-primary to-color-secondary border-color-primary/20'
                   }`}
-                  whileHover={!isSubmitting ? { scale: 1.02, y: -2 } : {}}
-                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.97 } : {}}
                 >
-                  {isSubmitting ? t('contact.enviando') : submitSuccess ? t('contact.enviado') : t('contact.enviar')}
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <motion.div 
+                          className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        />
+                        {t('contact.enviando')}
+                      </>
+                    ) : submitSuccess ? (
+                      <>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {t('contact.enviado')}
+                      </>
+                    ) : (
+                      <>
+                        {t('contact.enviar')}
+                        <motion.svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          whileHover={{ x: 3 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </motion.svg>
+                      </>
+                    )}
+                  </span>
+                  {!isSubmitting && !submitSuccess && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-color-secondary to-color-primary opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full"
+                      whileHover={{ opacity: 1 }}
+                    />
+                  )}
                 </motion.button>
               </form>
             </div>
