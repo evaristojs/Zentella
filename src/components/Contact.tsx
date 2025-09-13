@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
@@ -23,31 +23,6 @@ const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t, currentLanguage } = useLanguage()
 
-  const services = useMemo(() => {
-    console.log('Creating services array with language:', currentLanguage)
-    const servicesArray = [
-      { value: '', label: t('contact.selecciona_servicio') },
-      { value: 'branding', label: t('contact.servicio_branding') },
-      { value: 'marketing', label: t('contact.servicio_marketing') },
-      { value: 'photography', label: t('contact.servicio_fotografia') },
-      { value: 'video', label: t('contact.servicio_video') }
-    ]
-    console.log('Services array created:', servicesArray)
-    return servicesArray
-  }, [currentLanguage, t])
-
-  const budgetRanges = useMemo(() => {
-    console.log('Creating budget array with language:', currentLanguage)
-    const budgetArray = [
-      { value: '', label: t('contact.selecciona_presupuesto') },
-      { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
-      { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
-      { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
-      { value: '50k+', label: t('contact.presupuesto_50k_mas') }
-    ]
-    console.log('Budget array created:', budgetArray)
-    return budgetArray
-  }, [currentLanguage, t])
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -268,8 +243,34 @@ const Contact = () => {
               </div>
 
               <div className="grid-mobile md:grid-tablet gap-6">
-                <FormSelect name="service" label={t('contact.servicio')} value={formData.service} error={errors.service} options={services} onChange={handleInputChange} />
-                <FormSelect name="budget" label={t('contact.presupuesto')} value={formData.budget} error={errors.budget} options={budgetRanges} onChange={handleInputChange} />
+                <FormSelect 
+                  name="service" 
+                  label={t('contact.servicio')} 
+                  value={formData.service} 
+                  error={errors.service} 
+                  options={[
+                    { value: '', label: t('contact.selecciona_servicio') },
+                    { value: 'branding', label: t('contact.servicio_branding') },
+                    { value: 'marketing', label: t('contact.servicio_marketing') },
+                    { value: 'photography', label: t('contact.servicio_fotografia') },
+                    { value: 'video', label: t('contact.servicio_video') }
+                  ]} 
+                  onChange={handleInputChange} 
+                />
+                <FormSelect 
+                  name="budget" 
+                  label={t('contact.presupuesto')} 
+                  value={formData.budget} 
+                  error={errors.budget} 
+                  options={[
+                    { value: '', label: t('contact.selecciona_presupuesto') },
+                    { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
+                    { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
+                    { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
+                    { value: '50k+', label: t('contact.presupuesto_50k_mas') }
+                  ]} 
+                  onChange={handleInputChange} 
+                />
               </div>
 
               <FormTextarea name="message" label={t('contact.mensaje')} placeholder="Cuéntanos sobre tu proyecto..." value={formData.message} error={errors.message} onChange={handleInputChange} />
