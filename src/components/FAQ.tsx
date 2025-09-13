@@ -161,11 +161,12 @@ const FAQ = () => {
           {faqData.map((item, index) => (
             <motion.div
               key={item.id}
-              className="group relative overflow-hidden bg-white/5 dark:bg-black/5 backdrop-blur-xl rounded-2xl border border-white/10 dark:border-gray-700/10 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="group relative overflow-visible bg-white/5 dark:bg-black/5 backdrop-blur-xl rounded-2xl border border-white/10 dark:border-gray-700/10 shadow-lg hover:shadow-xl transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: 0.4 + index * 0.05 }}
               whileHover={{ scale: 1.01 }}
+              style={{ isolation: 'isolate' }}
             >
               <button
                 onClick={() => toggleItem(item.id)}
@@ -198,11 +199,12 @@ const FAQ = () => {
               <AnimatePresence>
                 {openItem === item.id && (
                   <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
+                    initial={{ height: 0, opacity: 0, y: -10 }}
+                    animate={{ height: "auto", opacity: 1, y: 0 }}
+                    exit={{ height: 0, opacity: 0, y: -10 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden border-t border-white/10 dark:border-gray-700/10"
+                    style={{ transformOrigin: "top" }}
                   >
                     <div className="p-6 space-y-4">
                       <p className="text-left-hyphens text-base text-text-secondary-light dark:text-text-secondary-dark">

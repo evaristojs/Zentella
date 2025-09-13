@@ -278,10 +278,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           padding: '0 1rem'
         }}
       >
-        <div className="w-full" style={{ maxWidth: '100%' }}>
+        <div className="w-full px-4" style={{ maxWidth: '100%' }}>
 
           {/* Main Content - Centered Layout */}
-          <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%' }}>
+          <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}>
 
 
             {/* Main Headline with Rotating Phrases */}
@@ -295,8 +295,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center text-black dark:text-white"
                   style={{
-                    fontSize: 'clamp(3.5rem, 7vw, 7rem)',
-                    lineHeight: '0.9',
+                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    lineHeight: '1.1',
                     letterSpacing: '-0.02em',
                     textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
@@ -304,20 +304,24 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   {t('hero.haz_que')}
                 </span>
                 <div
-                  className="relative w-full text-center flex items-center justify-center overflow-hidden -mt-1"
+                  className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
-                    height: 'clamp(4rem, 8vw, 8rem)',
-                    minHeight: '4rem'
+                    minHeight: 'clamp(4rem, 8vw, 8rem)',
+                    maxWidth: '100vw',
+                    padding: '0 1rem'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(3.5rem, 7vw, 7rem)',
+                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                       whiteSpace: 'nowrap',
-                      lineHeight: '0.9',
+                      lineHeight: '1.1',
                       letterSpacing: '-0.02em',
-                      color: '#6700f8' // Fallback color
+                      color: '#6700f8', // Fallback color
+                      maxWidth: '95%',
+                      wordBreak: 'keep-all',
+                      overflow: 'visible'
                     }}
                   >
                     {displayText}
@@ -336,8 +340,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center text-black dark:text-white -mt-1"
                   style={{
-                    fontSize: 'clamp(3.5rem, 7vw, 7rem)',
-                    lineHeight: '0.9',
+                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    lineHeight: '1.1',
                     letterSpacing: '-0.02em',
                     textShadow: isDark ? '0 2px 4px rgba(0, 0, 0, 0.3)' : '0 2px 4px rgba(255, 255, 255, 0.8)'
                   }}
