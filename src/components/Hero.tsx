@@ -324,8 +324,8 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
-                    letterSpacing: '-0.03em',
-                    marginBottom: '-0.3em',
+                    letterSpacing: '-0.02em',
+,
                     color: domIsDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
                   }}
@@ -333,12 +333,11 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   {t('hero.haz_que')}
                 </span>
                 <div
-                  className="relative w-full text-center flex items-center justify-center overflow-visible"
+                  className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
                   style={{
                     minHeight: 'clamp(4rem, 8vw, 8rem)',
                     maxWidth: '100vw',
-                    padding: '0 1rem',
-                    marginBottom: '-0.2em'
+                    padding: '0 1rem'
                   }}
                 >
                   <motion.span
@@ -347,7 +346,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                       fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                       whiteSpace: 'nowrap',
                       lineHeight: '1.1',
-                      letterSpacing: '-0.03em',
+                      letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
                       maxWidth: '95%',
                       wordBreak: 'keep-all',
@@ -374,7 +373,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
-                    letterSpacing: '-0.03em',
+                    letterSpacing: '-0.02em',
                     color: domIsDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
                   }}
