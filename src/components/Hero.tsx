@@ -12,6 +12,27 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const { isDark } = useTheme()
   const { t } = useLanguage()
   
+  // Use DOM state directly to prevent hydration mismatches
+  const [domIsDark, setDomIsDark] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return document.documentElement.classList.contains('dark')
+  })
+  
+  // Sync with DOM changes
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const currentDomState = document.documentElement.classList.contains('dark')
+      setDomIsDark(currentDomState)
+    })
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+    
+    return () => observer.disconnect()
+  }, [])
+  
   // Dynamic phrases based on language
   const phrases = [
     t('hero.phrase.tu_marca'),
@@ -111,10 +132,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             baseSpeed: 1.2, // Velocidad normal para mejor visibilidad
             trailLength: 0,
             // Colores mejorados para mejor visibilidad
-            starColor: isDarkMode
+            starColor: domIsDark
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
               : 'rgb(60, 20, 180)',   // Púrpura más oscuro para mayor contraste en modo claro
-            canvasColor: isDarkMode
+            canvasColor: domIsDark
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro en lugar de negro puro
               : 'rgb(248, 248, 252)', // Gris muy claro para modo claro
             hueJitter: 25, // Variación de color para ambos modos
@@ -143,11 +164,11 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             const isDarkMode = document.documentElement.classList.contains('dark')
 
             // Actualizar solo los colores sin recrear el starfield
-            window.Starfield.config.starColor = isDarkMode
+            window.Starfield.config.starColor = domIsDark
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
               : 'rgb(60, 20, 180)'   // Púrpura más oscuro para mayor contraste en modo claro
 
-            window.Starfield.config.canvasColor = isDarkMode
+            window.Starfield.config.canvasColor = domIsDark
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro
               : 'rgb(248, 248, 252)' // Gris muy claro para modo claro
 
@@ -262,7 +283,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
-        backgroundColor: isDark ? '#000000' : '#ffffff'
+        backgroundColor: domIsDark ? '#000000' : '#ffffff'
       }}
     >
       {/* Video Background - Eliminado para mejor visibilidad del starfield */}
@@ -305,7 +326,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     lineHeight: '1.1',
                     letterSpacing: '-0.03em',
                     marginBottom: '-0.3em',
-                    color: isDark ? '#ffffff' : '#000000',
+                    color: domIsDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
                   }}
                 >
@@ -354,7 +375,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                     fontSize: 'clamp(2.5rem, 6vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.03em',
-                    color: isDark ? '#ffffff' : '#000000',
+                    color: domIsDark ? '#ffffff' : '#000000',
                     fontWeight: 'bold'
                   }}
                 >
@@ -442,7 +463,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               ].map((service, index) => (
                 <motion.div
                   key={service}
-                  className={`group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium ${isDark ? 'text-white' : 'text-black'} drop-shadow-sm cursor-pointer`}
+                  className={`group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium ${domIsDark ? 'text-white' : 'text-black'} drop-shadow-sm cursor-pointer`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}

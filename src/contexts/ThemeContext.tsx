@@ -14,16 +14,21 @@ const getCurrentTheme = (): boolean => {
   if (typeof window === 'undefined') return false
   
   try {
-    // First check localStorage for saved preference
+    // Always prioritize DOM state as source of truth since main.tsx sets it correctly
+    const domHasDark = document.documentElement.classList.contains('dark')
+    
+    // Verify it matches localStorage, if not sync them
     const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      return savedTheme === 'dark'
+    const savedIsDark = savedTheme === 'dark'
+    
+    // If DOM and localStorage are mismatched, DOM wins (main.tsx set it correctly)
+    if (savedTheme && domHasDark !== savedIsDark) {
+      localStorage.setItem('theme', domHasDark ? 'dark' : 'light')
     }
-    // Fallback to DOM state if no saved preference
-    return document.documentElement.classList.contains('dark')
+    
+    return domHasDark
   } catch {
-    // Final fallback to DOM state
-    return document.documentElement.classList.contains('dark')
+    return false
   }
 }
 
