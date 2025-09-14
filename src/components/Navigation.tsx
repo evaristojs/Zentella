@@ -3,6 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
+import { useOptimizedScroll } from '../hooks/useOptimizedScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -15,6 +16,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
+  const { scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)

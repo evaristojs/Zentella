@@ -61,7 +61,7 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
 
     // Retry finding elements multiple times (for lazy loaded components)
     const observeElements = () => {
-      const foundElements = [];
+      const foundElements: string[] = [];
       sectionIds.forEach(id => {
         const element = document.getElementById(id);
         if (element && observerRef.current) {
