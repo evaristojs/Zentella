@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
@@ -8,11 +9,12 @@ const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
   const { isDark } = useTheme()
+  const [activeCard, setActiveCard] = useState<number | null>(null)
 
   const teamMembers = [
     {
       name: "Stephanía García",
-      role: "Directora de Marketing", 
+      role: t('about.stephania.rol'), 
       description: t('about.stephania.desc'),
       image: "/images/team/Stephanía-García-Directora-de-Marketing.jpg",
       linkedin: "https://www.linkedin.com/in/stephania-garcia-450b211b2/",
@@ -21,7 +23,7 @@ const About = () => {
     },
     {
       name: "Ángel Reyes", 
-      role: "Director Creativo",
+      role: t('about.angel.rol'),
       description: t('about.angel.desc'),
       image: "/images/team/Ángel-Reyes-Director-Creativo.jpg",
       linkedin: "https://www.linkedin.com/in/%C3%A1ngel-reyes-1b72b2207/",
@@ -30,7 +32,7 @@ const About = () => {
     },
     {
       name: "Ana García",
-      role: "Community Manager", 
+      role: t('about.ana.rol'), 
       description: t('about.ana.desc'),
       image: "/images/team/Ana-García-Community-Manager.jpg",
       linkedin: "https://www.linkedin.com/in/ana-maria-garc%C3%ADa-romero-44200216a/", 
@@ -113,7 +115,8 @@ const About = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-              className="group cursor-pointer"
+              className={`group cursor-pointer ${activeCard === index ? 'mobile-active' : ''}`}
+              onClick={() => setActiveCard(activeCard === index ? null : index)}
             >
               {/* Card Container - Image takes full space */}
               <div className="relative overflow-hidden rounded-3xl aspect-[3/4] shadow-2xl shadow-black/30 hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02]">
@@ -131,20 +134,23 @@ const About = () => {
 
                 {/* Default Content - Always Visible */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2 transform group-hover:translate-y-[-10px] transition-transform duration-500">
+                  <h3 className="text-2xl font-bold mb-2 transform group-hover:translate-y-[-10px] transition-transform duration-500" style={{willChange: 'transform', backfaceVisibility: 'hidden'}}>
                     {member.name}
                   </h3>
-                  <div className="transform group-hover:translate-y-[-5px] transition-transform duration-500 delay-75">
+                  <div className="transform group-hover:translate-y-[-5px] transition-transform duration-500 delay-75" style={{willChange: 'transform', backfaceVisibility: 'hidden'}}>
                     <span className="px-3 py-1 bg-color-primary/90 backdrop-blur-sm text-white text-sm font-medium rounded-full">
                       {member.role}
                     </span>
                   </div>
                 </div>
 
+                {/* Blur overlay on hover/mobile active */}
+                <div className="absolute inset-0 backdrop-blur-md bg-black/40 opacity-0 group-hover:opacity-100 mobile-active:opacity-100 transition-opacity duration-500" />
+
                 {/* Hover Content - Description */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0">
+                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 mobile-active:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0 mobile-active:translate-y-0 z-10">
                   <div className="text-center max-w-xs">
-                    <p className="text-left-hyphens text-sm mb-6 backdrop-blur-sm bg-black/20 p-4 rounded-xl">
+                    <p className="text-left-hyphens text-sm mb-6 bg-white/10 p-4 rounded-xl border border-white/20">
                       {member.description}
                     </p>
                     

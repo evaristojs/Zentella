@@ -355,8 +355,11 @@ const translations = {
     'about.profesionales_desc': 'Profesionales apasionados por crear experiencias digitales excepcionales.',
     'about.conócenos': 'Conócenos',
     'about.stephania.desc': 'Especialista en estrategias digitales con más de 5 años de experiencia. Lidera campañas creativas que generan impacto y resultados medibles.',
+    'about.stephania.rol': 'Directora de Marketing',
     'about.angel.desc': 'Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.',
+    'about.angel.rol': 'Director Creativo',
     'about.ana.desc': 'Experta en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas.',
+    'about.ana.rol': 'Community Manager',
 
     // Testimonials
     'testimonials.badge': 'Testimonios',
@@ -722,8 +725,11 @@ const translations = {
     'about.profesionales_desc': 'Professionals passionate about creating exceptional digital experiences.',
     'about.conócenos': 'Get to know us',
     'about.stephania.desc': 'Digital strategies specialist with over 5 years of experience. Leads creative campaigns that generate impact and measurable results.',
+    'about.stephania.rol': 'Marketing Director',
     'about.angel.desc': 'Photographer and visual designer with a unique eye for capturing authentic moments. Transforms ideas into memorable visual experiences.',
+    'about.angel.rol': 'Creative Director',
     'about.ana.desc': 'Expert in digital community management and content creation. Connects brands with audiences through effective communication strategies.',
+    'about.ana.rol': 'Community Manager',
 
     // Testimonials
     'testimonials.badge': 'Testimonials',
