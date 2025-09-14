@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react'
 
 export type Language = 'es' | 'en'
 
@@ -61,6 +61,26 @@ const translations = {
     'services.fotografia.descripcion': 'Capturamos la esencia de tu marca con fotografías profesionales.',
     'services.video.titulo': 'Video & Animación',
     'services.video.descripcion': 'Contenido audiovisual que conecta emocionalmente con tu audiencia.',
+
+    // Estadísticas
+    'services.stats.proyectos': '50+',
+    'services.stats.proyectos_label': 'Proyectos completados',
+    'services.stats.satisfaccion': '98%',
+    'services.stats.satisfaccion_label': 'Satisfacción del cliente',
+    'services.stats.experiencia': '5+',
+    'services.stats.experiencia_label': 'Años de experiencia',
+
+    // Características de servicios
+    'services.diseno.features': 'Diseño responsive, Manual de marca, 3 Revisiones incluidas',
+    'services.marketing.features': 'Estrategia personalizada, Análisis de competencia, Reportes mensuales',
+    'services.fotografia.features': 'Sesión ilimitada, Edición profesional, Galería digital',
+    'services.video.features': 'Guión incluido, Música libre de derechos, Formatos múltiples',
+
+    'services.delivery_time': 'Tiempo de entrega: ',
+    'services.diseno.delivery': '7-10 días',
+    'services.marketing.delivery': '15-20 días',
+    'services.fotografia.delivery': '3-5 días',
+    'services.video.delivery': '10-15 días',
 
     // Portfolio
     'portfolio.badge': 'Portafolio',
@@ -127,6 +147,7 @@ const translations = {
     'footer.servicios': 'Servicios',
     'footer.siguenos': 'Síguenos',
     'footer.derechos': 'Todos los derechos reservados.',
+    'footer.marcas_que_confian': 'Marcas que confían en nosotros',
     'footer.servicios.marketing': 'Marketing Digital',
     'footer.servicios.fotografia': 'Fotografía',
     'footer.servicios.diseno': 'Diseño Gráfico',
@@ -282,16 +303,22 @@ const translations = {
     'contact.success_message': '¡Gracias por contactarnos! Te responderemos dentro de 24 horas.',
 
     // Contact form service options
-    'contact.servicio_branding': 'Diseño & Branding',
-    'contact.servicio_marketing': 'Marketing Digital',
+    'contact.servicio_marketing_digital': 'Marketing Digital',
+    'contact.servicio_diseno_grafico': 'Diseño Gráfico',
     'contact.servicio_fotografia': 'Fotografía',
-    'contact.servicio_video': 'Video & Animación',
+    'contact.servicio_videografia': 'Videografía',
+    'contact.servicio_animacion': 'Animación',
+    'contact.servicio_desarrollo_web': 'Desarrollo Web',
+    'contact.servicio_consultoria': 'Consultoría',
+    'contact.servicio_otro': 'Otro',
 
     // Contact form budget options
-    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
-    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
-    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
-    'contact.presupuesto_50k_mas': 'Más de DOP 250,000',
+    'contact.presupuesto_menos_10k': 'Menos de DOP 10,000',
+    'contact.presupuesto_10k_25k': 'DOP 10,000 - DOP 25,000',
+    'contact.presupuesto_25k_50k': 'DOP 25,000 - DOP 50,000',
+    'contact.presupuesto_50k_100k': 'DOP 50,000 - DOP 100,000',
+    'contact.presupuesto_mas_100k': 'Más de DOP 100,000',
+    'contact.presupuesto_por_definir': 'Por definir',
 
     // Footer
     'footer.mantente_al_dia': 'Mantente al día',
@@ -383,6 +410,26 @@ const translations = {
     'services.video.titulo': 'Video & Animation',
     'services.video.descripcion': 'Audiovisual content that emotionally connects with your audience.',
 
+    // Statistics
+    'services.stats.proyectos': '50+',
+    'services.stats.proyectos_label': 'Completed projects',
+    'services.stats.satisfaccion': '98%',
+    'services.stats.satisfaccion_label': 'Client satisfaction',
+    'services.stats.experiencia': '5+',
+    'services.stats.experiencia_label': 'Years of experience',
+
+    // Service features
+    'services.diseno.features': 'Responsive design, Brand manual, 3 Revisions included',
+    'services.marketing.features': 'Custom strategy, Competitor analysis, Monthly reports',
+    'services.fotografia.features': 'Unlimited session, Professional editing, Digital gallery',
+    'services.video.features': 'Script included, Royalty-free music, Multiple formats',
+
+    'services.delivery_time': 'Delivery time: ',
+    'services.diseno.delivery': '7-10 days',
+    'services.marketing.delivery': '15-20 days',
+    'services.fotografia.delivery': '3-5 days',
+    'services.video.delivery': '10-15 days',
+
     // Portfolio
     'portfolio.badge': 'Portfolio',
     'portfolio.titulo': 'Our Work',
@@ -448,6 +495,7 @@ const translations = {
     'footer.servicios': 'Services',
     'footer.siguenos': 'Follow Us',
     'footer.derechos': 'All rights reserved.',
+    'footer.marcas_que_confian': 'Brands that trust us',
     'footer.servicios.marketing': 'Digital Marketing',
     'footer.servicios.fotografia': 'Photography',
     'footer.servicios.diseno': 'Graphic Design',
@@ -603,16 +651,22 @@ const translations = {
     'contact.success_message': 'Thank you for contacting us! We will respond within 24 hours.',
 
     // Contact form service options
-    'contact.servicio_branding': 'Design & Branding',
-    'contact.servicio_marketing': 'Digital Marketing',
+    'contact.servicio_marketing_digital': 'Digital Marketing',
+    'contact.servicio_diseno_grafico': 'Graphic Design',
     'contact.servicio_fotografia': 'Photography',
-    'contact.servicio_video': 'Video & Animation',
+    'contact.servicio_videografia': 'Videography',
+    'contact.servicio_animacion': 'Animation',
+    'contact.servicio_desarrollo_web': 'Web Development',
+    'contact.servicio_consultoria': 'Consulting',
+    'contact.servicio_otro': 'Other',
 
     // Contact form budget options
-    'contact.presupuesto_5k_15k': 'DOP 25,000 - DOP 75,000',
-    'contact.presupuesto_15k_30k': 'DOP 75,000 - DOP 150,000',
-    'contact.presupuesto_30k_50k': 'DOP 150,000 - DOP 250,000',
-    'contact.presupuesto_50k_mas': 'More than DOP 250,000',
+    'contact.presupuesto_menos_10k': 'Less than DOP 10,000',
+    'contact.presupuesto_10k_25k': 'DOP 10,000 - DOP 25,000',
+    'contact.presupuesto_25k_50k': 'DOP 25,000 - DOP 50,000',
+    'contact.presupuesto_50k_100k': 'DOP 50,000 - DOP 100,000',
+    'contact.presupuesto_mas_100k': 'More than DOP 100,000',
+    'contact.presupuesto_por_definir': 'To be defined',
 
     // Footer
     'footer.mantente_al_dia': 'Stay updated',
@@ -685,7 +739,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
   // Translation function
   const t = useCallback((key: string): string => {
-    const translation = translations[currentLanguage]?.[key]
+    const languageTranslations = translations[currentLanguage] as Record<string, string>
+    const translation = languageTranslations?.[key]
     if (!translation) {
       console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`)
       return key // Return the key as fallback
@@ -698,12 +753,14 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     setCurrentLanguage(lang)
   }, [])
 
+  const value = useMemo(() => ({
+    currentLanguage,
+    setLanguage,
+    t
+  }), [currentLanguage, setLanguage, t])
+
   return (
-    <LanguageContext.Provider value={{
-      currentLanguage,
-      setLanguage,
-      t
-    }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   )

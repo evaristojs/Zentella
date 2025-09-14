@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
@@ -23,6 +23,27 @@ const Contact = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
 
+  const serviceOptions = useMemo(() => [
+    { value: '', label: t('contact.selecciona_servicio') },
+    { value: 'marketing_digital', label: t('contact.servicio_marketing_digital') },
+    { value: 'diseno_grafico', label: t('contact.servicio_diseno_grafico') },
+    { value: 'fotografia', label: t('contact.servicio_fotografia') },
+    { value: 'videografia', label: t('contact.servicio_videografia') },
+    { value: 'animacion', label: t('contact.servicio_animacion') },
+    { value: 'desarrollo_web', label: t('contact.servicio_desarrollo_web') },
+    { value: 'consultoria', label: t('contact.servicio_consultoria') },
+    { value: 'otro', label: t('contact.servicio_otro') }
+  ], [t])
+
+  const budgetOptions = useMemo(() => [
+    { value: '', label: t('contact.selecciona_presupuesto') },
+    { value: 'menos_10k', label: t('contact.presupuesto_menos_10k') },
+    { value: '10k_25k', label: t('contact.presupuesto_10k_25k') },
+    { value: '25k_50k', label: t('contact.presupuesto_25k_50k') },
+    { value: '50k_100k', label: t('contact.presupuesto_50k_100k') },
+    { value: 'mas_100k', label: t('contact.presupuesto_mas_100k') },
+    { value: 'por_definir', label: t('contact.presupuesto_por_definir') }
+  ], [t])
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -181,7 +202,7 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid-mobile lg:grid-tablet gap-16">
+        <div className="grid-mobile lg:grid-tablet">
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, x: -50 }}
@@ -232,44 +253,32 @@ const Contact = () => {
               <input type="hidden" name="form-name" value="contact" />
               <input type="hidden" name="bot-field" />
               
-              <div className="grid-mobile md:grid-tablet gap-6">
+              <div className="grid-mobile md:grid-tablet">
                 <FormField name="name" label={t('contact.nombre')} placeholder="Tu nombre completo" value={formData.name} error={errors.name} onChange={handleInputChange} />
                 <FormField name="email" type="email" label={t('contact.email')} placeholder="tu@email.com" value={formData.email} error={errors.email} onChange={handleInputChange} />
               </div>
 
-              <div className="grid-mobile md:grid-tablet gap-6">
+              <div className="grid-mobile md:grid-tablet">
                 <FormField name="phone" type="tel" label={t('contact.telefono')} placeholder="+1 (809) 676-2429" value={formData.phone} error={errors.phone} onChange={handleInputChange} />
                 <FormField name="company" label={t('contact.empresa')} placeholder="Nombre de tu empresa" value={formData.company} error={errors.company} onChange={handleInputChange} />
               </div>
 
-              <div className="grid-mobile md:grid-tablet gap-6">
-                <FormSelect 
-                  name="service" 
-                  label={t('contact.servicio')} 
-                  value={formData.service} 
-                  error={errors.service} 
-                  options={[
-                    { value: '', label: t('contact.selecciona_servicio') },
-                    { value: 'branding', label: t('contact.servicio_branding') },
-                    { value: 'marketing', label: t('contact.servicio_marketing') },
-                    { value: 'photography', label: t('contact.servicio_fotografia') },
-                    { value: 'video', label: t('contact.servicio_video') }
-                  ]} 
-                  onChange={handleInputChange} 
+              <div className="grid-mobile md:grid-tablet">
+                <FormSelect
+                  name="service"
+                  label={t('contact.servicio')}
+                  value={formData.service}
+                  error={errors.service}
+                  options={serviceOptions}
+                  onChange={handleInputChange}
                 />
-                <FormSelect 
-                  name="budget" 
-                  label={t('contact.presupuesto')} 
-                  value={formData.budget} 
-                  error={errors.budget} 
-                  options={[
-                    { value: '', label: t('contact.selecciona_presupuesto') },
-                    { value: '5k-15k', label: t('contact.presupuesto_5k_15k') },
-                    { value: '15k-30k', label: t('contact.presupuesto_15k_30k') },
-                    { value: '30k-50k', label: t('contact.presupuesto_30k_50k') },
-                    { value: '50k+', label: t('contact.presupuesto_50k_mas') }
-                  ]} 
-                  onChange={handleInputChange} 
+                <FormSelect
+                  name="budget"
+                  label={t('contact.presupuesto')}
+                  value={formData.budget}
+                  error={errors.budget}
+                  options={budgetOptions}
+                  onChange={handleInputChange}
                 />
               </div>
 
