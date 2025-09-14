@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { devLog } from '../utils/logger'
 import { useLanguage } from '../hooks/useLanguage'
+import Marquee from 'react-fast-marquee'
 
 interface HeroProps {
   scrollToSection?: (sectionId: string) => void
@@ -34,6 +35,22 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
   const [isLogosHovered, setIsLogosHovered] = useState(false)
+
+  // Logo data array
+  const clientLogos = [
+    { name: 'Regularzentella2025', logo: '/regularzentella2025.png' },
+    { name: 'Zentella Mesa 7', logo: '/zentella-clientesMesa-de-trabajo-7.png' },
+    { name: 'Zentella Mesa 10', logo: '/zentella-clientesMesa-de-trabajo-10.png' },
+    { name: 'Zentella Mesa 8 Copia', logo: '/zentella-clientesMesa-de-trabajo-8-copia.png' },
+    { name: 'Zentella Mesa 6', logo: '/zentella-clientesMesa-de-trabajo-6.png' },
+    { name: 'Revel', logo: '/clientes-Revel.png' },
+    { name: 'Mantra', logo: '/clientes-Mantra.png' },
+    { name: 'River Hill', logo: '/clientes-River-Hill.png' },
+    { name: 'Zentella Mesa 3', logo: '/zentella-clientesMesa-de-trabajo-3.png' },
+    { name: 'Zentella Mesa 2', logo: '/zentella-Mesa-de-trabajo-2.png' },
+    { name: 'Zentella Mesa 8', logo: '/zentella-clientesMesa-de-trabajo-8.png' },
+    { name: 'Zentella Mesa 9 Copia', logo: '/zentella-clientesMesa-de-trabajo-9-copia.png' }
+  ]
 
   // Reset typewriter when language changes
   useEffect(() => {
@@ -289,7 +306,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         className="hero-content starfield-origin"
         style={{
           position: 'absolute',
-          top: '60%',
+          top: '47%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: 10,
@@ -375,7 +392,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-row gap-3 justify-center items-center pt-4 px-4 w-full"
+              className="flex flex-row gap-3 justify-center items-center px-4 w-full"
               style={{ maxWidth: '100%' }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -437,76 +454,46 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               </motion.button>
             </motion.div>
 
-            {/* Client Logos Banner - Desktop Only */}
-            <motion.div
-              className="hidden lg:block w-full overflow-hidden pt-20 pb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 2 }}
-              style={{ height: '120px' }}
-            >
-              <motion.div
-                className="relative h-full flex items-center justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-              >
-                {/* Scrolling Logos */}
-                <motion.div
-                  className="flex items-center gap-12 whitespace-nowrap"
-                  animate={isLogosHovered ? {} : { x: ["0%", "-50%"] }}
-                  transition={isLogosHovered ?
-                    {} :
-                    {
-                      x: {
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        duration: 60,
-                        ease: "linear",
-                      },
-                    }
-                  }
-                  onMouseEnter={() => setIsLogosHovered(true)}
-                  onMouseLeave={() => setIsLogosHovered(false)}
-                  style={{
-                    willChange: 'transform'
-                  }}
+          </div>
+        </div>
+      </div>
+
+      {/* Client Logos Banner - Desktop Only - Fixed at bottom */}
+      <motion.div
+        className="hidden lg:block w-full overflow-y-hidden absolute bottom-0 left-0 right-0"
+        style={{ zIndex: 20 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 2 }}
+      >
+              <div className="flex items-center justify-center">
+                <Marquee
+                  speed={50}
+                  pauseOnHover={true}
+                  gradient={false}
                 >
-                  {/* Client logos - duplicated for seamless infinite loop */}
-                  {[...Array(8)].map((_, groupIndex) => (
-                    <div key={groupIndex} className="flex items-center gap-12">
-                      {[
-                        { name: 'Nike', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=NIKE' },
-                        { name: 'Adidas', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=ADIDAS' },
-                        { name: 'Apple', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=APPLE' },
-                        { name: 'Samsung', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=SAMSUNG' },
-                        { name: 'Google', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=GOOGLE' },
-                        { name: 'Microsoft', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=MICROSOFT' },
-                        { name: 'Meta', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=META' },
-                        { name: 'Tesla', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=TESLA' }
-                      ].map((client, index) => (
-                        <motion.div
-                          key={`${groupIndex}-${client.name}-${index}`}
-                          className="flex-shrink-0 w-24 h-12 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center p-2 shadow-sm hover:shadow-md"
-                          whileHover={{ scale: 1.05, y: -2 }}
-                          style={{
-                            backfaceVisibility: 'hidden',
-                            transform: 'translateZ(0)',
-                          }}
-                        >
-                          <img
-                            src={client.logo}
-                            alt={`${client.name} logo`}
-                            className="max-w-full max-h-full object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter grayscale hover:grayscale-0 dark:brightness-0 dark:invert"
-                            loading="lazy"
-                          />
-                        </motion.div>
-                      ))}
-                    </div>
+                  {clientLogos.map((client, index) => (
+                    <motion.img
+                      key={`${client.name}-${index}`}
+                      src={client.logo}
+                      alt={`${client.name} logo`}
+                      className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-8"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      style={{
+                        backfaceVisibility: 'hidden',
+                        transform: 'translateZ(0)',
+                      }}
+                      loading="lazy"
+                    />
                   ))}
-                </motion.div>
-              </motion.div>
-            </motion.div>
+                </Marquee>
+              </div>
+      </motion.div>
+
+      {/* Hero Content Bottom Section */}
+      <div className="absolute bottom-0 left-0 right-0 px-4">
+        <div className="w-full px-4" style={{ maxWidth: '100%' }}>
+          <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}>
 
             {/* Services Pills - Mobile/Tablet Only */}
             <motion.div
