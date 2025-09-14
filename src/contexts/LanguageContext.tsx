@@ -214,12 +214,12 @@ const translations = {
     // FAQ Questions and Answers
     'faq.q1.question': '¿Cuánto cuesta el servicio/proyecto o cuál es el presupuesto necesario?',
     'faq.q1.answer': 'Los costos pueden variar enormemente, desde el 0 al infinito, dependiendo de los objetivos y recursos, así como de la fase del proyecto y la exposición de la marca. Factores como la industria, la competencia, la ubicación geográfica, el alcance y los objetivos del proyecto, la reputación y experiencia de la agencia, y la personalización de los servicios influyen en el precio.',
-    'faq.q1.detail1': 'Publicidad PPC: $1,500-$10,000/mes',
-    'faq.q1.detail2': 'SEO: $1,000-$7,500/mes',
-    'faq.q1.detail3': 'Marketing en redes sociales: $1,000-$3,500/mes',
+    'faq.q1.detail1': 'Publicidad PPC: $85,000-$580,000 DOP/mes',
+    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/mes',
+    'faq.q1.detail3': 'Marketing en redes sociales: $58,000-$203,000 DOP/mes',
     'faq.q1.detail4': 'Marketing de contenido: $1,800-$12,000/mes',
     'faq.q1.detail5': 'Email marketing: $1,500-$7,500/mes',
-    'faq.q1.detail6': 'Videos corporativos: entre $20,000-$100,000 MXN',
+    'faq.q1.detail6': 'Videos corporativos: $65,000-$325,000 DOP',
 
     'faq.q2.question': '¿Qué servicios ofrecen y cómo pueden ayudar a mi negocio?',
     'faq.q2.answer': 'Ofrecemos una amplia gama de servicios para mejorar la visibilidad, relevancia y posicionamiento de tu negocio. Nuestros servicios incluyen posicionamiento SEO, campañas SEM, diseño y desarrollo web, estrategias de contenido, diseño gráfico, fotografía, videografía, animación y gestión de redes sociales.',
@@ -272,10 +272,10 @@ const translations = {
     // ContactFAQ specific
     'contact.faq.q1.question': '¿Cuánto cuesta el servicio/proyecto?',
     'contact.faq.q1.answer': 'Los costos varían según objetivos, recursos y complejidad del proyecto. Factores como industria, competencia, alcance y personalización influyen en el precio.',
-    'contact.faq.q1.detail1': 'Publicidad PPC: $1,500-$10,000/mes',
-    'contact.faq.q1.detail2': 'SEO: $1,000-$7,500/mes',
-    'contact.faq.q1.detail3': 'Marketing en redes sociales: $1,000-$3,500/mes',
-    'contact.faq.q1.detail4': 'Videos corporativos: $20,000-$100,000 MXN',
+    'contact.faq.q1.detail1': 'Publicidad PPC: $85,000-$580,000 DOP/mes',
+    'contact.faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/mes',
+    'contact.faq.q1.detail3': 'Marketing en redes sociales: $58,000-$203,000 DOP/mes',
+    'contact.faq.q1.detail4': 'Videos corporativos: $65,000-$325,000 DOP',
 
     'contact.faq.q2.question': '¿Qué servicios ofrecen?',
     'contact.faq.q2.answer': 'Ofrecemos servicios completos de marketing digital, diseño gráfico, fotografía, videografía, animación y desarrollo web para mejorar la presencia digital de tu negocio.',
@@ -585,12 +585,12 @@ const translations = {
     // FAQ Questions and Answers
     'faq.q1.question': 'How much does the service/project cost or what budget is needed?',
     'faq.q1.answer': 'Costs can vary enormously, from 0 to infinity, depending on objectives and resources, as well as the project phase and brand exposure. Factors such as industry, competition, geographic location, scope and project objectives, agency reputation and experience, and service customization influence pricing.',
-    'faq.q1.detail1': 'PPC Advertising: $1,500-$10,000/month',
-    'faq.q1.detail2': 'SEO: $1,000-$7,500/month',
-    'faq.q1.detail3': 'Social media marketing: $1,000-$3,500/month',
+    'faq.q1.detail1': 'PPC Advertising: $85,000-$580,000 DOP/month',
+    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/month',
+    'faq.q1.detail3': 'Social media marketing: $58,000-$203,000 DOP/month',
     'faq.q1.detail4': 'Content marketing: $1,800-$12,000/month',
     'faq.q1.detail5': 'Email marketing: $1,500-$7,500/month',
-    'faq.q1.detail6': 'Corporate videos: between $20,000-$100,000 MXN',
+    'faq.q1.detail6': 'Corporate videos: $65,000-$325,000 DOP',
 
     'faq.q2.question': 'What services do you offer and how can they help my business?',
     'faq.q2.answer': 'We offer a wide range of services to improve your business\'s visibility, relevance and positioning. Our services include SEO positioning, SEM campaigns, web design and development, content strategies, graphic design, photography, videography, animation and social media management.',
@@ -643,10 +643,10 @@ const translations = {
     // ContactFAQ specific
     'contact.faq.q1.question': 'How much does the service/project cost?',
     'contact.faq.q1.answer': 'Costs vary according to objectives, resources and project complexity. Factors such as industry, competition, scope and customization influence pricing.',
-    'contact.faq.q1.detail1': 'PPC Advertising: $1,500-$10,000/month',
-    'contact.faq.q1.detail2': 'SEO: $1,000-$7,500/month',
-    'contact.faq.q1.detail3': 'Social media marketing: $1,000-$3,500/month',
-    'contact.faq.q1.detail4': 'Corporate videos: $20,000-$100,000 MXN',
+    'contact.faq.q1.detail1': 'PPC Advertising: $85,000-$580,000 DOP/month',
+    'contact.faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/month',
+    'contact.faq.q1.detail3': 'Social media marketing: $58,000-$203,000 DOP/month',
+    'contact.faq.q1.detail4': 'Corporate videos: $65,000-$325,000 DOP',
 
     'contact.faq.q2.question': 'What services do you offer?',
     'contact.faq.q2.answer': 'We offer complete digital marketing, graphic design, photography, videography, animation and web development services to improve your business\'s digital presence.',
