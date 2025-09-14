@@ -9,26 +9,23 @@ const Services = () => {
   const services = [
     {
       id: 1,
-      title: t('services.diseno.titulo'),
-      description: t('services.diseno.descripcion'),
-      features: t('services.diseno.features'),
-      delivery: t('services.diseno.delivery'),
-      icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-4a2 2 0 00-2-2H7M7 21V9a2 2 0 012-2h6a2 2 0 012 2v8M7 9V5a2 2 0 012-2h6a2 2 0 012 2v4H7z" /></svg>,
-    },
-    {
-      id: 2,
       title: t('services.marketing.titulo'),
       description: t('services.marketing.descripcion'),
       features: t('services.marketing.features'),
-      delivery: t('services.marketing.delivery'),
       icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>,
+    },
+    {
+      id: 2,
+      title: t('services.diseno.titulo'),
+      description: t('services.diseno.descripcion'),
+      features: t('services.diseno.features'),
+      icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-4a2 2 0 00-2-2H7M7 21V9a2 2 0 012-2h6a2 2 0 012 2v8M7 9V5a2 2 0 012-2h6a2 2 0 012 2v4H7z" /></svg>,
     },
     {
       id: 3,
       title: t('services.fotografia.titulo'),
       description: t('services.fotografia.descripcion'),
       features: t('services.fotografia.features'),
-      delivery: t('services.fotografia.delivery'),
       icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
     },
     {
@@ -36,7 +33,6 @@ const Services = () => {
       title: t('services.video.titulo'),
       description: t('services.video.descripcion'),
       features: t('services.video.features'),
-      delivery: t('services.video.delivery'),
       icon: <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>,
     }
   ]
@@ -140,14 +136,6 @@ const Services = () => {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-gray-100 dark:border-gray-800 w-full flex justify-center">
-                  <div className="flex items-center text-xs text-purple-700 dark:text-white font-medium bg-purple-50 dark:bg-gray-800 px-2 py-1 rounded-md">
-                    <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {service.delivery}
-                  </div>
-                </div>
               </div>
             </motion.div>
           ))}
