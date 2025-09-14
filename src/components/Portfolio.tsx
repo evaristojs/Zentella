@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
+import { useTheme } from '../contexts/ThemeContext'
 import OptimizedImage from './OptimizedImage'
 
 interface PortfolioItem {
@@ -27,6 +28,7 @@ const Portfolio = () => {
   const [itemsToShow, setItemsToShow] = useState(6)
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
+  const { isDark } = useTheme()
 
   const categories = [
     { id: 'all', name: t('portfolio.todos') },
@@ -246,10 +248,24 @@ const Portfolio = () => {
   }, [isModalOpen, isFullscreenOpen])
 
   return (
-    <section 
-      id="portfolio" 
-      className="min-h-screen pt-16 pb-16 md:pt-20 md:pb-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+    <section
+      id="portfolio"
+      className="min-h-screen pt-16 pb-16 md:pt-20 md:pb-20 text-text-primary-light dark:text-text-primary-dark relative overflow-hidden"
       ref={elementRef}
+      style={{
+        background: isDark
+          ? `
+            radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%),
+            repeating-conic-gradient(from 30deg at 50% 50%, transparent 0deg, rgba(103, 0, 248, 0.05) 60deg, transparent 120deg),
+            linear-gradient(30deg, transparent 25%, rgba(172, 0, 211, 0.02) 25%, rgba(172, 0, 211, 0.02) 75%, transparent 75%)
+          `
+          : `
+            radial-gradient(ellipse at center, #F8FAFC 0%, #FDFEFF 100%),
+            repeating-conic-gradient(from 30deg at 50% 50%, transparent 0deg, rgba(103, 0, 248, 0.02) 60deg, transparent 120deg),
+            linear-gradient(30deg, transparent 25%, rgba(172, 0, 211, 0.008) 25%, rgba(172, 0, 211, 0.008) 75%, transparent 75%)
+          `,
+        backgroundSize: '100% 100%, 120px 120px, 40px 40px'
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <motion.div 
@@ -265,7 +281,7 @@ const Portfolio = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-8"
           >
-            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
+            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
               {t('portfolio.badge')}
             </span>
           </motion.div>

@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
+import { useTheme } from '../contexts/ThemeContext'
 import OptimizedImage from './OptimizedImage'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
+  const { isDark } = useTheme()
 
   const teamMembers = [
     {
@@ -37,10 +39,25 @@ const About = () => {
   ]
 
   return (
-    <section 
+    <section
       id="about"
       ref={elementRef}
-      className="min-h-screen py-16 md:py-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+      className="min-h-screen py-16 md:py-20 text-text-primary-light dark:text-text-primary-dark relative overflow-hidden"
+      style={{
+        background: isDark
+          ? `
+            linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%),
+            radial-gradient(ellipse 800px 600px at 30% 20%, rgba(128, 1, 207, 0.06) 0%, transparent 50%),
+            radial-gradient(ellipse 600px 400px at 80% 70%, rgba(163, 4, 226, 0.04) 0%, transparent 50%),
+            radial-gradient(ellipse 400px 300px at 50% 90%, rgba(103, 0, 248, 0.03) 0%, transparent 50%)
+          `
+          : `
+            linear-gradient(180deg, #FDFEFF 0%, #F8FAFC 50%, #FDFEFF 100%),
+            radial-gradient(ellipse 800px 600px at 30% 20%, rgba(128, 1, 207, 0.02) 0%, transparent 50%),
+            radial-gradient(ellipse 600px 400px at 80% 70%, rgba(163, 4, 226, 0.015) 0%, transparent 50%),
+            radial-gradient(ellipse 400px 300px at 50% 90%, rgba(103, 0, 248, 0.01) 0%, transparent 50%)
+          `
+      }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <motion.div
@@ -56,8 +73,8 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-8"
           >
-            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
-{t('about.nuestro_equipo')}
+            <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
+              {t('about.nuestro_equipo')}
             </span>
           </motion.div>
 

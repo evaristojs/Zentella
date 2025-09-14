@@ -34,6 +34,8 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
 
   // Initialize intersection observer
   useEffect(() => {
+    console.log('🔧 Initializing useSectionScroll observer with sections:', sectionIds)
+
     const observerOptions = {
       root: null,
       rootMargin,
@@ -41,65 +43,60 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
     }
 
     observerRef.current = new IntersectionObserver((entries) => {
-      const updatedSections: SectionInfo[] = []
+      console.log('📊 Observer triggered with entries:', entries.length)
 
-      entries.forEach((entry) => {
-        const element = entry.target as HTMLElement
-        const rect = element.getBoundingClientRect()
-        
-        const sectionInfo: SectionInfo = {
-          id: element.id,
-          element,
-          top: rect.top,
-          bottom: rect.bottom,
-          height: rect.height,
-          isVisible: entry.isIntersecting,
-          visiblePercentage: entry.intersectionRatio
-        }
+      setSections(prev => {
+        const newSections = [...prev]
 
-        updatedSections.push(sectionInfo)
-      })
+        entries.forEach((entry) => {
+          const element = entry.target as HTMLElement
+          const rect = element.getBoundingClientRect()
 
-      if (updatedSections.length > 0) {
-        setSections(prev => {
-          const newSections = [...prev]
-          updatedSections.forEach(updated => {
-            const index = newSections.findIndex(s => s.id === updated.id)
-            if (index !== -1) {
-              newSections[index] = updated
-            } else {
-              newSections.push(updated)
-            }
+          const sectionInfo: SectionInfo = {
+            id: element.id,
+            element,
+            top: rect.top,
+            bottom: rect.bottom,
+            height: rect.height,
+            isVisible: entry.isIntersecting,
+            visiblePercentage: entry.intersectionRatio
+          }
+
+          console.log(`📍 Section ${element.id}: visible=${entry.isIntersecting}, ratio=${Math.round(entry.intersectionRatio * 100)}%`)
+
+          const index = newSections.findIndex(s => s.id === element.id)
+          if (index !== -1) {
+            newSections[index] = sectionInfo
+          } else {
+            newSections.push(sectionInfo)
+          }
+        })
+
+        // Determine current section from all sections
+        const visibleSections = newSections.filter(s => s.isVisible && s.visiblePercentage > 0)
+        console.log('👁️ Visible sections:', visibleSections.map(s => `${s.id}(${Math.round(s.visiblePercentage * 100)}%)`))
+
+        if (visibleSections.length > 0) {
+          const mostVisible = visibleSections.reduce((prev, current) => {
+            return current.visiblePercentage > prev.visiblePercentage ? current : prev
           })
-          return newSections
-        })
 
-        // Determine current section based on visibility and position
-        const mostVisible = updatedSections.reduce((prev, current) => {
-          // Prioritize sections that are more visible
-          if (current.visiblePercentage > prev.visiblePercentage) {
-            return current
-          }
-          // If same visibility, prioritize the one closer to center
-          if (current.visiblePercentage === prev.visiblePercentage) {
-            const currentCenter = Math.abs(current.top + current.height / 2 - window.innerHeight / 2)
-            const prevCenter = Math.abs(prev.top + prev.height / 2 - window.innerHeight / 2)
-            return currentCenter < prevCenter ? current : prev
-          }
-          return prev
-        })
-
-        if (mostVisible.visiblePercentage >= threshold) {
+          console.log('🎯 Most visible section:', mostVisible.id, `(${Math.round(mostVisible.visiblePercentage * 100)}% visible)`)
           setCurrentSection(mostVisible.id)
         }
-      }
+
+        return newSections
+      })
     }, observerOptions)
 
     // Observe all sections
     sectionIds.forEach(id => {
       const element = document.getElementById(id)
       if (element && observerRef.current) {
+        console.log(`✅ Observing section: ${id}`)
         observerRef.current.observe(element)
+      } else {
+        console.warn(`❌ Could not find element with id: ${id}`)
       }
     })
 

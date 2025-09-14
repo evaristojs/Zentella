@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
@@ -15,6 +16,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
+
+  // Debug: Log current section changes
+  useEffect(() => {
+    console.log('🔍 Navigation received currentSection:', currentSection)
+  }, [currentSection])
 
 
   const toggleMenu = () => {
@@ -36,6 +42,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     { name: t('nav.nosotros'), href: '#about' },
     { name: t('nav.contacto'), href: '#contact' }
   ]
+
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
@@ -75,7 +82,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.div
-              className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 flex items-center"
+              className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 w-32 sm:w-44 lg:w-56 flex items-center justify-start"
               whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -88,6 +95,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   src={logoSrc}
                   alt="Zentella"
                   className="w-auto h-full object-contain"
+                  style={{
+                    transform: logoState.type === 'isotipo' ? 'scale(0.95)' : 'scale(1)'
+                  }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -99,42 +109,36 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </AnimatePresence>
             </motion.div>
             
-            <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
-              {menuItems.slice(0, -1).map((item, index) => (
+            <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
+              {menuItems.slice(0, -1).map((item, index) => {
+                const sectionId = item.href.replace('#', '')
+                const isActive = currentSection === sectionId
+
+                // Debug: Log each badge comparison
+                if (index === 0) { // Solo log para el primer item para no spam
+                  console.log(`🎯 Badge comparison: currentSection="${currentSection}" vs sectionId="${sectionId}" = ${isActive}`)
+                }
+
+                return (
                 <motion.a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
-                    currentSection === item.href.replace('#', '')
-                      ? 'text-color-primary'
-                      : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
+                  className={`px-2 lg:px-4 py-2 text-xs lg:text-base font-medium rounded-full border transition-all duration-200 whitespace-nowrap ${
+                    isActive
+                      ? 'bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white border-color-primary/20 dark:border-color-primary/30'
+                      : 'bg-transparent text-text-secondary-light dark:text-text-secondary-dark border-transparent hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 hover:text-text-primary-light dark:hover:text-text-primary-dark hover:border-color-primary/10 dark:hover:border-color-primary/20'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -1 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.name}
-
-                  {/* Active section indicator */}
-                  {currentSection === item.href.replace('#', '') && (
-                    <motion.div
-                      className="absolute -bottom-1 left-1/2 w-1 h-1 bg-color-primary rounded-full"
-                      layoutId="activeIndicator"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30
-                      }}
-                      style={{ x: '-50%' }}
-                    />
-                  )}
                 </motion.a>
-              ))}
+                )
+              })}
               
               <motion.a
                 href="#contact"
@@ -172,9 +176,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
             <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
               {/* Language Toggle - Desktop: next to theme, Mobile: in between */}
-              <motion.button 
+              <motion.button
                 onClick={toggleLanguage}
-                className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
+                className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
                 aria-label={t('nav.cambiar_idioma')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -184,9 +188,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </span>
               </motion.button>
 
-              <motion.button 
+              <motion.button
                 onClick={toggleTheme}
-                className="p-2 sm:p-2.5 lg:p-3 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
+                className="p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                 aria-label={t('nav.cambiar_tema')}
                 whileHover={{ scale: 1.05, rotate: 15 }}
                 whileTap={{ scale: 0.95, rotate: -15 }}
@@ -213,9 +217,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.button>
 
               {/* Language Toggle - Mobile: between theme and burger */}
-              <motion.button 
+              <motion.button
                 onClick={toggleLanguage}
-                className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
+                className="md:hidden p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
                 aria-label={t('nav.cambiar_idioma')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

@@ -71,10 +71,10 @@ const translations = {
     'services.stats.experiencia_label': 'Años de experiencia',
 
     // Características de servicios
-    'services.diseno.features': 'Diseño responsive, Manual de marca, 3 Revisiones incluidas',
-    'services.marketing.features': 'Estrategia personalizada, Análisis de competencia, Reportes mensuales',
-    'services.fotografia.features': 'Sesión ilimitada, Edición profesional, Galería digital',
-    'services.video.features': 'Guión incluido, Música libre de derechos, Formatos múltiples',
+    'services.diseno.features': ['Logotipo y variaciones', 'Manual de marca completo', 'Tipografías corporativas', '3 revisiones incluidas'],
+    'services.marketing.features': ['Estrategia personalizada', 'Análisis de competencia', 'Gestión de campañas', 'Reportes mensuales', 'Optimización continua'],
+    'services.fotografia.features': ['Sesión ilimitada', 'Edición profesional', 'Galería digital', 'Imágenes en alta resolución', 'Derechos de uso comercial'],
+    'services.video.features': ['Guión incluido', 'Música libre de derechos', 'Animaciones 2D/3D', 'Formatos múltiples', 'Revisiones incluidas'],
 
     'services.delivery_time': 'Tiempo de entrega: ',
     'services.diseno.delivery': '7-10 días',
@@ -297,6 +297,26 @@ const translations = {
     'contact.faq.q4.detail2': 'Cambios adicionales con tarifa preferencial',
     'contact.faq.q4.detail3': 'Comunicación transparente sobre impactos',
 
+    // Ubicación y contacto
+    'contact.ubicacion.direccion_titulo': 'Nuestra Oficina',
+    'contact.ubicacion.direccion_linea1': 'Calle Principal #123',
+    'contact.ubicacion.direccion_linea2': 'Zona Colonial, Santo Domingo',
+    'contact.ubicacion.direccion_linea3': 'República Dominicana, 10210',
+    'contact.ubicacion.horarios_titulo': 'Horarios de Atención',
+    'contact.ubicacion.contacto_titulo': 'Contacto',
+    'contact.ubicacion.lun_vie': 'Lun - Vie',
+    'contact.ubicacion.horario_semana': '9:00 AM - 6:00 PM',
+    'contact.ubicacion.sabados': 'Sábados',
+    'contact.ubicacion.horario_sabado': '9:00 AM - 2:00 PM',
+    'contact.ubicacion.domingos': 'Domingos',
+    'contact.ubicacion.cerrado': 'Cerrado',
+    'contact.ubicacion.telefono': 'Teléfono',
+    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.email': 'Email',
+    'contact.ubicacion.direccion_email': 'hola@zentella.com',
+    'contact.ubicacion.whatsapp': 'WhatsApp',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
+
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
     'contact.seleccionar_rango': 'Seleccionar rango',
@@ -343,20 +363,20 @@ const translations = {
     'testimonials.titulo': 'Lo que dicen nuestros clientes',
     'testimonials.subtitulo': 'La confianza de nuestros clientes es nuestro mayor logro.',
 
-    'testimonials.maria.name': 'María González',
-    'testimonials.maria.role': 'CEO, TechStart',
-    'testimonials.maria.company': 'TechStart Solutions',
-    'testimonials.maria.text': 'Zentella transformó completamente nuestra presencia digital. Su equipo no solo entendió nuestra visión, sino que la llevó al siguiente nivel. Los resultados fueron excepcionales.',
+    'testimonials.maria.name': 'Better Health Nevada',
+    'testimonials.maria.role': 'Farmacia & Servicios de Salud',
+    'testimonials.maria.company': 'Nevada, USA',
+    'testimonials.maria.text': 'Zentella transformó completamente nuestra identidad visual. El nuevo branding refleja la confianza y profesionalismo que nuestros pacientes merecen. Las ventas aumentaron 40% desde el rediseño.',
 
-    'testimonials.carlos.name': 'Carlos Mendoza',
-    'testimonials.carlos.role': 'Director de Marketing',
-    'testimonials.carlos.company': 'Innovate Corp',
-    'testimonials.carlos.text': 'La estrategia de branding que desarrolló Zentella para nosotros fue extraordinaria. Nuestro reconocimiento de marca aumentó un 300% en solo 6 meses.',
+    'testimonials.carlos.name': 'Kaccao Kitchen',
+    'testimonials.carlos.role': 'Restaurante de Cocina Artesanal',
+    'testimonials.carlos.company': 'República Dominicana',
+    'testimonials.carlos.text': 'La estrategia de branding que desarrolló Zentella para nosotros fue extraordinaria. Capturaron perfectamente la esencia de nuestra cocina artesanal. Nuestras reservas se duplicaron en solo 3 meses.',
 
-    'testimonials.ana.name': 'Ana Rodríguez',
-    'testimonials.ana.role': 'Fundadora',
-    'testimonials.ana.company': 'Creative Studio',
-    'testimonials.ana.text': 'Profesionalismo, creatividad y resultados. Zentella es el partner perfecto para cualquier empresa que busque destacar en el mundo digital.',
+    'testimonials.ana.name': 'Revel Bar',
+    'testimonials.ana.role': 'Bar & Entretenimiento',
+    'testimonials.ana.company': 'República Dominicana',
+    'testimonials.ana.text': 'Las fotografías que tomó Zentella para nuestro bar son impresionantes. Profesionalismo, creatividad y un ojo excepcional para capturar la atmósfera única de nuestro local. Definitivamente el partner perfecto.',
   },
   en: {
     // Navigation
@@ -402,13 +422,13 @@ const translations = {
     'services.titulo': 'Our Services',
     'services.subtitulo': 'Creative solutions that drive your success',
     'services.diseno.titulo': 'Design & Branding',
-    'services.diseno.descripcion': 'Unique visual identities that connect with your audience and stand out in the market.',
+    'services.diseno.descripcion': 'We create unique and cohesive visual identities that reflect your brand personality, connect emotionally with your audience and strategically stand out in the competitive market.',
     'services.marketing.titulo': 'Digital Marketing',
-    'services.marketing.descripcion': 'Comprehensive strategies to grow your business in the online world.',
+    'services.marketing.descripcion': 'We develop comprehensive and personalized digital strategies to boost your business growth, increase your online presence and maximize return on investment.',
     'services.fotografia.titulo': 'Photography',
-    'services.fotografia.descripcion': 'We capture the essence of your brand with professional photography.',
+    'services.fotografia.descripcion': 'We capture the authentic essence of your brand through high-quality professional photography that tells your story and transmits your business values in an impactful way.',
     'services.video.titulo': 'Video & Animation',
-    'services.video.descripcion': 'Audiovisual content that emotionally connects with your audience.',
+    'services.video.descripcion': 'We produce cinematic audiovisual content and dynamic animations that emotionally connect with your audience, communicate your message memorably and generate engagement.',
 
     // Statistics
     'services.stats.proyectos': '50+',
@@ -419,10 +439,10 @@ const translations = {
     'services.stats.experiencia_label': 'Years of experience',
 
     // Service features
-    'services.diseno.features': 'Responsive design, Brand manual, 3 Revisions included',
-    'services.marketing.features': 'Custom strategy, Competitor analysis, Monthly reports',
-    'services.fotografia.features': 'Unlimited session, Professional editing, Digital gallery',
-    'services.video.features': 'Script included, Royalty-free music, Multiple formats',
+    'services.diseno.features': ['Logo and variations', 'Complete brand manual', 'Color palette', 'Corporate typography', '3 revisions included'],
+    'services.marketing.features': ['Custom strategy', 'Competitor analysis', 'Campaign management', 'Monthly reports', 'Continuous optimization'],
+    'services.fotografia.features': ['Unlimited session', 'Professional editing', 'Digital gallery', 'High resolution images', 'Commercial usage rights'],
+    'services.video.features': ['Script included', 'Royalty-free music', '2D/3D animations', 'Multiple formats', 'Revisions included'],
 
     'services.delivery_time': 'Delivery time: ',
     'services.diseno.delivery': '7-10 days',
@@ -645,6 +665,25 @@ const translations = {
     'contact.faq.q4.detail2': 'Additional changes with preferential rate',
     'contact.faq.q4.detail3': 'Transparent communication about impacts',
 
+    // Location and contact
+    'contact.ubicacion.direccion_titulo': 'Our Office',
+    'contact.ubicacion.direccion_linea1': 'Main Street #123',
+    'contact.ubicacion.direccion_linea2': 'Colonial Zone, Santo Domingo',
+    'contact.ubicacion.direccion_linea3': 'Dominican Republic, 10210',
+    'contact.ubicacion.horarios_titulo': 'Business Hours',
+    'contact.ubicacion.contacto_titulo': 'Contact',
+    'contact.ubicacion.lun_vie': 'Mon - Fri',
+    'contact.ubicacion.horario_semana': '9:00 AM - 6:00 PM',
+    'contact.ubicacion.sabados': 'Saturdays',
+    'contact.ubicacion.horario_sabado': '9:00 AM - 2:00 PM',
+    'contact.ubicacion.domingos': 'Sundays',
+    'contact.ubicacion.cerrado': 'Closed',
+    'contact.ubicacion.telefono': 'Phone',
+    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.email': 'Email',
+    'contact.ubicacion.direccion_email': 'hello@zentella.com',
+    'contact.ubicacion.whatsapp': 'WhatsApp',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
@@ -691,20 +730,20 @@ const translations = {
     'testimonials.titulo': 'What our clients say',
     'testimonials.subtitulo': 'Our clients\' trust is our greatest achievement.',
 
-    'testimonials.maria.name': 'María González',
-    'testimonials.maria.role': 'CEO, TechStart',
-    'testimonials.maria.company': 'TechStart Solutions',
-    'testimonials.maria.text': 'Zentella completely transformed our digital presence. Their team not only understood our vision, but took it to the next level. The results were exceptional.',
+    'testimonials.maria.name': 'Better Health Nevada',
+    'testimonials.maria.role': 'Pharmacy & Health Services',
+    'testimonials.maria.company': 'Nevada, USA',
+    'testimonials.maria.text': 'Zentella completely transformed our visual identity. The new branding reflects the trust and professionalism our patients deserve. Sales increased 40% since the redesign.',
 
-    'testimonials.carlos.name': 'Carlos Mendoza',
-    'testimonials.carlos.role': 'Marketing Director',
-    'testimonials.carlos.company': 'Innovate Corp',
-    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. Our brand recognition increased by 300% in just 6 months.',
+    'testimonials.carlos.name': 'Kaccao Kitchen',
+    'testimonials.carlos.role': 'Artisanal Cuisine Restaurant',
+    'testimonials.carlos.company': 'Dominican Republic',
+    'testimonials.carlos.text': 'The branding strategy that Zentella developed for us was extraordinary. They perfectly captured the essence of our artisanal cuisine. Our reservations doubled in just 3 months.',
 
-    'testimonials.ana.name': 'Ana Rodríguez',
-    'testimonials.ana.role': 'Founder',
-    'testimonials.ana.company': 'Creative Studio',
-    'testimonials.ana.text': 'Professionalism, creativity and results. Zentella is the perfect partner for any company looking to stand out in the digital world.',
+    'testimonials.ana.name': 'Revel Bar',
+    'testimonials.ana.role': 'Bar & Entertainment',
+    'testimonials.ana.company': 'Dominican Republic',
+    'testimonials.ana.text': 'The photographs that Zentella took for our bar are stunning. Professionalism, creativity and an exceptional eye for capturing the unique atmosphere of our venue. Definitely the perfect partner.',
   }
 }
 
@@ -738,8 +777,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   }, [currentLanguage])
 
   // Translation function
-  const t = useCallback((key: string): string => {
-    const languageTranslations = translations[currentLanguage] as Record<string, string>
+  const t = useCallback((key: string): any => {
+    const languageTranslations = translations[currentLanguage] as Record<string, any>
     const translation = languageTranslations?.[key]
     if (!translation) {
       console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`)

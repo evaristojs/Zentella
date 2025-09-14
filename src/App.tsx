@@ -37,6 +37,11 @@ function App() {
     rootMargin: '0px 0px -20% 0px'
   })
 
+  // Debug current section changes
+  useEffect(() => {
+    console.log('🔍 App.tsx currentSection changed to:', currentSection)
+  }, [currentSection])
+
   // Verificar si es la primera visita
   useEffect(() => {
     const hasVisitedBefore = localStorage.getItem('zentella-visited')

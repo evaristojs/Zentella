@@ -34,7 +34,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
-  const [isLogosHovered, setIsLogosHovered] = useState(false)
 
   // Logo data array
   const clientLogos = [
@@ -471,13 +470,15 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   speed={50}
                   pauseOnHover={true}
                   gradient={false}
+                  loop={0}
+                  play={true}
                 >
-                  {clientLogos.map((client, index) => (
+                  {[...clientLogos, ...clientLogos].map((client, index) => (
                     <motion.img
                       key={`${client.name}-${index}`}
                       src={client.logo}
                       alt={`${client.name} logo`}
-                      className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-8"
+                      className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-6"
                       whileHover={{ scale: 1.1, y: -2 }}
                       style={{
                         backfaceVisibility: 'hidden',
