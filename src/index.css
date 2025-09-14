@@ -10,15 +10,47 @@
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
+
+  /* Extra smooth scrolling with momentum for mobile */
+  @media (max-width: 767px) {
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    * {
+      scroll-behavior: smooth;
+    }
+  }
   
   body {
     overflow-x: hidden;
   }
   
-  /* Configure scroll snap for sections */
-  section[id] {
-    scroll-snap-align: start;
-    scroll-snap-margin-top: 80px;
+  /* Disable scroll snap on mobile completely */
+  @media (max-width: 767px) {
+    body {
+      scroll-snap-type: none !important;
+    }
+
+    section, section[id] {
+      scroll-snap-align: none !important;
+      scroll-snap-stop: unset !important;
+    }
+  }
+
+  /* Configure scroll snap for sections - desktop only */
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-snap-align: start;
+      scroll-snap-margin-top: 80px;
+    }
   }
   
   html.dark {

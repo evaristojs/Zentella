@@ -52,13 +52,13 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <OptimizedImage
-                src="/positivozentella2025.svg"
+                src="/logo-modo-claro.svg"
                 alt="Zentella"
                 className="h-12 w-auto hover-smooth hover:scale-105 block dark:hidden"
                 loading="lazy"
               />
               <OptimizedImage
-                src="/isotipo-negativo.svg"
+                src="/logo-modo-oscuro.svg"
                 alt="Zentella"
                 className="h-12 w-auto hover-smooth hover:scale-105 hidden dark:block"
                 loading="lazy"

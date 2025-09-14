@@ -9,6 +9,7 @@ import Hero from './components/Hero'
 import { useSectionScroll } from './hooks/useSectionScroll'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
+import BackToTop from './components/BackToTop'
 
 // Lazy load heavy components
 const Services = lazy(() => import('./components/Services'))
@@ -102,6 +103,7 @@ function App() {
                     <Footer />
                   </Suspense>
                 </main>
+                <BackToTop />
               </motion.div>
             )}
           </AnimatePresence>
