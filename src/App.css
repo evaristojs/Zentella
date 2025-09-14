@@ -5,7 +5,113 @@
   color: var(--white);
 }
 
+/* Scroll snap container */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-snap-type: none;
+  scroll-padding-top: 80px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+/* Snap scroll para móvil - más útil en pantallas táctiles */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+  body {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 60px; /* Navbar más pequeño en móvil */
+  }
+}
+
 main {
   position: relative;
   z-index: 1;
+}
+
+/* Section points - no snap por defecto */
+section {
+  scroll-snap-align: none;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Snap points solo en móvil para secciones normales */
+@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
+  section {
+    scroll-snap-align: start;
+  }
+
+  /* Excepciones: Secciones largas sin snap en móvil */
+  #contact {
+    scroll-snap-align: none !important;
+  }
+
+  /* Si tienes otras secciones largas, agrégalas aquí */
+  /* #otra-seccion-larga {
+    scroll-snap-align: none !important;
+  } */
+}
+
+/* Ensure hero section takes full viewport */
+#hero {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+/* Make other sections adapt to viewport height */
+#services,
+#portfolio,
+#about,
+#testimonials,
+#contact {
+  min-height: 100vh;
+  height: auto;
+}
+
+/* Footer section - starts with services banner */
+#footer {
+  min-height: 100vh;
+  height: auto;
+  scroll-snap-align: start;
+}
+
+/* Contact section normal behavior */
+#contact {
+  scroll-snap-align: start;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  /* Allow sections to be taller on mobile if needed */
+  section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    height: auto;
+  }
+
+  /* Make scroll snap less aggressive on mobile */
+  body {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* Smooth scrolling for navigation links */
+a[href^="#"] {
+  scroll-behavior: smooth;
+}
+
+/* Prevent scroll snap during navigation */
+.navigating {
+  scroll-snap-type: none !important;
+}
+
+/* Improve snap behavior for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    scroll-snap-type: y proximity;
+  }
 }

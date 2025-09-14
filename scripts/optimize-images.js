@@ -32,44 +32,49 @@ async function optimizeImage(inputPath, outputPath) {
   await ensureDir(outputDir);
 
   try {
-    // Crear versión WebP optimizada
-    const webpPath = path.join(outputDir, `${baseName}.webp`);
-    await sharp(inputPath)
-      .webp(webpConfig)
-      .toFile(webpPath);
+    const originalStats = await fs.stat(inputPath);
+    let webpStats;
+    let optimizedOriginalStats;
 
-    // Optimizar imagen original
-    if (ext === '.jpg' || ext === '.jpeg') {
-      await sharp(inputPath)
-        .jpeg(jpegConfig)
-        .toFile(outputPath);
-    } else if (ext === '.png') {
-      await sharp(inputPath)
-        .png(pngConfig)
-        .toFile(outputPath);
-    } else if (ext === '.gif') {
-      // Para GIFs, solo copiamos sin optimizar para preservar animación
+    const webpPath = path.join(outputDir, `${baseName}.webp`);
+
+    if (ext === '.gif') {
+      // Copiar GIF original para preservar la animación
       await fs.copyFile(inputPath, outputPath);
-      // Pero creamos una versión WebP estática como fallback
-      await sharp(inputPath + '[0]') // Primera frame del GIF
+      optimizedOriginalStats = await fs.stat(outputPath);
+
+      // Crear una versión WebP estática a partir del primer fotograma como fallback
+      await sharp(inputPath + '[0]')
         .webp(webpConfig)
         .toFile(webpPath);
+      webpStats = await fs.stat(webpPath);
+    } else {
+      // Para JPG, JPEG, PNG, solo crear la versión WebP
+      await sharp(inputPath)
+        .webp(webpConfig)
+        .toFile(webpPath);
+      webpStats = await fs.stat(webpPath);
     }
-
-    const originalStats = await fs.stat(inputPath);
-    const optimizedStats = await fs.stat(outputPath);
-    const webpStats = await fs.stat(webpPath);
-
-    const savings = ((originalStats.size - optimizedStats.size) / originalStats.size * 100).toFixed(1);
-    const webpSavings = ((originalStats.size - webpStats.size) / originalStats.size * 100).toFixed(1);
 
     console.log(`✓ ${path.relative('.', inputPath)}`);
     console.log(`  Original: ${(originalStats.size / 1024).toFixed(1)}KB`);
-    console.log(`  Optimized: ${(optimizedStats.size / 1024).toFixed(1)}KB (${savings}% saved)`);
-    console.log(`  WebP: ${(webpStats.size / 1024).toFixed(1)}KB (${webpSavings}% saved)\n`);
+
+    if (optimizedOriginalStats) { // Si se guardó un formato original optimizado (es decir, GIF)
+      const savings = ((originalStats.size - optimizedOriginalStats.size) / originalStats.size * 100).toFixed(1);
+      console.log(`  Original Optimizado: ${(optimizedOriginalStats.size / 1024).toFixed(1)}KB (${savings}% saved)`);
+    }
+
+    if (webpStats) {
+      const webpSavings = ((originalStats.size - webpStats.size) / originalStats.size * 100).toFixed(1);
+      console.log(`  WebP: ${(webpStats.size / 1024).toFixed(1)}KB (${webpSavings}% saved)
+`);
+    } else {
+      console.log(`  WebP: No generado.
+`);
+    }
 
   } catch (error) {
-    console.error(`❌ Error processing ${inputPath}:`, error.message);
+    console.error(`❌ Error procesando ${inputPath}:`, error.message);
   }
 }
 

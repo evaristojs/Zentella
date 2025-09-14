@@ -241,7 +241,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     const scrollTimeout = setTimeout(() => {
       // Verificar si existe el elemento antes de hacer scroll
       const contactElement = document.getElementById('contact')
-      
+
+      // Temporarily disable scroll snap for smooth navigation
+      document.body.classList.add('navigating')
+
       if (scrollToSection) {
         try {
           scrollToSection('contact')
@@ -253,8 +256,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         }
       } else if (contactElement) {
         contactElement.scrollIntoView({ behavior: 'smooth' })
-      } else {
       }
+
+      // Re-enable scroll snap after navigation
+      setTimeout(() => {
+        document.body.classList.remove('navigating')
+      }, 1000)
       
       // Desactivar aceleración después del scroll con un pequeño delay
       setTimeout(() => {
@@ -282,22 +289,23 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         // backgroundColor handled by Tailwind classes
       }}
     >
+      <style>{`
+        @media (min-width: 1024px) {
+          .hero-content {
+            top: 47% !important;
+          }
+        }
+      `}</style>
       {/* Video Background - Eliminado para mejor visibilidad del starfield */}
 
       {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
 
       {/* Hero Content - starfield-origin según especificaciones oficiales */}
       <div
-        className="hero-content starfield-origin"
+        className="hero-content starfield-origin absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full text-center"
         style={{
-          position: 'absolute',
-          top: '47%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 10,
-          width: '100%',
+          top: '52%', // Default para móvil
           maxWidth: '100vw',
-          textAlign: 'center',
           padding: '0'
         }}
       >
@@ -318,7 +326,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center text-black dark:text-white"
                   style={{
-                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    fontSize: 'clamp(3.5rem, 8vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em'
                     // textShadow handled by Tailwind classes
@@ -331,18 +339,18 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   style={{
                     minHeight: 'clamp(4rem, 8vw, 8rem)',
                     maxWidth: '100vw',
-                    padding: '0 1rem'
+                    padding: '0 0.5rem'
                   }}
                 >
                   <motion.span
                     className="flex items-center justify-center font-black bg-gradient-to-r from-color-primary to-color-secondary bg-clip-text text-transparent"
                     style={{
-                      fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                      fontSize: 'clamp(2.8rem, 7vw, 7rem)',
                       whiteSpace: 'nowrap',
                       lineHeight: '1.1',
                       letterSpacing: '-0.02em',
                       color: '#6700f8', // Fallback color
-                      maxWidth: '95%',
+                      maxWidth: '100%',
                       wordBreak: 'keep-all',
                       overflow: 'visible'
                     }}
@@ -364,7 +372,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                 <span
                   className="block font-black text-center text-black dark:text-white -mt-1"
                   style={{
-                    fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+                    fontSize: 'clamp(3.5rem, 8vw, 7rem)',
                     lineHeight: '1.1',
                     letterSpacing: '-0.02em'
                     // textShadow handled by Tailwind classes
@@ -413,11 +421,19 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               <motion.button
                 className="group flex-1 max-w-[160px] px-4 py-2.5 bg-transparent border-2 border-color-primary/40 text-color-primary dark:text-color-primary rounded-full font-semibold text-sm hover:border-color-primary hover:bg-gradient-to-r hover:from-color-primary/10 hover:to-color-secondary/10 transition-all duration-300 min-h-[40px] touch-manipulation backdrop-blur-sm"
                 onClick={() => {
+                  // Temporarily disable scroll snap for smooth navigation
+                  document.body.classList.add('navigating')
+
                   if (scrollToSection) {
                     scrollToSection('portfolio')
                   } else {
                     document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
                   }
+
+                  // Re-enable scroll snap after navigation
+                  setTimeout(() => {
+                    document.body.classList.remove('navigating')
+                  }, 1000)
                 }}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
@@ -437,6 +453,37 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   </motion.svg>
                 </span>
               </motion.button>
+            </motion.div>
+
+            {/* Services Pills - Mobile/Tablet Only */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-3 pt-6 lg:hidden max-w-sm mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.5 }}
+            >
+              {[
+                { key: 'photography', text: t('hero.fotografia') },
+                { key: 'design', text: t('hero.diseno') },
+                { key: 'video', text: t('hero.video') },
+                { key: 'animation', text: t('hero.animacion') }
+              ].map((service, index) => (
+                <motion.div
+                  key={service.key}
+                  className="group relative px-4 py-2.5 bg-white/90 dark:bg-white/15 backdrop-blur-sm border border-gray-300 dark:border-transparent rounded-full text-sm font-medium text-gray-800 dark:text-white drop-shadow-sm cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    borderColor: "rgba(156, 163, 175, 0.8)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {service.text}
+                </motion.div>
+              ))}
             </motion.div>
 
           </div>
@@ -477,45 +524,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               </div>
       </motion.div>
 
-      {/* Hero Content Bottom Section */}
-      <div className="absolute bottom-0 left-0 right-0 px-4">
-        <div className="w-full px-4" style={{ maxWidth: '100%' }}>
-          <div className="text-center space-y-4" style={{ width: '100%', maxWidth: '100%', overflow: 'visible' }}>
-
-            {/* Services Pills - Mobile/Tablet Only */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-3 pt-8 lg:hidden max-w-sm mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.5 }}
-            >
-              {[
-                { key: 'photography', text: t('hero.fotografia') },
-                { key: 'design', text: t('hero.diseno') },
-                { key: 'video', text: t('hero.video') },
-                { key: 'animation', text: t('hero.animacion') }
-              ].map((service, index) => (
-                <motion.div
-                  key={service.key}
-                  className="group relative px-5 py-3 bg-transparent dark:bg-white/15 backdrop-blur-sm border border-black/40 dark:border-transparent rounded-full text-sm font-medium text-black dark:text-white drop-shadow-sm cursor-pointer"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "rgba(0, 0, 0, 0.25)",
-                    borderColor: "rgba(0, 0, 0, 0.6)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {service.text}
-                </motion.div>
-              ))}
-            </motion.div>
-
-          </div>
-        </div>
-      </div>
     </section>
     </>
   )

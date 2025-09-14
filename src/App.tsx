@@ -33,8 +33,7 @@ function App() {
   
   // Initialize section scroll detection
   const { currentSection } = useSectionScroll({
-    threshold: 0.3,
-    rootMargin: '0px 0px -20% 0px'
+    rootMargin: '0px 0px -30% 0px'
   })
 
   
@@ -71,7 +70,7 @@ function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark snap-y snap-mandatory"
+                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
               >
                 <Navigation 
                   isMenuOpen={isMenuOpen} 
@@ -79,38 +78,26 @@ function App() {
                   currentSection={currentSection}
                 />
                 <main>
-                  <section id="hero" className="snap-start min-h-screen">
-                    <Hero />
-                  </section>
-                  <section id="services" className="snap-start min-h-screen">
-                    <Suspense fallback={<ComponentLoader />}>
-                      <Services />
-                    </Suspense>
-                  </section>
-                  <section id="portfolio" className="snap-start min-h-screen">
-                    <Suspense fallback={<ComponentLoader />}>
-                      <Portfolio />
-                    </Suspense>
-                  </section>
-                  <section id="about" className="snap-start min-h-screen">
-                    <Suspense fallback={<ComponentLoader />}>
-                      <About />
-                    </Suspense>
-                  </section>
-                  <section id="testimonials" className="snap-start min-h-screen">
-                    <Suspense fallback={<ComponentLoader />}>
-                      <Testimonials />
-                    </Suspense>
-                  </section>
-                  <section id="contact" className="snap-start min-h-screen">
-                    <Suspense fallback={<ComponentLoader />}>
-                      <ContactFAQ />
-                    </Suspense>
-                  </section>
+                  <Hero />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <Services />
+                  </Suspense>
+                  <Suspense fallback={<ComponentLoader />}>
+                    <Portfolio />
+                  </Suspense>
+                  <Suspense fallback={<ComponentLoader />}>
+                    <About />
+                  </Suspense>
+                  <Suspense fallback={<ComponentLoader />}>
+                    <Testimonials />
+                  </Suspense>
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ContactFAQ />
+                  </Suspense>
+                  <Suspense fallback={<ComponentLoader />}>
+                    <Footer />
+                  </Suspense>
                 </main>
-                <Suspense fallback={<ComponentLoader />}>
-                  <Footer />
-                </Suspense>
               </motion.div>
             )}
           </AnimatePresence>

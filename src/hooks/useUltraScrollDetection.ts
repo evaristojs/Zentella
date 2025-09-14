@@ -35,7 +35,7 @@ class UltraScrollManager {
   // Cached elements for section detection
   private heroElement: HTMLElement | null = null
   private sections = new Map<string, HTMLElement>()
-  private sectionIds = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
+  private sectionIds = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact', 'footer']
 
   private constructor() {
     this.detectScrollContainer()

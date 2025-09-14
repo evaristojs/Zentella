@@ -179,9 +179,8 @@ const Contact = () => {
   }
 
   return (
-    <section 
-      id="contact"
-      className="py-12 md:py-20 bg-bg-base-light dark:bg-bg-base-dark snap-start"
+    <section
+      className="py-12 md:py-20 bg-bg-base-light dark:bg-bg-base-dark"
       ref={elementRef}
     >
       <div className="layout-container">

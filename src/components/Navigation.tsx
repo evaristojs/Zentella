@@ -44,10 +44,18 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     const element = document.getElementById(sectionId)
 
     if (element) {
+      // Temporarily disable scroll snap for smooth navigation
+      document.body.classList.add('navigating')
+
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
+
+      // Re-enable scroll snap after navigation
+      setTimeout(() => {
+        document.body.classList.remove('navigating')
+      }, 1000)
     }
   }
 
@@ -121,10 +129,22 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   <span className="relative z-10">{item.name}</span>
                   {isActive && (
                     <motion.div
-                      className="absolute inset-0 bg-color-primary/10 dark:bg-color-primary/20 rounded-full border border-color-primary/20 dark:border-color-primary/30"
+                      className="absolute inset-1 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-full shadow-lg shadow-color-primary/10"
                       layoutId="active-nav-badge"
-                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                      style={{ borderRadius: 9999 }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 30,
+                        mass: 0.8,
+                        bounce: 0.3
+                      }}
+                      style={{
+                        borderRadius: 9999,
+                        backdropFilter: 'blur(8px)'
+                      }}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
                     />
                   )}
                 </motion.a>
@@ -286,8 +306,21 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           <span className="relative z-10">{item.name}</span>
                           {currentSection === item.id && (
                             <motion.div
-                              className="absolute inset-0 bg-color-primary/10 rounded-xl"
+                              className="absolute inset-1 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 rounded-xl shadow-lg shadow-color-primary/5"
                               layoutId="activeIndicatorMobile"
+                              transition={{
+                                type: 'spring',
+                                stiffness: 400,
+                                damping: 30,
+                                mass: 0.8,
+                                bounce: 0.3
+                              }}
+                              style={{
+                                backdropFilter: 'blur(8px)'
+                              }}
+                              initial={{ scale: 0.8, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0.8, opacity: 0 }}
                             />
                           )}
                         </motion.a>
