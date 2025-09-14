@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node scripts/minify.js && tsc && vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --report-unused-disable-directives --max-warnings 0 --fix",
     "lint:check": "eslint . --report-unused-disable-directives",
@@ -14,7 +14,8 @@
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "analyze": "vite build --mode analyze && npx vite-bundle-analyzer dist"
+    "analyze": "vite build --mode analyze && npx vite-bundle-analyzer dist",
+    "optimize:images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "framer-motion": "^11.0.0",

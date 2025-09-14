@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
-import { devLog } from '../utils/logger'
+
 
 interface FAQItem {
   id: number
@@ -139,7 +139,7 @@ const ContactFAQ = () => {
       // Simular envío del formulario
       await new Promise(resolve => setTimeout(resolve, 2000))
       
-      devLog.info('Formulario enviado exitosamente', { ...formData }, 'ContactFAQ')
+      
       setSubmitSuccess(true)
       
       // Reset form
@@ -155,7 +155,7 @@ const ContactFAQ = () => {
       setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      devLog.error('Error al enviar formulario', String(error), 'ContactFAQ')
+      
     } finally {
       setIsSubmitting(false)
     }

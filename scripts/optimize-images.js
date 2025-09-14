@@ -8,8 +8,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputDir = 'public/images';
-const outputDir = 'public/images-optimized';
+const inputDir = path.resolve(__dirname, '../src/assets/originals/images-original');
+const outputDir = path.resolve(__dirname, '../public/images');
 
 // Configuraciones de optimización
 const jpegConfig = { quality: 85, progressive: true };

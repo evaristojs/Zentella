@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { devLog } from '../utils/logger'
+
 import { useLanguage } from '../hooks/useLanguage'
 import Marquee from 'react-fast-marquee'
 
@@ -151,7 +151,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             originElement: document.querySelector('.starfield-origin') as HTMLElement | null
           } as any)
 
-          devLog.config('Hero', 'Starfield configurado', { mode: isDarkMode ? 'oscuro' : 'claro' })
         }
 
         setupStarfield()
@@ -173,7 +172,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro
               : 'rgb(248, 248, 252)' // Gris muy claro para modo claro
 
-            devLog.config('Hero', 'Colores del starfield actualizados', { mode: isDarkMode ? 'oscuro' : 'claro' })
           })
 
           themeObserverRef.current.observe(document.documentElement, {
@@ -185,7 +183,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
 
     script.onerror = () => {
-      devLog.error('Failed to load starfield.js', null, 'Hero')
       scriptRef.current = null
     }
 
@@ -197,7 +194,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         try {
           window.Starfield.cleanup()
         } catch (error) {
-          devLog.warn('Error during starfield cleanup', String(error), 'Hero')
         }
       }
 
@@ -236,44 +232,34 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
 
   const handleComenzarClick = () => {
-    devLog.info('Botón Comenzar clickeado', '', 'Hero')
-    
     // Activar aceleración del starfield
     if (window.Starfield) {
       window.Starfield.setAccelerate(true)
-      devLog.info('Starfield acelerado', '', 'Hero')
     }
 
     // Esperar menos tiempo para mejor UX y luego hacer scroll
     const scrollTimeout = setTimeout(() => {
-      devLog.info('Iniciando scroll a contact', '', 'Hero')
-      
       // Verificar si existe el elemento antes de hacer scroll
       const contactElement = document.getElementById('contact')
       
       if (scrollToSection) {
-        devLog.info('Usando scrollToSection personalizado', '', 'Hero')
         try {
           scrollToSection('contact')
         } catch (error) {
-          devLog.error('Error en scrollToSection', String(error), 'Hero')
           // Fallback to native scroll
           if (contactElement) {
             contactElement.scrollIntoView({ behavior: 'smooth' })
           }
         }
       } else if (contactElement) {
-        devLog.info('Usando scrollIntoView nativo', '', 'Hero')
         contactElement.scrollIntoView({ behavior: 'smooth' })
       } else {
-        devLog.warn('Elemento contact no encontrado', '', 'Hero')
       }
       
       // Desactivar aceleración después del scroll con un pequeño delay
       setTimeout(() => {
         if (window.Starfield) {
           window.Starfield.setAccelerate(false)
-          devLog.info('Starfield desacelerado', '', 'Hero')
         }
       }, 300)
     }, 500)
@@ -473,7 +459,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   loop={0}
                   play={true}
                 >
-                  {[...clientLogos, ...clientLogos].map((client, index) => (
+                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index) => (
                     <motion.img
                       key={`${client.name}-${index}`}
                       src={client.logo}

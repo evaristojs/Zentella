@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
-import { devLog } from '../utils/logger'
+
 
 interface FormData {
   name: string
@@ -103,7 +103,7 @@ const Contact = () => {
     setIsSubmitting(true)
     try {
       await new Promise(resolve => setTimeout(resolve, 2000))
-      devLog.info('Formulario enviado', JSON.stringify(formData), 'Contact')
+      
       setIsSubmitted(true)
       setFormData({ 
         name: '', 
@@ -116,7 +116,7 @@ const Contact = () => {
         terms: false 
       })
     } catch (error) {
-      devLog.error('Error al enviar formulario', String(error), 'Contact')
+      
     } finally {
       setIsSubmitting(false)
     }

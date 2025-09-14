@@ -303,8 +303,7 @@ const Portfolio = () => {
           {categories.map((category, index) => (
             <motion.button
               key={category.id}
-              className={`group relative overflow-hidden px-6 py-3 rounded-full transition-all duration-300 ${
-                selectedCategory === category.id 
+              className={`group relative overflow-hidden px-6 py-3 rounded-full transition-all duration-300 ${selectedCategory === category.id 
                   ? 'bg-color-primary text-white' 
                   : 'bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
@@ -398,7 +397,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {isModalOpen && selectedItem && (
             <motion.div 
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-20 portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-center p-4 pt-20 portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -505,7 +504,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {isFullscreenOpen && (
             <motion.div 
-              className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-sm"
+              className="fixed inset-0 z-[1010] flex items-center justify-center bg-black/95 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

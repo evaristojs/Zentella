@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react'
-import { devLog } from '../utils/logger'
+
 
 interface ThemeContextType {
   isDark: boolean
@@ -68,11 +68,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   useEffect(() => {
     // Save theme preference to localStorage when it changes
-    try {
-      localStorage.setItem('theme', isDark ? 'dark' : 'light')
-    } catch (error) {
-      devLog.warn('Failed to save theme preference', String(error), 'ThemeContext')
-    }
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
   }, [isDark])
 
   const toggleTheme = useCallback(() => {

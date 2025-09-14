@@ -70,7 +70,7 @@ const MinimalLoadingScreen = ({ onComplete }: MinimalLoadingScreenProps) => {
           const centerX = window.innerWidth / 2
           const centerY = window.innerHeight / 2
           window.Starfield.setOrigin(centerX, centerY)
-          console.log('Origin always centered at screen:', centerX, centerY)
+          
         }
         
         // Centrar inmediatamente
