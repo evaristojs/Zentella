@@ -10,19 +10,23 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --nav-height: 80px; /* Se actualiza dinámicamente con JS */
+}
+
 body {
-  scroll-snap-type: none;
-  scroll-padding-top: 80px;
+  scroll-snap-type: none; /* Sin snap scroll */
+  scroll-padding-top: var(--nav-height);
   overflow-y: auto;
   overflow-x: hidden;
   height: 100vh;
+  overscroll-behavior: contain;
 }
 
-/* Snap scroll para móvil - más útil en pantallas táctiles */
-@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
-  body {
-    scroll-snap-type: y proximity;
-    scroll-padding-top: 60px; /* Navbar más pequeño en móvil */
+/* Actualizar altura navbar en móvil */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 64px; /* Navbar más pequeño en móvil */
   }
 }
 
@@ -31,30 +35,29 @@ main {
   z-index: 1;
 }
 
-/* Section points - no snap por defecto */
+/* Secciones sin snap - navegación completamente libre */
 section {
   scroll-snap-align: none;
-  min-height: 100vh;
+  min-height: 100vh; /* Secciones ocupan viewport completo */
   width: 100%;
   position: relative;
 }
 
-/* Snap points solo en móvil para secciones normales */
-@media (max-width: 768px) and (hover: none) and (pointer: coarse) {
-  section {
-    scroll-snap-align: start;
-  }
-
-  /* Excepciones: Secciones largas sin snap en móvil */
-  #contact {
-    scroll-snap-align: none !important;
-  }
-
-  /* Si tienes otras secciones largas, agrégalas aquí */
-  /* #otra-seccion-larga {
-    scroll-snap-align: none !important;
-  } */
+/* Contenedor interno scrolleable para secciones largas */
+.section-inner {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
+
+/* Secciones que ocupan viewport completo */
+#hero {
+  min-height: 100vh; /* Hero sí ocupa todo el viewport */
+  height: 100vh;
+}
+
+/* Todas las secciones tienen navegación libre - no se necesitan excepciones */
 
 /* Ensure hero section takes full viewport */
 #hero {

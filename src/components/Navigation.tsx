@@ -71,7 +71,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
   return (
     <>
-      <motion.nav className={getNavbarClasses()}
+      <motion.nav
+        id="navbar"
+        className={getNavbarClasses()}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -79,13 +81,16 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
-            <motion.div
-              className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 w-32 sm:w-44 lg:w-56 flex items-center justify-start"
+            <motion.button
+              className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 w-32 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-opacity-50 rounded-lg p-1 cursor-pointer"
               whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
               }}
+              whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
+              onClick={() => scrollToSection('hero')}
+              aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
                 <motion.img
@@ -105,7 +110,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   }}
                 />
               </AnimatePresence>
-            </motion.div>
+            </motion.button>
             
             <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
               {menuItems.slice(0, -1).map((item, index) => {
