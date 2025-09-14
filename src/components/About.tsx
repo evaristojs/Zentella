@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
+import OptimizedImage from './OptimizedImage'
 
 const About = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
@@ -39,7 +40,7 @@ const About = () => {
     <section 
       id="about"
       ref={elementRef}
-      className="min-h-screen py-24 md:py-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+      className="min-h-screen py-16 md:py-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <motion.div
@@ -99,10 +100,11 @@ const About = () => {
               {/* Card Container - Image takes full space */}
               <div className="relative overflow-hidden rounded-3xl aspect-[3/4] shadow-2xl shadow-black/30 hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02]">
                 {/* Background Image */}
-                <img
+                <OptimizedImage
                   src={member.image}
                   alt={member.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  loading="lazy"
                 />
                 
                 {/* Gradient Overlays */}

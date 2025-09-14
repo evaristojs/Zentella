@@ -11,24 +11,32 @@ const Services = () => {
       id: 1,
       title: t('services.diseno.titulo'),
       description: t('services.diseno.descripcion'),
+      features: t('services.diseno.features'),
+      delivery: t('services.diseno.delivery'),
       icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 21h10a2 2 0 002-2v-4a2 2 0 00-2-2H7M7 21V9a2 2 0 012-2h6a2 2 0 012 2v8M7 9V5a2 2 0 012-2h6a2 2 0 012 2v4H7z" /></svg>,
     },
     {
       id: 2,
       title: t('services.marketing.titulo'),
       description: t('services.marketing.descripcion'),
+      features: t('services.marketing.features'),
+      delivery: t('services.marketing.delivery'),
       icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>,
     },
     {
       id: 3,
       title: t('services.fotografia.titulo'),
       description: t('services.fotografia.descripcion'),
+      features: t('services.fotografia.features'),
+      delivery: t('services.fotografia.delivery'),
       icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9zM15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
     },
     {
       id: 4,
       title: t('services.video.titulo'),
       description: t('services.video.descripcion'),
+      features: t('services.video.features'),
+      delivery: t('services.video.delivery'),
       icon: <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>,
     }
   ]
@@ -36,7 +44,7 @@ const Services = () => {
   return (
     <motion.section 
       id="services" 
-      className="min-h-screen py-24 md:py-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+      className="min-h-screen py-16 md:py-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
       ref={elementRef}
       initial={{ opacity: 0 }}
       animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
@@ -102,16 +110,42 @@ const Services = () => {
                 </motion.div>
 
                 <div className="flex-1 space-y-4">
-                  <motion.h3 
+                  <motion.h3
                     className="text-2xl lg:text-3xl font-black leading-tight text-text-primary-light dark:text-text-primary-dark"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
                   >
                     {service.title}
                   </motion.h3>
-                  
+
                   <p className="text-center-hyphens text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-sm mx-auto font-medium">
                     {service.description}
                   </p>
+
+                  <div className="space-y-3 pt-2">
+                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                      {Array.isArray(service.features) ? (
+                        <ul className="space-y-1">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-center justify-center text-center">
+                              <span className="w-1 h-1 bg-color-primary rounded-full mr-2 flex-shrink-0"></span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="text-center">{service.features}</div>
+                      )}
+                    </div>
+
+                    <div className="pt-2 border-t border-gray-200/20 dark:border-gray-800/20">
+                      <div className="flex items-center justify-center text-xs text-color-primary font-medium">
+                        <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {service.delivery}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>

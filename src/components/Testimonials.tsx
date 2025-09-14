@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useState } from 'react'
+import OptimizedImage from './OptimizedImage'
 
 const Testimonials = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
@@ -49,7 +50,7 @@ const Testimonials = () => {
   return (
     <section 
       id="testimonials" 
-      className="min-h-screen py-24 md:py-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+      className="min-h-screen py-16 md:py-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
       ref={elementRef}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -86,10 +87,11 @@ const Testimonials = () => {
               className="p-8 md:p-12 rounded-3xl bg-bg-secondary-light dark:bg-bg-secondary-dark border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/30"
             >
               <div className="flex flex-col items-center text-center">
-                <img
-                  src={testimonials[currentTestimonial]?.image}
-                  alt={testimonials[currentTestimonial]?.name}
+                <OptimizedImage
+                  src={testimonials[currentTestimonial]?.image || ''}
+                  alt={testimonials[currentTestimonial]?.name || ''}
                   className="w-24 h-24 rounded-full object-cover mb-6 border-4 border-color-primary/20"
+                  loading="lazy"
                 />
                 <blockquote className="text-center-hyphens text-xl lg:text-2xl text-text-secondary-light dark:text-text-secondary-dark mb-6 font-medium">
                   "{testimonials[currentTestimonial]?.text}"

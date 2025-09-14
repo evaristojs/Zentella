@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
@@ -6,14 +6,26 @@ import ErrorBoundary from './components/ErrorBoundary'
 import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import Services from './components/Services'
-import Portfolio from './components/Portfolio'
-import About from './components/About'
-import Testimonials from './components/Testimonials'
-import ContactFAQ from './components/ContactFAQ'
-import Footer from './components/Footer'
 import { useSectionScroll } from './hooks/useSectionScroll'
 import './App.css'
+
+// Lazy load heavy components
+const Services = lazy(() => import('./components/Services'))
+const Portfolio = lazy(() => import('./components/Portfolio'))
+const About = lazy(() => import('./components/About'))
+const Testimonials = lazy(() => import('./components/Testimonials'))
+const ContactFAQ = lazy(() => import('./components/ContactFAQ'))
+const Footer = lazy(() => import('./components/Footer'))
+
+// Loading fallback component
+const ComponentLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-pulse flex flex-col items-center">
+      <div className="w-8 h-8 bg-color-primary rounded-full animate-bounce mb-4"></div>
+      <div className="text-text-secondary-light dark:text-text-secondary-dark">Cargando...</div>
+    </div>
+  </div>
+)
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -69,22 +81,34 @@ function App() {
                     <Hero />
                   </section>
                   <section id="services" className="snap-start min-h-screen">
-                    <Services />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <Services />
+                    </Suspense>
                   </section>
                   <section id="portfolio" className="snap-start min-h-screen">
-                    <Portfolio />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <Portfolio />
+                    </Suspense>
                   </section>
                   <section id="about" className="snap-start min-h-screen">
-                    <About />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <About />
+                    </Suspense>
                   </section>
                   <section id="testimonials" className="snap-start min-h-screen">
-                    <Testimonials />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <Testimonials />
+                    </Suspense>
                   </section>
                   <section id="contact" className="snap-start min-h-screen">
-                    <ContactFAQ />
+                    <Suspense fallback={<ComponentLoader />}>
+                      <ContactFAQ />
+                    </Suspense>
                   </section>
                 </main>
-                <Footer />
+                <Suspense fallback={<ComponentLoader />}>
+                  <Footer />
+                </Suspense>
               </motion.div>
             )}
           </AnimatePresence>

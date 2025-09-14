@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react'
 import { devLog } from '../utils/logger'
 
 interface ThemeContextType {
@@ -84,12 +84,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     })
   }, [applyTheme])
 
-  const value: ThemeContextType = {
+  const value: ThemeContextType = useMemo(() => ({
     isDark,
     toggleTheme,
     theme: isDark ? 'dark' : 'light',
     isInitialized
-  }
+  }), [isDark, toggleTheme, isInitialized])
 
   return (
     <ThemeContext.Provider value={value}>

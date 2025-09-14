@@ -16,6 +16,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
 
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
@@ -36,8 +37,20 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     { name: t('nav.contacto'), href: '#contact' }
   ]
 
-  const handleNavClick = () => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
     closeMenu()
+
+    // Smooth scroll to section
+    const sectionId = href.replace('#', '')
+    const element = document.getElementById(sectionId)
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
   }
 
   // Simplified navbar styling logic
@@ -61,9 +74,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
-            <motion.div 
+            <motion.div
               className="flex-shrink-0 relative h-6 sm:h-8 lg:h-10 flex items-center"
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
               }}
@@ -74,36 +87,13 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={logoState.type}
                   src={logoSrc}
                   alt="Zentella"
-                  className="w-auto h-full transition-all duration-500 ease-in-out object-contain"
-                  initial={{ 
-                    opacity: 0, 
-                    scale: 0.92,
-                    rotateY: 15,
-                    filter: 'blur(4px)'
-                  }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    rotateY: 0,
-                    filter: 'blur(0px)'
-                  }}
-                  exit={{ 
-                    opacity: 0, 
-                    scale: 0.92,
-                    rotateY: -15,
-                    filter: 'blur(4px)'
-                  }}
-                  transition={{ 
-                    duration: 0.6, 
-                    ease: [0.165, 0.84, 0.44, 1],
-                    scale: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-                    opacity: { duration: 0.4 },
-                    rotateY: { duration: 0.5, ease: [0.23, 1, 0.32, 1] },
-                    filter: { duration: 0.3 }
-                  }}
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    backfaceVisibility: 'hidden'
+                  className="w-auto h-full object-contain"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeInOut"
                   }}
                 />
               </AnimatePresence>
@@ -111,12 +101,13 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             
             <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
               {menuItems.slice(0, -1).map((item, index) => (
-                <motion.a 
+                <motion.a
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className={`relative px-2 lg:px-4 py-2 text-xs lg:text-base font-medium transition-colors duration-200 rounded-lg hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
-                    currentSection === item.href.replace('#', '') 
-                      ? 'text-color-primary' 
+                    currentSection === item.href.replace('#', '')
+                      ? 'text-color-primary'
                       : 'text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
@@ -126,12 +117,33 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.name}
+
+                  {/* Active section indicator */}
+                  {currentSection === item.href.replace('#', '') && (
+                    <motion.div
+                      className="absolute -bottom-1 left-1/2 w-1 h-1 bg-color-primary rounded-full"
+                      layoutId="activeIndicator"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30
+                      }}
+                      style={{ x: '-50%' }}
+                    />
+                  )}
                 </motion.a>
               ))}
               
               <motion.a
                 href="#contact"
-                className="ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                onClick={(e) => handleNavClick(e, '#contact')}
+                className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
+                  currentSection === 'contact'
+                    ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
+                    : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
+                }`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
@@ -139,6 +151,22 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 whileTap={{ scale: 0.98 }}
               >
                 {t('nav.trabajemos')}
+
+                {/* Active section indicator for contact button */}
+                {currentSection === 'contact' && (
+                  <motion.div
+                    className="absolute -bottom-1 left-1/2 w-1 h-1 bg-white rounded-full"
+                    layoutId="activeIndicatorContact"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    }}
+                    style={{ x: '-50%' }}
+                  />
+                )}
               </motion.a>
             </div>
 
@@ -267,18 +295,34 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           ease: "easeOut"
                         }}
                       >
-                        <motion.a 
+                        <motion.a
                           href={item.href}
-                          onClick={handleNavClick}
-                          className={`block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                          onClick={(e) => handleNavClick(e, item.href)}
+                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
                             currentSection === item.href.replace('#', '')
-                              ? 'text-color-primary'
+                              ? 'text-color-primary bg-color-primary/10'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           {item.name}
+
+                          {/* Active section indicator for mobile */}
+                          {currentSection === item.href.replace('#', '') && (
+                            <motion.div
+                              className="absolute right-4 top-1/2 w-2 h-2 bg-color-primary rounded-full"
+                              layoutId="activeIndicatorMobile"
+                              initial={{ opacity: 0, scale: 0 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 400,
+                                damping: 25
+                              }}
+                              style={{ y: '-50%' }}
+                            />
+                          )}
                         </motion.a>
                       </motion.li>
                     ))}
@@ -293,7 +337,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 >
                   <motion.a
                     href="#contact"
-                    onClick={handleNavClick}
+                    onClick={(e) => handleNavClick(e, '#contact')}
                     className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-lg font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}

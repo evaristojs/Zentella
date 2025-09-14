@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
+import OptimizedImage from './OptimizedImage'
 
 interface PortfolioItem {
   id: number
@@ -247,7 +248,7 @@ const Portfolio = () => {
   return (
     <section 
       id="portfolio" 
-      className="min-h-screen pt-20 pb-24 md:pt-24 md:pb-32 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
+      className="min-h-screen pt-16 pb-16 md:pt-20 md:pb-20 bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark relative"
       ref={elementRef}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
@@ -322,10 +323,11 @@ const Portfolio = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
               >
-                <img
+                <OptimizedImage
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 {item.video && (
                   <div className="absolute top-4 right-4 bg-color-primary text-white rounded-full p-2">
@@ -411,11 +413,12 @@ const Portfolio = () => {
                       </video>
                     ) : (
                       <>
-                        <img 
-                          src={selectedItem.image} 
-                          alt={selectedItem.title} 
-                          className="w-full h-auto rounded-lg mb-4 cursor-pointer" 
+                        <OptimizedImage
+                          src={selectedItem.image}
+                          alt={selectedItem.title}
+                          className="w-full h-auto rounded-lg mb-4 cursor-pointer"
                           onClick={() => openFullscreen(selectedItem.image)}
+                          loading="eager"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
@@ -434,12 +437,13 @@ const Portfolio = () => {
                   <div className="flex-grow" />
                   <div className="flex space-x-2">
                     {selectedItem.images.map((image, index) => (
-                      <img 
-                        key={index} 
-                        src={image} 
-                        alt={`${selectedItem.title} thumbnail ${index}`} 
-                        className="w-16 h-16 object-cover rounded-md cursor-pointer hover:ring-2 hover:ring-color-primary transition-all duration-200" 
-                        onClick={() => setSelectedItem({...selectedItem, image: image})} 
+                      <OptimizedImage
+                        key={index}
+                        src={image}
+                        alt={`${selectedItem.title} thumbnail ${index}`}
+                        className="w-16 h-16 object-cover rounded-md cursor-pointer hover:ring-2 hover:ring-color-primary transition-all duration-200"
+                        onClick={() => setSelectedItem({...selectedItem, image: image})}
+                        loading="lazy"
                       />
                     ))}
                   </div>
@@ -499,10 +503,11 @@ const Portfolio = () => {
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
+                <OptimizedImage
                   src={fullscreenImage}
                   alt="Imagen en pantalla completa"
                   className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                  loading="eager"
                 />
                 
                 <motion.button 

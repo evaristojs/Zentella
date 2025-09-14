@@ -15,10 +15,31 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: [],
       output: {
-        manualChunks: undefined
+        manualChunks: {
+          // Vendor chunks
+          'react-vendor': ['react', 'react-dom'],
+          'framer-motion': ['framer-motion'],
+
+          // Component chunks
+          'portfolio': ['./src/components/Portfolio.tsx'],
+          'hero': ['./src/components/Hero.tsx'],
+          'about': ['./src/components/About.tsx'],
+
+          // Hooks and utilities
+          'hooks': [
+            './src/hooks/useIntersectionObserver.ts',
+            './src/hooks/useSectionScroll.ts',
+            './src/hooks/useAdaptiveLogo.ts',
+            './src/hooks/useMagneticScroll.ts',
+            './src/hooks/useUltraScrollDetection.ts'
+          ]
+        }
       }
-    }
+    },
+    // Optimize bundle size
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    sourcemap: false
   }
 })

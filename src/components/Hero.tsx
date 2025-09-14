@@ -33,6 +33,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
+  const [isLogosHovered, setIsLogosHovered] = useState(false)
 
   // Reset typewriter when language changes
   useEffect(() => {
@@ -118,7 +119,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             // Colores mejorados para mejor visibilidad
             starColor: isDarkMode
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
-              : 'rgb(60, 20, 180)',   // Púrpura más oscuro para mayor contraste en modo claro
+              : 'rgba(60, 20, 180, 0.15)',   // Púrpura muy translúcido en modo claro
             canvasColor: isDarkMode
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro en lugar de negro puro
               : 'rgb(248, 248, 252)', // Gris muy claro para modo claro
@@ -150,7 +151,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             // Actualizar solo los colores sin recrear el starfield
             window.Starfield.config.starColor = isDarkMode
               ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
-              : 'rgb(60, 20, 180)'   // Púrpura más oscuro para mayor contraste en modo claro
+              : 'rgba(60, 20, 180, 0.15)'   // Púrpura muy translúcido en modo claro
 
             window.Starfield.config.canvasColor = isDarkMode
               ? 'rgb(8, 8, 12)'      // Azul muy oscuro
@@ -198,13 +199,22 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
   }, [])
 
-  // Event handlers para el botón Comenzar - Solo aceleración al hacer clic
+  // Event handlers para el botón Comenzar - Aceleración en hover
   const handleComenzarHover = () => {
-    // Sin aceleración en hover
+    // Activar aceleración del starfield en hover
+    if (window.Starfield && window.Starfield.setAccelerate) {
+      window.Starfield.setAccelerate(true)
+    }
   }
 
   const handleComenzarLeave = () => {
-    // Sin aceleración en hover
+    // Desactivar aceleración del starfield al salir del hover
+    if (window.Starfield && window.Starfield.setAccelerate) {
+      // Pequeño delay para que si inmediatamente después hay click, no interfiera
+      setTimeout(() => {
+        window.Starfield.setAccelerate(false)
+      }, 100)
+    }
   }
 
 
@@ -279,7 +289,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         className="hero-content starfield-origin"
         style={{
           position: 'absolute',
-          top: '50%',
+          top: '60%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           zIndex: 10,
@@ -427,6 +437,77 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               </motion.button>
             </motion.div>
 
+            {/* Client Logos Banner - Desktop Only */}
+            <motion.div
+              className="hidden lg:block w-full overflow-hidden pt-20 pb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 2 }}
+              style={{ height: '120px' }}
+            >
+              <motion.div
+                className="relative h-full flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+              >
+                {/* Scrolling Logos */}
+                <motion.div
+                  className="flex items-center gap-12 whitespace-nowrap"
+                  animate={isLogosHovered ? {} : { x: ["0%", "-50%"] }}
+                  transition={isLogosHovered ?
+                    {} :
+                    {
+                      x: {
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        duration: 60,
+                        ease: "linear",
+                      },
+                    }
+                  }
+                  onMouseEnter={() => setIsLogosHovered(true)}
+                  onMouseLeave={() => setIsLogosHovered(false)}
+                  style={{
+                    willChange: 'transform'
+                  }}
+                >
+                  {/* Client logos - duplicated for seamless infinite loop */}
+                  {[...Array(8)].map((_, groupIndex) => (
+                    <div key={groupIndex} className="flex items-center gap-12">
+                      {[
+                        { name: 'Nike', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=NIKE' },
+                        { name: 'Adidas', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=ADIDAS' },
+                        { name: 'Apple', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=APPLE' },
+                        { name: 'Samsung', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=SAMSUNG' },
+                        { name: 'Google', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=GOOGLE' },
+                        { name: 'Microsoft', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=MICROSOFT' },
+                        { name: 'Meta', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=META' },
+                        { name: 'Tesla', logo: 'https://via.placeholder.com/100x50/FFFFFF/000000?text=TESLA' }
+                      ].map((client, index) => (
+                        <motion.div
+                          key={`${groupIndex}-${client.name}-${index}`}
+                          className="flex-shrink-0 w-24 h-12 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center p-2 shadow-sm hover:shadow-md"
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          style={{
+                            backfaceVisibility: 'hidden',
+                            transform: 'translateZ(0)',
+                          }}
+                        >
+                          <img
+                            src={client.logo}
+                            alt={`${client.name} logo`}
+                            className="max-w-full max-h-full object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter grayscale hover:grayscale-0 dark:brightness-0 dark:invert"
+                            loading="lazy"
+                          />
+                        </motion.div>
+                      ))}
+                    </div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
             {/* Services Pills - Mobile/Tablet Only */}
             <motion.div
               className="flex flex-wrap justify-center gap-3 pt-8 lg:hidden max-w-sm mx-auto"
@@ -442,14 +523,14 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               ].map((service, index) => (
                 <motion.div
                   key={service.key}
-                  className="group relative px-5 py-3 bg-white/15 dark:bg-black/25 backdrop-blur-sm border border-white/40 rounded-full text-sm font-medium text-black dark:text-white drop-shadow-sm cursor-pointer"
+                  className="group relative px-5 py-3 bg-transparent dark:bg-white/15 backdrop-blur-sm border border-black/40 dark:border-transparent rounded-full text-sm font-medium text-black dark:text-white drop-shadow-sm cursor-pointer"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
                   whileHover={{
                     scale: 1.05,
-                    backgroundColor: "rgba(255, 255, 255, 0.25)",
-                    borderColor: "rgba(255, 255, 255, 0.6)"
+                    backgroundColor: "rgba(0, 0, 0, 0.25)",
+                    borderColor: "rgba(0, 0, 0, 0.6)"
                   }}
                   whileTap={{ scale: 0.95 }}
                 >

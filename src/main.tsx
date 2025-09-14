@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { initPerformanceMonitoring } from './utils/performance'
 
 // Initialize theme synchronously to prevent FOUC
 const getInitialTheme = (): boolean => {
@@ -35,6 +36,9 @@ const applyInitialTheme = (isDark: boolean) => {
 // Apply theme before React mounts to prevent flash
 const initialTheme = getInitialTheme()
 applyInitialTheme(initialTheme)
+
+// Initialize performance monitoring
+initPerformanceMonitoring()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
