@@ -52,9 +52,15 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <OptimizedImage
-                src="/Zentella Logo Web/positivozentella2025.svg"
+                src="/positivozentella2025.svg"
                 alt="Zentella"
-                className="h-12 w-auto hover-smooth hover:scale-105"
+                className="h-12 w-auto hover-smooth hover:scale-105 block dark:hidden"
+                loading="lazy"
+              />
+              <OptimizedImage
+                src="/isotipo-negativo.svg"
+                alt="Zentella"
+                className="h-12 w-auto hover-smooth hover:scale-105 hidden dark:block"
                 loading="lazy"
               />
             </div>
@@ -108,7 +114,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">Servicios</h4>
+            <h4 className="heading-3 font-black mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">{t('footer.servicios')}</h4>
             <ul className="space-y-2">
               {services.map(service => (
                 <li key={service}>

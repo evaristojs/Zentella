@@ -80,7 +80,7 @@ const Testimonials = () => {
           <span className="px-4 py-2 bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white text-sm font-medium rounded-full border border-color-primary/20 dark:border-color-primary/30">
             {t('testimonials.badge')}
           </span>
-          <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 mt-6 leading-tight font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+          <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-8 mt-6 leading-tight font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent" style={{lineHeight: '1.4', paddingBottom: '0.25rem', overflow: 'visible'}}>
             {t('testimonials.titulo')}
           </h2>
           <p className="text-center-hyphens text-lg text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">

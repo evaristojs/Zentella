@@ -145,7 +145,7 @@ const FAQ = () => {
             </span>
           </motion.div>
           
-          <h2 className="heading-1 text-4xl lg:text-5xl xl:text-6xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent">
+          <h2 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-6 font-display bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent" style={{lineHeight: '1.4', paddingBottom: '0.25rem', overflow: 'visible'}}>
             {t('faq.titulo')}
           </h2>
           <p className="text-center-hyphens text-lg max-w-3xl mx-auto text-text-secondary-light dark:text-text-secondary-dark">
