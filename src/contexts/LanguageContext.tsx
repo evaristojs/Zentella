@@ -115,6 +115,12 @@ const translations = {
     'portfolio.esvi_hair.descripcion': 'Fotografía profesional de servicios de belleza, mostrando técnicas y resultados de alta calidad',
     'portfolio.cargar_mas': 'Cargar más proyectos',
     'portfolio.mostrar_menos': 'Mostrar menos',
+    'portfolio.cliente': 'Cliente:',
+    'portfolio.año': 'Año:',
+    'portfolio.tags': 'Tags:',
+    'portfolio.cerrar_pantalla_completa': 'Cerrar pantalla completa',
+    'portfolio.video_no_soportado': 'Tu navegador no soporta el elemento de video.',
+    'portfolio.imagen_pantalla_completa': 'Imagen en pantalla completa',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Belleza, Servicios, Profesional, Lifestyle',
     
@@ -127,6 +133,61 @@ const translations = {
     'portfolio.kaccao.descripcion': 'Creación integral de marca para restaurante gourmet, desde logo hasta aplicaciones',
     'portfolio.kaccao.cliente': 'Kaccao Kitchen',
     'portfolio.kaccao.tags': 'Branding, Restaurante, Gourmet, Diseño',
+
+    'portfolio.los_hotdogs.titulo': 'Los Hotdogs SDQ - Identidad de Marca',
+    'portfolio.los_hotdogs.descripcion': 'Desarrollo de identidad visual para cadena de hot dogs gourmet, con enfoque juvenil y dinámico',
+    'portfolio.los_hotdogs.cliente': 'Los Hotdogs SDQ',
+    'portfolio.los_hotdogs.tags': 'Branding, Food Truck, Juvenil, Identidad',
+
+    'portfolio.nevada_care.titulo': 'Nevada Care Pharmacy - Branding Farmacéutico',
+    'portfolio.nevada_care.descripcion': 'Identidad corporativa para farmacia, transmitiendo confianza y profesionalismo en el sector salud',
+    'portfolio.nevada_care.cliente': 'Nevada Care Pharmacy',
+    'portfolio.nevada_care.tags': 'Branding, Farmacia, Healthcare, Corporativo',
+
+    'portfolio.palo_studio.titulo': 'Palo Studio - Identidad Creativa',
+    'portfolio.palo_studio.descripcion': 'Desarrollo de marca para estudio creativo, reflejando innovación y diseño contemporáneo',
+    'portfolio.palo_studio.cliente': 'Palo Studio',
+    'portfolio.palo_studio.tags': 'Branding, Estudio, Creativo, Contemporáneo',
+
+    'portfolio.premeditest.titulo': 'Premeditest - Branding Educativo',
+    'portfolio.premeditest.descripcion': 'Identidad visual para plataforma educativa médica, combinando profesionalismo y accesibilidad',
+    'portfolio.premeditest.cliente': 'Premeditest',
+    'portfolio.premeditest.tags': 'Branding, Educación, Medicina, Digital',
+
+    'portfolio.th_oasis.titulo': 'TH Oasis - Identidad Hotelera',
+    'portfolio.th_oasis.descripcion': 'Desarrollo de marca para complejo hotelero, evocando lujo, tranquilidad y experiencias únicas',
+    'portfolio.th_oasis.cliente': 'TH Oasis',
+    'portfolio.th_oasis.tags': 'Branding, Hotel, Lujo, Hospitalidad',
+
+    'portfolio.revel_bar.titulo': 'Revel Bar - Fotografía de Ambiente',
+    'portfolio.revel_bar.descripcion': 'Sesión fotográfica profesional capturando la esencia nocturna y el ambiente exclusivo del bar',
+    'portfolio.revel_bar.cliente': 'Revel Bar',
+    'portfolio.revel_bar.tags': 'Fotografía, Bar, Nocturno, Ambiente',
+
+    'portfolio.widook_optic.titulo': 'Widook Optic - Fotografía de Producto',
+    'portfolio.widook_optic.descripcion': 'Fotografía comercial para óptica, destacando la calidad y estilo de los productos',
+    'portfolio.widook_optic.cliente': 'Widook Optic',
+    'portfolio.widook_optic.tags': 'Fotografía, Óptica, Producto, Comercial',
+
+    'portfolio.chavalines.titulo': 'Chavalines RP - Animación 3D Logo',
+    'portfolio.chavalines.descripcion': 'Animación 3D profesional para entrada de logo corporativo, creando impacto visual memorable',
+    'portfolio.chavalines.cliente': 'Chavalines RP',
+    'portfolio.chavalines.tags': 'Animación 3D, Logo, Corporativo, Motion Graphics',
+
+    'portfolio.ambiente_chic.titulo': 'Ambiente Chic - Grand Opening',
+    'portfolio.ambiente_chic.descripcion': 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
+    'portfolio.ambiente_chic.cliente': 'Ambiente Chic',
+    'portfolio.ambiente_chic.tags': 'Evento, Grand Opening, Producción, Corporativo',
+
+    'portfolio.beeroclock.titulo': 'Beer O\'Clock - Campaña Navideña',
+    'portfolio.beeroclock.descripcion': 'Video promocional navideño para marca de cerveza artesanal, con enfoque festivo y familiar',
+    'portfolio.beeroclock.cliente': 'Beer O\'Clock',
+    'portfolio.beeroclock.tags': 'Promocional, Navidad, Cerveza, Familiar',
+
+    'portfolio.time_homes.titulo': 'Time Homes - María Teresa Condos',
+    'portfolio.time_homes.descripcion': 'Video promocional inmobiliario destacando las características y ubicación del proyecto residencial',
+    'portfolio.time_homes.cliente': 'Time Homes',
+    'portfolio.time_homes.tags': 'Inmobiliario, Condos, Promocional, Arquitectura',
 
     // About
     'about.titulo': 'Sobre Zentella',
@@ -486,6 +547,12 @@ const translations = {
     'portfolio.esvi_hair.descripcion': 'Professional photography of beauty services, showcasing high-quality techniques and results',
     'portfolio.cargar_mas': 'Load more projects',
     'portfolio.mostrar_menos': 'Show less',
+    'portfolio.cliente': 'Client:',
+    'portfolio.año': 'Year:',
+    'portfolio.tags': 'Tags:',
+    'portfolio.cerrar_pantalla_completa': 'Close fullscreen',
+    'portfolio.video_no_soportado': 'Your browser does not support the video element.',
+    'portfolio.imagen_pantalla_completa': 'Fullscreen image',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Beauty, Services, Professional, Lifestyle',
     
@@ -498,6 +565,61 @@ const translations = {
     'portfolio.kaccao.descripcion': 'Comprehensive brand creation for gourmet restaurant, from logo to applications',
     'portfolio.kaccao.cliente': 'Kaccao Kitchen',
     'portfolio.kaccao.tags': 'Branding, Restaurant, Gourmet, Design',
+
+    'portfolio.los_hotdogs.titulo': 'Los Hotdogs SDQ - Brand Identity',
+    'portfolio.los_hotdogs.descripcion': 'Visual identity development for gourmet hot dog chain, with youthful and dynamic approach',
+    'portfolio.los_hotdogs.cliente': 'Los Hotdogs SDQ',
+    'portfolio.los_hotdogs.tags': 'Branding, Food Truck, Youth, Identity',
+
+    'portfolio.nevada_care.titulo': 'Nevada Care Pharmacy - Pharmaceutical Branding',
+    'portfolio.nevada_care.descripcion': 'Corporate identity for pharmacy, conveying trust and professionalism in healthcare sector',
+    'portfolio.nevada_care.cliente': 'Nevada Care Pharmacy',
+    'portfolio.nevada_care.tags': 'Branding, Pharmacy, Healthcare, Corporate',
+
+    'portfolio.palo_studio.titulo': 'Palo Studio - Creative Identity',
+    'portfolio.palo_studio.descripcion': 'Brand development for creative studio, reflecting innovation and contemporary design',
+    'portfolio.palo_studio.cliente': 'Palo Studio',
+    'portfolio.palo_studio.tags': 'Branding, Studio, Creative, Contemporary',
+
+    'portfolio.premeditest.titulo': 'Premeditest - Educational Branding',
+    'portfolio.premeditest.descripcion': 'Visual identity for medical educational platform, combining professionalism and accessibility',
+    'portfolio.premeditest.cliente': 'Premeditest',
+    'portfolio.premeditest.tags': 'Branding, Education, Medicine, Digital',
+
+    'portfolio.th_oasis.titulo': 'TH Oasis - Hotel Identity',
+    'portfolio.th_oasis.descripcion': 'Brand development for hotel complex, evoking luxury, tranquility and unique experiences',
+    'portfolio.th_oasis.cliente': 'TH Oasis',
+    'portfolio.th_oasis.tags': 'Branding, Hotel, Luxury, Hospitality',
+
+    'portfolio.revel_bar.titulo': 'Revel Bar - Atmosphere Photography',
+    'portfolio.revel_bar.descripcion': 'Professional photo session capturing the nighttime essence and exclusive atmosphere of the bar',
+    'portfolio.revel_bar.cliente': 'Revel Bar',
+    'portfolio.revel_bar.tags': 'Photography, Bar, Nightlife, Atmosphere',
+
+    'portfolio.widook_optic.titulo': 'Widook Optic - Product Photography',
+    'portfolio.widook_optic.descripcion': 'Commercial photography for optical store, highlighting product quality and style',
+    'portfolio.widook_optic.cliente': 'Widook Optic',
+    'portfolio.widook_optic.tags': 'Photography, Optics, Product, Commercial',
+
+    'portfolio.chavalines.titulo': 'Chavalines RP - 3D Logo Animation',
+    'portfolio.chavalines.descripcion': 'Professional 3D animation for corporate logo intro, creating memorable visual impact',
+    'portfolio.chavalines.cliente': 'Chavalines RP',
+    'portfolio.chavalines.tags': '3D Animation, Logo, Corporate, Motion Graphics',
+
+    'portfolio.ambiente_chic.titulo': 'Ambiente Chic - Grand Opening',
+    'portfolio.ambiente_chic.descripcion': 'Complete audiovisual production for inauguration event, capturing the elegance of the moment',
+    'portfolio.ambiente_chic.cliente': 'Ambiente Chic',
+    'portfolio.ambiente_chic.tags': 'Event, Grand Opening, Production, Corporate',
+
+    'portfolio.beeroclock.titulo': 'Beer O\'Clock - Christmas Campaign',
+    'portfolio.beeroclock.descripcion': 'Christmas promotional video for craft beer brand, with festive and family-oriented approach',
+    'portfolio.beeroclock.cliente': 'Beer O\'Clock',
+    'portfolio.beeroclock.tags': 'Promotional, Christmas, Beer, Family',
+
+    'portfolio.time_homes.titulo': 'Time Homes - María Teresa Condos',
+    'portfolio.time_homes.descripcion': 'Real estate promotional video highlighting the features and location of the residential project',
+    'portfolio.time_homes.cliente': 'Time Homes',
+    'portfolio.time_homes.tags': 'Real Estate, Condos, Promotional, Architecture',
 
     // About
     'about.titulo': 'About Zentella',
