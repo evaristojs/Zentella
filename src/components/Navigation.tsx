@@ -173,7 +173,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.a>
             </div>
 
-            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 mr-2">
               <motion.button
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
@@ -214,45 +214,47 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <motion.button
-                onClick={toggleLanguage}
-                className="md:hidden p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
-                aria-label={t('nav.cambiar_idioma')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-xs font-bold uppercase tracking-wider">
-                  {currentLanguage === 'es' ? 'EN' : 'ES'}
-                </span>
-              </motion.button>
+              <div className="md:hidden flex items-center space-x-1.5 mr-1">
+                <motion.button
+                  onClick={toggleLanguage}
+                  className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
+                  aria-label={t('nav.cambiar_idioma')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    {currentLanguage === 'es' ? 'EN' : 'ES'}
+                  </span>
+                </motion.button>
 
-              <motion.button 
-                className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
-                onClick={toggleMenu}
-                aria-label={t('nav.abrir_menu')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isMenuOpen ? 'close' : 'open'}
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isMenuOpen ? (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
+                <motion.button 
+                  className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
+                  onClick={toggleMenu}
+                  aria-label={t('nav.abrir_menu')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={isMenuOpen ? 'close' : 'open'}
+                      initial={{ opacity: 0, rotate: -90 }}
+                      animate={{ opacity: 1, rotate: 0 }}
+                      exit={{ opacity: 0, rotate: 90 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {isMenuOpen ? (
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.button>
+              </div>
             </div>
           </div>
         </div>
@@ -311,7 +313,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           {currentSection === item.id && (
                             <motion.div
                               className="absolute inset-2 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-xl shadow-lg shadow-color-primary/10"
-                              layoutId="activeIndicatorMobile"
+                              layoutId="active-mobile-badge"
                               transition={{
                                 type: 'spring',
                                 stiffness: 400,

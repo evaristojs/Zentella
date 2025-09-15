@@ -1,9 +1,8 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useState, lazy, Suspense } from 'react'
+import { motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
 import ErrorBoundary from './components/ErrorBoundary'
-import LoadingScreen from './components/MinimalLoadingScreen'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import { useSectionScroll } from './hooks/useSectionScroll'
@@ -31,7 +30,6 @@ const ComponentLoader = () => (
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   
   // Initialize section scroll detection
   const { currentSection } = useSectionScroll({
@@ -41,72 +39,44 @@ function App() {
   // Initialize dynamic navbar height tracking
   useNavbarHeight('navbar')
 
-  
-
-  // Verificar si es la primera visita
-  useEffect(() => {
-    const hasVisitedBefore = localStorage.getItem('zentella-visited')
-    
-    if (hasVisitedBefore) {
-      // No es la primera visita, saltar el loader
-      setShowLoadingScreen(false)
-    }
-    // Si es la primera visita, el loader se mostrará normalmente
-  }, [])
-
-  const handleLoadingComplete = () => {
-    setShowLoadingScreen(false)
-    // Marcar que el usuario ya visitó la página
-    localStorage.setItem('zentella-visited', 'true')
-  }
-
   return (
     <ErrorBoundary>
       <ThemeProvider>
         <LanguageProvider>
-          <AnimatePresence mode="wait">
-            {showLoadingScreen ? (
-              <ErrorBoundary>
-                <LoadingScreen key="loading" onComplete={handleLoadingComplete} />
-              </ErrorBoundary>
-            ) : (
-              <motion.div
-                key="main-app"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
-              >
-                <Navigation 
-                  isMenuOpen={isMenuOpen} 
-                  setIsMenuOpen={setIsMenuOpen}
-                  currentSection={currentSection}
-                />
-                <main>
-                  <Hero />
-                  <Suspense fallback={<ComponentLoader />}>
-                    <Services />
-                  </Suspense>
-                  <Suspense fallback={<ComponentLoader />}>
-                    <Portfolio />
-                  </Suspense>
-                  <Suspense fallback={<ComponentLoader />}>
-                    <About />
-                  </Suspense>
-                  <Suspense fallback={<ComponentLoader />}>
-                    <Testimonials />
-                  </Suspense>
-                  <Suspense fallback={<ComponentLoader />}>
-                    <ContactFAQ />
-                  </Suspense>
-                  <Suspense fallback={<ComponentLoader />}>
-                    <Footer />
-                  </Suspense>
-                </main>
-                <BackToTop />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
+          >
+            <Navigation 
+              isMenuOpen={isMenuOpen} 
+              setIsMenuOpen={setIsMenuOpen}
+              currentSection={currentSection}
+            />
+            <main>
+              <Hero />
+              <Suspense fallback={<ComponentLoader />}>
+                <Services />
+              </Suspense>
+              <Suspense fallback={<ComponentLoader />}>
+                <Portfolio />
+              </Suspense>
+              <Suspense fallback={<ComponentLoader />}>
+                <About />
+              </Suspense>
+              <Suspense fallback={<ComponentLoader />}>
+                <Testimonials />
+              </Suspense>
+              <Suspense fallback={<ComponentLoader />}>
+                <ContactFAQ />
+              </Suspense>
+              <Suspense fallback={<ComponentLoader />}>
+                <Footer />
+              </Suspense>
+            </main>
+            <BackToTop />
+          </motion.div>
         </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>
