@@ -299,18 +299,18 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                         <motion.a
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
-                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center ${
                             currentSection === item.id
-                              ? 'text-color-primary'
-                              : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
+                              ? 'text-white bg-gradient-to-r from-color-primary to-color-accent shadow-lg shadow-color-primary/30'
+                              : 'text-text-primary-light dark:text-text-primary-dark hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 hover:text-color-primary dark:hover:text-color-primary'
                           }`}
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <span className="relative z-10">{item.name}</span>
+                          <span className="relative z-10 font-semibold">{item.name}</span>
                           {currentSection === item.id && (
                             <motion.div
-                              className="absolute inset-1 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 rounded-xl shadow-lg shadow-color-primary/5"
+                              className="absolute inset-0 bg-gradient-to-r from-color-primary to-color-accent rounded-xl shadow-lg shadow-color-primary/20"
                               layoutId="activeIndicatorMobile"
                               transition={{
                                 type: 'spring',
@@ -318,9 +318,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                                 damping: 30,
                                 mass: 0.8,
                                 bounce: 0.3
-                              }}
-                              style={{
-                                backdropFilter: 'blur(8px)'
                               }}
                               initial={{ scale: 0.8, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
