@@ -95,7 +95,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              onClick={() => scrollToSection('hero')}
+              onClick={() => {
+                const element = document.getElementById('hero')
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
