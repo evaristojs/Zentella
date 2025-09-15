@@ -192,7 +192,7 @@ const Footer = () => {
       </div>
 
       {/* Services Banner - Now at the end of footer */}
-      <div className="w-full overflow-hidden relative bg-white dark:bg-bg-secondary-dark border-t border-gray-200 dark:border-gray-700" style={{ height: '200px' }}>
+      <div className="w-full overflow-hidden relative bg-white dark:bg-bg-secondary-dark border-t border-gray-200 dark:border-gray-700 mb-8 md:mb-0" style={{ height: '200px' }}>
         <motion.div
           className="relative h-full flex items-center justify-center"
           initial={{ opacity: 0 }}

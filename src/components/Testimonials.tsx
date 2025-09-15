@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import OptimizedImage from './OptimizedImage'
 
 const Testimonials = () => {
@@ -40,6 +40,14 @@ const Testimonials = () => {
       rating: 5
     },
   ]
+
+  // Preload testimonial images for better performance
+  useEffect(() => {
+    testimonials.forEach((testimonial) => {
+      const img = new Image()
+      img.src = testimonial.image
+    })
+  }, [])
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
@@ -111,7 +119,7 @@ const Testimonials = () => {
                         src={testimonials[currentTestimonial]?.image || ''}
                         alt={testimonials[currentTestimonial]?.name || ''}
                         className="w-24 h-24 rounded-full object-cover border-4 border-color-primary/20"
-                        loading="lazy"
+                        loading="eager"
                         width={96}
                         height={96}
                       />
