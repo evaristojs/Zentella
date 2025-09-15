@@ -517,7 +517,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   loop={0}
                   play={true}
                 >
-                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index, array) => {
+                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index) => {
                     // Create unique key by combining client name with position in extended array
                     const groupIndex = Math.floor(index / clientLogos.length)
                     const uniqueKey = `${client.name}-group${groupIndex}-${index}`
