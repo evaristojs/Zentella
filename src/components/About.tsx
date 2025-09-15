@@ -116,7 +116,14 @@ const About = () => {
               animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
               className={`group cursor-pointer ${activeCard === index ? 'mobile-active' : ''}`}
-              onClick={() => setActiveCard(activeCard === index ? null : index)}
+              onClick={(e) => {
+                e.preventDefault()
+                if (activeCard === index) {
+                  setActiveCard(null) // Quitar el blur y mostrar imagen normal
+                } else {
+                  setActiveCard(index) // Activar blur y mostrar descripción
+                }
+              }}
             >
               {/* Card Container - Image takes full space */}
               <div className="relative overflow-hidden rounded-3xl aspect-[3/4] shadow-2xl shadow-black/30 hover:shadow-3xl transition-all duration-500 group-hover:scale-[1.02]">
@@ -145,10 +152,10 @@ const About = () => {
                 </div>
 
                 {/* Blur overlay on hover/mobile active */}
-                <div className="absolute inset-0 backdrop-blur-md bg-black/40 opacity-0 group-hover:opacity-100 mobile-active:opacity-100 transition-opacity duration-500" />
+                <div className={`absolute inset-0 backdrop-blur-md bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${activeCard === index ? 'opacity-100' : ''}`} />
 
                 {/* Hover Content - Description */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 mobile-active:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0 mobile-active:translate-y-0 z-10">
+                <div className={`absolute inset-0 p-6 flex flex-col justify-center items-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0 z-10 ${activeCard === index ? 'opacity-100 translate-y-0' : ''}`}>
                   <div className="text-center max-w-xs">
                     <p className="text-left-hyphens text-sm mb-6 bg-white/10 p-4 rounded-xl border border-white/20">
                       {member.description}
