@@ -148,10 +148,10 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging || !e.touches[0]) return
+
       e.preventDefault()
-      if (e.touches[0]) {
-        handleMove(e.touches[0].clientX)
-      }
+      handleMove(e.touches[0].clientX)
     }
 
     const handleTouchEnd = () => {
