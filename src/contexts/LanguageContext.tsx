@@ -127,6 +127,61 @@ const translations = {
     'portfolio.kaccao.descripcion': 'Creación integral de marca para restaurante gourmet, desde logo hasta aplicaciones',
     'portfolio.kaccao.cliente': 'Kaccao Kitchen',
     'portfolio.kaccao.tags': 'Branding, Restaurante, Gourmet, Diseño',
+    
+    'portfolio.revel_bar.titulo': 'Revel Bar - Fotografía de Ambiente',
+    'portfolio.revel_bar.descripcion': 'Sesión fotográfica profesional para bar, capturando la atmósfera única y ambiente nocturno',
+    'portfolio.revel_bar.cliente': 'Revel Bar',
+    'portfolio.revel_bar.tags': 'Bar, Ambiente, Nocturno, Lifestyle',
+    
+    'portfolio.widook_optic.titulo': 'Widook Optic - Fotografía de Producto',
+    'portfolio.widook_optic.descripcion': 'Fotografía especializada de productos ópticos, destacando calidad y diseño de monturas',
+    'portfolio.widook_optic.cliente': 'Widook Optic',
+    'portfolio.widook_optic.tags': 'Producto, Óptica, Monturas, Comercial',
+    
+    'portfolio.los_hotdogs.titulo': 'Los Hotdogs SDQ - Identidad de Marca',
+    'portfolio.los_hotdogs.descripcion': 'Desarrollo completo de identidad visual para cadena de hotdogs, con enfoque juvenil y fresco',
+    'portfolio.los_hotdogs.cliente': 'Los Hotdogs SDQ',
+    'portfolio.los_hotdogs.tags': 'Branding, Food, Identidad Visual, Juvenil',
+    
+    'portfolio.nevada_care.titulo': 'Nevada Care Pharmacy - Branding Farmacéutico',
+    'portfolio.nevada_care.descripcion': 'Identidad visual para farmacia, transmitiendo confianza y profesionalismo en el sector salud',
+    'portfolio.nevada_care.cliente': 'Nevada Care Pharmacy',
+    'portfolio.nevada_care.tags': 'Farmacia, Healthcare, Branding, Confianza',
+    
+    'portfolio.palo_studio.titulo': 'Palo Studio - Desarrollo de Marca',
+    'portfolio.palo_studio.descripcion': 'Creación de identidad visual completa para estudio creativo, con enfoque moderno y minimalista',
+    'portfolio.palo_studio.cliente': 'Palo Studio',
+    'portfolio.palo_studio.tags': 'Estudio, Creativo, Minimalista, Branding',
+    
+    'portfolio.premeditest.titulo': 'Premeditest - Identidad Educativa',
+    'portfolio.premeditest.descripcion': 'Desarrollo de marca para plataforma educativa de medicina, con enfoque académico y profesional',
+    'portfolio.premeditest.cliente': 'Premeditest',
+    'portfolio.premeditest.tags': 'Educación, Medicina, Academia, Profesional',
+    
+    'portfolio.th_oasis.titulo': 'TH Oasis - Branding Hotelero',
+    'portfolio.th_oasis.descripcion': 'Identidad visual para complejo hotelero, evocando relajación y experiencias únicas',
+    'portfolio.th_oasis.cliente': 'TH Oasis',
+    'portfolio.th_oasis.tags': 'Hotel, Turismo, Relajación, Experiencia',
+    
+    'portfolio.chavalines.titulo': 'Chavalines RP - Animación 3D',
+    'portfolio.chavalines.descripcion': 'Animaciones 3D y motion graphics para servidor de roleplay, con identidad gaming vibrante',
+    'portfolio.chavalines.cliente': 'Chavalines RP',
+    'portfolio.chavalines.tags': 'Gaming, Animación 3D, Roleplay, Motion Graphics',
+    
+    'portfolio.ambiente_chic.titulo': 'Ambiente Chic - Video Corporativo',
+    'portfolio.ambiente_chic.descripcion': 'Producción audiovisual para inauguración de boutique, capturando elegancia y estilo',
+    'portfolio.ambiente_chic.cliente': 'Ambiente Chic',
+    'portfolio.ambiente_chic.tags': 'Video, Inauguración, Boutique, Elegancia',
+    
+    'portfolio.beeroclock.titulo': 'Beer O\'Clock - Video Navideño',
+    'portfolio.beeroclock.descripcion': 'Producción de video promocional navideño para bar, con ambiente festivo y celebración',
+    'portfolio.beeroclock.cliente': 'Beer O\'Clock',
+    'portfolio.beeroclock.tags': 'Video, Navidad, Bar, Promocional',
+    
+    'portfolio.time_homes.titulo': 'Time Homes - Video Inmobiliario',
+    'portfolio.time_homes.descripcion': 'Video promocional para condominios residenciales, destacando calidad y ubicación privilegiada',
+    'portfolio.time_homes.cliente': 'Time Homes',
+    'portfolio.time_homes.tags': 'Inmobiliario, Condominios, Promocional, Residencial',
 
     // About
     'about.titulo': 'Sobre Zentella',
@@ -498,6 +553,61 @@ const translations = {
     'portfolio.kaccao.descripcion': 'Comprehensive brand creation for gourmet restaurant, from logo to applications',
     'portfolio.kaccao.cliente': 'Kaccao Kitchen',
     'portfolio.kaccao.tags': 'Branding, Restaurant, Gourmet, Design',
+    
+    'portfolio.revel_bar.titulo': 'Revel Bar - Atmosphere Photography',
+    'portfolio.revel_bar.descripcion': 'Professional photography session for bar, capturing unique atmosphere and nightlife ambiance',
+    'portfolio.revel_bar.cliente': 'Revel Bar',
+    'portfolio.revel_bar.tags': 'Bar, Atmosphere, Nightlife, Lifestyle',
+    
+    'portfolio.widook_optic.titulo': 'Widook Optic - Product Photography',
+    'portfolio.widook_optic.descripcion': 'Specialized photography of optical products, highlighting quality and design of frames',
+    'portfolio.widook_optic.cliente': 'Widook Optic',
+    'portfolio.widook_optic.tags': 'Product, Optics, Frames, Commercial',
+    
+    'portfolio.los_hotdogs.titulo': 'Los Hotdogs SDQ - Brand Identity',
+    'portfolio.los_hotdogs.descripcion': 'Complete visual identity development for hotdog chain, with youthful and fresh approach',
+    'portfolio.los_hotdogs.cliente': 'Los Hotdogs SDQ',
+    'portfolio.los_hotdogs.tags': 'Branding, Food, Visual Identity, Youthful',
+    
+    'portfolio.nevada_care.titulo': 'Nevada Care Pharmacy - Pharmaceutical Branding',
+    'portfolio.nevada_care.descripcion': 'Visual identity for pharmacy, conveying trust and professionalism in the healthcare sector',
+    'portfolio.nevada_care.cliente': 'Nevada Care Pharmacy',
+    'portfolio.nevada_care.tags': 'Pharmacy, Healthcare, Branding, Trust',
+    
+    'portfolio.palo_studio.titulo': 'Palo Studio - Brand Development',
+    'portfolio.palo_studio.descripcion': 'Complete visual identity creation for creative studio, with modern and minimalist approach',
+    'portfolio.palo_studio.cliente': 'Palo Studio',
+    'portfolio.palo_studio.tags': 'Studio, Creative, Minimalist, Branding',
+    
+    'portfolio.premeditest.titulo': 'Premeditest - Educational Identity',
+    'portfolio.premeditest.descripcion': 'Brand development for medical education platform, with academic and professional focus',
+    'portfolio.premeditest.cliente': 'Premeditest',
+    'portfolio.premeditest.tags': 'Education, Medicine, Academic, Professional',
+    
+    'portfolio.th_oasis.titulo': 'TH Oasis - Hotel Branding',
+    'portfolio.th_oasis.descripcion': 'Visual identity for hotel complex, evoking relaxation and unique experiences',
+    'portfolio.th_oasis.cliente': 'TH Oasis',
+    'portfolio.th_oasis.tags': 'Hotel, Tourism, Relaxation, Experience',
+    
+    'portfolio.chavalines.titulo': 'Chavalines RP - 3D Animation',
+    'portfolio.chavalines.descripcion': '3D animations and motion graphics for roleplay server, with vibrant gaming identity',
+    'portfolio.chavalines.cliente': 'Chavalines RP',
+    'portfolio.chavalines.tags': 'Gaming, 3D Animation, Roleplay, Motion Graphics',
+    
+    'portfolio.ambiente_chic.titulo': 'Ambiente Chic - Corporate Video',
+    'portfolio.ambiente_chic.descripcion': 'Audiovisual production for boutique opening, capturing elegance and style',
+    'portfolio.ambiente_chic.cliente': 'Ambiente Chic',
+    'portfolio.ambiente_chic.tags': 'Video, Opening, Boutique, Elegance',
+    
+    'portfolio.beeroclock.titulo': 'Beer O\'Clock - Christmas Video',
+    'portfolio.beeroclock.descripcion': 'Christmas promotional video production for bar, with festive atmosphere and celebration',
+    'portfolio.beeroclock.cliente': 'Beer O\'Clock',
+    'portfolio.beeroclock.tags': 'Video, Christmas, Bar, Promotional',
+    
+    'portfolio.time_homes.titulo': 'Time Homes - Real Estate Video',
+    'portfolio.time_homes.descripcion': 'Promotional video for residential condominiums, highlighting quality and privileged location',
+    'portfolio.time_homes.cliente': 'Time Homes',
+    'portfolio.time_homes.tags': 'Real Estate, Condominiums, Promotional, Residential',
 
     // About
     'about.titulo': 'About Zentella',
