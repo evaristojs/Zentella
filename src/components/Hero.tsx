@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 import { useLanguage } from '../hooks/useLanguage'
-import Marquee from 'react-fast-marquee'
 
 interface HeroProps {
   scrollToSection?: (sectionId: string) => void
@@ -83,11 +82,13 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       isDragging = true
       startX = clientX
       setIsCarouselPaused(true)
-      carousel.style.cursor = 'grabbing'
+      if (carousel) {
+        carousel.style.cursor = 'grabbing'
+      }
     }
 
     const handleMove = (clientX: number) => {
-      if (!isDragging) return
+      if (!isDragging || !carousel) return
 
       currentX = clientX - startX
       carousel.style.transform = `translateX(${currentX}px)`

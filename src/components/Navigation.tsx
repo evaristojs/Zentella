@@ -16,7 +16,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const { scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -78,13 +77,19 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         className={getNavbarClasses()}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{
+          duration: 0.8,
+          ease: [0.25, 0.46, 0.45, 0.94],
+          type: "spring",
+          stiffness: 100,
+          damping: 15
+        }}
       >
         <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.button
-              className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none outline-none rounded-lg p-1 cursor-pointer"
+              className="flex-shrink-0 relative h-8 sm:h-8 lg:h-10 w-32 sm:w-40 lg:w-56 flex items-center justify-start focus:outline-none outline-none rounded-lg p-1 cursor-pointer"
               whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -106,7 +111,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={logoState.type}
                   src={logoSrc}
                   alt="Zentella"
-                  className="w-auto h-full object-contain scale-110 sm:scale-100"
+                  className="w-auto h-full object-contain scale-100"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -180,7 +185,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.a>
             </div>
 
-            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 lg:space-x-3 mr-1 sm:mr-2 lg:mr-3">
               <motion.button
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
