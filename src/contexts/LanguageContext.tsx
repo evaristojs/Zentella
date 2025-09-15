@@ -244,7 +244,7 @@ const translations = {
     // Placeholders
     'placeholder.nombre': 'Juan Pérez',
     'placeholder.email': 'hola@agenciazentella.com',
-    'placeholder.telefono': '+1 (809) 676-2429',
+    'placeholder.telefono': '+1 (849) 517-0527',
     'placeholder.mensaje': 'Me encantaría conocer más sobre sus servicios',
 
     // Error messages
@@ -372,11 +372,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Domingos',
     'contact.ubicacion.cerrado': 'Cerrado',
     'contact.ubicacion.telefono': 'Teléfono',
-    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_telefono': '+1 (849) 517-0527',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hola@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_whatsapp': '+1 (849) 517-0527',
 
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
@@ -676,7 +676,7 @@ const translations = {
     // Placeholders
     'placeholder.nombre': 'John Doe',
     'placeholder.email': 'hello@agenciazentella.com',
-    'placeholder.telefono': '+1 (809) 676-2429',
+    'placeholder.telefono': '+1 (849) 517-0527',
     'placeholder.mensaje': 'I\'d love to learn more about your services',
 
     // Error messages
@@ -804,11 +804,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Sundays',
     'contact.ubicacion.cerrado': 'Closed',
     'contact.ubicacion.telefono': 'Phone',
-    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_telefono': '+1 (849) 517-0527',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hello@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_whatsapp': '+1 (849) 517-0527',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
