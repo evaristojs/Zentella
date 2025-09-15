@@ -268,13 +268,13 @@ const translations = {
 
     // FAQ Questions and Answers
     'faq.q1.question': '¿Cuánto cuesta el servicio/proyecto o cuál es el presupuesto necesario?',
-    'faq.q1.answer': 'Los costos pueden variar enormemente, desde el 0 al infinito, dependiendo de los objetivos y recursos, así como de la fase del proyecto y la exposición de la marca. Factores como la industria, la competencia, la ubicación geográfica, el alcance y los objetivos del proyecto, la reputación y experiencia de la agencia, y la personalización de los servicios influyen en el precio.',
-    'faq.q1.detail1': 'Publicidad PPC: $85,000-$580,000 DOP/mes',
-    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/mes',
-    'faq.q1.detail3': 'Marketing en redes sociales: $58,000-$203,000 DOP/mes',
-    'faq.q1.detail4': 'Marketing de contenido: $1,800-$12,000/mes',
-    'faq.q1.detail5': 'Email marketing: $1,500-$7,500/mes',
-    'faq.q1.detail6': 'Videos corporativos: $65,000-$325,000 DOP',
+    'faq.q1.answer': 'Cada proyecto es único y tiene necesidades específicas. Por eso, creamos propuestas personalizadas que se adapten perfectamente a tu presupuesto y objetivos. ¡La cotización es completamente gratuita y sin compromiso! Contáctanos para recibir una propuesta detallada en menos de 24 horas.',
+    'faq.q1.detail1': '✨ Cotización 100% gratuita y personalizada',
+    'faq.q1.detail2': '🚀 Propuesta lista en menos de 24 horas',
+    'faq.q1.detail3': '💡 Estrategia adaptada a tu presupuesto',
+    'faq.q1.detail4': '🎯 Sin compromiso ni costos ocultos',
+    'faq.q1.detail5': '📊 Análisis detallado de tu proyecto',
+    'faq.q1.detail6': '🤝 Asesoría inicial completamente gratis',
 
     'faq.q2.question': '¿Qué servicios ofrecen y cómo pueden ayudar a mi negocio?',
     'faq.q2.answer': 'Ofrecemos una amplia gama de servicios para mejorar la visibilidad, relevancia y posicionamiento de tu negocio. Nuestros servicios incluyen posicionamiento SEO, campañas SEM, diseño y desarrollo web, estrategias de contenido, diseño gráfico, fotografía, videografía, animación y gestión de redes sociales.',
@@ -413,7 +413,7 @@ const translations = {
     'about.stephania.rol': 'Directora de Marketing',
     'about.angel.desc': 'Fotógrafo y diseñador visual con un ojo único para capturar momentos auténticos. Transforma ideas en experiencias visuales memorables.',
     'about.angel.rol': 'Director Creativo',
-    'about.ana.desc': 'Experta en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas.',
+    'about.ana.desc': 'Licenciada en Marketing Digital con experiencia especializada en gestión de comunidades digitales y creación de contenido. Conecta marcas con audiencias a través de estrategias de comunicación efectivas y datos estratégicos.',
     'about.ana.rol': 'Community Manager',
 
     // Testimonials
@@ -694,13 +694,13 @@ const translations = {
 
     // FAQ Questions and Answers
     'faq.q1.question': 'How much does the service/project cost or what budget is needed?',
-    'faq.q1.answer': 'Costs can vary enormously, from 0 to infinity, depending on objectives and resources, as well as the project phase and brand exposure. Factors such as industry, competition, geographic location, scope and project objectives, agency reputation and experience, and service customization influence pricing.',
-    'faq.q1.detail1': 'PPC Advertising: $85,000-$580,000 DOP/month',
-    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/month',
-    'faq.q1.detail3': 'Social media marketing: $58,000-$203,000 DOP/month',
-    'faq.q1.detail4': 'Content marketing: $1,800-$12,000/month',
-    'faq.q1.detail5': 'Email marketing: $1,500-$7,500/month',
-    'faq.q1.detail6': 'Corporate videos: $65,000-$325,000 DOP',
+    'faq.q1.answer': 'Every project is unique with specific needs. That\'s why we create personalized proposals that perfectly adapt to your budget and objectives. The quote is completely free and without commitment! Contact us to receive a detailed proposal in less than 24 hours.',
+    'faq.q1.detail1': '✨ 100% free and personalized quote',
+    'faq.q1.detail2': '🚀 Proposal ready in less than 24 hours',
+    'faq.q1.detail3': '💡 Strategy adapted to your budget',
+    'faq.q1.detail4': '🎯 No commitment or hidden costs',
+    'faq.q1.detail5': '📊 Detailed analysis of your project',
+    'faq.q1.detail6': '🤝 Initial consultation completely free',
 
     'faq.q2.question': 'What services do you offer and how can they help my business?',
     'faq.q2.answer': 'We offer a wide range of services to improve your business\'s visibility, relevance and positioning. Our services include SEO positioning, SEM campaigns, web design and development, content strategies, graphic design, photography, videography, animation and social media management.',
@@ -838,7 +838,7 @@ const translations = {
     'about.stephania.rol': 'Marketing Director',
     'about.angel.desc': 'Photographer and visual designer with a unique eye for capturing authentic moments. Transforms ideas into memorable visual experiences.',
     'about.angel.rol': 'Creative Director',
-    'about.ana.desc': 'Expert in digital community management and content creation. Connects brands with audiences through effective communication strategies.',
+    'about.ana.desc': 'Digital Marketing graduate with specialized experience in digital community management and content creation. Connects brands with audiences through effective communication strategies and strategic data insights.',
     'about.ana.rol': 'Community Manager',
 
     // Testimonials
