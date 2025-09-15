@@ -103,7 +103,7 @@ function App() {
                     <Footer />
                   </Suspense>
                 </main>
-                <BackToTop />
+                <BackToTop currentSection={currentSection} />
               </motion.div>
             )}
           </AnimatePresence>

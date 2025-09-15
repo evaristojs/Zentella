@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 import { useLanguage } from '../hooks/useLanguage'
 import Marquee from 'react-fast-marquee'
@@ -34,6 +34,9 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const [carouselX, setCarouselX] = useState(0)
 
   // Logo data array
   const clientLogos = [
@@ -56,6 +59,159 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     setCurrentPhraseIndex(0)
     setDisplayText('')
   }, [currentLanguage])
+
+  // Simple hover handlers
+  const handleMouseEnter = useCallback(() => {
+    setIsCarouselPaused(true)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsCarouselPaused(false)
+  }, [])
+
+  // Drag functionality with useEffect
+  useEffect(() => {
+    const carousel = carouselRef.current
+    if (!carousel) return
+
+    let isDragging = false
+    let startX = 0
+    let currentX = 0
+    let animationId: number
+
+    const handleStart = (clientX: number) => {
+      isDragging = true
+      startX = clientX
+      setIsCarouselPaused(true)
+      carousel.style.cursor = 'grabbing'
+    }
+
+    const handleMove = (clientX: number) => {
+      if (!isDragging) return
+
+      currentX = clientX - startX
+      carousel.style.transform = `translateX(${currentX}px)`
+    }
+
+    const handleEnd = () => {
+      if (!isDragging) return
+
+      isDragging = false
+      carousel.style.cursor = 'grab'
+
+      // Smooth return to original position
+      const startPos = currentX
+      const startTime = performance.now()
+      const duration = 300
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / duration, 1)
+
+        // Easing function
+        const easeOut = 1 - Math.pow(1 - progress, 3)
+        const position = startPos * (1 - easeOut)
+
+        carousel.style.transform = `translateX(${position}px)`
+
+        if (progress < 1) {
+          animationId = requestAnimationFrame(animate)
+        } else {
+          carousel.style.transform = 'translateX(0px)'
+          setTimeout(() => setIsCarouselPaused(false), 100)
+        }
+      }
+
+      animationId = requestAnimationFrame(animate)
+    }
+
+    // Mouse events
+    const handleMouseDown = (e: MouseEvent) => {
+      e.preventDefault()
+      handleStart(e.clientX)
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      handleMove(e.clientX)
+    }
+
+    const handleMouseUp = () => {
+      handleEnd()
+    }
+
+    // Touch events
+    const handleTouchStart = (e: TouchEvent) => {
+      handleStart(e.touches[0].clientX)
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      handleMove(e.touches[0].clientX)
+    }
+
+    const handleTouchEnd = () => {
+      handleEnd()
+    }
+
+    // Add event listeners
+    carousel.addEventListener('mousedown', handleMouseDown)
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', handleMouseUp)
+
+    carousel.addEventListener('touchstart', handleTouchStart, { passive: true })
+    document.addEventListener('touchmove', handleTouchMove, { passive: false })
+    document.addEventListener('touchend', handleTouchEnd)
+
+    return () => {
+      carousel.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+
+      carousel.removeEventListener('touchstart', handleTouchStart)
+      document.removeEventListener('touchmove', handleTouchMove)
+      document.removeEventListener('touchend', handleTouchEnd)
+
+      if (animationId) {
+        cancelAnimationFrame(animationId)
+      }
+    }
+  }, [])
+
+  // High refresh rate carousel animation
+  useEffect(() => {
+    if (isCarouselPaused) return
+
+    let animationId: number
+    let lastTime = 0
+    const targetFPS = 120 // Target high refresh rate
+    const interval = 1000 / targetFPS
+
+    const animateCarousel = (currentTime: number) => {
+      if (currentTime - lastTime >= interval) {
+        setCarouselX(prev => {
+          // When we reach -50%, reset smoothly to 0%
+          if (prev <= -50) {
+            return 0
+          }
+          // Move 0.05% each frame (adjusted for higher FPS)
+          return prev - 0.05
+        })
+        lastTime = currentTime
+      }
+
+      if (!isCarouselPaused) {
+        animationId = requestAnimationFrame(animateCarousel)
+      }
+    }
+
+    animationId = requestAnimationFrame(animateCarousel)
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId)
+      }
+    }
+  }, [isCarouselPaused])
 
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const themeObserverRef = useRef<MutationObserver | null>(null)
@@ -493,34 +649,106 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       {/* Client Logos Banner - Desktop Only - Fixed at bottom */}
       <motion.div
         className="hidden lg:block w-full overflow-y-hidden absolute bottom-0 left-0 right-0"
-        style={{ zIndex: 20 }}
+        style={{ zIndex: 50 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 2 }}
       >
-              <div className="flex items-center justify-center">
-                <Marquee
-                  speed={50}
-                  pauseOnHover={true}
-                  gradient={false}
-                  loop={0}
-                  play={true}
+              <div
+                className="w-full overflow-hidden relative cursor-grab active:cursor-grabbing"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <motion.div
+                  ref={carouselRef}
+                  className="flex whitespace-nowrap"
+                  animate={{
+                    x: `${carouselX}%`
+                  }}
+                  transition={{
+                    duration: 0,
+                    ease: "linear",
+                    type: "tween"
+                  }}
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
+                  }}
                 >
-                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index) => (
-                    <motion.img
-                      key={`${client.name}-${index}`}
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-6"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        transform: 'translateZ(0)',
+                  {/* Primer conjunto */}
+                  {clientLogos.map((client, index) => (
+                    <motion.div
+                      key={`first-${client.name}-${index}`}
+                      className="flex-shrink-0 mx-10 inline-block"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: index * 0.05,
+                        ease: "easeOut"
                       }}
-                      loading="lazy"
-                    />
+                    >
+                      <motion.img
+                        src={client.logo}
+                        alt={`${client.name} logo`}
+                        className={`h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter ${
+                          client.logo === '/zentella-Mesa-de-trabajo-2.png'
+                            ? 'grayscale contrast-200 dark:invert'
+                            : 'brightness-0 dark:brightness-0 dark:invert'
+                        }`}
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          transform: 'translateZ(0)',
+                          display: 'block'
+                        }}
+                        loading="lazy"
+                        whileHover={{
+                          scale: 1.05,
+                          y: -3,
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      />
+                    </motion.div>
                   ))}
-                </Marquee>
+                  {/* Segundo conjunto para seamless loop */}
+                  {clientLogos.map((client, index) => (
+                    <motion.div
+                      key={`second-${client.name}-${index}`}
+                      className="flex-shrink-0 mx-10 inline-block"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: (index + clientLogos.length) * 0.05,
+                        ease: "easeOut"
+                      }}
+                    >
+                      <motion.img
+                        src={client.logo}
+                        alt={`${client.name} logo`}
+                        className={`h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter ${
+                          client.logo === '/zentella-Mesa-de-trabajo-2.png'
+                            ? 'grayscale contrast-200 dark:invert'
+                            : 'brightness-0 dark:brightness-0 dark:invert'
+                        }`}
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          transform: 'translateZ(0)',
+                          display: 'block'
+                        }}
+                        loading="lazy"
+                        whileHover={{
+                          scale: 1.05,
+                          y: -3,
+                          transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      />
+                    </motion.div>
+                  ))}
+                </motion.div>
               </div>
       </motion.div>
 

@@ -9,6 +9,13 @@
     @apply scroll-smooth;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    /* High refresh rate optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: scroll-position;
   }
 
   /* Extra smooth scrolling with momentum for mobile */
@@ -484,3 +491,26 @@ body::-webkit-scrollbar {
   0% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-10px); }
 }
+
+/* High refresh rate optimizations */
+.high-performance {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth animations for high refresh displays */
+@media screen and (min-resolution: 120dpi) {
+  * {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .animate-smooth {
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+  }
+}
+

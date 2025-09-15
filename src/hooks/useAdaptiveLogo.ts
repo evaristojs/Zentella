@@ -23,14 +23,6 @@ export const useAdaptiveLogo = (isDark: boolean) => {
     
     setLogoState(prev => {
       if (prev.type !== logoType || prev.isInHero !== isInHero) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log('🔄 Logo type change:', { 
-            logoType,
-            isInHero,
-            currentSection,
-            theme: isDark ? 'dark' : 'light'
-          })
-        }
         return {
           type: logoType,
           isInHero

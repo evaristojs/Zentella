@@ -1,49 +1,92 @@
-import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const BackToTop = () => {
-  const [isVisible, setIsVisible] = useState(false)
+interface BackToTopProps {
+  currentSection?: string
+}
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      // Show button after scrolling down 400px
-      if (window.pageYOffset > 400) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
-
-    window.addEventListener('scroll', toggleVisibility)
-    return () => window.removeEventListener('scroll', toggleVisibility)
-  }, [])
-
+const BackToTop = ({ currentSection }: BackToTopProps) => {
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
+    const element = document.getElementById('hero')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   }
+
+  // Solo mostrar si no estamos en hero
+  const shouldShow = currentSection !== 'hero'
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {shouldShow && (
         <motion.button
-          className="fixed bottom-6 right-6 z-50 p-3 bg-color-primary hover:bg-color-primary-hover text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm border border-white/10"
           onClick={scrollToTop}
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 20 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.95 }}
+          className="fixed bottom-6 right-6 w-14 h-14 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg hover:shadow-xl transition-colors duration-300 flex items-center justify-center"
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 9999,
+            width: '56px',
+            height: '56px'
+          }}
           aria-label="Volver arriba"
+          initial={{
+            opacity: 0,
+            scale: 0.5,
+            y: 20,
+            rotate: -180
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            rotate: 0
+          }}
+          exit={{
+            opacity: 0,
+            scale: 0.5,
+            y: 20,
+            rotate: 180
+          }}
+          transition={{
+            duration: 0.4,
+            type: "spring",
+            stiffness: 300,
+            damping: 25
+          }}
+          whileHover={{
+            scale: 1.1,
+            y: -3,
+            boxShadow: "0 10px 25px rgba(147, 51, 234, 0.3)"
+          }}
+          whileTap={{ scale: 0.95 }}
         >
-          <svg
-            className="w-5 h-5"
+          <motion.svg
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            initial={{ y: 2 }}
+            animate={{ y: 0 }}
+            whileHover={{
+              y: [0, -2, 0, -1, 0],
+              transition: {
+                duration: 0.6,
+                repeat: Infinity,
+                repeatType: "loop"
+              }
+            }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 400
+            }}
           >
             <path
               strokeLinecap="round"
@@ -51,7 +94,7 @@ const BackToTop = () => {
               strokeWidth={2}
               d="M5 10l7-7m0 0l7 7m-7-7v18"
             />
-          </svg>
+          </motion.svg>
         </motion.button>
       )}
     </AnimatePresence>
