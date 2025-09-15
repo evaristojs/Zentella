@@ -536,8 +536,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                         loading="lazy"
                       />
                     )
-                  })
-                  ))}
+                  })}
                 </Marquee>
               </div>
       </motion.div>
