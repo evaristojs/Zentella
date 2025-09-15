@@ -140,41 +140,17 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       handleEnd()
     }
 
-    // Touch events
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches[0]) {
-        handleStart(e.touches[0].clientX)
-      }
-    }
+    // Touch events removidos - carousel es desktop-only (hidden lg:block)
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isDragging || !e.touches[0]) return
-
-      e.preventDefault()
-      handleMove(e.touches[0].clientX)
-    }
-
-    const handleTouchEnd = () => {
-      handleEnd()
-    }
-
-    // Add event listeners
+    // Add event listeners - Solo mouse para desktop
     carousel.addEventListener('mousedown', handleMouseDown)
     document.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseup', handleMouseUp)
-
-    carousel.addEventListener('touchstart', handleTouchStart, { passive: true })
-    document.addEventListener('touchmove', handleTouchMove, { passive: false })
-    document.addEventListener('touchend', handleTouchEnd)
 
     return () => {
       carousel.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseup', handleMouseUp)
-
-      carousel.removeEventListener('touchstart', handleTouchStart)
-      document.removeEventListener('touchmove', handleTouchMove)
-      document.removeEventListener('touchend', handleTouchEnd)
 
       if (animationId) {
         cancelAnimationFrame(animationId)
