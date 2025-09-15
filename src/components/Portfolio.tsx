@@ -247,6 +247,20 @@ const Portfolio = () => {
     }
   }, [isModalOpen, isFullscreenOpen])
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    // Cleanup function to restore scroll when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isModalOpen])
+
   return (
     <section
       id="portfolio"
