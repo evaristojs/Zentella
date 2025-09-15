@@ -501,16 +501,26 @@ body::-webkit-scrollbar {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Smooth animations for high refresh displays */
-@media screen and (min-resolution: 120dpi) {
-  * {
-    backface-visibility: hidden;
-    transform: translateZ(0);
-  }
+/* Targeted performance optimizations for specific elements */
+.performance-optimized {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
 
-  .animate-smooth {
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-fill-mode: both;
-  }
+.animate-smooth {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+/* Z-index hierarchy - Consistent stacking order */
+:root {
+  --z-dropdown: 1000;
+  --z-sticky: 1010;
+  --z-fixed: 1020;
+  --z-modal-backdrop: 1030;
+  --z-modal: 1040;
+  --z-popover: 1050;
+  --z-tooltip: 1060;
+  --z-toast: 1070;
 }
 

@@ -1,10 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 interface BackToTopProps {
   currentSection?: string
 }
 
 const BackToTop = ({ currentSection }: BackToTopProps) => {
+  const [isVisible, setIsVisible] = useState(false)
+
   const scrollToTop = () => {
     const element = document.getElementById('hero')
     if (element) {
@@ -17,8 +20,24 @@ const BackToTop = ({ currentSection }: BackToTopProps) => {
     }
   }
 
-  // Solo mostrar si no estamos en hero
-  const shouldShow = currentSection !== 'hero'
+  // Hybrid logic: Use both scroll position and section detection for stability
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.pageYOffset
+      const shouldShowByScroll = scrollY > 400
+      const shouldShowBySection = currentSection && currentSection !== 'hero'
+
+      // Show if either condition is true (more reliable)
+      setIsVisible(shouldShowByScroll || !!shouldShowBySection)
+    }
+
+    handleScroll() // Check initial state
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [currentSection])
+
+  const shouldShow = isVisible
 
   return (
     <AnimatePresence>
@@ -30,7 +49,7 @@ const BackToTop = ({ currentSection }: BackToTopProps) => {
             position: 'fixed',
             bottom: '24px',
             right: '24px',
-            zIndex: 9999,
+            zIndex: 'var(--z-popover)',
             width: '56px',
             height: '56px'
           }}

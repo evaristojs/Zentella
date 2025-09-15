@@ -158,13 +158,25 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
   }, [])
 
-  // High refresh rate carousel animation
+  // Optimized carousel animation - adaptive to device capabilities
   useEffect(() => {
     if (isCarouselPaused) return
 
     let animationId: number
     let lastTime = 0
-    const targetFPS = 120 // Target high refresh rate
+
+    // Adaptive FPS based on device capabilities
+    const getTargetFPS = () => {
+      const ua = navigator.userAgent
+      const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)
+      const isLowEnd = /Android.*Chrome\/[0-6][0-9]/i.test(ua) // Older Chrome versions
+
+      if (isMobile || isLowEnd) return 30
+      if (window.devicePixelRatio > 1.5) return 60
+      return 60 // Default smooth rate
+    }
+
+    const targetFPS = getTargetFPS()
     const interval = 1000 / targetFPS
 
     const animateCarousel = (currentTime: number) => {
@@ -174,8 +186,9 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
           if (prev <= -50) {
             return 0
           }
-          // Move 0.05% each frame (adjusted for higher FPS)
-          return prev - 0.05
+          // Adaptive move speed based on FPS
+          const moveSpeed = targetFPS === 30 ? 0.1 : 0.05
+          return prev - moveSpeed
         })
         lastTime = currentTime
       }

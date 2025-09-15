@@ -444,15 +444,17 @@ const ContactFAQ = () => {
               <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-name" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.nombre')}
                     </label>
                     <input
+                      id="contactfaq-name"
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('placeholder.nombre')}
+                      autoComplete="name"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.name ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -461,15 +463,17 @@ const ContactFAQ = () => {
                   </div>
                 
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-email" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.email')}
                     </label>
                     <input
+                      id="contactfaq-email"
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t('placeholder.email')}
+                      autoComplete="email"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.email ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -479,28 +483,32 @@ const ContactFAQ = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                  <label htmlFor="contactfaq-phone" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                     {t('contact.telefono')}
                   </label>
                   <input
+                    id="contactfaq-phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder={t('placeholder.telefono')}
+                    autoComplete="tel"
                     className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
                   />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-service" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.servicio')}
                     </label>
                     <select
+                      id="contactfaq-service"
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
+                      autoComplete="off"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer ${
                         errors.service ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -516,13 +524,15 @@ const ContactFAQ = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-budget" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.presupuesto')}
                     </label>
                     <select
+                      id="contactfaq-budget"
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
+                      autoComplete="off"
                       className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer"
                     >
                       <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">{t('contact.seleccionar_rango')}</option>
@@ -536,13 +546,15 @@ const ContactFAQ = () => {
                 </div>
 
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                  <label htmlFor="contactfaq-message" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                     {t('contact.mensaje')}
                   </label>
                   <textarea
+                    id="contactfaq-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    autoComplete="off"
                     className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark resize-none placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 flex-1 ${
                       errors.message ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                     }`}

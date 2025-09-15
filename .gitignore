@@ -56,3 +56,8 @@ coverage/
 
 # Build artifacts
 *.tgz
+
+# Image backups (local only)
+*_backup/
+*_images_backup/
+/tmp/zentella_images_backup/
