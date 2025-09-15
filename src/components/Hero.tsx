@@ -57,6 +57,17 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     setDisplayText('')
   }, [currentLanguage])
 
+  // Preload critical carousel logos (following Zentella implementation pattern)
+  useEffect(() => {
+    // Only preload first 4 logos that appear above the fold
+    const criticalLogos = clientLogos.slice(0, 4)
+    
+    criticalLogos.forEach((client) => {
+      const img = new Image()
+      img.src = client.logo
+    })
+  }, [])
+
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const themeObserverRef = useRef<MutationObserver | null>(null)
   const scriptRef = useRef<HTMLScriptElement | null>(null)
@@ -506,19 +517,26 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   loop={0}
                   play={true}
                 >
-                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index) => (
-                    <motion.img
-                      key={`${client.name}-${index}`}
-                      src={client.logo}
-                      alt={`${client.name} logo`}
-                      className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-6"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      style={{
-                        backfaceVisibility: 'hidden',
-                        transform: 'translateZ(0)',
-                      }}
-                      loading="lazy"
-                    />
+                  {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, index, array) => {
+                    // Create unique key by combining client name with position in extended array
+                    const groupIndex = Math.floor(index / clientLogos.length)
+                    const uniqueKey = `${client.name}-group${groupIndex}-${index}`
+                    
+                    return (
+                      <motion.img
+                        key={uniqueKey}
+                        src={client.logo}
+                        alt={`${client.name} logo`}
+                        className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-6"
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          transform: 'translateZ(0)',
+                        }}
+                        loading="lazy"
+                      />
+                    )
+                  })
                   ))}
                 </Marquee>
               </div>

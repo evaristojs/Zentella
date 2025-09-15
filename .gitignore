@@ -56,3 +56,9 @@ coverage/
 
 # Build artifacts
 *.tgz
+
+# Unused assets and media backups
+assets-unused-backup/
+media-backup-*/
+optimize-media.sh
+optimize-quick.sh

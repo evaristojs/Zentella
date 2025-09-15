@@ -116,61 +116,156 @@ const Portfolio = () => {
         tags: t('portfolio.kaccao.tags').split(', ')
       },
       {
+        id: 4,
+        title: t('portfolio.revel_bar.titulo'),
+        category: 'photography',
+        description: t('portfolio.revel_bar.descripcion'),
+        image: '/images/portfolio/photography/revel-bar/revel-bar-1.jpg',
+        images: [
+          '/images/portfolio/photography/revel-bar/revel-bar-1.jpg'
+        ],
+        client: t('portfolio.revel_bar.cliente'),
+        year: 2024,
+        tags: t('portfolio.revel_bar.tags').split(', ')
+      },
+      {
+        id: 5,
+        title: t('portfolio.widook_optic.titulo'),
+        category: 'photography',
+        description: t('portfolio.widook_optic.descripcion'),
+        image: '/images/portfolio/photography/widook-optic/widook-optic-1.jpg',
+        images: [
+          '/images/portfolio/photography/widook-optic/widook-optic-1.jpg'
+        ],
+        client: t('portfolio.widook_optic.cliente'),
+        year: 2024,
+        tags: t('portfolio.widook_optic.tags').split(', ')
+      },
+      {
+        id: 8,
+        title: t('portfolio.los_hotdogs.titulo'),
+        category: 'design',
+        description: t('portfolio.los_hotdogs.descripcion'),
+        image: '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.webp',
+        images: [
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.webp',
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-2-optimized.webp',
+          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-3.webp'
+        ],
+        client: t('portfolio.los_hotdogs.cliente'),
+        year: 2024,
+        tags: t('portfolio.los_hotdogs.tags').split(', ')
+      },
+      {
+        id: 9,
+        title: t('portfolio.nevada_care.titulo'),
+        category: 'design',
+        description: t('portfolio.nevada_care.descripcion'),
+        image: '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg',
+        images: [
+          '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg'
+        ],
+        client: t('portfolio.nevada_care.cliente'),
+        year: 2024,
+        tags: t('portfolio.nevada_care.tags').split(', ')
+      },
+      {
+        id: 10,
+        title: t('portfolio.palo_studio.titulo'),
+        category: 'design',
+        description: t('portfolio.palo_studio.descripcion'),
+        image: '/images/portfolio/branding/palo-studio/palo-studio-1-optimized.webp',
+        images: [
+          '/images/portfolio/branding/palo-studio/palo-studio-1-optimized.webp',
+          '/images/portfolio/branding/palo-studio/palo-studio-2-optimized.webp',
+          '/images/portfolio/branding/palo-studio/palo-studio-3.webp'
+        ],
+        client: t('portfolio.palo_studio.cliente'),
+        year: 2024,
+        tags: t('portfolio.palo_studio.tags').split(', ')
+      },
+      {
+        id: 11,
+        title: t('portfolio.premeditest.titulo'),
+        category: 'design',
+        description: t('portfolio.premeditest.descripcion'),
+        image: '/images/portfolio/branding/premeditest/premeditest-1.webp',
+        images: [
+          '/images/portfolio/branding/premeditest/premeditest-1.webp'
+        ],
+        client: t('portfolio.premeditest.cliente'),
+        year: 2024,
+        tags: t('portfolio.premeditest.tags').split(', ')
+      },
+      {
+        id: 12,
+        title: t('portfolio.th_oasis.titulo'),
+        category: 'design',
+        description: t('portfolio.th_oasis.descripcion'),
+        image: '/images/portfolio/branding/th-oasis/th-oasis-1.webp',
+        images: [
+          '/images/portfolio/branding/th-oasis/th-oasis-1.webp'
+        ],
+        client: t('portfolio.th_oasis.cliente'),
+        year: 2024,
+        tags: t('portfolio.th_oasis.tags').split(', ')
+      },
+      {
         id: 13,
-        title: 'Chavalines RP - Animación 3D Logo',
+        title: t('portfolio.chavalines.titulo'),
         category: 'animation',
-        description: 'Animación 3D profesional para entrada de logo corporativo, creando impacto visual memorable',
+        description: t('portfolio.chavalines.descripcion'),
         image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
         images: [
           '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
           '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif',
           '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif'
         ],
-        client: 'Chavalines RP',
+        client: t('portfolio.chavalines.cliente'),
         year: 2024,
-        tags: ['3D Animation', 'Logo Animation', 'Corporate', 'Motion Graphics']
+        tags: t('portfolio.chavalines.tags').split(', ')
       },
       {
         id: 16,
-        title: 'Ambiente Chic - Grand Opening',
+        title: t('portfolio.ambiente_chic.titulo'),
         category: 'video',
-        description: 'Producción audiovisual completa para evento de inauguración, capturando la elegancia del momento',
+        description: t('portfolio.ambiente_chic.descripcion'),
         image: '/images/portfolio/video/ambiente-chic-grand-opening.jpg',
         images: [
           '/images/portfolio/video/ambiente-chic-grand-opening.jpg'
         ],
         video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
-        client: 'Ambiente Chic',
+        client: t('portfolio.ambiente_chic.cliente'),
         year: 2024,
-        tags: ['Evento', 'Grand Opening', 'Producción', 'Corporativo']
+        tags: t('portfolio.ambiente_chic.tags').split(', ')
       },
       {
         id: 17,
-        title: 'Beer O\'Clock - Campaña Navideña',
+        title: t('portfolio.beeroclock.titulo'),
         category: 'video',
-        description: 'Video promocional navideño para marca de cerveza artesanal, con enfoque festivo y familiar',
-        image: '/images/portfolio/video/beeroclock-navidad.jpg',
+        description: t('portfolio.beeroclock.descripcion'),
+        image: '/images/portfolio/video/beeroclock-navidad.webp',
         images: [
-          '/images/portfolio/video/beeroclock-navidad.jpg'
+          '/images/portfolio/video/beeroclock-navidad.webp'
         ],
         video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
-        client: 'Beer O\'Clock',
+        client: t('portfolio.beeroclock.cliente'),
         year: 2024,
-        tags: ['Promocional', 'Navidad', 'Cerveza', 'Familiar']
+        tags: t('portfolio.beeroclock.tags').split(', ')
       },
       {
         id: 18,
-        title: 'Time Homes - María Teresa Condos',
+        title: t('portfolio.time_homes.titulo'),
         category: 'video',
-        description: 'Video promocional inmobiliario destacando las características y ubicación del proyecto residencial',
-        image: '/images/portfolio/video/teresa-condos.jpg',
+        description: t('portfolio.time_homes.descripcion'),
+        image: '/images/portfolio/video/teresa-condos.webp',
         images: [
-          '/images/portfolio/video/teresa-condos.jpg'
+          '/images/portfolio/video/teresa-condos.webp'
         ],
         video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
-        client: 'Time Homes',
+        client: t('portfolio.time_homes.cliente'),
         year: 2024,
-        tags: ['Inmobiliario', 'Condos', 'Promocional', 'Arquitectura']
+        tags: t('portfolio.time_homes.tags').split(', ')
       }
     ]
     
