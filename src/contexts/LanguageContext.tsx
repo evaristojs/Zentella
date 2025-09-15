@@ -326,11 +326,11 @@ const translations = {
 
     // ContactFAQ specific
     'contact.faq.q1.question': '¿Cuánto cuesta el servicio/proyecto?',
-    'contact.faq.q1.answer': 'Los costos varían según objetivos, recursos y complejidad del proyecto. Factores como industria, competencia, alcance y personalización influyen en el precio.',
-    'contact.faq.q1.detail1': 'Publicidad PPC: $1,500-$10,000/mes',
-    'contact.faq.q1.detail2': 'SEO: $1,000-$7,500/mes',
-    'contact.faq.q1.detail3': 'Marketing en redes sociales: $1,000-$3,500/mes',
-    'contact.faq.q1.detail4': 'Videos corporativos: $20,000-$100,000 MXN',
+    'contact.faq.q1.answer': 'Cada proyecto es único y tiene necesidades específicas. Por eso, creamos propuestas personalizadas que se adapten perfectamente a tu presupuesto y objetivos. ¡La cotización es completamente gratuita y sin compromiso! Contáctanos para recibir una propuesta detallada en menos de 24 horas.',
+    'contact.faq.q1.detail1': '✨ Cotización 100% gratuita y personalizada',
+    'contact.faq.q1.detail2': '🚀 Propuesta lista en menos de 24 horas',
+    'contact.faq.q1.detail3': '💡 Estrategia adaptada a tu presupuesto',
+    'contact.faq.q1.detail4': '🎯 Sin compromiso ni costos ocultos',
 
     'contact.faq.q2.question': '¿Qué servicios ofrecen?',
     'contact.faq.q2.answer': 'Ofrecemos servicios completos de marketing digital, diseño gráfico, fotografía, videografía, animación y desarrollo web para mejorar la presencia digital de tu negocio.',
@@ -752,11 +752,11 @@ const translations = {
 
     // ContactFAQ specific
     'contact.faq.q1.question': 'How much does the service/project cost?',
-    'contact.faq.q1.answer': 'Costs vary according to objectives, resources and project complexity. Factors such as industry, competition, scope and customization influence pricing.',
-    'contact.faq.q1.detail1': 'PPC Advertising: $1,500-$10,000/month',
-    'contact.faq.q1.detail2': 'SEO: $1,000-$7,500/month',
-    'contact.faq.q1.detail3': 'Social media marketing: $1,000-$3,500/month',
-    'contact.faq.q1.detail4': 'Corporate videos: $20,000-$100,000 MXN',
+    'contact.faq.q1.answer': 'Every project is unique with specific needs. That\'s why we create personalized proposals that perfectly adapt to your budget and objectives. The quote is completely free and without commitment! Contact us to receive a detailed proposal in less than 24 hours.',
+    'contact.faq.q1.detail1': '✨ 100% free and personalized quote',
+    'contact.faq.q1.detail2': '🚀 Proposal ready in less than 24 hours',
+    'contact.faq.q1.detail3': '💡 Strategy adapted to your budget',
+    'contact.faq.q1.detail4': '🎯 No commitment or hidden costs',
 
     'contact.faq.q2.question': 'What services do you offer?',
     'contact.faq.q2.answer': 'We offer complete digital marketing, graphic design, photography, videography, animation and web development services to improve your business\'s digital presence.',
