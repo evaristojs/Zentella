@@ -3,7 +3,6 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useOptimizedScroll } from '../hooks/useOptimizedScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean

@@ -142,12 +142,16 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
     // Touch events
     const handleTouchStart = (e: TouchEvent) => {
-      handleStart(e.touches[0].clientX)
+      if (e.touches[0]) {
+        handleStart(e.touches[0].clientX)
+      }
     }
 
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault()
-      handleMove(e.touches[0].clientX)
+      if (e.touches[0]) {
+        handleMove(e.touches[0].clientX)
+      }
     }
 
     const handleTouchEnd = () => {
