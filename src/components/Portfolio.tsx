@@ -515,8 +515,8 @@ const Portfolio = () => {
 
         <AnimatePresence>
           {isModalOpen && selectedItem && (
-            <motion.div 
-              className="fixed inset-0 flex items-center justify-center p-4 pt-20 portfolio-modal"
+            <motion.div
+              className="fixed inset-0 flex items-center justify-center p-4 portfolio-modal"
               style={{ zIndex: 'var(--z-modal)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -529,8 +529,8 @@ const Portfolio = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               />
-              <motion.div 
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full max-h-[calc(90vh-5rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
+              <motion.div
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
