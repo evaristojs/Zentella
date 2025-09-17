@@ -81,17 +81,6 @@ export interface StarfieldInstance {
 }
 
 /**
- * Vite Environment Variables
- */
-interface ImportMetaEnv {
-  readonly VITE_N8N_WEBHOOK_URL: string
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
-}
-
-/**
  * Global Window Extensions
  */
 declare global {
