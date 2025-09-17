@@ -40,232 +40,416 @@ const Portfolio = () => {
 
   useEffect(() => {
     const realPortfolio: PortfolioItem[] = [
+      // BRANDING PROJECTS
       {
         id: 1,
-        title: t('portfolio.ajf_panaderia.titulo'),
-        category: 'photography',
-        description: t('portfolio.ajf_panaderia.descripcion'),
-        image: '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
+        title: 'Better Health Nevada',
+        category: 'design',
+        description: 'Identidad visual completa para Better Health Nevada, clínica de salud integral.',
+        image: '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 10betterhealth_large.webp',
         images: [
-          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-1.jpg',
-          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-2.jpg',
-          '/images/portfolio/photography/ajf-panaderia/ajf-panaderia-3.jpg'
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copybetterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 2betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 3betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 4betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 5betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 6betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 7betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 8betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 9betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 10betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 11betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 12betterhealth_large.webp',
+          '/images/portfolio/branding/Better Health Nevada/zentella-postArtboard 1 copy 13betterhealth_large.webp'
         ],
-        client: t('portfolio.ajf_panaderia.cliente'),
+        client: 'Better Health Nevada',
         year: 2024,
-        tags: t('portfolio.ajf_panaderia.tags').split(', ')
+        tags: ['Branding', 'Identidad Visual', 'Salud']
       },
       {
         id: 2,
-        title: t('portfolio.el_cayuco.titulo'),
-        category: 'photography',
-        description: t('portfolio.el_cayuco.descripcion'),
-        image: '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
+        title: 'Kaccao Kitchen',
+        category: 'design',
+        description: 'Desarrollo de marca para Kaccao Kitchen, restaurante especializado en postres y bebidas.',
+        image: '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 2-100_large.webp',
         images: [
-          '/images/portfolio/photography/el-cayuco/el-cayuco-1.jpg',
-          '/images/portfolio/photography/el-cayuco/el-cayuco-2.jpg',
-          '/images/portfolio/photography/el-cayuco/el-cayuco-3.jpg'
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 2-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 3-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 4-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 5-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 6-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 7-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 8-100_large.webp',
+          '/images/portfolio/branding/Kaccao Kitchen/KaccaoArtboard 1 copy 9-100_large.webp'
         ],
-        client: t('portfolio.el_cayuco.cliente'),
+        client: 'Kaccao Kitchen',
         year: 2024,
-        tags: t('portfolio.el_cayuco.tags').split(', ')
+        tags: ['Branding', 'Restaurante', 'Logo']
       },
       {
         id: 3,
-        title: t('portfolio.esvi_hair.titulo'),
-        category: 'photography',
-        description: t('portfolio.esvi_hair.descripcion'),
-        image: '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
-        images: [
-          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-1.jpg',
-          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-2.jpg',
-          '/images/portfolio/photography/esvi-hair-studio/esvi-hair-studio-3.jpg'
-        ],
-        client: t('portfolio.esvi_hair.cliente'),
-        year: 2024,
-        tags: t('portfolio.esvi_hair.tags').split(', ')
-      },
-      {
-        id: 6,
-        title: t('portfolio.better_health.titulo'),
+        title: 'Los Hotdogs SDQ',
         category: 'design',
-        description: t('portfolio.better_health.descripcion'),
-        image: '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
+        description: 'Identidad de marca para Los Hotdogs SDQ, cadena de comida rápida gourmet.',
+        image: '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11_large.webp',
         images: [
-          '/images/portfolio/branding/better-health-nevada/better-health-nevada-1.jpg',
-          '/images/portfolio/branding/better-health-nevada/better-health-nevada-2.jpg',
-          '/images/portfolio/branding/better-health-nevada/better-health-nevada-3.jpg'
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogs001 copia_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 2_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 3_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 4_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 5_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 6_large.webp',
+          '/images/portfolio/branding/Los Hotdogs SDQ/loshotdogsMesa de trabajo 11 copia 7_large.webp'
         ],
-        client: t('portfolio.better_health.cliente'),
+        client: 'Los Hotdogs SDQ',
         year: 2024,
-        tags: t('portfolio.better_health.tags').split(', ')
-      },
-      {
-        id: 7,
-        title: t('portfolio.kaccao.titulo'),
-        category: 'design',
-        description: t('portfolio.kaccao.descripcion'),
-        image: '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
-        images: [
-          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-1.jpg',
-          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-2.jpg',
-          '/images/portfolio/branding/kaccao-kitchen/kaccao-kitchen-3.jpg'
-        ],
-        client: t('portfolio.kaccao.cliente'),
-        year: 2024,
-        tags: t('portfolio.kaccao.tags').split(', ')
+        tags: ['Branding', 'Comida Rápida', 'Gourmet']
       },
       {
         id: 4,
-        title: t('portfolio.revel_bar.titulo'),
-        category: 'photography',
-        description: t('portfolio.revel_bar.descripcion'),
-        image: '/images/portfolio/photography/revel-bar/revel-bar-1.jpg',
+        title: 'Nevada Care Pharmacy',
+        category: 'design',
+        description: 'Rediseño completo de identidad para Nevada Care Pharmacy, farmacia comunitaria.',
+        image: '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1-100_large.webp',
         images: [
-          '/images/portfolio/photography/revel-bar/revel-bar-1.jpg'
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 2-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 3-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 4-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 5-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 6-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 7-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 8-100_large.webp',
+          '/images/portfolio/branding/Nevada Care Pharmacy/NevadaArtboard 1 copy 9-100_large.webp'
         ],
-        client: t('portfolio.revel_bar.cliente'),
+        client: 'Nevada Care Pharmacy',
         year: 2024,
-        tags: t('portfolio.revel_bar.tags').split(', ')
+        tags: ['Branding', 'Farmacia', 'Salud']
       },
       {
         id: 5,
-        title: t('portfolio.widook_optic.titulo'),
-        category: 'photography',
-        description: t('portfolio.widook_optic.descripcion'),
-        image: '/images/portfolio/photography/widook-optic/widook-optic-1.jpg',
+        title: 'Palo Studio',
+        category: 'design',
+        description: 'Identidad visual para Palo Studio, estudio creativo y de diseño.',
+        image: '/images/portfolio/branding/Palo Studio/Zentella01_large.webp',
         images: [
-          '/images/portfolio/photography/widook-optic/widook-optic-1.jpg'
+          '/images/portfolio/branding/Palo Studio/Zentella01_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella02_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella03_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella04_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella05_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella06_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella06 copia_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella06 copia 2_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella06 copia 3_large.webp',
+          '/images/portfolio/branding/Palo Studio/Zentella06 copia 4_large.webp'
         ],
-        client: t('portfolio.widook_optic.cliente'),
+        client: 'Palo Studio',
         year: 2024,
-        tags: t('portfolio.widook_optic.tags').split(', ')
+        tags: ['Branding', 'Estudio', 'Creativo']
       },
       {
-        id: 8,
-        title: t('portfolio.los_hotdogs.titulo'),
+        id: 6,
+        title: 'PreMeditest',
         category: 'design',
-        description: t('portfolio.los_hotdogs.descripcion'),
-        image: '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.webp',
+        description: 'Desarrollo de marca para PreMeditest, centro de preparación para exámenes médicos.',
+        image: '/images/portfolio/branding/PreMeditest/premeditest001_large.webp',
         images: [
-          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-1.webp',
-          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-2-optimized.webp',
-          '/images/portfolio/branding/los-hotdogs-sdq/los-hotdogs-sdq-3.webp'
+          '/images/portfolio/branding/PreMeditest/premeditest001_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest002_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest003_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest004_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest005_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest006_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest007_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest008_large.webp',
+          '/images/portfolio/branding/PreMeditest/premeditest009_large.webp'
         ],
-        client: t('portfolio.los_hotdogs.cliente'),
+        client: 'PreMeditest',
         year: 2024,
-        tags: t('portfolio.los_hotdogs.tags').split(', ')
+        tags: ['Branding', 'Educación', 'Medicina']
+      },
+      {
+        id: 7,
+        title: 'TH Oasis',
+        category: 'design',
+        description: 'Identidad de marca para TH Oasis, complejo residencial de lujo.',
+        image: '/images/portfolio/branding/TH Oasis/th-oasis001_large.webp',
+        images: [
+          '/images/portfolio/branding/TH Oasis/th-oasis001_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis002_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis003_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis004_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis005_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis006_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis007_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis008_large.webp',
+          '/images/portfolio/branding/TH Oasis/th-oasis009_large.webp'
+        ],
+        client: 'TH Oasis',
+        year: 2024,
+        tags: ['Branding', 'Inmobiliaria', 'Lujo']
+      },
+
+      // PHOTOGRAPHY PROJECTS
+      {
+        id: 8,
+        title: 'AJF Panadería',
+        category: 'photography',
+        description: 'Sesión fotográfica de productos para AJF Panadería, capturando la esencia artesanal.',
+        image: '/images/portfolio/photography/AJF Panaderia/Recurso 24ajf panaderia_large.webp',
+        images: [
+          '/images/portfolio/photography/AJF Panaderia/Recurso 16ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 17ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 18ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 19ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 20ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 21ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 22ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 23ajf panaderia_large.webp',
+          '/images/portfolio/photography/AJF Panaderia/Recurso 24ajf panaderia_large.webp'
+        ],
+        client: 'AJF Panadería',
+        year: 2024,
+        tags: ['Fotografía', 'Productos', 'Panadería']
       },
       {
         id: 9,
-        title: t('portfolio.nevada_care.titulo'),
-        category: 'design',
-        description: t('portfolio.nevada_care.descripcion'),
-        image: '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg',
+        title: 'El Cayuco Restaurante',
+        category: 'photography',
+        description: 'Fotografía gastronómica para El Cayuco Restaurante, destacando platos tradicionales.',
+        image: '/images/portfolio/photography/El Cayuco Restaurante/Recurso 50cayuco_large.webp',
         images: [
-          '/images/portfolio/branding/nevada-care-pharmacy/nevada-care-pharmacy-1.jpg'
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 44cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 45cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 46cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 47cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 48cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 49cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 50cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 51cayuco_large.webp',
+          '/images/portfolio/photography/El Cayuco Restaurante/Recurso 52cayuco_large.webp'
         ],
-        client: t('portfolio.nevada_care.cliente'),
+        client: 'El Cayuco Restaurante',
         year: 2024,
-        tags: t('portfolio.nevada_care.tags').split(', ')
+        tags: ['Fotografía', 'Gastronomía', 'Restaurante']
       },
       {
         id: 10,
-        title: t('portfolio.palo_studio.titulo'),
-        category: 'design',
-        description: t('portfolio.palo_studio.descripcion'),
-        image: '/images/portfolio/branding/palo-studio/palo-studio-1-optimized.webp',
+        title: 'Esvi Hair Studio',
+        category: 'photography',
+        description: 'Fotografía de servicios para Esvi Hair Studio, salon de belleza premium.',
+        image: '/images/portfolio/photography/Esvi Hair Studio/Recurso 1esvi_medium.webp',
         images: [
-          '/images/portfolio/branding/palo-studio/palo-studio-1-optimized.webp',
-          '/images/portfolio/branding/palo-studio/palo-studio-2-optimized.webp',
-          '/images/portfolio/branding/palo-studio/palo-studio-3.webp'
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 1esvi_large.webp',
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 2esvi_large.webp',
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 3esvi_large.webp',
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 4esvi_large.webp',
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 5esvi_large.webp',
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 6esvi_large.webp'
         ],
-        client: t('portfolio.palo_studio.cliente'),
+        client: 'Esvi Hair Studio',
         year: 2024,
-        tags: t('portfolio.palo_studio.tags').split(', ')
+        tags: ['Fotografía', 'Belleza', 'Estudio']
       },
       {
         id: 11,
-        title: t('portfolio.premeditest.titulo'),
-        category: 'design',
-        description: t('portfolio.premeditest.descripcion'),
-        image: '/images/portfolio/branding/premeditest/premeditest-1.webp',
+        title: 'Revel Bar & Kitchen',
+        category: 'photography',
+        description: 'Fotografía arquitectural y gastronómica para Revel Bar & Kitchen.',
+        image: '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 38revel-002_large.webp',
         images: [
-          '/images/portfolio/branding/premeditest/premeditest-1.webp'
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 29revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 30revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 31revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 32revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 33revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 34revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 35revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 36revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 37revel-001_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 38revel-002_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 39revel-002_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 40revel-002_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 41revel-002_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 42revel-002_large.webp',
+          '/images/portfolio/photography/Revel Bar & Kitchen/Recurso 43revel-002_large.webp'
         ],
-        client: t('portfolio.premeditest.cliente'),
+        client: 'Revel Bar & Kitchen',
         year: 2024,
-        tags: t('portfolio.premeditest.tags').split(', ')
+        tags: ['Fotografía', 'Bar', 'Gastronomía']
       },
       {
         id: 12,
-        title: t('portfolio.th_oasis.titulo'),
-        category: 'design',
-        description: t('portfolio.th_oasis.descripcion'),
-        image: '/images/portfolio/branding/th-oasis/th-oasis-1.webp',
+        title: 'Widook Optic',
+        category: 'photography',
+        description: 'Fotografía de productos para Widook Optic, óptica especializada.',
+        image: '/images/portfolio/photography/Widook Optic/Recurso 7widook_large.webp',
         images: [
-          '/images/portfolio/branding/th-oasis/th-oasis-1.webp'
+          '/images/portfolio/photography/Widook Optic/Recurso 7widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 8widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 9widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 10widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 11widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 12widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 13widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 14widook_large.webp',
+          '/images/portfolio/photography/Widook Optic/Recurso 15widook_large.webp'
         ],
-        client: t('portfolio.th_oasis.cliente'),
+        client: 'Widook Optic',
         year: 2024,
-        tags: t('portfolio.th_oasis.tags').split(', ')
+        tags: ['Fotografía', 'Productos', 'Óptica']
       },
+
+      // ANIMATION PROJECTS
       {
         id: 13,
-        title: t('portfolio.chavalines.titulo'),
-        category: 'animation',
-        description: t('portfolio.chavalines.descripcion'),
-        image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
+        title: 'Chavalines RP',
+        category: 'design',
+        description: 'Diseños gráficos y elementos visuales para Chavalines RP, servidor de roleplay.',
+        image: '/images/portfolio/animation/Chavalines RP/3D Logo Entrada.webp',
         images: [
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif',
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif'
+          '/images/portfolio/animation/Chavalines RP/3D Logo Entrada.webp',
+          '/images/portfolio/animation/Chavalines RP/3D Visual Logo.webp',
+          '/images/portfolio/animation/Chavalines RP/Banner Conectando Green 770x240px .webp'
         ],
-        client: t('portfolio.chavalines.cliente'),
+        client: 'Chavalines RP',
         year: 2024,
-        tags: t('portfolio.chavalines.tags').split(', ')
+        tags: ['Diseño', 'Gaming', 'Gráficos']
       },
       {
-        id: 16,
-        title: t('portfolio.ambiente_chic.titulo'),
+        id: 14,
+        title: 'Nevada Care Pharmacy Animation',
         category: 'video',
-        description: t('portfolio.ambiente_chic.descripcion'),
-        image: '/images/portfolio/video/ambiente-chic-grand-opening.jpg',
+        description: 'Animaciones promocionales para Nevada Care Pharmacy.',
+        image: '/images/portfolio/video/nevada-care-animation-thumbnail.jpg',
         images: [
-          '/images/portfolio/video/ambiente-chic-grand-opening.jpg'
+          '/images/portfolio/video/nevada-care-animation-thumbnail.jpg'
         ],
-        video: '/videos/portfolio/videography/ambiente-chic-grand-opening.mp4',
-        client: t('portfolio.ambiente_chic.cliente'),
+        video: '/images/portfolio/animation/Nevada Care Pharmacy/Animacion Vertical_web.mp4',
+        client: 'Nevada Care Pharmacy',
         year: 2024,
-        tags: t('portfolio.ambiente_chic.tags').split(', ')
+        tags: ['Animación', 'Farmacia', 'Promocional']
+      },
+      {
+        id: 15,
+        title: 'Servi-Sec Animation',
+        category: 'video',
+        description: 'Motion graphics para Servi-Sec, empresa de servicios de seguridad.',
+        image: '/images/portfolio/video/servisec-animation-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/servisec-animation-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/animation/Servi-Sec/Servi-Sec - Lavado en Seco (animacion)_web.mp4',
+        client: 'Servi-Sec',
+        year: 2024,
+        tags: ['Animación', 'Seguridad', 'Corporativo']
+      },
+
+      // VIDEO PROJECTS
+      {
+        id: 16,
+        title: 'Ambiente Chic',
+        category: 'video',
+        description: 'Video promocional para la gran apertura de Ambiente Chic.',
+        image: '/images/portfolio/video/ambiente-chic-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/ambiente-chic-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/video/Ambiente Chic/AmbienteChic - Grand Opening_web.mp4',
+        client: 'Ambiente Chic',
+        year: 2024,
+        tags: ['Video', 'Evento', 'Promocional']
       },
       {
         id: 17,
-        title: t('portfolio.beeroclock.titulo'),
+        title: 'BeerOclock',
         category: 'video',
-        description: t('portfolio.beeroclock.descripcion'),
-        image: '/images/portfolio/video/beeroclock-navidad.webp',
+        description: 'Campaña audiovisual navideña para BeerOclock.',
+        image: '/images/portfolio/video/beeroclock-thumbnail.jpg',
         images: [
-          '/images/portfolio/video/beeroclock-navidad.webp'
+          '/images/portfolio/video/beeroclock-thumbnail.jpg'
         ],
-        video: '/videos/portfolio/videography/beeroclock-navidad.mp4',
-        client: t('portfolio.beeroclock.cliente'),
+        video: '/images/portfolio/video/BeerOclock/Zentella X BeerOClock Navidad_web.mp4',
+        client: 'BeerOclock',
         year: 2024,
-        tags: t('portfolio.beeroclock.tags').split(', ')
+        tags: ['Video', 'Navidad', 'Bebidas']
       },
       {
         id: 18,
-        title: t('portfolio.time_homes.titulo'),
+        title: 'Esvi Hair Studio Video',
         category: 'video',
-        description: t('portfolio.time_homes.descripcion'),
-        image: '/images/portfolio/video/teresa-condos.webp',
+        description: 'Video promocional para Esvi Hair Studio, mostrando servicios premium.',
+        image: '/images/portfolio/video/esvi-hair-studio-thumbnail.jpg',
         images: [
-          '/images/portfolio/video/teresa-condos.webp'
+          '/images/portfolio/video/esvi-hair-studio-thumbnail.jpg'
         ],
-        video: '/videos/portfolio/videography/timehomes-maria-teresa-condos.mp4',
-        client: t('portfolio.time_homes.cliente'),
+        video: '/images/portfolio/video/Esvi Hair Studio/ESVI 23.08 Leo Corte-Secado_web.mp4',
+        client: 'Esvi Hair Studio',
         year: 2024,
-        tags: t('portfolio.time_homes.tags').split(', ')
+        tags: ['Video', 'Belleza', 'Promocional']
+      },
+      {
+        id: 19,
+        title: 'Heles Decorations',
+        category: 'video',
+        description: 'Video showcase para Heles Decorations, especialistas en decoración de eventos.',
+        image: '/images/portfolio/video/heles-decorations-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/heles-decorations-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/video/Heles Decorations/HELES_02.12 MAMMA MIA MONTAJE_web.mp4',
+        client: 'Heles Decorations',
+        year: 2024,
+        tags: ['Video', 'Decoración', 'Eventos']
+      },
+      {
+        id: 20,
+        title: 'IEA Autos',
+        category: 'video',
+        description: 'Producción audiovisual para IEA Autos, destacando excelencia automotriz.',
+        image: '/images/portfolio/video/iea-autos-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/iea-autos-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/video/IEA Autos/IEA AUTOS - CRV GRIS 02.07_web.mp4',
+        client: 'IEA Autos',
+        year: 2024,
+        tags: ['Video', 'Automotriz', 'Comercial']
+      },
+      {
+        id: 21,
+        title: 'ServiSec Video',
+        category: 'video',
+        description: 'Video corporativo para ServiSec, líder en servicios de seguridad.',
+        image: '/images/portfolio/video/servisec-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/servisec-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/video/ServiSec/Servisec - Lavado en Seco_web.mp4',
+        client: 'ServiSec',
+        year: 2024,
+        tags: ['Video', 'Seguridad', 'Corporativo']
+      },
+      {
+        id: 22,
+        title: 'TimeHomes',
+        category: 'video',
+        description: 'Video promocional para TimeHomes María Teresa Condos.',
+        image: '/images/portfolio/video/timehomes-thumbnail.jpg',
+        images: [
+          '/images/portfolio/video/timehomes-thumbnail.jpg'
+        ],
+        video: '/images/portfolio/video/TimeHomes/Maria Teresa Condos - TimeHomes_web.mp4',
+        client: 'TimeHomes',
+        year: 2024,
+        tags: ['Video', 'Inmobiliaria', 'Promocional']
       }
     ]
     

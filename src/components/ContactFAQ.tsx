@@ -136,9 +136,34 @@ const ContactFAQ = () => {
     setIsSubmitting(true)
 
     try {
-      // Simular envío del formulario
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
+      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL
+
+      if (!webhookUrl) {
+        console.warn('N8N webhook URL not configured. Using fallback simulation.')
+        await new Promise(resolve => setTimeout(resolve, 2000))
+      } else {
+        // Send data to N8N webhook
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            service: formData.service,
+            budget: formData.budget,
+            message: formData.message,
+            timestamp: new Date().toISOString(),
+            source: 'zentella-contact-form'
+          })
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+      }
       
       setSubmitSuccess(true)
       
@@ -155,7 +180,9 @@ const ContactFAQ = () => {
       setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      
+      console.error('Error sending form data:', error)
+      // You could add error state here if needed
+      alert('Hubo un error al enviar el formulario. Por favor, intenta de nuevo.')
     } finally {
       setIsSubmitting(false)
     }
