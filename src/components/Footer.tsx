@@ -1,12 +1,10 @@
 import { motion } from 'framer-motion'
 import { useLanguage } from '../hooks/useLanguage'
-import { useFooterReveal } from '../hooks/useFooterReveal'
 import OptimizedImage from './OptimizedImage'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
   const { t } = useLanguage()
-  const isFooterRevealed = useFooterReveal(300)
 
   const quickLinks = [
     { name: t('nav.inicio'), href: '#hero' },
@@ -48,17 +46,9 @@ const Footer = () => {
   ]
 
   return (
-    <motion.footer 
+    <footer 
       id="footer" 
-      className="bg-bg-secondary-light dark:bg-bg-secondary-dark relative z-10"
-      style={{ marginBottom: '200px' }}
-      animate={{
-        y: isFooterRevealed ? -30 : 0,
-      }}
-      transition={{
-        duration: 0.8,
-        ease: [0.23, 1, 0.32, 1], // Custom cubic-bezier for smooth motion
-      }}
+      className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark overflow-hidden"
     >
       <div className="layout-container py-16">
         <div className="grid-mobile md:grid-tablet lg:grid-desktop-4 mb-12">
@@ -203,7 +193,71 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </motion.footer>
+
+      {/* Subtle animated background element */}
+      <motion.div 
+        className="absolute inset-0 -z-10"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-color-primary/5 via-transparent to-color-secondary/5 dark:from-color-primary/3 dark:to-color-secondary/3" />
+        <motion.div 
+          className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-color-primary/30 to-transparent"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+        />
+      </motion.div>
+
+      {/* Services Banner - More elegant version */}
+      <div className="w-full overflow-hidden relative border-t border-gray-200/30 dark:border-gray-700/30" style={{ height: '120px' }}>
+        <motion.div
+          className="relative h-full flex items-center justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <motion.div
+            className="flex items-center gap-16 sm:gap-20 lg:gap-24 xl:gap-28 whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 80,
+                ease: "linear",
+              },
+            }}
+            style={{
+              willChange: 'transform'
+            }}
+          >
+            {[...Array(8)].map((_, groupIndex) => (
+              <div key={groupIndex} className="flex items-center gap-16 sm:gap-20 lg:gap-24 xl:gap-28">
+                {['Fotografía', 'Diseño', 'Video', 'Animación', 'Marketing'].map((service, index) => (
+                  <motion.span
+                    key={`${groupIndex}-${service}-${index}`}
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-text-primary-light/20 dark:text-text-primary-dark/20"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      letterSpacing: '-0.02em',
+                      fontWeight: '300',
+                    }}
+                    whileHover={{
+                      color: 'rgb(103, 0, 248, 0.4)',
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    {service}
+                  </motion.span>
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </footer>
   )
 }
 
