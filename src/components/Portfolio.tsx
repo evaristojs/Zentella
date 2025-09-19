@@ -26,6 +26,8 @@ const Portfolio = () => {
   const [isFullscreenOpen, setIsFullscreenOpen] = useState(false)
   const [fullscreenImage, setFullscreenImage] = useState('')
   const [itemsToShow, setItemsToShow] = useState(6)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0)
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
   const { isDark } = useTheme()
@@ -481,12 +483,16 @@ const Portfolio = () => {
 
   const openModal = (item: PortfolioItem) => {
     setSelectedItem(item)
+    setCurrentImageIndex(0)
+    setThumbnailStartIndex(0)
     setIsModalOpen(true)
   }
 
   const closeModal = () => {
     setIsModalOpen(false)
     setSelectedItem(null)
+    setCurrentImageIndex(0)
+    setThumbnailStartIndex(0)
   }
 
   const openFullscreen = (imageUrl: string) => {
@@ -502,6 +508,22 @@ const Portfolio = () => {
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId)
     setItemsToShow(6)
+  }
+
+  const selectImage = (index: number) => {
+    setCurrentImageIndex(index)
+  }
+
+  const nextThumbnails = () => {
+    if (selectedItem && thumbnailStartIndex + 3 < selectedItem.images.length) {
+      setThumbnailStartIndex(prev => prev + 3)
+    }
+  }
+
+  const prevThumbnails = () => {
+    if (thumbnailStartIndex > 0) {
+      setThumbnailStartIndex(prev => Math.max(0, prev - 3))
+    }
   }
 
   useEffect(() => {
@@ -708,10 +730,10 @@ const Portfolio = () => {
                     ) : (
                       <>
                         <OptimizedImage
-                          src={selectedItem.image}
+                          src={selectedItem.images[currentImageIndex]}
                           alt={selectedItem.title}
                           className="w-full h-auto rounded-lg mb-4 cursor-pointer"
-                          onClick={() => openFullscreen(selectedItem.image)}
+                          onClick={() => openFullscreen(selectedItem.images[currentImageIndex])}
                           loading="eager"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
@@ -729,17 +751,59 @@ const Portfolio = () => {
                     )}
                   </div>
                   <div className="flex-grow" />
-                  <div className="flex space-x-2">
-                    {selectedItem.images.map((image, index) => (
-                      <OptimizedImage
-                        key={index}
-                        src={image}
-                        alt={`${selectedItem.title} thumbnail ${index}`}
-                        className="w-16 h-16 object-cover rounded-md cursor-pointer hover:ring-2 hover:ring-color-primary transition-all duration-200"
-                        onClick={() => setSelectedItem({...selectedItem, image: image})}
-                        loading="lazy"
-                      />
-                    ))}
+                  
+                  {/* Thumbnail Navigation */}
+                  <div className="flex items-center space-x-2">
+                    {/* Previous thumbnails button */}
+                    {thumbnailStartIndex > 0 && (
+                      <motion.button
+                        onClick={prevThumbnails}
+                        className="flex-shrink-0 w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </motion.button>
+                    )}
+                    
+                    {/* Thumbnails */}
+                    <div className="flex space-x-2 flex-1">
+                      {selectedItem.images
+                        .slice(thumbnailStartIndex, thumbnailStartIndex + 3)
+                        .map((image, index) => {
+                          const actualIndex = thumbnailStartIndex + index
+                          return (
+                            <OptimizedImage
+                              key={actualIndex}
+                              src={image}
+                              alt={`${selectedItem.title} thumbnail ${actualIndex}`}
+                              className={`w-16 h-16 object-cover rounded-md cursor-pointer transition-all duration-200 ${
+                                actualIndex === currentImageIndex 
+                                  ? 'ring-2 ring-color-primary' 
+                                  : 'hover:ring-2 hover:ring-color-primary/50'
+                              }`}
+                              onClick={() => selectImage(actualIndex)}
+                              loading="lazy"
+                            />
+                          )
+                        })}
+                    </div>
+                    
+                    {/* Next thumbnails button */}
+                    {thumbnailStartIndex + 3 < selectedItem.images.length && (
+                      <motion.button
+                        onClick={nextThumbnails}
+                        className="flex-shrink-0 w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </motion.button>
+                    )}
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 p-8">
