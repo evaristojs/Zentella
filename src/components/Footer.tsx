@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion'
 import { useLanguage } from '../hooks/useLanguage'
+import { useFooterReveal } from '../hooks/useFooterReveal'
 import OptimizedImage from './OptimizedImage'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
   const { t } = useLanguage()
+  const isFooterRevealed = useFooterReveal(300)
 
   const quickLinks = [
     { name: t('nav.inicio'), href: '#hero' },
@@ -46,7 +48,18 @@ const Footer = () => {
   ]
 
   return (
-    <footer id="footer" className="bg-bg-secondary-light dark:bg-bg-secondary-dark">
+    <motion.footer 
+      id="footer" 
+      className="bg-bg-secondary-light dark:bg-bg-secondary-dark relative z-10"
+      style={{ marginBottom: '200px' }}
+      animate={{
+        y: isFooterRevealed ? -30 : 0,
+      }}
+      transition={{
+        duration: 0.8,
+        ease: [0.23, 1, 0.32, 1], // Custom cubic-bezier for smooth motion
+      }}
+    >
       <div className="layout-container py-16">
         <div className="grid-mobile md:grid-tablet lg:grid-desktop-4 mb-12">
           <div className="lg:col-span-2">
@@ -190,55 +203,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      {/* Services Banner - Now at the end of footer */}
-      <div className="w-full overflow-hidden relative bg-white dark:bg-bg-secondary-dark border-t border-gray-200 dark:border-gray-700" style={{ height: '200px' }}>
-        <motion.div
-          className="relative h-full flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.div
-            className="flex items-center gap-12 sm:gap-16 lg:gap-20 xl:gap-24 whitespace-nowrap"
-            animate={{ x: ["0%", "-25%"] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 40,
-                ease: "linear",
-              },
-            }}
-            style={{
-              willChange: 'transform'
-            }}
-          >
-            {/* Solo servicios repetidos */}
-            {[...Array(12)].map((_, groupIndex) => (
-              <div key={groupIndex} className="flex items-center gap-12 sm:gap-16 lg:gap-20 xl:gap-24">
-                {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
-                  <motion.span
-                    key={`${groupIndex}-${service}-${index}`}
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-text-primary-light dark:text-text-primary-dark"
-                    style={{
-                      fontFamily: 'Poppins, sans-serif',
-                      letterSpacing: '-0.03em',
-                      textRendering: 'optimizeSpeed',
-                      backfaceVisibility: 'hidden',
-                      transform: 'translateZ(0)',
-                      lineHeight: '0.9',
-                    }}
-                  >
-                    {service}
-                  </motion.span>
-                ))}
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </div>
-    </footer>
+    </motion.footer>
   )
 }
 

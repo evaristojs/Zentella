@@ -5,6 +5,7 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import AnimatedBottomBar from './components/AnimatedBottomBar'
 import { useSectionScroll } from './hooks/useSectionScroll'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
@@ -76,6 +77,7 @@ function App() {
               </Suspense>
             </main>
             <BackToTop />
+            <AnimatedBottomBar />
           </motion.div>
         </LanguageProvider>
       </ThemeProvider>
