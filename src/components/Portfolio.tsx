@@ -511,13 +511,17 @@ const Portfolio = () => {
   }
 
   const selectImage = (index: number) => {
+    console.log('Selecting image index:', index)
+    console.log('Available images:', selectedItem?.images.length)
     setCurrentImageIndex(index)
   }
 
   // Get current image with fallback
   const getCurrentImage = () => {
     if (!selectedItem) return ''
-    return selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
+    const currentImg = selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
+    console.log('Current image index:', currentImageIndex, 'Image URL:', currentImg)
+    return currentImg
   }
 
   const nextThumbnails = () => {
@@ -737,15 +741,14 @@ const Portfolio = () => {
                       </video>
                     ) : (
                       <>
-                        <OptimizedImage
-                          key={`main-image-${currentImageIndex}`}
+                        <img
+                          key={`main-image-${currentImageIndex}-${getCurrentImage()}`}
                           src={getCurrentImage()}
                           alt={selectedItem.title}
-                          className="w-full h-auto rounded-lg mb-4 cursor-pointer"
+                          className="w-full h-auto rounded-lg mb-4 cursor-pointer transition-opacity duration-300"
                           onClick={() => openFullscreen(getCurrentImage())}
                           loading="eager"
-                          priority={true}
-                          placeholder="skeleton"
+                          onLoad={() => console.log('Image loaded:', getCurrentImage())}
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
