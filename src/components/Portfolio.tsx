@@ -644,6 +644,8 @@ const Portfolio = () => {
                   alt={item.title}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  priority={index < 3}
+                  placeholder="skeleton"
                 />
                 {item.video && (
                   <div className="absolute top-4 right-4 bg-color-primary text-white rounded-full p-2">
@@ -735,6 +737,8 @@ const Portfolio = () => {
                           className="w-full h-auto rounded-lg mb-4 cursor-pointer"
                           onClick={() => openFullscreen(selectedItem.images[currentImageIndex] || selectedItem.image)}
                           loading="eager"
+                          priority={true}
+                          placeholder="skeleton"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
@@ -785,7 +789,9 @@ const Portfolio = () => {
                                   : 'hover:ring-2 hover:ring-color-primary/50'
                               }`}
                               onClick={() => selectImage(actualIndex)}
-                              loading="lazy"
+                              loading="eager"
+                              priority={actualIndex < currentImageIndex + 3}
+                              placeholder="skeleton"
                             />
                           )
                         })}
@@ -866,6 +872,8 @@ const Portfolio = () => {
                   alt="Imagen en pantalla completa"
                   className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                   loading="eager"
+                  priority={true}
+                  placeholder="skeleton"
                 />
                 
                 <motion.button 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 interface OptimizedImageProps {
   src: string
@@ -11,6 +11,8 @@ interface OptimizedImageProps {
   onClick?: () => void
   onLoad?: () => void
   onError?: () => void
+  priority?: boolean
+  placeholder?: 'blur' | 'skeleton' | 'none'
 }
 
 // Detectar soporte para WebP
@@ -32,13 +34,52 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   style,
   onClick,
   onLoad,
-  onError
+  onError,
+  priority = false,
+  placeholder = 'skeleton'
 }) => {
   const [imageSrc, setImageSrc] = useState<string>('')
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Intersection Observer para lazy loading inteligente
+  useEffect(() => {
+    if (priority || loading === 'eager') {
+      setIsVisible(true)
+      return
+    }
+
+    const currentContainer = containerRef.current
+    if (!currentContainer) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        rootMargin: '50px', // Comenzar a cargar 50px antes
+        threshold: 0.1
+      }
+    )
+
+    observer.observe(currentContainer)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [priority, loading])
 
   useEffect(() => {
+    if (!isVisible && !priority && loading !== 'eager') return
+
     // Determinar la mejor fuente de imagen
     const getOptimalSrc = () => {
       // Si la imagen original está en images-optimized, usar WebP si está soportado
@@ -60,7 +101,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
 
     setImageSrc(getOptimalSrc())
-  }, [src])
+  }, [src, isVisible, priority, loading])
 
   const handleLoad = () => {
     setIsLoaded(true)
@@ -78,38 +119,68 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
   }
 
+  const renderPlaceholder = () => {
+    if (placeholder === 'none') return null
+
+    const placeholderClasses = `absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+      isLoaded ? 'opacity-0' : 'opacity-100'
+    }`
+
+    if (placeholder === 'skeleton') {
+      return (
+        <div className={placeholderClasses}>
+          <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse rounded-lg" />
+        </div>
+      )
+    }
+
+    if (placeholder === 'blur') {
+      return (
+        <div className={placeholderClasses}>
+          <div className="w-full h-full bg-gray-200 dark:bg-gray-700 blur-sm rounded-lg" />
+        </div>
+      )
+    }
+
+    return null
+  }
+
   if (hasError) {
     return (
       <div
-        className={`bg-gray-200 dark:bg-gray-700 flex items-center justify-center ${className}`}
+        ref={containerRef}
+        className={`bg-gray-200 dark:bg-gray-700 flex items-center justify-center relative ${className}`}
         style={style}
       >
-        <span className="text-gray-500 text-sm">Error cargando imagen</span>
+        <span className="text-gray-500 dark:text-gray-400 text-sm">Error cargando imagen</span>
       </div>
     )
   }
 
   return (
-    <img
-      src={imageSrc}
-      alt={alt}
-      className={className}
-      loading={loading}
-      width={width}
-      height={height}
+    <div 
+      ref={containerRef}
+      className={`relative overflow-hidden ${className}`}
       style={style}
-      onClick={onClick}
-      onLoad={handleLoad}
-      onError={handleError}
-      // Mejorar el placeholder mientras carga
-      {...(!isLoaded && {
-        style: {
-          ...style,
-          backgroundColor: '#f3f4f6',
-          minHeight: height || '200px'
-        }
-      })}
-    />
+    >
+      {imageSrc && (
+        <img
+          ref={imgRef}
+          src={imageSrc}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading={priority ? 'eager' : loading}
+          width={width}
+          height={height}
+          onClick={onClick}
+          onLoad={handleLoad}
+          onError={handleError}
+        />
+      )}
+      {renderPlaceholder()}
+    </div>
   )
 }
 
