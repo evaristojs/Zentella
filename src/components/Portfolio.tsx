@@ -514,6 +514,12 @@ const Portfolio = () => {
     setCurrentImageIndex(index)
   }
 
+  // Get current image with fallback
+  const getCurrentImage = () => {
+    if (!selectedItem) return ''
+    return selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
+  }
+
   const nextThumbnails = () => {
     if (selectedItem && thumbnailStartIndex + 3 < selectedItem.images.length) {
       setThumbnailStartIndex(prev => prev + 3)
@@ -732,10 +738,11 @@ const Portfolio = () => {
                     ) : (
                       <>
                         <OptimizedImage
-                          src={selectedItem.images[currentImageIndex] || selectedItem.image}
+                          key={`main-image-${currentImageIndex}`}
+                          src={getCurrentImage()}
                           alt={selectedItem.title}
                           className="w-full h-auto rounded-lg mb-4 cursor-pointer"
-                          onClick={() => openFullscreen(selectedItem.images[currentImageIndex] || selectedItem.image)}
+                          onClick={() => openFullscreen(getCurrentImage())}
                           loading="eager"
                           priority={true}
                           placeholder="skeleton"
@@ -868,6 +875,7 @@ const Portfolio = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <OptimizedImage
+                  key={`fullscreen-${fullscreenImage}`}
                   src={fullscreenImage}
                   alt="Imagen en pantalla completa"
                   className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
