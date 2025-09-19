@@ -730,10 +730,10 @@ const Portfolio = () => {
                     ) : (
                       <>
                         <OptimizedImage
-                          src={selectedItem.images[currentImageIndex]}
+                          src={selectedItem.images[currentImageIndex] || selectedItem.image}
                           alt={selectedItem.title}
                           className="w-full h-auto rounded-lg mb-4 cursor-pointer"
-                          onClick={() => openFullscreen(selectedItem.images[currentImageIndex])}
+                          onClick={() => openFullscreen(selectedItem.images[currentImageIndex] || selectedItem.image)}
                           loading="eager"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
