@@ -485,7 +485,7 @@ const Portfolio = () => {
     setCurrentImageIndex(0)
     setIsModalOpen(true)
     // Disable body scroll when modal opens
-    document.body.style.overflow = 'hidden'
+    document.body.classList.add('modal-open')
   }
 
   const closeModal = () => {
@@ -493,7 +493,7 @@ const Portfolio = () => {
     setSelectedItem(null)
     setCurrentImageIndex(0)
     // Re-enable body scroll when modal closes
-    document.body.style.overflow = 'unset'
+    document.body.classList.remove('modal-open')
   }
 
   const openFullscreen = (imageUrl: string) => {
@@ -507,7 +507,7 @@ const Portfolio = () => {
     setFullscreenImage('')
     // Only re-enable scroll if main modal is also closed
     if (!isModalOpen) {
-      document.body.style.overflow = 'unset'
+      document.body.classList.remove('modal-open')
     }
   }
 
@@ -552,7 +552,7 @@ const Portfolio = () => {
   // Cleanup effect to restore scroll on component unmount
   useEffect(() => {
     return () => {
-      document.body.style.overflow = 'unset'
+      document.body.classList.remove('modal-open')
     }
   }, [])
 
@@ -767,7 +767,7 @@ const Portfolio = () => {
                   <div className="flex-grow" />
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
-                  <div className="w-full px-2 md:px-0">
+                  <div className="w-full px-2 md:px-0 mt-2">
                     <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
                       {selectedItem.images.map((image, index) => (
                         <OptimizedImage

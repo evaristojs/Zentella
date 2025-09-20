@@ -157,6 +157,13 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
 
+/* Modal scroll prevention */
+.modal-open {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
 /* Mobile menu - Force left alignment */
 #mobile-navigation-menu {
   /* Force position from top-left corner */
