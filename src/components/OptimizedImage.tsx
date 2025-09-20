@@ -88,6 +88,17 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
   }, [])
 
+  // Reset states when src changes
+  useEffect(() => {
+    setIsLoaded(false)
+    setShowSkeleton(false)
+    
+    // Clear any existing timeout
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+    }
+  }, [src])
+
   useEffect(() => {
     if (!isVisible && !priority && loading !== 'eager') return
 
@@ -113,36 +124,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
     setImageSrc(getOptimalSrc())
     
-    // Reset skeleton state when src changes
-    setIsLoaded(false)
-    setShowSkeleton(false)
-    
-    // Clear any existing timeout
-    if (skeletonTimeoutRef.current) {
-      clearTimeout(skeletonTimeoutRef.current)
-    }
-    
-    // Check if image might be cached (heuristic)
-    const img = new Image()
-    img.onload = () => {
-      // Image loaded quickly, likely from cache
-      if (!isLoaded) {
-        setIsLoaded(true)
-        setShowSkeleton(false)
-      }
-    }
-    img.src = getOptimalSrc()
-    
-    // Set skeleton timeout based on priority if image doesn't load immediately
+    // Set skeleton timeout based on priority
     const skeletonDelay = priority ? 150 : 300 // Shorter delay for priority images
     
     skeletonTimeoutRef.current = setTimeout(() => {
-      if (!isLoaded) {
-        setShowSkeleton(true)
-      }
+      setShowSkeleton(true)
     }, skeletonDelay)
     
-  }, [src, isVisible, priority, loading, isLoaded])
+  }, [src, isVisible, priority, loading])
 
   const handleLoad = () => {
     setIsLoaded(true)
