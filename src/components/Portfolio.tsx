@@ -638,13 +638,13 @@ const Portfolio = () => {
             {displayedItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] bg-gray-100 dark:bg-gray-800"
+                className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800"
                 onClick={() => openModal(item)}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                style={{ minHeight: '300px' }} // Altura mínima fija
+                style={{ height: '280px' }} // Altura fija más proporcionada
               >
                 <OptimizedImage
                   src={item.image}
