@@ -214,7 +214,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <div className="md:hidden flex items-center space-x-1.5 mr-1">
+              <div className="md:hidden flex items-center space-x-1.5 mr-6">
                 <motion.button
                   onClick={toggleLanguage}
                   className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
