@@ -638,17 +638,18 @@ const Portfolio = () => {
             {displayedItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3]"
+                className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] bg-gray-100 dark:bg-gray-800"
                 onClick={() => openModal(item)}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                style={{ minHeight: '300px' }} // Altura mínima fija
               >
                 <OptimizedImage
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover absolute inset-0"
                   loading="lazy"
                   priority={index < 3}
                   placeholder="skeleton"
@@ -725,23 +726,23 @@ const Portfolio = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
               >
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
-                  <div className="relative group">
+                  <div className="relative group mb-4">
                     {selectedItem.video ? (
                       <video 
                         src={selectedItem.video} 
                         controls
-                        className="w-full h-auto rounded-lg mb-4"
+                        className="w-full h-auto rounded-lg"
                         poster={selectedItem.image}
                       >
                         Tu navegador no soporta el elemento de video.
                       </video>
                     ) : (
-                      <>
+                      <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[4/3] overflow-hidden">
                         <OptimizedImage
                           key={`modal-image-${selectedItem.id}-${currentImageIndex}`}
                           src={currentImageSrc}
                           alt={selectedItem.title}
-                          className="w-full h-auto rounded-lg mb-4 cursor-pointer"
+                          className="w-full h-full object-cover cursor-pointer absolute inset-0"
                           onClick={() => openFullscreen(currentImageSrc)}
                           loading="eager"
                           priority={true}
@@ -758,7 +759,7 @@ const Portfolio = () => {
                             </svg>
                           </motion.div>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                   <div className="flex-grow" />

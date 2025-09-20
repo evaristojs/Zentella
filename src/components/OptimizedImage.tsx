@@ -43,9 +43,11 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [hasError, setHasError] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [showSkeleton, setShowSkeleton] = useState(false)
+  const [imageStartedLoading, setImageStartedLoading] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const skeletonTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const loadStartTimeRef = useRef<number>(0)
 
   // Intersection Observer para lazy loading inteligente
   useEffect(() => {
@@ -92,10 +94,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   useEffect(() => {
     setIsLoaded(false)
     setShowSkeleton(false)
+    setImageStartedLoading(false)
+    loadStartTimeRef.current = 0
     
     // Clear any existing timeout
     if (skeletonTimeoutRef.current) {
       clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
     }
   }, [src])
 
@@ -123,24 +128,34 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
 
     setImageSrc(getOptimalSrc())
+    setImageStartedLoading(true)
+    loadStartTimeRef.current = Date.now()
     
-    // Set skeleton timeout based on priority
-    const skeletonDelay = priority ? 150 : 300 // Shorter delay for priority images
-    
+    // Solo mostrar skeleton si la imagen tarda más de 200ms en cargar
     skeletonTimeoutRef.current = setTimeout(() => {
-      setShowSkeleton(true)
-    }, skeletonDelay)
+      if (!isLoaded && imageStartedLoading) {
+        setShowSkeleton(true)
+      }
+    }, 200) // Delay más inteligente: solo si realmente tarda
     
-  }, [src, isVisible, priority, loading])
+  }, [src, isVisible, priority, loading, isLoaded, imageStartedLoading])
 
   const handleLoad = () => {
+    const loadTime = Date.now() - loadStartTimeRef.current
     setIsLoaded(true)
-    setShowSkeleton(false)
     
     // Clear skeleton timeout if image loads quickly
     if (skeletonTimeoutRef.current) {
       clearTimeout(skeletonTimeoutRef.current)
       skeletonTimeoutRef.current = null
+    }
+    
+    // Solo mostrar skeleton si no se ha mostrado ya y la imagen tardó más de 200ms
+    if (loadTime >= 200 && showSkeleton) {
+      // Mantener skeleton por un momento antes de ocultarlo para transición suave
+      setTimeout(() => setShowSkeleton(false), 100)
+    } else {
+      setShowSkeleton(false)
     }
     
     onLoad?.()
