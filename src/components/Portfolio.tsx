@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
@@ -511,18 +511,14 @@ const Portfolio = () => {
   }
 
   const selectImage = (index: number) => {
-    console.log('Selecting image index:', index)
-    console.log('Available images:', selectedItem?.images.length)
     setCurrentImageIndex(index)
   }
 
-  // Get current image with fallback
-  const getCurrentImage = () => {
+  // Get current image with useMemo for proper dependency tracking
+  const currentImageSrc = useMemo(() => {
     if (!selectedItem) return ''
-    const currentImg = selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
-    console.log('Current image index:', currentImageIndex, 'Image URL:', currentImg)
-    return currentImg
-  }
+    return selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
+  }, [selectedItem, currentImageIndex])
 
   const nextThumbnails = () => {
     if (selectedItem && thumbnailStartIndex + 3 < selectedItem.images.length) {
@@ -741,14 +737,15 @@ const Portfolio = () => {
                       </video>
                     ) : (
                       <>
-                        <img
-                          key={`main-image-${currentImageIndex}-${getCurrentImage()}`}
-                          src={getCurrentImage()}
+                        <OptimizedImage
+                          key={`modal-image-${selectedItem.id}-${currentImageIndex}`}
+                          src={currentImageSrc}
                           alt={selectedItem.title}
-                          className="w-full h-auto rounded-lg mb-4 cursor-pointer transition-opacity duration-300"
-                          onClick={() => openFullscreen(getCurrentImage())}
+                          className="w-full h-auto rounded-lg mb-4 cursor-pointer"
+                          onClick={() => openFullscreen(currentImageSrc)}
                           loading="eager"
-                          onLoad={() => console.log('Image loaded:', getCurrentImage())}
+                          priority={true}
+                          placeholder="skeleton"
                         />
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
