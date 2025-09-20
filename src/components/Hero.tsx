@@ -533,7 +533,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                           backfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
                         }}
-                        loading="lazy"
+                        loading="eager"
                       />
                     )
                   })}

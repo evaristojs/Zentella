@@ -6,6 +6,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import { useSectionScroll } from './hooks/useSectionScroll'
+import { useOptimizedScroll } from './hooks/useOptimizedScroll'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
 import BackToTop from './components/BackToTop'
@@ -36,6 +37,9 @@ function App() {
     rootMargin: '0px 0px -30% 0px'
   })
 
+  // Initialize optimized scroll for navigation
+  const { scrollToSection } = useOptimizedScroll()
+
   // Initialize dynamic navbar height tracking
   useNavbarHeight('navbar')
 
@@ -53,9 +57,10 @@ function App() {
               isMenuOpen={isMenuOpen} 
               setIsMenuOpen={setIsMenuOpen}
               currentSection={currentSection}
+              scrollToSection={scrollToSection}
             />
             <main>
-              <Hero />
+              <Hero scrollToSection={scrollToSection} />
               <Suspense fallback={<ComponentLoader />}>
                 <Services />
               </Suspense>

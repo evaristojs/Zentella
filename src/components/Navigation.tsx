@@ -3,20 +3,19 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useOptimizedScroll } from '../hooks/useOptimizedScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
   setIsMenuOpen: (isOpen: boolean) => void
   currentSection?: string
+  scrollToSection?: (sectionId: string) => void
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection, scrollToSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const { scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -97,7 +96,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              onClick={() => scrollToSection('hero')}
+              onClick={() => scrollToSection?.('hero')}
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
