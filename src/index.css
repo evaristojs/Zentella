@@ -147,6 +147,16 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* Utilidad para ocultar scrollbar en elementos específicos */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 /* Mobile menu - Force left alignment */
 #mobile-navigation-menu {
   /* Force position from top-left corner */

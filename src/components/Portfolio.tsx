@@ -27,7 +27,6 @@ const Portfolio = () => {
   const [fullscreenImage, setFullscreenImage] = useState('')
   const [itemsToShow, setItemsToShow] = useState(6)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0)
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
   const { isDark } = useTheme()
@@ -484,7 +483,6 @@ const Portfolio = () => {
   const openModal = (item: PortfolioItem) => {
     setSelectedItem(item)
     setCurrentImageIndex(0)
-    setThumbnailStartIndex(0)
     setIsModalOpen(true)
     // Disable body scroll when modal opens
     document.body.style.overflow = 'hidden'
@@ -494,7 +492,6 @@ const Portfolio = () => {
     setIsModalOpen(false)
     setSelectedItem(null)
     setCurrentImageIndex(0)
-    setThumbnailStartIndex(0)
     // Re-enable body scroll when modal closes
     document.body.style.overflow = 'unset'
   }
@@ -529,17 +526,6 @@ const Portfolio = () => {
     return selectedItem.images[currentImageIndex] || selectedItem.images[0] || selectedItem.image
   }, [selectedItem, currentImageIndex])
 
-  const nextThumbnails = () => {
-    if (selectedItem && thumbnailStartIndex + 3 < selectedItem.images.length) {
-      setThumbnailStartIndex(prev => prev + 3)
-    }
-  }
-
-  const prevThumbnails = () => {
-    if (thumbnailStartIndex > 0) {
-      setThumbnailStartIndex(prev => Math.max(0, prev - 3))
-    }
-  }
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -723,7 +709,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {isModalOpen && selectedItem && (
             <motion.div 
-              className="fixed inset-0 z-[1000] flex items-center justify-center p-4 pt-20 portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-start md:justify-center p-2 md:p-4 pt-20 portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -780,60 +766,26 @@ const Portfolio = () => {
                   </div>
                   <div className="flex-grow" />
                   
-                  {/* Thumbnail Navigation */}
-                  <div className="flex items-center space-x-1 md:space-x-2 px-2 md:px-0">
-                    {/* Previous thumbnails button */}
-                    {thumbnailStartIndex > 0 && (
-                      <motion.button
-                        onClick={prevThumbnails}
-                        className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                      </motion.button>
-                    )}
-                    
-                    {/* Thumbnails */}
-                    <div className="flex space-x-1 md:space-x-2 flex-1">
-                      {selectedItem.images
-                        .slice(thumbnailStartIndex, thumbnailStartIndex + 3)
-                        .map((image, index) => {
-                          const actualIndex = thumbnailStartIndex + index
-                          return (
-                            <OptimizedImage
-                              key={actualIndex}
-                              src={image}
-                              alt={`${selectedItem.title} thumbnail ${actualIndex}`}
-                              className={`w-12 h-12 md:w-16 md:h-16 object-cover rounded-md cursor-pointer transition-all duration-200 ${
-                                actualIndex === currentImageIndex 
-                                  ? 'ring-2 ring-color-primary' 
-                                  : 'hover:ring-2 hover:ring-color-primary/50'
-                              }`}
-                              onClick={() => selectImage(actualIndex)}
-                              loading="eager"
-                              priority={actualIndex < currentImageIndex + 3}
-                              placeholder="skeleton"
-                            />
-                          )
-                        })}
+                  {/* Thumbnail Navigation - Horizontal Scroll */}
+                  <div className="w-full px-2 md:px-0">
+                    <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
+                      {selectedItem.images.map((image, index) => (
+                        <OptimizedImage
+                          key={index}
+                          src={image}
+                          alt={`${selectedItem.title} thumbnail ${index}`}
+                          className={`flex-shrink-0 w-12 h-12 md:w-16 md:h-16 object-cover rounded-md cursor-pointer transition-all duration-200 ${
+                            index === currentImageIndex 
+                              ? 'ring-2 ring-color-primary' 
+                              : 'hover:ring-2 hover:ring-color-primary/50'
+                          }`}
+                          onClick={() => selectImage(index)}
+                          loading="eager"
+                          priority={index < currentImageIndex + 3}
+                          placeholder="skeleton"
+                        />
+                      ))}
                     </div>
-                    
-                    {/* Next thumbnails button */}
-                    {thumbnailStartIndex + 3 < selectedItem.images.length && (
-                      <motion.button
-                        onClick={nextThumbnails}
-                        className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <svg className="w-4 h-4 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </motion.button>
-                    )}
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 p-8">
