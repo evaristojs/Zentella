@@ -131,12 +131,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setImageStartedLoading(true)
     loadStartTimeRef.current = Date.now()
     
-    // Solo mostrar skeleton si la imagen tarda más de 200ms en cargar
+    // Para imágenes prioritarias (LCP), no mostrar skeleton para carga más rápida
+    if (priority) {
+      // No skeleton para imágenes críticas - mejora LCP
+      return
+    }
+    
+    // Solo mostrar skeleton si la imagen tarda más de 150ms en cargar (reducido de 200ms)
     skeletonTimeoutRef.current = setTimeout(() => {
       if (!isLoaded && imageStartedLoading) {
         setShowSkeleton(true)
       }
-    }, 200) // Delay más inteligente: solo si realmente tarda
+    }, 150) // Delay optimizado para mejor FCP
     
   }, [src, isVisible, priority, loading, isLoaded, imageStartedLoading])
 

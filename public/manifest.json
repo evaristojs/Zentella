@@ -1,0 +1,18 @@
+{
+  "name": "Zentella - Agencia Creativa",
+  "short_name": "Zentella",
+  "description": "Agencia creativa especializada en branding, fotografía y contenido digital",
+  "theme_color": "#6700f8",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/isotipo-modo-claro.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
