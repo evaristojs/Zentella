@@ -43,21 +43,27 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     closeMenu()
 
     const sectionId = href.replace('#', '')
-    const element = document.getElementById(sectionId)
+    
+    // Use optimized scroll function
+    if (scrollToSection) {
+      scrollToSection(sectionId)
+    } else {
+      // Fallback to manual scroll
+      const element = document.getElementById(sectionId)
+      if (element) {
+        // Temporarily disable scroll snap for smooth navigation
+        document.body.classList.add('navigating')
 
-    if (element) {
-      // Temporarily disable scroll snap for smooth navigation
-      document.body.classList.add('navigating')
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
 
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-
-      // Re-enable scroll snap after navigation
-      setTimeout(() => {
-        document.body.classList.remove('navigating')
-      }, 1000)
+        // Re-enable scroll snap after navigation
+        setTimeout(() => {
+          document.body.classList.remove('navigating')
+        }, 1000)
+      }
     }
   }
 
