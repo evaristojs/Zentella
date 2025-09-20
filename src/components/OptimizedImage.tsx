@@ -42,8 +42,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const skeletonTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Intersection Observer para lazy loading inteligente
   useEffect(() => {
@@ -77,6 +79,15 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
   }, [priority, loading])
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (skeletonTimeoutRef.current) {
+        clearTimeout(skeletonTimeoutRef.current)
+      }
+    }
+  }, [])
+
   useEffect(() => {
     if (!isVisible && !priority && loading !== 'eager') return
 
@@ -101,10 +112,48 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
 
     setImageSrc(getOptimalSrc())
-  }, [src, isVisible, priority, loading])
+    
+    // Reset skeleton state when src changes
+    setIsLoaded(false)
+    setShowSkeleton(false)
+    
+    // Clear any existing timeout
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+    }
+    
+    // Check if image might be cached (heuristic)
+    const img = new Image()
+    img.onload = () => {
+      // Image loaded quickly, likely from cache
+      if (!isLoaded) {
+        setIsLoaded(true)
+        setShowSkeleton(false)
+      }
+    }
+    img.src = getOptimalSrc()
+    
+    // Set skeleton timeout based on priority if image doesn't load immediately
+    const skeletonDelay = priority ? 150 : 300 // Shorter delay for priority images
+    
+    skeletonTimeoutRef.current = setTimeout(() => {
+      if (!isLoaded) {
+        setShowSkeleton(true)
+      }
+    }, skeletonDelay)
+    
+  }, [src, isVisible, priority, loading, isLoaded])
 
   const handleLoad = () => {
     setIsLoaded(true)
+    setShowSkeleton(false)
+    
+    // Clear skeleton timeout if image loads quickly
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
+    }
+    
     onLoad?.()
   }
 
@@ -120,7 +169,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }
 
   const renderPlaceholder = () => {
-    if (placeholder === 'none') return null
+    if (placeholder === 'none' || !showSkeleton) return null
 
     const placeholderClasses = `absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
       isLoaded ? 'opacity-0' : 'opacity-100'
