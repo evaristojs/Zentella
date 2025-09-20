@@ -8,7 +8,7 @@ interface HeroProps {
   scrollToSection?: (sectionId: string) => void
 }
 
-const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
+const Hero: React.FC<HeroProps> = () => {
   const { t, currentLanguage } = useLanguage()
   
   
@@ -256,16 +256,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       // Temporarily disable scroll snap for smooth navigation
       document.body.classList.add('navigating')
 
-      if (scrollToSection) {
-        try {
-          scrollToSection('contact')
-        } catch (error) {
-          // Fallback to native scroll
-          if (contactElement) {
-            contactElement.scrollIntoView({ behavior: 'smooth' })
-          }
-        }
-      } else if (contactElement) {
+      if (contactElement) {
         contactElement.scrollIntoView({ behavior: 'smooth' })
       }
 
@@ -435,11 +426,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   // Temporarily disable scroll snap for smooth navigation
                   document.body.classList.add('navigating')
 
-                  if (scrollToSection) {
-                    scrollToSection('portfolio')
-                  } else {
-                    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-                  }
+                  document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
 
                   // Re-enable scroll snap after navigation
                   setTimeout(() => {

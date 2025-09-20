@@ -8,10 +8,9 @@ interface NavigationProps {
   isMenuOpen: boolean
   setIsMenuOpen: (isOpen: boolean) => void
   currentSection?: string
-  scrollToSection?: (sectionId: string) => void
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection, scrollToSection }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
@@ -42,27 +41,21 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection, scrollToSection
     closeMenu()
 
     const sectionId = href.replace('#', '')
-    
-    // Use optimized scroll function
-    if (scrollToSection) {
-      scrollToSection(sectionId)
-    } else {
-      // Fallback to manual scroll
-      const element = document.getElementById(sectionId)
-      if (element) {
-        // Temporarily disable scroll snap for smooth navigation
-        document.body.classList.add('navigating')
+    const element = document.getElementById(sectionId)
 
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
+    if (element) {
+      // Temporarily disable scroll snap for smooth navigation
+      document.body.classList.add('navigating')
 
-        // Re-enable scroll snap after navigation
-        setTimeout(() => {
-          document.body.classList.remove('navigating')
-        }, 1000)
-      }
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+
+      // Re-enable scroll snap after navigation
+      setTimeout(() => {
+        document.body.classList.remove('navigating')
+      }, 1000)
     }
   }
 
@@ -96,7 +89,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection, scrollToSection
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              onClick={() => scrollToSection?.('hero')}
+              onClick={() => {
+                const element = document.getElementById('hero')
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
