@@ -765,12 +765,12 @@ const Portfolio = () => {
                   <div className="flex-grow" />
                   
                   {/* Thumbnail Navigation */}
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-1 md:space-x-2 px-2 md:px-0">
                     {/* Previous thumbnails button */}
                     {thumbnailStartIndex > 0 && (
                       <motion.button
                         onClick={prevThumbnails}
-                        className="flex-shrink-0 w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
+                        className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -781,7 +781,7 @@ const Portfolio = () => {
                     )}
                     
                     {/* Thumbnails */}
-                    <div className="flex space-x-2 flex-1">
+                    <div className="flex space-x-1 md:space-x-2 flex-1">
                       {selectedItem.images
                         .slice(thumbnailStartIndex, thumbnailStartIndex + 3)
                         .map((image, index) => {
@@ -791,7 +791,7 @@ const Portfolio = () => {
                               key={actualIndex}
                               src={image}
                               alt={`${selectedItem.title} thumbnail ${actualIndex}`}
-                              className={`w-16 h-16 object-cover rounded-md cursor-pointer transition-all duration-200 ${
+                              className={`w-12 h-12 md:w-16 md:h-16 object-cover rounded-md cursor-pointer transition-all duration-200 ${
                                 actualIndex === currentImageIndex 
                                   ? 'ring-2 ring-color-primary' 
                                   : 'hover:ring-2 hover:ring-color-primary/50'
@@ -809,7 +809,7 @@ const Portfolio = () => {
                     {thumbnailStartIndex + 3 < selectedItem.images.length && (
                       <motion.button
                         onClick={nextThumbnails}
-                        className="flex-shrink-0 w-10 h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
+                        className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md flex items-center justify-center transition-colors duration-200"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >

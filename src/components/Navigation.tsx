@@ -99,7 +99,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={logoState.type}
                   src={logoSrc}
                   alt="Zentella"
-                  className="w-auto h-full object-contain scale-75 sm:scale-100"
+                  className={`w-auto h-full object-contain ${
+                    logoState.type === 'isotipo' 
+                      ? 'scale-75 sm:scale-100' 
+                      : 'scale-110 sm:scale-100'
+                  }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
