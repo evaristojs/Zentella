@@ -486,6 +486,8 @@ const Portfolio = () => {
     setCurrentImageIndex(0)
     setThumbnailStartIndex(0)
     setIsModalOpen(true)
+    // Disable body scroll when modal opens
+    document.body.style.overflow = 'hidden'
   }
 
   const closeModal = () => {
@@ -493,16 +495,23 @@ const Portfolio = () => {
     setSelectedItem(null)
     setCurrentImageIndex(0)
     setThumbnailStartIndex(0)
+    // Re-enable body scroll when modal closes
+    document.body.style.overflow = 'unset'
   }
 
   const openFullscreen = (imageUrl: string) => {
     setFullscreenImage(imageUrl)
     setIsFullscreenOpen(true)
+    // Keep body scroll disabled for fullscreen
   }
 
   const closeFullscreen = () => {
     setIsFullscreenOpen(false)
     setFullscreenImage('')
+    // Only re-enable scroll if main modal is also closed
+    if (!isModalOpen) {
+      document.body.style.overflow = 'unset'
+    }
   }
 
   const handleCategoryChange = (categoryId: string) => {
@@ -553,6 +562,13 @@ const Portfolio = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [isModalOpen, isFullscreenOpen])
+
+  // Cleanup effect to restore scroll on component unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [])
 
   return (
     <section
