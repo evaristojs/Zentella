@@ -778,7 +778,6 @@ const Portfolio = () => {
                       </div>
                     )}
                   </div>
-                  <div className="flex-grow xl:flex-grow-0" />
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
                   <div className="w-full px-2 md:px-0 mt-1 xl:mt-1">
