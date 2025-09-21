@@ -722,7 +722,7 @@ const Portfolio = () => {
                 exit={{ opacity: 0 }}
               />
               <motion.div 
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full max-h-[calc(90vh-5rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full max-h-[calc(90vh-8rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -771,7 +771,7 @@ const Portfolio = () => {
                   <div className="flex-grow" />
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
-                  <div className="w-full px-2 md:px-0 mt-2">
+                  <div className="w-full px-2 md:px-0 mt-1">
                     <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1">
                       {selectedItem.images.map((image, index) => (
                         <OptimizedImage
