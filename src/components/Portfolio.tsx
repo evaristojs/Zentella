@@ -772,7 +772,7 @@ const Portfolio = () => {
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
                   <div className="w-full px-2 md:px-0 mt-1 xl:mt-3">
-                    <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1">
+                    <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1 cursor-grab active:cursor-grabbing select-none">
                       {selectedItem.images.map((image, index) => (
                         <OptimizedImage
                           key={index}
