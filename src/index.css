@@ -373,21 +373,21 @@ body::-webkit-scrollbar {
 
   @media (max-width: 480px) {
     .portfolio-modal {
-      padding-top: 56px;
+      padding-top: 72px;
       padding-bottom: 56px;
     }
   }
 
   @media (min-width: 641px) and (max-width: 1024px) {
     .portfolio-modal {
-      padding-top: 64px;
+      padding-top: 80px;
       padding-bottom: 64px;
     }
   }
 
   @media (min-width: 1025px) {
     .portfolio-modal {
-      padding-top: 80px;
+      padding-top: 96px;
       padding-bottom: 80px;
     }
   }
