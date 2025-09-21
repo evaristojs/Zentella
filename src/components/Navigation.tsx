@@ -3,6 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
+import { useOptimizedScroll } from '../hooks/useOptimizedScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -15,6 +16,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
+  const { currentSection: optimizedCurrentSection, scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -41,21 +43,27 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     closeMenu()
 
     const sectionId = href.replace('#', '')
-    const element = document.getElementById(sectionId)
+    
+    // Use optimized scroll function
+    if (scrollToSection) {
+      scrollToSection(sectionId)
+    } else {
+      // Fallback to manual scroll
+      const element = document.getElementById(sectionId)
+      if (element) {
+        // Temporarily disable scroll snap for smooth navigation
+        document.body.classList.add('navigating')
 
-    if (element) {
-      // Temporarily disable scroll snap for smooth navigation
-      document.body.classList.add('navigating')
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
 
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-
-      // Re-enable scroll snap after navigation
-      setTimeout(() => {
-        document.body.classList.remove('navigating')
-      }, 1000)
+        // Re-enable scroll snap after navigation
+        setTimeout(() => {
+          document.body.classList.remove('navigating')
+        }, 1000)
+      }
     }
   }
 
@@ -89,12 +97,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              onClick={() => {
-                const element = document.getElementById('hero')
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }
-              }}
+              onClick={() => scrollToSection('hero')}
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
@@ -121,7 +124,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
               {menuItems.slice(0, -1).map((item, index) => {
                 const sectionId = item.id
-                const isActive = currentSection === sectionId
+                const isActive = (currentSection || optimizedCurrentSection) === sectionId
 
                 return (
                 <motion.a
@@ -166,7 +169,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
                 className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
-                  currentSection === 'contact'
+                  (currentSection || optimizedCurrentSection) === 'contact'
                     ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
                     : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
                 }`}
@@ -309,7 +312,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
                           className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-colors duration-200 text-center ${
-                            currentSection === item.id
+                            (currentSection || optimizedCurrentSection) === item.id
                               ? 'text-color-primary dark:text-white'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
@@ -317,7 +320,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           whileTap={{ scale: 0.98 }}
                         >
                           <span className="relative z-10 font-semibold">{item.name}</span>
-                          {currentSection === item.id && (
+                          {(currentSection || optimizedCurrentSection) === item.id && (
                             <motion.div
                               className="absolute inset-2 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-xl shadow-lg shadow-color-primary/10"
                               layoutId="active-mobile-badge"
