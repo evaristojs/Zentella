@@ -16,7 +16,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const { currentSection: optimizedCurrentSection, scrollToSection } = useOptimizedScroll()
+  const { scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -124,7 +124,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
               {menuItems.slice(0, -1).map((item, index) => {
                 const sectionId = item.id
-                const isActive = (currentSection || optimizedCurrentSection) === sectionId
+                const isActive = currentSection === sectionId
 
                 return (
                 <motion.a
@@ -169,7 +169,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
                 className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
-                  (currentSection || optimizedCurrentSection) === 'contact'
+                  currentSection === 'contact'
                     ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
                     : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
                 }`}
@@ -312,7 +312,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
                           className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-colors duration-200 text-center ${
-                            (currentSection || optimizedCurrentSection) === item.id
+                            currentSection === item.id
                               ? 'text-color-primary dark:text-white'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
@@ -320,7 +320,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           whileTap={{ scale: 0.98 }}
                         >
                           <span className="relative z-10 font-semibold">{item.name}</span>
-                          {(currentSection || optimizedCurrentSection) === item.id && (
+                          {currentSection === item.id && (
                             <motion.div
                               className="absolute inset-2 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-xl shadow-lg shadow-color-primary/10"
                               layoutId="active-mobile-badge"
