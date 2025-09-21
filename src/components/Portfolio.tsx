@@ -792,83 +792,64 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-full md:w-1/2 p-8 flex flex-col">
-                  {/* Header */}
-                  <div className="mb-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="px-3 py-1 text-xs font-medium bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white rounded-full border border-color-primary/20 dark:border-color-primary/30">
-                        {selectedItem.category === 'design' ? 'Diseño' : 
-                         selectedItem.category === 'photography' ? 'Fotografía' : 
-                         selectedItem.category === 'video' ? 'Video' : 'Animación'}
-                      </span>
-                      <span className="text-text-secondary-light dark:text-text-secondary-dark text-sm">
-                        {selectedItem.year}
-                      </span>
-                    </div>
-                    <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-3 font-display">
-                      {selectedItem.title}
-                    </h3>
-                    <p className="text-lg text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
-                      {selectedItem.description}
-                    </p>
-                  </div>
-
-                  {/* Project Details */}
-                  <div className="bg-bg-base-light dark:bg-bg-base-dark rounded-xl p-6 mb-6">
-                    <h4 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
-                      Detalles del Proyecto
-                    </h4>
-                    <div className="grid grid-cols-1 gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-color-primary rounded-full"></div>
-                        <span className="text-text-secondary-light dark:text-text-secondary-dark">
-                          <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Cliente:</span> {selectedItem.client}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-color-primary rounded-full"></div>
-                        <span className="text-text-secondary-light dark:text-text-secondary-dark">
-                          <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Categoría:</span> {selectedItem.category === 'design' ? 'Diseño Gráfico' : 
-                           selectedItem.category === 'photography' ? 'Fotografía Profesional' : 
-                           selectedItem.category === 'video' ? 'Producción Audiovisual' : 'Motion Graphics'}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-color-primary rounded-full"></div>
-                        <span className="text-text-secondary-light dark:text-text-secondary-dark">
-                          <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Imágenes:</span> {selectedItem.images.length} archivo{selectedItem.images.length > 1 ? 's' : ''}
-                        </span>
+                <div className="w-full md:w-1/2 p-8">
+                  <h3 className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 font-display">
+                    {selectedItem.title}
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
+                    {selectedItem.description}
+                  </p>
+                  <div className="text-text-secondary-light dark:text-text-secondary-dark space-y-2">
+                    <p><span className="font-bold text-text-primary-light dark:text-text-primary-dark">Cliente:</span> {selectedItem.client}</p>
+                    <p><span className="font-bold text-text-primary-light dark:text-text-primary-dark">Año:</span> {selectedItem.year}</p>
+                    <div>
+                      <span className="font-bold text-text-primary-light dark:text-text-primary-dark">Tags:</span>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {selectedItem.tags.map(tag => (
+                          <span key={tag} className="px-3 py-1 text-sm bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-secondary-light dark:text-text-secondary-dark rounded-full">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   </div>
 
-                  {/* Tags */}
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
-                      Tecnologías & Servicios
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedItem.tags.map(tag => (
-                        <span key={tag} className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 text-text-primary-light dark:text-text-primary-dark rounded-full border border-color-primary/20 dark:border-color-primary/30 hover:from-color-primary/20 hover:to-color-secondary/20 transition-all duration-200">
-                          {tag}
+                  {/* Desktop-only enhanced content */}
+                  <div className="hidden md:block mt-8">
+                    {/* Header */}
+                    <div className="mb-6">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="px-3 py-1 text-xs font-medium bg-color-primary/10 dark:bg-color-primary/20 text-color-primary dark:text-white rounded-full border border-color-primary/20 dark:border-color-primary/30">
+                          {selectedItem.category === 'design' ? 'Diseño' : 
+                           selectedItem.category === 'photography' ? 'Fotografía' : 
+                           selectedItem.category === 'video' ? 'Video' : 'Animación'}
                         </span>
-                      ))}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Action Button */}
-                  <div className="mt-auto">
-                    <motion.button
-                      className="w-full bg-gradient-to-r from-color-primary to-color-secondary text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => openFullscreen(currentImageSrc)}
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                      </svg>
-                      Ver en Pantalla Completa
-                    </motion.button>
+                    {/* Project Details */}
+                    <div className="bg-bg-base-light dark:bg-bg-base-dark rounded-xl p-6 mb-6">
+                      <h4 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
+                        Detalles del Proyecto
+                      </h4>
+                      <div className="grid grid-cols-1 gap-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-color-primary rounded-full"></div>
+                          <span className="text-text-secondary-light dark:text-text-secondary-dark">
+                            <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Categoría:</span> {selectedItem.category === 'design' ? 'Diseño Gráfico' : 
+                             selectedItem.category === 'photography' ? 'Fotografía Profesional' : 
+                             selectedItem.category === 'video' ? 'Producción Audiovisual' : 'Motion Graphics'}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-color-primary rounded-full"></div>
+                          <span className="text-text-secondary-light dark:text-text-secondary-dark">
+                            <span className="font-medium text-text-primary-light dark:text-text-primary-dark">Imágenes:</span> {selectedItem.images.length} archivo{selectedItem.images.length > 1 ? 's' : ''}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <motion.button 
