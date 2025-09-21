@@ -709,7 +709,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {isModalOpen && selectedItem && (
             <motion.div 
-              className="fixed inset-0 z-[1000] flex items-center justify-center p-4 lg:pt-[90px] lg:pb-[10px] portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-center p-4 xl:pt-[90px] xl:pb-[10px] portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -722,13 +722,13 @@ const Portfolio = () => {
                 exit={{ opacity: 0 }}
               />
               <motion.div 
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full h-full lg:max-h-[calc(100vh-100px)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-6xl w-full h-full xl:max-h-[calc(100vh-100px)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
               >
-                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
-                  <div className="relative group mb-4">
+                <div className="w-full md:w-1/2 p-8 flex flex-col xl:justify-start justify-center">
+                  <div className="relative group mb-4 xl:flex-1 xl:flex xl:flex-col xl:justify-center">
                     {selectedItem.video ? (
                       <video 
                         src={selectedItem.video} 
@@ -768,10 +768,10 @@ const Portfolio = () => {
                       </div>
                     )}
                   </div>
-                  <div className="flex-grow lg:flex-grow-0" />
+                  <div className="flex-grow xl:flex-grow-0" />
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
-                  <div className="w-full px-2 md:px-0 mt-1 lg:mt-3">
+                  <div className="w-full px-2 md:px-0 mt-1 xl:mt-3">
                     <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1">
                       {selectedItem.images.map((image, index) => (
                         <OptimizedImage
@@ -815,7 +815,7 @@ const Portfolio = () => {
                   </div>
 
                   {/* Desktop-only enhanced content */}
-                  <div className="hidden lg:block mt-8">
+                  <div className="hidden xl:block mt-8">
                     {/* Header */}
                     <div className="mb-6">
                       <div className="flex items-center gap-3 mb-4">
