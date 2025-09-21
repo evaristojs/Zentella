@@ -28,8 +28,8 @@ export default defineConfig({
 
           // Hooks and utilities
           'hooks': [
+            './src/hooks/useActiveSection.ts',
             './src/hooks/useIntersectionObserver.ts',
-            './src/hooks/useSectionScroll.ts',
             './src/hooks/useAdaptiveLogo.ts',
             './src/hooks/useMagneticScroll.ts',
             './src/hooks/useUltraScrollDetection.ts'
