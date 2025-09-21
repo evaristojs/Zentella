@@ -709,7 +709,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {isModalOpen && selectedItem && (
             <motion.div 
-              className="fixed inset-0 z-[9999] flex items-start justify-start md:justify-center p-2 md:p-4 pt-20 portfolio-modal"
+              className="fixed inset-0 z-[9999] flex items-start justify-start md:justify-center p-2 md:p-4 portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
