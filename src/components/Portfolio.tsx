@@ -535,6 +535,16 @@ const Portfolio = () => {
         } else if (isModalOpen) {
           closeModal()
         }
+      } else if (isModalOpen && selectedItem && !isFullscreenOpen) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault()
+          const newIndex = currentImageIndex > 0 ? currentImageIndex - 1 : selectedItem.images.length - 1
+          setCurrentImageIndex(newIndex)
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault()
+          const newIndex = currentImageIndex < selectedItem.images.length - 1 ? currentImageIndex + 1 : 0
+          setCurrentImageIndex(newIndex)
+        }
       }
     }
 
@@ -547,7 +557,7 @@ const Portfolio = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isModalOpen, isFullscreenOpen])
+  }, [isModalOpen, isFullscreenOpen, currentImageIndex, selectedItem])
 
   // Cleanup effect to restore scroll on component unmount
   useEffect(() => {
@@ -771,7 +781,7 @@ const Portfolio = () => {
                   <div className="flex-grow xl:flex-grow-0" />
                   
                   {/* Thumbnail Navigation - Horizontal Scroll */}
-                  <div className="w-full px-2 md:px-0 mt-1 xl:mt-3">
+                  <div className="w-full px-2 md:px-0 mt-1 xl:mt-1">
                     <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1 cursor-grab active:cursor-grabbing select-none">
                       {selectedItem.images.map((image, index) => (
                         <OptimizedImage
