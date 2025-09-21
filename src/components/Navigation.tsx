@@ -3,7 +3,6 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useOptimizedScroll } from '../hooks/useOptimizedScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -16,7 +15,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const { scrollToSection } = useOptimizedScroll()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -43,27 +41,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     closeMenu()
 
     const sectionId = href.replace('#', '')
-    
-    // Use optimized scroll function
-    if (scrollToSection) {
-      scrollToSection(sectionId)
-    } else {
-      // Fallback to manual scroll
-      const element = document.getElementById(sectionId)
-      if (element) {
-        // Temporarily disable scroll snap for smooth navigation
-        document.body.classList.add('navigating')
-
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
-
-        // Re-enable scroll snap after navigation
-        setTimeout(() => {
-          document.body.classList.remove('navigating')
-        }, 1000)
-      }
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
     }
   }
 
@@ -97,7 +80,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              onClick={() => scrollToSection('hero')}
+              onClick={() => {
+                const element = document.getElementById('hero')
+                if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">

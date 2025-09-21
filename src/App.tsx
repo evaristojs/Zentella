@@ -5,7 +5,7 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import { useSectionScroll } from './hooks/useSectionScroll'
+import { useActiveSection } from './hooks/useActiveSection'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
 import BackToTop from './components/BackToTop'
@@ -31,10 +31,8 @@ const ComponentLoader = () => (
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   
-  // Initialize section scroll detection
-  const { currentSection } = useSectionScroll({
-    rootMargin: '0px 0px -30% 0px'
-  })
+  // Initialize section detection
+  const currentSection = useActiveSection()
 
   // Initialize dynamic navbar height tracking
   useNavbarHeight('navbar')
