@@ -174,7 +174,7 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
 }
 
 // Custom hooks for localStorage persistence
-const useLocalStorage = <T>(key: string, initialValue: T) => {
+const useLocalStorage = <T,>(key: string, initialValue: T): [T, (value: T) => void] => {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key)
@@ -208,11 +208,15 @@ const useSwipeable = (handlers: {
 
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
+    if (e.targetTouches[0]) {
+      setTouchStart(e.targetTouches[0].clientX)
+    }
   }
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
+    if (e.targetTouches[0]) {
+      setTouchEnd(e.targetTouches[0].clientX)
+    }
   }
 
   const onTouchEnd = () => {
@@ -246,10 +250,11 @@ const useFullscreenTouchGestures = (dispatch: React.Dispatch<PortfolioAction>) =
 
   const minSwipeDistance = 50
 
-  const getDistance = (touches: TouchList) => {
+  const getDistance = (touches: React.TouchList) => {
     if (touches.length < 2) return 0
     const touch1 = touches[0]
     const touch2 = touches[1]
+    if (!touch1 || !touch2) return 0
     return Math.sqrt(
       Math.pow(touch2.clientX - touch1.clientX, 2) +
       Math.pow(touch2.clientY - touch1.clientY, 2)
@@ -265,7 +270,7 @@ const useFullscreenTouchGestures = (dispatch: React.Dispatch<PortfolioAction>) =
       setInitialZoom(currentZoom)
       setTouchStart(null)
       setTouchEnd(null)
-    } else if (e.touches.length === 1) {
+    } else if (e.touches.length === 1 && e.targetTouches[0]) {
       // Single touch for swipe
       setTouchEnd(null)
       setTouchStart({
@@ -284,7 +289,7 @@ const useFullscreenTouchGestures = (dispatch: React.Dispatch<PortfolioAction>) =
       const scale = currentDistance / initialDistance
       const newZoom = Math.min(3, Math.max(0.5, initialZoom * scale))
       dispatch({ type: 'SET_ZOOM', payload: newZoom })
-    } else if (e.touches.length === 1 && touchStart) {
+    } else if (e.touches.length === 1 && touchStart && e.targetTouches[0]) {
       // Handle swipe
       setTouchEnd({
         x: e.targetTouches[0].clientX,
@@ -352,7 +357,7 @@ const Portfolio = () => {
   }
 
   const [state, dispatch] = useReducer(portfolioReducer, initialState)
-  const [, setLastViewedItem] = useLocalStorage('portfolio-last-viewed', null)
+  const [lastViewedItem, setLastViewedItem] = useLocalStorage<number | null>('portfolio-last-viewed', null)
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
   const { isDark } = useTheme()
@@ -421,18 +426,18 @@ const Portfolio = () => {
   const hasMoreItems = displayedItems.length < filteredAndSortedItems.length
 
   // Get all unique years and tags for filters
-  const availableYears = useMemo(() => {
-    const years = [...new Set(state.portfolioItems.map(item => item.year))]
-    return years.sort((a, b) => b - a)
-  }, [state.portfolioItems])
+  // const availableYears = useMemo(() => {
+  //   const years = [...new Set(state.portfolioItems.map(item => item.year))]
+  //   return years.sort((a, b) => b - a)
+  // }, [state.portfolioItems])
 
-  const availableTags = useMemo(() => {
-    const tags = new Set<string>()
-    state.portfolioItems.forEach(item => {
-      item.tags.forEach(tag => tags.add(tag))
-    })
-    return Array.from(tags).sort()
-  }, [state.portfolioItems])
+  // const availableTags = useMemo(() => {
+  //   const tags = new Set<string>()
+  //   state.portfolioItems.forEach(item => {
+  //     item.tags.forEach(tag => tags.add(tag))
+  //   })
+  //   return Array.from(tags).sort()
+  // }, [state.portfolioItems])
 
   // Swipe handlers
   const swipeHandlers = useSwipeable({
@@ -937,10 +942,10 @@ const Portfolio = () => {
   // Analytics tracking
   const trackPortfolioView = useCallback((itemId: number) => {
     // Here you would implement your analytics tracking
-    console.log(`Portfolio item ${itemId} viewed`)
+    console.log(`Portfolio item ${itemId} viewed (previous: ${lastViewedItem})`)
     dispatch({ type: 'SET_LAST_VIEWED', payload: itemId })
     setLastViewedItem(itemId)
-  }, [setLastViewedItem])
+  }, [lastViewedItem, setLastViewedItem])
 
 
   // Image error handling with retry
