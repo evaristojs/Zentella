@@ -115,12 +115,36 @@ const translations = {
     'portfolio.esvi_hair.descripcion': 'Fotografía profesional de servicios de belleza, mostrando técnicas y resultados de alta calidad',
     'portfolio.cargar_mas': 'Cargar más proyectos',
     'portfolio.mostrar_menos': 'Mostrar menos',
-    'portfolio.cliente': 'Cliente:',
-    'portfolio.año': 'Año:',
-    'portfolio.tags': 'Tags:',
     'portfolio.cerrar_pantalla_completa': 'Cerrar pantalla completa',
     'portfolio.video_no_soportado': 'Tu navegador no soporta el elemento de video.',
     'portfolio.imagen_pantalla_completa': 'Imagen en pantalla completa',
+
+    // Modal navigation and controls
+    'portfolio.navegacion': 'Navegación',
+    'portfolio.flechas_cambiar': 'Flechas ← → para cambiar imagen',
+    'portfolio.espacio_pantalla_completa': 'Espacio para pantalla completa',
+    'portfolio.s_slideshow': 'S para slideshow',
+    'portfolio.escape_cerrar': 'Escape para cerrar',
+    'portfolio.cliente': 'Cliente:',
+    'portfolio.ano': 'Año:',
+    'portfolio.tags': 'Tags:',
+    'portfolio.detalles_proyecto': 'Detalles del Proyecto',
+    'portfolio.categoria': 'Categoría:',
+    'portfolio.imagenes': 'Imágenes:',
+    'portfolio.archivo': 'archivo',
+    'portfolio.slideshow': 'Slideshow',
+    'portfolio.pausar': 'Pausar',
+    'portfolio.slideshow_title': 'Reproducción automática (S)',
+    'portfolio.compartir': 'Compartir',
+    'portfolio.compartir_proyecto': 'Compartir proyecto',
+    'portfolio.pellizca_zoom': 'Pellizca para zoom',
+    'portfolio.desliza_cambiar': 'Desliza para cambiar',
+
+    // Categories
+    'portfolio.cat_diseno_grafico': 'Diseño Gráfico',
+    'portfolio.cat_fotografia_profesional': 'Fotografía Profesional',
+    'portfolio.cat_produccion_audiovisual': 'Producción Audiovisual',
+    'portfolio.cat_motion_graphics': 'Motion Graphics',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Belleza, Servicios, Profesional, Lifestyle',
     
@@ -244,7 +268,7 @@ const translations = {
     // Placeholders
     'placeholder.nombre': 'Juan Pérez',
     'placeholder.email': 'hola@agenciazentella.com',
-    'placeholder.telefono': '+1 (849) 517-0527',
+    'placeholder.telefono': '+1 (809) 676-2429',
     'placeholder.mensaje': 'Me encantaría conocer más sobre sus servicios',
 
     // Error messages
@@ -372,11 +396,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Domingos',
     'contact.ubicacion.cerrado': 'Cerrado',
     'contact.ubicacion.telefono': 'Teléfono',
-    'contact.ubicacion.numero_telefono': '+1 (849) 517-0527',
+    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hola@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (849) 517-0527',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
 
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
@@ -547,12 +571,36 @@ const translations = {
     'portfolio.esvi_hair.descripcion': 'Professional photography of beauty services, showcasing high-quality techniques and results',
     'portfolio.cargar_mas': 'Load more projects',
     'portfolio.mostrar_menos': 'Show less',
-    'portfolio.cliente': 'Client:',
-    'portfolio.año': 'Year:',
-    'portfolio.tags': 'Tags:',
     'portfolio.cerrar_pantalla_completa': 'Close fullscreen',
     'portfolio.video_no_soportado': 'Your browser does not support the video element.',
     'portfolio.imagen_pantalla_completa': 'Fullscreen image',
+
+    // Modal navigation and controls
+    'portfolio.navegacion': 'Navigation',
+    'portfolio.flechas_cambiar': 'Arrows ← → to change image',
+    'portfolio.espacio_pantalla_completa': 'Space for fullscreen',
+    'portfolio.s_slideshow': 'S for slideshow',
+    'portfolio.escape_cerrar': 'Escape to close',
+    'portfolio.cliente': 'Client:',
+    'portfolio.ano': 'Year:',
+    'portfolio.tags': 'Tags:',
+    'portfolio.detalles_proyecto': 'Project Details',
+    'portfolio.categoria': 'Category:',
+    'portfolio.imagenes': 'Images:',
+    'portfolio.archivo': 'file',
+    'portfolio.slideshow': 'Slideshow',
+    'portfolio.pausar': 'Pause',
+    'portfolio.slideshow_title': 'Autoplay (S)',
+    'portfolio.compartir': 'Share',
+    'portfolio.compartir_proyecto': 'Share project',
+    'portfolio.pellizca_zoom': 'Pinch to zoom',
+    'portfolio.desliza_cambiar': 'Swipe to change',
+
+    // Categories
+    'portfolio.cat_diseno_grafico': 'Graphic Design',
+    'portfolio.cat_fotografia_profesional': 'Professional Photography',
+    'portfolio.cat_produccion_audiovisual': 'Audiovisual Production',
+    'portfolio.cat_motion_graphics': 'Motion Graphics',
     'portfolio.esvi_hair.cliente': 'Esvi Hair Studio',
     'portfolio.esvi_hair.tags': 'Beauty, Services, Professional, Lifestyle',
     
@@ -676,7 +724,7 @@ const translations = {
     // Placeholders
     'placeholder.nombre': 'John Doe',
     'placeholder.email': 'hello@agenciazentella.com',
-    'placeholder.telefono': '+1 (849) 517-0527',
+    'placeholder.telefono': '+1 (809) 676-2429',
     'placeholder.mensaje': 'I\'d love to learn more about your services',
 
     // Error messages
@@ -804,11 +852,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Sundays',
     'contact.ubicacion.cerrado': 'Closed',
     'contact.ubicacion.telefono': 'Phone',
-    'contact.ubicacion.numero_telefono': '+1 (849) 517-0527',
+    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hello@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (849) 517-0527',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
