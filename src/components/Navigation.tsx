@@ -76,15 +76,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         className={getNavbarClasses()}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{
-          duration: 0.8,
-          ease: [0.25, 0.46, 0.45, 0.94],
-          type: "spring",
-          stiffness: 100,
-          damping: 15
-        }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-full mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-full mx-auto px-2 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.button
@@ -97,9 +91,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               transition={{ duration: 0.2 }}
               onClick={() => {
                 const element = document.getElementById('hero')
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }
+                if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' })
               }}
               aria-label={t('nav.inicio')}
             >
@@ -108,7 +100,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={logoState.type}
                   src={logoSrc}
                   alt="Zentella"
-                  className="w-auto h-full object-contain scale-100"
+                  className={`w-auto h-full object-contain ${
+                    logoState.type === 'isotipo'
+                      ? 'scale-75 sm:scale-100'
+                      : 'scale-110 sm:scale-100'
+                  }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -182,7 +178,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.a>
             </div>
 
-            <div className="flex items-center space-x-1.5 sm:space-x-2 lg:space-x-3 mr-1 sm:mr-2 lg:mr-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 mr-2">
               <motion.button
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
@@ -223,45 +219,47 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <motion.button
-                onClick={toggleLanguage}
-                className="md:hidden p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
-                aria-label={t('nav.cambiar_idioma')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-xs font-bold uppercase tracking-wider">
-                  {currentLanguage === 'es' ? 'EN' : 'ES'}
-                </span>
-              </motion.button>
+              <div className="md:hidden flex items-center space-x-1.5 mr-6">
+                <motion.button
+                  onClick={toggleLanguage}
+                  className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
+                  aria-label={t('nav.cambiar_idioma')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    {currentLanguage === 'es' ? 'EN' : 'ES'}
+                  </span>
+                </motion.button>
 
-              <motion.button 
-                className="md:hidden p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
-                onClick={toggleMenu}
-                aria-label={t('nav.abrir_menu')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={isMenuOpen ? 'close' : 'open'}
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {isMenuOpen ? (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    ) : (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                      </svg>
-                    )}
-                  </motion.div>
-                </AnimatePresence>
-              </motion.button>
+                <motion.button
+                  className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
+                  onClick={toggleMenu}
+                  aria-label={t('nav.abrir_menu')}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={isMenuOpen ? 'close' : 'open'}
+                      initial={{ opacity: 0, rotate: -90 }}
+                      animate={{ opacity: 1, rotate: 0 }}
+                      exit={{ opacity: 0, rotate: 90 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {isMenuOpen ? (
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </motion.button>
+              </div>
             </div>
           </div>
         </div>
@@ -308,19 +306,19 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                         <motion.a
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
-                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-all duration-200 text-center hover:bg-bg-secondary-light/50 dark:hover:bg-bg-secondary-dark/50 ${
+                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-colors duration-200 text-center ${
                             currentSection === item.id
-                              ? 'text-color-primary'
+                              ? 'text-color-primary dark:text-white'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
                           whileHover={{ x: 4 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <span className="relative z-10">{item.name}</span>
+                          <span className="relative z-10 font-semibold">{item.name}</span>
                           {currentSection === item.id && (
                             <motion.div
-                              className="absolute inset-1 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 rounded-xl shadow-lg shadow-color-primary/5"
-                              layoutId="activeIndicatorMobile"
+                              className="absolute inset-2 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-xl shadow-lg shadow-color-primary/10"
+                              layoutId="active-mobile-badge"
                               transition={{
                                 type: 'spring',
                                 stiffness: 400,
@@ -329,6 +327,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                                 bounce: 0.3
                               }}
                               style={{
+                                borderRadius: 12,
                                 backdropFilter: 'blur(8px)'
                               }}
                               initial={{ scale: 0.8, opacity: 0 }}
