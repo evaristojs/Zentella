@@ -3,6 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
+import { useEffect, useRef } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -15,6 +16,28 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
+  const navRef = useRef<HTMLElement>(null)
+
+  // Dynamic navbar height tracking
+  useEffect(() => {
+    if (navRef.current) {
+      const updateNavHeight = () => {
+        if (navRef.current) {
+          const height = navRef.current.getBoundingClientRect().height
+          document.documentElement.style.setProperty('--nav-height', `${height}px`)
+        }
+      }
+
+      // Set initial height
+      updateNavHeight()
+
+      // Use ResizeObserver for accurate height tracking
+      const resizeObserver = new ResizeObserver(updateNavHeight)
+      resizeObserver.observe(navRef.current)
+
+      return () => resizeObserver.disconnect()
+    }
+  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -42,20 +65,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
     const sectionId = href.replace('#', '')
     const element = document.getElementById(sectionId)
-
     if (element) {
-      // Temporarily disable scroll snap for smooth navigation
-      document.body.classList.add('navigating')
-
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
-
-      // Re-enable scroll snap after navigation
-      setTimeout(() => {
-        document.body.classList.remove('navigating')
-      }, 1000)
     }
   }
 
@@ -72,6 +86,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   return (
     <>
       <motion.nav
+        ref={navRef}
         id="navbar"
         className={getNavbarClasses()}
         initial={{ y: -100 }}
