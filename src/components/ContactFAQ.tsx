@@ -155,7 +155,7 @@ const ContactFAQ = () => {
       setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      
+      console.error('Form submission error:', error)
     } finally {
       setIsSubmitting(false)
     }

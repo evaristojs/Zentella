@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import OptimizedImage from './OptimizedImage'
 
 const Testimonials = () => {
@@ -11,7 +11,7 @@ const Testimonials = () => {
   const { isDark } = useTheme()
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
-  const testimonials = [
+  const testimonials = useMemo(() => [
     {
       id: 1,
       name: t('testimonials.maria.name'),
@@ -39,7 +39,7 @@ const Testimonials = () => {
       text: t('testimonials.ana.text'),
       rating: 5
     },
-  ]
+  ], [t])
 
   // Preload testimonial images for better performance
   useEffect(() => {
@@ -47,7 +47,7 @@ const Testimonials = () => {
       const img = new Image()
       img.src = testimonial.image
     })
-  }, [])
+  }, [testimonials])
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)

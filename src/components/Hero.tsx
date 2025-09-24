@@ -29,7 +29,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     t('hero.phrase.tu_audiencia'),
     t('hero.phrase.tu_estrategia'),
     t('hero.phrase.tu_vision')
-  ], [currentLanguage, t])
+  ], [t])
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
@@ -149,10 +149,9 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
             minSpawnRadius: 100,
             maxSpawnRadius: 500,
             auto: false,                // Desactivar auto para control manual
-            accelerate: false,          // Comenzar en modo normal, no hiper
             container: document.querySelector('.starfield') as HTMLElement | null,
             originElement: document.querySelector('.starfield-origin') as HTMLElement | null
-          } as any)
+          })
 
         }
 
@@ -197,6 +196,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         try {
           window.Starfield.cleanup()
         } catch (error) {
+          console.error('Starfield cleanup error:', error)
         }
       }
 
@@ -252,6 +252,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
         try {
           scrollToSection('contact')
         } catch (error) {
+          console.error('ScrollToSection error:', error)
           // Fallback to native scroll
           if (contactElement) {
             contactElement.scrollIntoView({ behavior: 'smooth' })

@@ -953,9 +953,9 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   }, [currentLanguage])
 
   // Translation function
-  const t = useCallback((key: string): any => {
-    const languageTranslations = translations[currentLanguage] as Record<string, any>
-    const translation = languageTranslations?.[key]
+  const t = useCallback((key: string): string => {
+    const languageTranslations = translations[currentLanguage] as Record<string, unknown>
+    const translation = languageTranslations?.[key] as string
     if (!translation) {
       console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`)
       return key // Return the key as fallback
@@ -981,6 +981,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext)
   if (context === undefined) {

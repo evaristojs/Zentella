@@ -64,7 +64,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     applyTheme(isDark)
     setIsInitialized(true)
-  }, [applyTheme]) // Only run once on mount
+  }, [applyTheme, isDark]) // Only run once on mount
 
   useEffect(() => {
     // Save theme preference to localStorage when it changes
@@ -94,6 +94,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext)
   if (context === undefined) {

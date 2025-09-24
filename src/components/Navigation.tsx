@@ -20,23 +20,23 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
   // Dynamic navbar height tracking
   useEffect(() => {
-    if (navRef.current) {
-      const updateNavHeight = () => {
-        if (navRef.current) {
-          const height = navRef.current.getBoundingClientRect().height
-          document.documentElement.style.setProperty('--nav-height', `${height}px`)
-        }
+    if (!navRef.current) return undefined
+
+    const updateNavHeight = () => {
+      if (navRef.current) {
+        const height = navRef.current.getBoundingClientRect().height
+        document.documentElement.style.setProperty('--nav-height', `${height}px`)
       }
-
-      // Set initial height
-      updateNavHeight()
-
-      // Use ResizeObserver for accurate height tracking
-      const resizeObserver = new ResizeObserver(updateNavHeight)
-      resizeObserver.observe(navRef.current)
-
-      return () => resizeObserver.disconnect()
     }
+
+    // Set initial height
+    updateNavHeight()
+
+    // Use ResizeObserver for accurate height tracking
+    const resizeObserver = new ResizeObserver(updateNavHeight)
+    resizeObserver.observe(navRef.current)
+
+    return () => resizeObserver.disconnect()
   }, [])
 
   const toggleMenu = () => {

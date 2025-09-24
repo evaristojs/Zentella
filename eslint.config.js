@@ -145,8 +145,8 @@ export default [
     }
   },
   {
-    // Configuration files
-    files: ['vite.config.ts', '**/*.config.{js,ts,mjs}'],
+    // Configuration files and Node.js scripts
+    files: ['vite.config.ts', '**/*.config.{js,ts,mjs}', 'scripts/**/*.{js,mjs}'],
     languageOptions: {
       globals: {
         ...globals.node

@@ -116,7 +116,7 @@ const Contact = () => {
         terms: false 
       })
     } catch (error) {
-      
+      console.error('Form submission error:', error)
     } finally {
       setIsSubmitting(false)
     }

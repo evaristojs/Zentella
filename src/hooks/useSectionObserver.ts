@@ -26,11 +26,11 @@ export const useSectionObserver = (sectionIds: string[]) => {
       }
     );
 
-    const elements = sectionIds.map(id => document.getElementById(id)).filter(el => el !== null);
-    elements.forEach(el => observer.observe(el!));
+    const elements = sectionIds.map(id => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
+    elements.forEach(el => observer.observe(el));
 
     return () => {
-      elements.forEach(el => observer.unobserve(el!));
+      elements.forEach(el => observer.unobserve(el));
     };
   }, [sectionIds]);
 

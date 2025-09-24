@@ -21,7 +21,7 @@ type ScrollCallback = (state: ScrollState) => void
 
 // Global state management for ultra-efficient scroll detection
 class UltraScrollManager {
-  private static instance: UltraScrollManager
+  private static instance: UltraScrollManager | null = null
   private listeners = new Set<ScrollCallback>()
   private rafId: number | null = null
   private lastScrollY = 0
@@ -251,7 +251,7 @@ class UltraScrollManager {
     if (UltraScrollManager.instance) {
       UltraScrollManager.instance.stopListening()
       UltraScrollManager.instance.listeners.clear()
-      UltraScrollManager.instance = null as any
+      UltraScrollManager.instance = null
     }
   }
 }

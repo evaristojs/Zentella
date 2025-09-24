@@ -134,8 +134,8 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
     case 'SET_SORT':
       return {
         ...state,
-        sortBy: action.payload.sortBy as any,
-        sortOrder: action.payload.sortOrder as any
+        sortBy: action.payload.sortBy as 'date' | 'name' | 'category',
+        sortOrder: action.payload.sortOrder as 'asc' | 'desc'
       }
 
 
@@ -814,12 +814,12 @@ const Portfolio = () => {
 
     // Update selected item if modal is open
     if (state.selectedItem) {
-      const updatedSelectedItem = realPortfolio.find(item => item.id === state.selectedItem!.id)
+      const updatedSelectedItem = realPortfolio.find(item => item.id === state.selectedItem?.id)
       if (updatedSelectedItem) {
         dispatch({ type: 'OPEN_MODAL', payload: updatedSelectedItem })
       }
     }
-  }, [realPortfolio, state.selectedItem?.id])
+  }, [realPortfolio, state.selectedItem])
 
   // Slideshow effect
   useEffect(() => {
@@ -910,7 +910,7 @@ const Portfolio = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [state.isModalOpen, state.isFullscreenOpen, state.currentImageIndex, state.selectedItem, currentImageSrc])
+  }, [state.isModalOpen, state.isFullscreenOpen, state.currentImageIndex, state.selectedItem, currentImageSrc, state.zoomLevel])
 
   // Body scroll management
   useEffect(() => {
@@ -960,6 +960,42 @@ const Portfolio = () => {
     }
   }, [state.retryAttempts])
 
+  // Helper function for clipboard fallback
+  const createTextAreaFallback = useCallback((text: string) => {
+    const textArea = document.createElement('textarea')
+    textArea.value = text
+    textArea.style.position = 'fixed'
+    textArea.style.opacity = '0'
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      document.execCommand('copy')
+      console.log('Enlace copiado al portapapeles')
+    } catch (err) {
+      console.error('Error copying to clipboard:', err)
+    }
+
+    document.body.removeChild(textArea)
+  }, [])
+
+  const fallbackShare = useCallback((shareData: { title: string; text: string; url: string }) => {
+    const shareText = `${shareData.title}\n\n${shareData.text}\n\n${shareData.url}`
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText).then(() => {
+        // Could show a toast notification here
+        console.log('Enlace copiado al portapapeles')
+      }).catch(() => {
+        // Fallback to creating a temporary textarea
+        createTextAreaFallback(shareText)
+      })
+    } else {
+      createTextAreaFallback(shareText)
+    }
+  }, [createTextAreaFallback])
+
   // Share functionality
   const shareProject = useCallback(async (item: PortfolioItem) => {
     const shareData = {
@@ -980,42 +1016,7 @@ const Portfolio = () => {
       // Fallback for browsers without Web Share API
       fallbackShare(shareData)
     }
-  }, [])
-
-  const fallbackShare = (shareData: { title: string; text: string; url: string }) => {
-    const shareText = `${shareData.title}\n\n${shareData.text}\n\n${shareData.url}`
-
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(shareText).then(() => {
-        // Could show a toast notification here
-        console.log('Enlace copiado al portapapeles')
-      }).catch(() => {
-        // Fallback to creating a temporary textarea
-        createTextAreaFallback(shareText)
-      })
-    } else {
-      createTextAreaFallback(shareText)
-    }
-  }
-
-  const createTextAreaFallback = (text: string) => {
-    const textArea = document.createElement('textarea')
-    textArea.value = text
-    textArea.style.position = 'fixed'
-    textArea.style.opacity = '0'
-    document.body.appendChild(textArea)
-    textArea.focus()
-    textArea.select()
-
-    try {
-      document.execCommand('copy')
-      console.log('Enlace copiado al portapapeles')
-    } catch (err) {
-      console.error('Error copying to clipboard:', err)
-    }
-
-    document.body.removeChild(textArea)
-  }
+  }, [fallbackShare])
 
 
   // Actions

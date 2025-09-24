@@ -99,7 +99,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       }, delay) // Delay más inteligente: solo si realmente tarda
     }
 
-  }, [src, placeholder, isLoaded, imageStartedLoading])
+  }, [src, placeholder, isLoaded, imageStartedLoading, priority])
 
   const handleLoad = () => {
     const loadTime = Date.now() - loadStartTimeRef.current
