@@ -242,38 +242,28 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
 
   const handleComenzarClick = () => {
-    // Activar aceleración del starfield
-    if (window.Starfield) {
+    // Activar aceleración del starfield como en hover
+    if (window.Starfield && window.Starfield.setAccelerate) {
       window.Starfield.setAccelerate(true)
     }
 
-    // Esperar menos tiempo para mejor UX y luego hacer scroll
-    const scrollTimeout = setTimeout(() => {
-      // Verificar si existe el elemento antes de hacer scroll
-      const contactElement = document.getElementById('contact')
-
-      // Temporarily disable scroll snap for smooth navigation
-      document.body.classList.add('navigating')
-
-      if (contactElement) {
-        handleSmoothScroll(contactElement)
+    // Wait 500ms then scroll
+    setTimeout(() => {
+      const element = document.getElementById('contact')
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
       }
 
-      // Re-enable scroll snap after navigation
+      // Desactivar aceleración después del scroll con delay
       setTimeout(() => {
-        document.body.classList.remove('navigating')
-      }, 1000)
-
-      // Desactivar aceleración después del scroll con un pequeño delay
-      setTimeout(() => {
-        if (window.Starfield) {
+        if (window.Starfield && window.Starfield.setAccelerate) {
           window.Starfield.setAccelerate(false)
         }
-      }, 300)
+      }, 100)
     }, 500)
-
-    // Store timeout for cleanup if component unmounts
-    timeoutsRef.current.push(scrollTimeout)
   }
 
   return (
@@ -422,18 +412,14 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
               <motion.button
                 className="group flex-1 max-w-[160px] px-4 py-2.5 bg-transparent border-2 border-color-primary/40 text-color-primary dark:text-color-primary rounded-full font-semibold text-sm hover:border-color-primary hover:bg-gradient-to-r hover:from-color-primary/10 hover:to-color-secondary/10 transition-all duration-300 min-h-[40px] touch-manipulation backdrop-blur-sm"
                 onClick={() => {
-                  // Temporarily disable scroll snap for smooth navigation
-                  document.body.classList.add('navigating')
-
-                  const portfolioElement = document.getElementById('portfolio')
-                  if (portfolioElement) {
-                    handleSmoothScroll(portfolioElement)
+                  // Use same logic as navbar
+                  const element = document.getElementById('portfolio')
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start'
+                    })
                   }
-
-                  // Re-enable scroll snap after navigation
-                  setTimeout(() => {
-                    document.body.classList.remove('navigating')
-                  }, 1000)
                 }}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}

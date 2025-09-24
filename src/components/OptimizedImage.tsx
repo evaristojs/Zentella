@@ -99,7 +99,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       }, delay) // Delay más inteligente: solo si realmente tarda
     }
 
-  }, [src, placeholder, isLoaded, imageStartedLoading, priority])
+  }, [src, placeholder, priority])
 
   const handleLoad = () => {
     const loadTime = Date.now() - loadStartTimeRef.current
@@ -111,24 +111,26 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       skeletonTimeoutRef.current = null
     }
 
-    // Solo mostrar skeleton si no se ha mostrado ya y la imagen tardó más de 200ms
-    if (loadTime >= 200 && showSkeleton) {
-      // Mantener skeleton por un momento antes de ocultarlo para transición suave
-      setTimeout(() => setShowSkeleton(false), 100)
-    } else {
-      setShowSkeleton(false)
-    }
+    // Siempre ocultar skeleton cuando la imagen carga
+    setShowSkeleton(false)
 
     onLoad?.()
   }
 
   const handleError = () => {
+    // Clear skeleton timeout
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
+    }
+
     // Fallback a imagen original si hay error
     if (imageSrc !== src) {
       setImageSrc(src)
       setHasError(false)
     } else {
       setHasError(true)
+      setShowSkeleton(false) // Ocultar skeleton cuando falla definitivamente
       onError?.()
     }
   }
@@ -153,14 +155,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     )
   }
 
-  // Show skeleton while loading if enabled
-  if (showSkeleton && !isLoaded) {
+  // Show skeleton while loading if enabled (but not if there's an error)
+  if (showSkeleton && !isLoaded && !hasError) {
     return (
       <div
         className={`bg-gray-100 dark:bg-gray-800 animate-pulse flex items-center justify-center ${className}`}
         style={style}
       >
-        <div className="w-full h-full bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
+        <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse rounded-lg" />
       </div>
     )
   }

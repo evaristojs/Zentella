@@ -6,7 +6,7 @@ interface SectionScrollOptions {
 
 export const useSectionScroll = (options: SectionScrollOptions = {}) => {
   const {
-    rootMargin = '0px 0px -25% 0px' // Default root margin
+    rootMargin = '0px 0px -30% 0px' // Default root margin
   } = options;
 
   const [currentSection, setCurrentSection] = useState<string>('hero');
@@ -21,7 +21,7 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
       root: null,
       rootMargin,
       // Use fewer, strategic thresholds to reduce noise
-      threshold: [0, 0.25, 0.5, 0.75],
+      threshold: [0, 0.1, 0.25, 0.4, 0.6, 0.8],
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -35,14 +35,14 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
 
         const newSection = mostVisible.target.id;
 
-        // Add hysteresis: require a minimum intersection ratio to switch
-        const minRatioToSwitch = 0.3;
+        // More precise detection: lower threshold for better accuracy
+        const minRatioToSwitch = 0.15;
         const isSignificantChange = mostVisible.intersectionRatio >= minRatioToSwitch;
 
         // Only change if:
         // 1. It's a significant intersection ratio
         // 2. AND (it's a different section OR the intersection ratio is very high)
-        if (isSignificantChange && (newSection !== lastSectionRef.current || mostVisible.intersectionRatio > 0.6)) {
+        if (isSignificantChange && (newSection !== lastSectionRef.current || mostVisible.intersectionRatio > 0.4)) {
           // Clear previous timeout
           if (debounceRef.current) {
             clearTimeout(debounceRef.current);

@@ -4,7 +4,6 @@ import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useEffect, useRef } from 'react'
-import { smoothScrollToElement, getNavbarHeight } from '../utils/smoothScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -67,8 +66,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     const sectionId = href.replace('#', '')
     const element = document.getElementById(sectionId)
     if (element) {
-      const navbarHeight = getNavbarHeight()
-      smoothScrollToElement(element, navbarHeight)
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
     }
   }
 
@@ -88,9 +89,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         ref={navRef}
         id="navbar"
         className={getNavbarClasses()}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div className="max-w-full mx-auto px-2 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
@@ -140,7 +141,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-3 lg:px-4 py-2 text-xs lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
+                  className={`relative px-3 lg:px-4 py-2 text-xs md:text-sm lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
                     isActive ? 'text-color-primary dark:text-white' : 'text-text-secondary-light dark:text-text-secondary-dark'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
@@ -156,10 +157,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                       layoutId="active-nav-badge"
                       transition={{
                         type: 'spring',
-                        stiffness: 400,
-                        damping: 30,
-                        mass: 0.8,
-                        bounce: 0.3
+                        stiffness: 150,
+                        damping: 20,
+                        mass: 1.2,
+                        bounce: 0.6
                       }}
                       style={{
                         borderRadius: 9999,
@@ -177,9 +178,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               <motion.a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
+                className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs md:text-sm lg:text-base font-bold rounded-lg lg:rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl ${
                   currentSection === 'contact'
-                    ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
+                    ? 'bg-gradient-to-r from-color-accent to-purple-600 text-white ring-2 ring-color-accent/30'
                     : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
                 }`}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -335,10 +336,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                               layoutId="active-mobile-badge"
                               transition={{
                                 type: 'spring',
-                                stiffness: 400,
-                                damping: 30,
-                                mass: 0.8,
-                                bounce: 0.3
+                                stiffness: 150,
+                                damping: 20,
+                                mass: 1.2,
+                                bounce: 0.6
                               }}
                               style={{
                                 borderRadius: 12,
