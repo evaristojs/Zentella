@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 interface OptimizedImageProps {
   src: string
@@ -11,6 +11,8 @@ interface OptimizedImageProps {
   onClick?: () => void
   onLoad?: () => void
   onError?: () => void
+  priority?: boolean
+  placeholder?: 'skeleton' | 'blur' | 'none'
 }
 
 // Detectar soporte para WebP
@@ -32,13 +34,36 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   style,
   onClick,
   onLoad,
-  onError
+  onError,
+  priority = false, // Used for skeleton timing logic
+  placeholder = 'none'
 }) => {
   const [imageSrc, setImageSrc] = useState<string>('')
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
+  const [showSkeleton, setShowSkeleton] = useState(false)
+  const [imageStartedLoading, setImageStartedLoading] = useState(false)
+  const skeletonTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const loadStartTimeRef = useRef<number>(0)
 
+  // Reset states when src changes
   useEffect(() => {
+    setIsLoaded(false)
+    setShowSkeleton(false)
+    setImageStartedLoading(false)
+    loadStartTimeRef.current = 0
+
+    // Clear any existing timeout
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
+    }
+  }, [src])
+
+  // Handle image loading with intelligent skeleton
+  useEffect(() => {
+    if (!src) return
+
     // Determinar la mejor fuente de imagen
     const getOptimalSrc = () => {
       // Si la imagen original está en images-optimized, usar WebP si está soportado
@@ -60,10 +85,40 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
 
     setImageSrc(getOptimalSrc())
-  }, [src])
+    setImageStartedLoading(true)
+    loadStartTimeRef.current = Date.now()
+
+    // Solo mostrar skeleton si la imagen tarda más de 200ms en cargar
+    if (placeholder === 'skeleton') {
+      // Use priority for future skeleton timing optimizations
+      const delay = priority ? 150 : 200 // Priority images get slightly faster skeleton
+      skeletonTimeoutRef.current = setTimeout(() => {
+        if (!isLoaded && imageStartedLoading) {
+          setShowSkeleton(true)
+        }
+      }, delay) // Delay más inteligente: solo si realmente tarda
+    }
+
+  }, [src, placeholder, isLoaded, imageStartedLoading])
 
   const handleLoad = () => {
+    const loadTime = Date.now() - loadStartTimeRef.current
     setIsLoaded(true)
+
+    // Clear skeleton timeout if image loads quickly
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
+    }
+
+    // Solo mostrar skeleton si no se ha mostrado ya y la imagen tardó más de 200ms
+    if (loadTime >= 200 && showSkeleton) {
+      // Mantener skeleton por un momento antes de ocultarlo para transición suave
+      setTimeout(() => setShowSkeleton(false), 100)
+    } else {
+      setShowSkeleton(false)
+    }
+
     onLoad?.()
   }
 
@@ -78,6 +133,15 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
   }
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (skeletonTimeoutRef.current) {
+        clearTimeout(skeletonTimeoutRef.current)
+      }
+    }
+  }, [])
+
   if (hasError) {
     return (
       <div
@@ -85,6 +149,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         style={style}
       >
         <span className="text-gray-500 text-sm">Error cargando imagen</span>
+      </div>
+    )
+  }
+
+  // Show skeleton while loading if enabled
+  if (showSkeleton && !isLoaded) {
+    return (
+      <div
+        className={`bg-gray-100 dark:bg-gray-800 animate-pulse flex items-center justify-center ${className}`}
+        style={style}
+      >
+        <div className="w-full h-full bg-gray-300 dark:bg-gray-600 rounded animate-pulse" />
       </div>
     )
   }
@@ -97,18 +173,16 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       loading={loading}
       width={width}
       height={height}
-      style={style}
+      style={{
+        ...style,
+        ...((!isLoaded && placeholder !== 'skeleton') && {
+          backgroundColor: '#f3f4f6',
+          minHeight: height || '200px'
+        })
+      }}
       onClick={onClick}
       onLoad={handleLoad}
       onError={handleError}
-      // Mejorar el placeholder mientras carga
-      {...(!isLoaded && {
-        style: {
-          ...style,
-          backgroundColor: '#f3f4f6',
-          minHeight: height || '200px'
-        }
-      })}
     />
   )
 }

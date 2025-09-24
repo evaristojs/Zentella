@@ -1154,13 +1154,13 @@ const Portfolio = () => {
             {displayedItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800"
+                className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] bg-gray-100 dark:bg-gray-800"
                 onClick={() => openModal(item)}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                style={{ height: '280px' }}
+                style={{ minHeight: '300px' }}
                 role="button"
                 tabIndex={0}
                 aria-label={`Ver proyecto ${item.title}`}
@@ -1176,6 +1176,8 @@ const Portfolio = () => {
                   alt={item.title}
                   className="w-full h-full object-cover absolute inset-0"
                   loading={index < 3 ? "eager" : "lazy"}
+                  priority={index < 3}
+                  placeholder="skeleton"
                   onError={() => handleImageError(item.image)}
                 />
                 {item.video && (
@@ -1270,7 +1272,7 @@ const Portfolio = () => {
                         Tu navegador no soporta el elemento de video.
                       </video>
                     ) : (
-                      <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[3/2] overflow-hidden">
+                      <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[4/3] overflow-hidden">
                         <OptimizedImage
                           key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
                           src={currentImageSrc}
@@ -1278,6 +1280,8 @@ const Portfolio = () => {
                           className="w-full h-full object-cover cursor-pointer absolute inset-0"
                           onClick={() => openFullscreen(currentImageSrc)}
                           loading="eager"
+                          priority={true}
+                          placeholder="skeleton"
                           style={{
                             transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
                             transition: 'transform 0.2s ease-out'
