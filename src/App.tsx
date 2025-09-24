@@ -5,6 +5,7 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import SkipLinks from './components/SkipLinks'
 import { useSectionScroll } from './hooks/useSectionScroll'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
@@ -48,28 +49,41 @@ function App() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
           >
+            <SkipLinks />
             <Navigation
               isMenuOpen={isMenuOpen}
               setIsMenuOpen={setIsMenuOpen}
               currentSection={currentSection}
             />
-            <main>
-              <Hero />
-              <Suspense fallback={<ComponentLoader />}>
-                <Services />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
-                <Portfolio />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
-                <About />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
-                <Testimonials />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
-                <ContactFAQ />
-              </Suspense>
+            <main id="main-content" tabIndex={-1}>
+              <section id="hero" tabIndex={-1}>
+                <Hero />
+              </section>
+              <section id="services" tabIndex={-1}>
+                <Suspense fallback={<ComponentLoader />}>
+                  <Services />
+                </Suspense>
+              </section>
+              <section id="portfolio" tabIndex={-1}>
+                <Suspense fallback={<ComponentLoader />}>
+                  <Portfolio />
+                </Suspense>
+              </section>
+              <section id="about" tabIndex={-1}>
+                <Suspense fallback={<ComponentLoader />}>
+                  <About />
+                </Suspense>
+              </section>
+              <section id="testimonials" tabIndex={-1}>
+                <Suspense fallback={<ComponentLoader />}>
+                  <Testimonials />
+                </Suspense>
+              </section>
+              <section id="contact" tabIndex={-1}>
+                <Suspense fallback={<ComponentLoader />}>
+                  <ContactFAQ />
+                </Suspense>
+              </section>
               <Suspense fallback={<ComponentLoader />}>
                 <Footer />
               </Suspense>

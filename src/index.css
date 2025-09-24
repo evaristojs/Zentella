@@ -560,3 +560,186 @@ body::-webkit-scrollbar {
   --z-toast: 1070;
 }
 
+/* ===== ACCESSIBILITY & NAVIGATION IMPROVEMENTS ===== */
+
+/* Show SR-only content when focused */
+.focus-within\:not-sr-only:focus-within .sr-only {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  border: inherit !important;
+}
+
+/* Smooth dark mode transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, filter, backdrop-filter;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .btn, button, [role="button"] {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Focus management improvements */
+*:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Skip to content improvements */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 9999;
+  font-weight: 600;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Sticky navigation enhancements */
+.nav-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-sticky.scrolling-up {
+  transform: translateY(0);
+}
+
+.nav-sticky.scrolling-down {
+  transform: translateY(-100%);
+}
+
+/* Progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  z-index: 1001;
+  transform-origin: left;
+  transition: transform 0.1s ease-out;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.dark .loading-shimmer {
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Touch improvements for mobile */
+@media (hover: none) {
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+
+  .hover\:scale-110:hover {
+    transform: none;
+  }
+
+  /* Add tap targets for touch */
+  button, [role="button"], a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+/* Zoom support - ensure layout works up to 200% */
+@media (max-width: 640px) and (min-resolution: 2dppx) {
+  .responsive-text {
+    font-size: calc(1rem + 0.5vw);
+  }
+
+  .responsive-spacing {
+    padding: calc(1rem + 1vw);
+  }
+}
+

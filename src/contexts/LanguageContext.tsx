@@ -22,6 +22,20 @@ const translations = {
     'nav.abrir_menu': 'Abrir menú',
     'nav.cambiar_idioma': 'Cambiar idioma',
 
+    // Skip Links (Accessibility)
+    'skip.main_content': 'Saltar al contenido principal',
+    'skip.navigation': 'Saltar a navegación',
+    'skip.portfolio': 'Saltar al portafolio',
+    'skip.contact': 'Saltar al contacto',
+
+    // Breadcrumbs
+    'breadcrumb.home': 'Inicio',
+    'breadcrumb.about': 'Nosotros',
+    'breadcrumb.services': 'Servicios',
+    'breadcrumb.portfolio': 'Portafolio',
+    'breadcrumb.testimonials': 'Testimonios',
+    'breadcrumb.contact': 'Contacto',
+
     // Hero
     'hero.bienvenido': 'Bienvenido a',
     'hero.haz_que': 'Impulsa',
@@ -553,6 +567,20 @@ const translations = {
     'nav.cambiar_tema': 'Toggle theme',
     'nav.abrir_menu': 'Open menu',
     'nav.cambiar_idioma': 'Change language',
+
+    // Skip Links (Accessibility)
+    'skip.main_content': 'Skip to main content',
+    'skip.navigation': 'Skip to navigation',
+    'skip.portfolio': 'Skip to portfolio',
+    'skip.contact': 'Skip to contact',
+
+    // Breadcrumbs
+    'breadcrumb.home': 'Home',
+    'breadcrumb.about': 'About',
+    'breadcrumb.services': 'Services',
+    'breadcrumb.portfolio': 'Portfolio',
+    'breadcrumb.testimonials': 'Testimonials',
+    'breadcrumb.contact': 'Contact',
 
     // Hero
     'hero.bienvenido': 'Welcome to',

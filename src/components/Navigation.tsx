@@ -3,7 +3,8 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useEffect, useRef } from 'react'
+import { useScrollNavigation } from '../hooks/useScrollNavigation'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -16,7 +17,91 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
+  const { isSticky, activeSection, scrollProgress, isScrollingUp } = useScrollNavigation()
   const navRef = useRef<HTMLElement>(null)
+  const [focusedIndex, setFocusedIndex] = useState(-1)
+  const menuItemsRef = useRef<HTMLButtonElement[]>([])
+
+  // Navigation items with accessibility
+  const navigationItems = [
+    { id: 'about', label: t('nav.nosotros'), ariaLabel: 'Ir a la sección Nosotros' },
+    { id: 'services', label: t('nav.servicios'), ariaLabel: 'Ir a la sección Servicios' },
+    { id: 'portfolio', label: t('nav.portafolio'), ariaLabel: 'Ir a la sección Portafolio' },
+    { id: 'contact', label: t('nav.contacto'), ariaLabel: 'Ir a la sección Contacto' }
+  ]
+
+  // Smooth scroll to section with accessibility support
+  const scrollToSection = useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      // Close mobile menu
+      setIsMenuOpen(false)
+
+      // Smooth scroll
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+
+      // Focus management for accessibility
+      setTimeout(() => {
+        element.focus({ preventScroll: true })
+      }, 500)
+
+      // Announce to screen readers
+      const announcement = document.createElement('div')
+      announcement.setAttribute('aria-live', 'polite')
+      announcement.setAttribute('aria-atomic', 'true')
+      announcement.className = 'sr-only'
+      announcement.textContent = `Navegando a sección ${sectionId}`
+      document.body.appendChild(announcement)
+      setTimeout(() => document.body.removeChild(announcement), 1000)
+    }
+  }, [setIsMenuOpen])
+
+  // Keyboard navigation for menu items
+  const handleKeyDown = useCallback((event: KeyboardEvent, index: number) => {
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        event.preventDefault()
+        const nextIndex = index + 1 < navigationItems.length ? index + 1 : 0
+        setFocusedIndex(nextIndex)
+        menuItemsRef.current[nextIndex]?.focus()
+        break
+
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        event.preventDefault()
+        const prevIndex = index - 1 >= 0 ? index - 1 : navigationItems.length - 1
+        setFocusedIndex(prevIndex)
+        menuItemsRef.current[prevIndex]?.focus()
+        break
+
+      case 'Home':
+        event.preventDefault()
+        setFocusedIndex(0)
+        menuItemsRef.current[0]?.focus()
+        break
+
+      case 'End':
+        event.preventDefault()
+        const lastIndex = navigationItems.length - 1
+        setFocusedIndex(lastIndex)
+        menuItemsRef.current[lastIndex]?.focus()
+        break
+
+      case 'Enter':
+      case ' ':
+        event.preventDefault()
+        scrollToSection(navigationItems[index].id)
+        break
+
+      case 'Escape':
+        setIsMenuOpen(false)
+        break
+    }
+  }, [navigationItems, scrollToSection, setIsMenuOpen])
 
   // Dynamic navbar height tracking
   useEffect(() => {
