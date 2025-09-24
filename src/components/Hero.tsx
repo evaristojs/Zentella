@@ -5,11 +5,7 @@ import Marquee from 'react-fast-marquee'
 import { useLanguage } from '../hooks/useLanguage'
 import { smoothScrollToElement, getNavbarHeight } from '../utils/smoothScroll'
 
-interface HeroProps {
-  scrollToSection?: (sectionId: string) => void
-}
-
-const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
+const Hero: React.FC = () => {
   const { t, currentLanguage } = useLanguage()
   
   
@@ -233,11 +229,6 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
   }
 
-  // Optimized scroll handler using shared utility
-  const handleSmoothScroll = useCallback((element: HTMLElement) => {
-    const navbarHeight = getNavbarHeight()
-    smoothScrollToElement(element, navbarHeight)
-  }, [])
 
 
 
