@@ -13,16 +13,139 @@ interface OptimizedImageProps {
   onError?: () => void
   priority?: boolean
   placeholder?: 'skeleton' | 'blur' | 'none'
+  sizes?: string
+  quality?: number
+  preload?: boolean
 }
 
-// Detectar soporte para WebP
-const supportsWebP = (() => {
-  try {
-    return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0
-  } catch {
-    return false
+// Advanced image format detection
+const formatSupport = (() => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1
+  canvas.height = 1
+
+  return {
+    webp: canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0,
+    avif: canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0,
+    jp2: canvas.toDataURL('image/jp2').indexOf('data:image/jp2') === 0
   }
 })()
+
+// Image cache with intelligent memory management - Future implementation
+/*
+class ImageCache {
+  private cache = new Map<string, HTMLImageElement>()
+  private preloadQueue = new Set<string>()
+  private readonly maxCacheSize = 50
+  private readonly preloadLimit = 5
+
+  get(src: string): HTMLImageElement | undefined {
+    const cached = this.cache.get(src)
+    if (cached) {
+      // Move to end (LRU)
+      this.cache.delete(src)
+      this.cache.set(src, cached)
+    }
+    return cached
+  }
+
+  set(src: string, img: HTMLImageElement): void {
+    // Remove oldest if cache is full
+    if (this.cache.size >= this.maxCacheSize) {
+      const firstKey = this.cache.keys().next().value
+      if (firstKey) {
+        this.cache.delete(firstKey)
+      }
+    }
+
+    this.cache.set(src, img)
+  }
+
+  preload(src: string): Promise<HTMLImageElement> {
+    if (this.cache.has(src)) {
+      return Promise.resolve(this.cache.get(src)!)
+    }
+
+    if (this.preloadQueue.size >= this.preloadLimit) {
+      return Promise.reject(new Error('Preload queue full'))
+    }
+
+    if (this.preloadQueue.has(src)) {
+      return Promise.reject(new Error('Already preloading'))
+    }
+
+    this.preloadQueue.add(src)
+
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+
+      img.onload = () => {
+        this.preloadQueue.delete(src)
+        this.set(src, img)
+        resolve(img)
+      }
+
+      img.onerror = () => {
+        this.preloadQueue.delete(src)
+        reject(new Error('Failed to preload image'))
+      }
+
+      img.src = src
+    })
+  }
+
+  clear(): void {
+    this.cache.clear()
+    this.preloadQueue.clear()
+  }
+}
+*/
+
+// const imageCache = new ImageCache()
+
+// Smart connection detection
+// const getConnectionSpeed = (): 'slow' | 'fast' => {
+//   if ('connection' in navigator && 'effectiveType' in (navigator as any).connection) {
+//     const connection = (navigator as any).connection
+//     return ['slow-2g', '2g', '3g'].includes(connection.effectiveType) ? 'slow' : 'fast'
+//   }
+//   return 'fast'
+// }
+
+// Generate optimized image URLs - Future implementation
+// const generateImageSources = (src: string, width?: number, quality = 85): string[] => {
+//   const sources: string[] = []
+//   const baseUrl = src.replace(/\.[^/.]+$/, '')
+//   const extension = src.split('.').pop()?.toLowerCase()
+//
+//   // Skip optimization for SVGs and data URLs
+//   if (extension === 'svg' || src.startsWith('data:')) {
+//     return [src]
+//   }
+//
+//   const connectionSpeed = getConnectionSpeed()
+//   const targetQuality = connectionSpeed === 'slow' ? Math.min(quality, 70) : quality
+//
+//   // AVIF (best compression, newer browsers)
+//   if (formatSupport.avif) {
+//     sources.push(`${baseUrl}.avif?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // WebP (good compression, wide support)
+//   if (formatSupport.webp) {
+//     sources.push(`${baseUrl}.webp?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // JP2 (Safari fallback)
+//   if (formatSupport.jp2 && ['jpg', 'jpeg'].includes(extension || '')) {
+//     sources.push(`${baseUrl}.jp2?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // Original format as fallback
+//   sources.push(`${src}?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//
+//   return sources
+// }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
@@ -35,8 +158,11 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onClick,
   onLoad,
   onError,
-  priority = false, // Used for skeleton timing logic
-  placeholder = 'none'
+  priority = false,
+  placeholder = 'none',
+  // sizes,
+  // quality = 85,
+  // preload = false
 }) => {
   const [imageSrc, setImageSrc] = useState<string>('')
   const [isLoaded, setIsLoaded] = useState(false)
@@ -70,7 +196,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       if (src.startsWith('/images/') || src.startsWith('images/')) {
         const optimizedPath = src.replace('/images/', '/images-optimized/').replace('images/', 'images-optimized/')
 
-        if (supportsWebP) {
+        if (formatSupport.webp) {
           // Convertir extensión a WebP
           const webpPath = optimizedPath.replace(/\.(jpg|jpeg|png|gif)$/i, '.webp')
           return webpPath

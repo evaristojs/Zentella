@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useReducer, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
@@ -361,6 +361,46 @@ const Portfolio = () => {
   const { elementRef, isVisible } = useIntersectionObserver()
   const { t } = useLanguage()
   const { isDark } = useTheme()
+  const shouldReduceMotion = useReducedMotion()
+
+  // Optimized animation variants based on reduced motion preference
+  const gridVariants = useMemo(() => ({
+    initial: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: shouldReduceMotion
+        ? { duration: 0.1 }
+        : {
+            type: "spring",
+            damping: 20,
+            stiffness: 100,
+            staggerChildren: 0.08,
+            delayChildren: 0.1
+          }
+    },
+    exit: { opacity: 0, y: shouldReduceMotion ? 0 : -20 }
+  }), [shouldReduceMotion])
+
+  const cardVariants = useMemo(() => ({
+    initial: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 50,
+      scale: shouldReduceMotion ? 1 : 0.9
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: shouldReduceMotion
+        ? { duration: 0.1 }
+        : {
+            type: "spring",
+            damping: 25,
+            stiffness: 200
+          }
+    }
+  }), [shouldReduceMotion])
 
   const categories = [
     { id: 'all', name: t('portfolio.todos') },
@@ -424,6 +464,67 @@ const Portfolio = () => {
 
   const displayedItems = filteredAndSortedItems.slice(0, state.itemsToShow)
   const hasMoreItems = displayedItems.length < filteredAndSortedItems.length
+
+  // Testimonials data integrated with portfolio
+  const portfolioTestimonials = useMemo((): Record<number, {
+    quote: string;
+    author: string;
+    role: string;
+    company: string;
+    rating: number;
+  }> => ({
+    1: { // Better Health Nevada
+      quote: t('testimonials.maria.text'),
+      author: t('testimonials.maria.name'),
+      role: t('testimonials.maria.role'),
+      company: t('testimonials.maria.company'),
+      rating: 5
+    },
+    2: { // Kaccao Kitchen
+      quote: t('testimonials.carlos.text'),
+      author: t('testimonials.carlos.name'),
+      role: t('testimonials.carlos.role'),
+      company: t('testimonials.carlos.company'),
+      rating: 5
+    },
+    11: { // Revel Bar
+      quote: t('testimonials.ana.text'),
+      author: t('testimonials.ana.name'),
+      role: t('testimonials.ana.role'),
+      company: t('testimonials.ana.company'),
+      rating: 5
+    }
+  }), [t])
+
+  // Dynamic CTAs based on project category and user engagement
+  const getDynamicCTA = useCallback((item: PortfolioItem) => {
+    const ctaVariants = {
+      design: [
+        { text: t('cta.solicitar_cotizacion'), action: 'quote', variant: 'primary' },
+        { text: t('cta.ver_proceso'), action: 'process', variant: 'secondary' },
+        { text: t('cta.contactar_ahora'), action: 'contact', variant: 'accent' }
+      ],
+      photography: [
+        { text: t('cta.reservar_sesion'), action: 'book', variant: 'primary' },
+        { text: t('cta.ver_paquetes'), action: 'packages', variant: 'secondary' },
+        { text: t('cta.contactar_fotografo'), action: 'contact', variant: 'accent' }
+      ],
+      video: [
+        { text: t('cta.solicitar_video'), action: 'video-quote', variant: 'primary' },
+        { text: t('cta.ver_demo_reel'), action: 'demo', variant: 'secondary' },
+        { text: t('cta.empezar_proyecto'), action: 'start', variant: 'accent' }
+      ],
+      animation: [
+        { text: t('cta.crear_animacion'), action: 'animation-quote', variant: 'primary' },
+        { text: t('cta.ver_ejemplos'), action: 'examples', variant: 'secondary' },
+        { text: t('cta.consulta_gratis'), action: 'free-consult', variant: 'accent' }
+      ]
+    }
+
+    const categoryVariants = ctaVariants[item.category as keyof typeof ctaVariants] || ctaVariants.design
+    // Rotate CTAs based on item ID for variety
+    return categoryVariants[item.id % categoryVariants.length]
+  }, [t])
 
   // Get all unique years and tags for filters
   // const availableYears = useMemo(() => {
@@ -724,11 +825,11 @@ const Portfolio = () => {
         title: t('portfolio.chavalines.titulo'),
         category: 'animation',
         description: t('portfolio.chavalines.descripcion'),
-        image: '/images/portfolio/animation/Chavalines RP/3D Logo Entrada.webp',
+        image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.webp',
         images: [
-          '/images/portfolio/animation/Chavalines RP/3D Logo Entrada.webp',
-          '/images/portfolio/animation/Chavalines RP/3D Visual Logo.webp',
-          '/images/portfolio/animation/Chavalines RP/Banner Conectando Green 770x240px .webp'
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.webp',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.webp',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.webp'
         ],
         client: t('portfolio.chavalines.cliente'),
         year: 2024,
@@ -805,6 +906,62 @@ const Portfolio = () => {
         client: t('portfolio.time_homes.cliente'),
         year: 2024,
         tags: ['Video', 'Inmobiliaria', 'Promocional']
+      },
+      {
+        id: 19,
+        title: t('portfolio.esvi_hair_video.titulo'),
+        category: 'video',
+        description: t('portfolio.esvi_hair_video.descripcion'),
+        image: '/images/portfolio/photography/Esvi Hair Studio/Recurso 1esvi_medium.webp',
+        images: [
+          '/images/portfolio/photography/Esvi Hair Studio/Recurso 1esvi_medium.webp'
+        ],
+        video: '/images/portfolio/video/Esvi Hair Studio/ESVI 23.08 Leo Corte-Secado_web.mp4',
+        client: t('portfolio.esvi_hair_video.cliente'),
+        year: 2024,
+        tags: ['Video', 'Belleza', 'Promocional']
+      },
+      {
+        id: 20,
+        title: t('portfolio.heles_decorations.titulo'),
+        category: 'video',
+        description: t('portfolio.heles_decorations.descripcion'),
+        image: '/images/portfolio/video/ambiente-chic-grand-opening.webp',
+        images: [
+          '/images/portfolio/video/ambiente-chic-grand-opening.webp'
+        ],
+        video: '/images/portfolio/video/Heles Decorations/HELES_02.12 MAMMA MIA MONTAJE_web.mp4',
+        client: t('portfolio.heles_decorations.cliente'),
+        year: 2024,
+        tags: ['Video', 'Decoración', 'Eventos']
+      },
+      {
+        id: 21,
+        title: t('portfolio.iea_autos.titulo'),
+        category: 'video',
+        description: t('portfolio.iea_autos.descripcion'),
+        image: '/images/portfolio/video/iea-autos-thumbnail.webp',
+        images: [
+          '/images/portfolio/video/iea-autos-thumbnail.webp'
+        ],
+        video: '/images/portfolio/video/IEA Autos/IEA AUTOS - CRV GRIS 02.07_web.mp4',
+        client: t('portfolio.iea_autos.cliente'),
+        year: 2024,
+        tags: ['Video', 'Automotriz', 'Comercial']
+      },
+      {
+        id: 22,
+        title: t('portfolio.servisec_video.titulo'),
+        category: 'video',
+        description: t('portfolio.servisec_video.descripcion'),
+        image: '/images/portfolio/video/servisec-thumbnail.webp',
+        images: [
+          '/images/portfolio/video/servisec-thumbnail.webp'
+        ],
+        video: '/images/portfolio/video/ServiSec/Servisec - Lavado en Seco_web.mp4',
+        client: t('portfolio.servisec_video.cliente'),
+        year: 2024,
+        tags: ['Video', 'Seguridad', 'Corporativo']
       }
     ], [t])
 
@@ -1129,11 +1286,31 @@ const Portfolio = () => {
                   : 'bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-primary-light dark:text-text-primary-dark hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
               onClick={() => handleCategoryChange(category.id)}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
+              whileHover={{
+                scale: 1.05,
+                y: -3,
+                transition: {
+                  type: "spring",
+                  damping: 15,
+                  stiffness: 400
+                }
+              }}
+              whileTap={{
+                scale: 0.95,
+                transition: {
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 500
+                }
+              }}
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{
+                type: "spring",
+                damping: 20,
+                stiffness: 150,
+                delay: 0.3 + index * 0.05
+              }}
             >
               {category.name}
             </motion.button>
@@ -1147,21 +1324,30 @@ const Portfolio = () => {
           <motion.div
             key={`${state.selectedCategory}-${state.yearFilter}-${state.tagFilters.join(',')}`}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5, staggerChildren: 0.1 }}
+            variants={gridVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
             {displayedItems.map((item, index) => (
               <motion.div
                 key={item.id}
-                className="group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] bg-gray-100 dark:bg-gray-800"
+                className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800"
                 onClick={() => openModal(item)}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                style={{ minHeight: '300px' }}
+                variants={cardVariants}
+                initial="initial"
+                animate="animate"
+                custom={index}
+                whileHover={{
+                  scale: 1.03,
+                  y: -8,
+                  transition: {
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 300
+                  }
+                }}
+                style={{ height: '280px' }}
                 role="button"
                 tabIndex={0}
                 aria-label={`Ver proyecto ${item.title}`}
@@ -1188,11 +1374,33 @@ const Portfolio = () => {
                     </svg>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center p-4">
-                    <h3 className="text-white text-lg font-bold mb-2">{item.title}</h3>
-                    <p className="text-white/80 text-sm">{item.client}</p>
-                  </div>
+                {/* Integrated testimonial badge */}
+                {portfolioTestimonials[item.id] && (
+                  <motion.div
+                    className="absolute top-3 left-3 bg-gradient-to-r from-color-primary/90 to-color-accent/90 text-white rounded-full px-3 py-1 text-xs font-medium backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300"
+                    initial={{ scale: 0, rotate: -10 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.2, type: "spring", damping: 15, stiffness: 300 }}
+                  >
+                    <div className="flex items-center gap-1">
+                      <motion.svg
+                        className="w-3 h-3 text-yellow-300"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </motion.svg>
+                      <span>5★ Cliente</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center">
+                  <h3 className="text-white text-lg font-bold text-center p-4">
+                    {item.title}
+                  </h3>
                 </div>
               </motion.div>
             ))}
@@ -1235,11 +1443,106 @@ const Portfolio = () => {
           </motion.div>
         )}
 
+        {/* Dynamic Call-to-Action Section */}
+        <motion.div
+          className="mt-20 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <div className="bg-gradient-to-br from-color-primary/5 via-transparent to-color-accent/5 rounded-3xl p-8 border border-color-primary/10">
+            <motion.h3
+              className="text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-text-primary-light to-color-primary dark:from-text-primary-dark dark:to-color-accent bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              {t('cta.titulo_principal')}
+            </motion.h3>
+            <motion.p
+              className="text-lg text-text-secondary-light dark:text-text-secondary-dark mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}
+            >
+              {t('cta.descripcion')}
+            </motion.p>
+
+            {/* Dynamic CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <motion.button
+                className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-color-primary to-color-accent text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.1 }}
+                onClick={() => {
+                  const section = document.getElementById('contact')
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  {t('cta.empezar_proyecto')}
+                  <motion.svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ x: 0 }}
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </motion.svg>
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-color-accent to-color-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"
+                  whileHover={{ opacity: 1 }}
+                />
+              </motion.button>
+
+              <motion.button
+                className="group px-8 py-4 border-2 border-color-primary text-color-primary hover:bg-color-primary hover:text-white rounded-full font-semibold transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -3 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2 }}
+                onClick={() => {
+                  const section = document.getElementById('services')
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  {t('cta.ver_servicios')}
+                  <motion.svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </motion.svg>
+                </span>
+              </motion.button>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Advanced Modal */}
         <AnimatePresence>
           {state.isModalOpen && state.selectedItem && (
             <motion.div
-              className="fixed inset-0 z-[1000] flex items-center justify-center p-4 pt-[65px] xl:pt-[90px] xl:pb-[10px] portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 pt-[65px] xl:pt-[90px] xl:pb-[10px] portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -1253,7 +1556,7 @@ const Portfolio = () => {
                 exit={{ opacity: 0 }}
               />
               <motion.div
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -1261,7 +1564,7 @@ const Portfolio = () => {
                 aria-modal="true"
                 aria-labelledby="modal-title"
               >
-                <div className="w-full md:w-1/2 p-8 flex flex-col xl:justify-start justify-center">
+                <div className="w-full md:w-1/2 p-4 sm:p-6 md:p-8 flex flex-col xl:justify-start justify-center">
                   <div className="relative group mb-4 xl:flex-1 xl:flex xl:flex-col xl:justify-center">
                     {state.selectedItem.video ? (
                       <video
@@ -1291,8 +1594,23 @@ const Portfolio = () => {
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
                             className="bg-white/20 backdrop-blur-sm rounded-full p-3 cursor-pointer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
+                            whileHover={{
+                              scale: 1.15,
+                              rotate: 90,
+                              transition: {
+                                type: "spring",
+                                damping: 15,
+                                stiffness: 400
+                              }
+                            }}
+                            whileTap={{
+                              scale: 0.9,
+                              transition: {
+                                type: "spring",
+                                damping: 20,
+                                stiffness: 500
+                              }
+                            }}
                             onClick={(e) => {
                               e.stopPropagation()
                               openFullscreen(currentImageSrc)
@@ -1328,8 +1646,8 @@ const Portfolio = () => {
                   </div>
                 </div>
 
-                <div className="w-full md:w-1/2 p-8">
-                  <h3 id="modal-title" className="text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 font-display">
+                <div className="w-full md:w-1/2 p-4 sm:p-6 md:p-8">
+                  <h3 id="modal-title" className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 font-display">
                     {state.selectedItem.title}
                   </h3>
                   <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
@@ -1451,10 +1769,15 @@ const Portfolio = () => {
             >
               <motion.div
                 className="group relative max-w-[95vw] max-h-[95vh] flex items-center justify-center"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                initial={{ scale: 0.5, opacity: 0, rotateX: 15 }}
+                animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+                exit={{ scale: 0.5, opacity: 0, rotateX: -15 }}
+                transition={{
+                  type: "spring",
+                  damping: 20,
+                  stiffness: 200,
+                  duration: 0.6
+                }}
                 onClick={(e) => e.stopPropagation()}
                 onTouchStart={(e) => fullscreenTouchHandlers.onTouchStart(e, state.zoomLevel)}
                 onTouchMove={fullscreenTouchHandlers.onTouchMove}
@@ -1465,27 +1788,33 @@ const Portfolio = () => {
                     key={`fullscreen-${state.selectedItem?.images[state.currentImageIndex] || state.fullscreenImage}`}
                     initial={{
                       opacity: 0,
-                      scale: 1,
-                      x: state.imageDirection === 'next' ? 50 :
-                         state.imageDirection === 'prev' ? -50 : 0
+                      scale: 0.9,
+                      x: state.imageDirection === 'next' ? 100 :
+                         state.imageDirection === 'prev' ? -100 : 0,
+                      rotateY: state.imageDirection === 'next' ? 15 :
+                              state.imageDirection === 'prev' ? -15 : 0
                     }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    animate={{ opacity: 1, scale: 1, x: 0, rotateY: 0 }}
                     exit={{
                       opacity: 0,
-                      scale: 1,
-                      x: state.imageDirection === 'next' ? -50 :
-                         state.imageDirection === 'prev' ? 50 : 0
+                      scale: 0.9,
+                      x: state.imageDirection === 'next' ? -100 :
+                         state.imageDirection === 'prev' ? 100 : 0,
+                      rotateY: state.imageDirection === 'next' ? -15 :
+                              state.imageDirection === 'prev' ? 15 : 0
                     }}
                     transition={{
-                      duration: 0.2,
-                      ease: "easeInOut"
+                      type: "spring",
+                      damping: 25,
+                      stiffness: 200,
+                      duration: 0.4
                     }}
                     className="flex items-center justify-center"
                   >
                     <OptimizedImage
                       src={state.selectedItem?.images[state.currentImageIndex] || state.fullscreenImage}
                       alt="Imagen en pantalla completa"
-                      className="max-w-[70vw] max-h-[70vh] object-contain rounded-lg shadow-2xl"
+                      className="max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] object-contain rounded-lg shadow-2xl"
                       loading="eager"
                       style={{
                         transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
@@ -1577,8 +1906,13 @@ const Portfolio = () => {
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
-                              animate={{ x: [-2, 2, -2] }}
-                              transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                              animate={{ x: [-3, 3, -3], scale: [1, 1.05, 1] }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatDelay: 3,
+                                ease: "easeInOut"
+                              }}
                             >
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                             </motion.svg>
@@ -1594,8 +1928,23 @@ const Portfolio = () => {
                 <motion.button
                   className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-3 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   onClick={closeFullscreen}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{
+                    scale: 1.1,
+                    rotate: 90,
+                    transition: {
+                      type: "spring",
+                      damping: 15,
+                      stiffness: 400
+                    }
+                  }}
+                  whileTap={{
+                    scale: 0.9,
+                    transition: {
+                      type: "spring",
+                      damping: 20,
+                      stiffness: 500
+                    }
+                  }}
                   aria-label="Cerrar pantalla completa"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

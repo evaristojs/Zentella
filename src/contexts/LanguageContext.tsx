@@ -213,6 +213,48 @@ const translations = {
     'portfolio.time_homes.cliente': 'Time Homes',
     'portfolio.time_homes.tags': 'Inmobiliario, Condos, Promocional, Arquitectura',
 
+    'portfolio.servi_sec.titulo': 'Servi-Sec - Animación Corporativa',
+    'portfolio.servi_sec.descripcion': 'Motion graphics y animación promocional para empresa líder en servicios de lavandería',
+    'portfolio.servi_sec.cliente': 'Servi-Sec',
+    'portfolio.servi_sec.tags': 'Animación, Lavandería, Corporativo, Motion Graphics',
+
+    'portfolio.esvi_hair_video.titulo': 'Esvi Hair Studio - Video Promocional',
+    'portfolio.esvi_hair_video.descripcion': 'Producción audiovisual mostrando servicios premium y ambiente exclusivo del salón',
+    'portfolio.esvi_hair_video.cliente': 'Esvi Hair Studio',
+    'portfolio.esvi_hair_video.tags': 'Video, Belleza, Promocional, Premium',
+
+    'portfolio.heles_decorations.titulo': 'Heles Decorations - Video Evento',
+    'portfolio.heles_decorations.descripcion': 'Video showcase de decoración profesional para eventos, destacando creatividad y elegancia',
+    'portfolio.heles_decorations.cliente': 'Heles Decorations',
+    'portfolio.heles_decorations.tags': 'Video, Decoración, Eventos, Showcase',
+
+    'portfolio.iea_autos.titulo': 'IEA Autos - Video Comercial',
+    'portfolio.iea_autos.descripcion': 'Producción audiovisual automotriz destacando calidad y excelencia en servicios',
+    'portfolio.iea_autos.cliente': 'IEA Autos',
+    'portfolio.iea_autos.tags': 'Video, Automotriz, Comercial, Servicios',
+
+    'portfolio.servisec_video.titulo': 'ServiSec - Video Corporativo',
+    'portfolio.servisec_video.descripcion': 'Video corporativo para empresa de servicios de seguridad y lavandería',
+    'portfolio.servisec_video.cliente': 'ServiSec',
+    'portfolio.servisec_video.tags': 'Video, Corporativo, Seguridad, Servicios',
+
+    // Dynamic CTAs
+    'cta.solicitar_cotizacion': 'Solicitar Cotización',
+    'cta.ver_proceso': 'Ver Proceso',
+    'cta.contactar_ahora': 'Contactar Ahora',
+    'cta.reservar_sesion': 'Reservar Sesión',
+    'cta.ver_paquetes': 'Ver Paquetes',
+    'cta.contactar_fotografo': 'Contactar Fotógrafo',
+    'cta.solicitar_video': 'Solicitar Video',
+    'cta.ver_demo_reel': 'Ver Demo Reel',
+    'cta.empezar_proyecto': 'Empezar Proyecto',
+    'cta.crear_animacion': 'Crear Animación',
+    'cta.ver_ejemplos': 'Ver Ejemplos',
+    'cta.consulta_gratis': 'Consulta Gratis',
+    'cta.titulo_principal': '¿Listo para el siguiente nivel?',
+    'cta.descripcion': 'Transforma tu negocio con soluciones creativas que generan resultados reales. Comencemos tu proyecto hoy.',
+    'cta.ver_servicios': 'Ver Servicios',
+
     // About
     'about.titulo': 'Sobre Zentella',
     'about.subtitulo': 'Creatividad, innovación y resultados',
@@ -702,6 +744,48 @@ const translations = {
     'portfolio.time_homes.descripcion': 'Real estate promotional video highlighting the features and location of the residential project',
     'portfolio.time_homes.cliente': 'Time Homes',
     'portfolio.time_homes.tags': 'Real Estate, Condos, Promotional, Architecture',
+
+    'portfolio.servi_sec.titulo': 'Servi-Sec - Corporate Animation',
+    'portfolio.servi_sec.descripcion': 'Motion graphics and promotional animation for leading laundry services company',
+    'portfolio.servi_sec.cliente': 'Servi-Sec',
+    'portfolio.servi_sec.tags': 'Animation, Laundry, Corporate, Motion Graphics',
+
+    'portfolio.esvi_hair_video.titulo': 'Esvi Hair Studio - Promotional Video',
+    'portfolio.esvi_hair_video.descripcion': 'Audiovisual production showcasing premium services and exclusive salon atmosphere',
+    'portfolio.esvi_hair_video.cliente': 'Esvi Hair Studio',
+    'portfolio.esvi_hair_video.tags': 'Video, Beauty, Promotional, Premium',
+
+    'portfolio.heles_decorations.titulo': 'Heles Decorations - Event Video',
+    'portfolio.heles_decorations.descripcion': 'Video showcase of professional event decoration, highlighting creativity and elegance',
+    'portfolio.heles_decorations.cliente': 'Heles Decorations',
+    'portfolio.heles_decorations.tags': 'Video, Decoration, Events, Showcase',
+
+    'portfolio.iea_autos.titulo': 'IEA Autos - Commercial Video',
+    'portfolio.iea_autos.descripcion': 'Automotive audiovisual production highlighting quality and excellence in services',
+    'portfolio.iea_autos.cliente': 'IEA Autos',
+    'portfolio.iea_autos.tags': 'Video, Automotive, Commercial, Services',
+
+    'portfolio.servisec_video.titulo': 'ServiSec - Corporate Video',
+    'portfolio.servisec_video.descripcion': 'Corporate video for security and laundry services company',
+    'portfolio.servisec_video.cliente': 'ServiSec',
+    'portfolio.servisec_video.tags': 'Video, Corporate, Security, Services',
+
+    // Dynamic CTAs
+    'cta.solicitar_cotizacion': 'Get Quote',
+    'cta.ver_proceso': 'View Process',
+    'cta.contactar_ahora': 'Contact Now',
+    'cta.reservar_sesion': 'Book Session',
+    'cta.ver_paquetes': 'View Packages',
+    'cta.contactar_fotografo': 'Contact Photographer',
+    'cta.solicitar_video': 'Request Video',
+    'cta.ver_demo_reel': 'View Demo Reel',
+    'cta.empezar_proyecto': 'Start Project',
+    'cta.crear_animacion': 'Create Animation',
+    'cta.ver_ejemplos': 'View Examples',
+    'cta.consulta_gratis': 'Free Consultation',
+    'cta.titulo_principal': 'Ready for the next level?',
+    'cta.descripcion': 'Transform your business with creative solutions that generate real results. Let\'s start your project today.',
+    'cta.ver_servicios': 'View Services',
 
     // About
     'about.titulo': 'About Zentella',

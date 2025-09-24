@@ -365,13 +365,37 @@ body::-webkit-scrollbar {
     .portfolio-modal {
       padding-top: 56px;
       padding-bottom: 56px;
+      /* Prevent horizontal overflow */
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+    }
+
+    .portfolio-modal > div {
+      max-width: 95vw !important;
     }
   }
 
-  @media (min-width: 641px) and (max-width: 1024px) {
+  @media (min-width: 481px) and (max-width: 768px) {
+    .portfolio-modal {
+      padding-top: 60px;
+      padding-bottom: 60px;
+      /* Prevent horizontal overflow on tablets */
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+    }
+
+    .portfolio-modal > div {
+      max-width: 90vw !important;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
     .portfolio-modal {
       padding-top: 64px;
       padding-bottom: 64px;
+      /* Prevent horizontal overflow on larger tablets */
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
     }
   }
 
@@ -380,6 +404,18 @@ body::-webkit-scrollbar {
       padding-top: 80px;
       padding-bottom: 80px;
     }
+  }
+
+  /* General portfolio overflow prevention */
+  .portfolio-modal {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .portfolio-modal * {
+    box-sizing: border-box !important;
   }
 
   /* 📝 Text alignment with smart hyphenation */

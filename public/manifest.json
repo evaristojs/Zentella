@@ -1,0 +1,59 @@
+{
+  "name": "Zentella - Agencia Creativa",
+  "short_name": "Zentella",
+  "description": "Agencia creativa especializada en marketing digital, fotografía, diseño gráfico, videografía y animación",
+  "theme_color": "#ac00d3",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "lang": "es-DO",
+  "dir": "ltr",
+  "categories": ["business", "design", "marketing", "photography"],
+  "shortcuts": [
+    {
+      "name": "Portfolio",
+      "short_name": "Portfolio",
+      "description": "Ver nuestros trabajos destacados",
+      "url": "/#portfolio"
+    },
+    {
+      "name": "Contacto",
+      "short_name": "Contacto",
+      "description": "Contacta con nosotros",
+      "url": "/#contact"
+    },
+    {
+      "name": "Servicios",
+      "short_name": "Servicios",
+      "description": "Conoce nuestros servicios",
+      "url": "/#services"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/isotipo-positivo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/isotipo-positivo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/isotipo-positivo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}

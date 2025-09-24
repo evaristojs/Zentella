@@ -2,16 +2,293 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Primary Meta Tags -->
+    <title>Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video</title>
+    <meta name="title" content="Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video" />
+    <meta name="description" content="Agencia creativa especializada en marketing digital, fotografía profesional, diseño gráfico, videografía y animación. Transformamos ideas en experiencias visuales impactantes que impulsan tu negocio." />
+    <meta name="keywords" content="agencia creativa, marketing digital, fotografía profesional, diseño gráfico, videografía, animación, branding, República Dominicana, Santo Domingo" />
+    <meta name="author" content="Zentella Creative Agency" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="Spanish" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Viewport & Mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Zentella - Agencia Creativa</title>
-    <script src="/theme-init.js"></script>
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Zentella" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ac00d3" />
+    <meta name="msapplication-TileColor" content="#ac00d3" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/isotipo-positivo.svg" />
+    <link rel="apple-touch-icon" href="/isotipo-positivo.svg" />
+    <link rel="mask-icon" href="/isotipo-positivo.svg" color="#ac00d3" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://zentella.com/" />
+    <meta property="og:title" content="Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video" />
+    <meta property="og:description" content="Agencia creativa especializada en marketing digital, fotografía profesional, diseño gráfico, videografía y animación. Transformamos ideas en experiencias visuales impactantes." />
+    <meta property="og:image" content="https://zentella.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_DO" />
+    <meta property="og:site_name" content="Zentella Creative Agency" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://zentella.com/" />
+    <meta property="twitter:title" content="Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video" />
+    <meta property="twitter:description" content="Agencia creativa especializada en marketing digital, fotografía profesional, diseño gráfico, videografía y animación." />
+    <meta property="twitter:image" content="https://zentella.com/images/twitter-image.jpg" />
+    <meta property="twitter:creator" content="@ZentellaAgency" />
+
+    <!-- Preload Critical Resources -->
+    <!-- Local fonts removed - using Google Fonts instead -->
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//www.google-analytics.com" />
+
+    <!-- Performance Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zentella.com/" />
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Zentella Creative Agency",
+      "alternateName": "Zentella",
+      "url": "https://zentella.com",
+      "logo": "https://zentella.com/icons/icon-512x512.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-809-676-2429",
+        "contactType": "customer service",
+        "areaServed": "DO",
+        "availableLanguage": ["Spanish", "English"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle Principal #123",
+        "addressLocality": "Santo Domingo",
+        "addressRegion": "Distrito Nacional",
+        "postalCode": "10210",
+        "addressCountry": "DO"
+      },
+      "sameAs": [
+        "https://www.instagram.com/zentellaagency",
+        "https://www.linkedin.com/company/zentella",
+        "https://www.facebook.com/zentellaagency"
+      ],
+      "foundingDate": "2019",
+      "description": "Agencia creativa especializada en marketing digital, fotografía profesional, diseño gráfico, videografía y animación",
+      "knowsAbout": ["Marketing Digital", "Fotografía", "Diseño Gráfico", "Videografía", "Animación", "Branding"],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "18.4861",
+          "longitude": "-69.9312"
+        },
+        "geoRadius": "100000"
+      }
+    }
+    </script>
+
+    <!-- Structured Data - Services -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Zentella Creative Agency",
+      "image": "https://zentella.com/icons/icon-512x512.png",
+      "description": "Agencia creativa que ofrece servicios integrales de marketing digital, fotografía profesional, diseño gráfico, videografía y animación",
+      "serviceType": ["Marketing Digital", "Fotografía Profesional", "Diseño Gráfico", "Videografía", "Animación", "Branding"],
+      "provider": {
+        "@type": "Organization",
+        "name": "Zentella Creative Agency"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Dominican Republic"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios Creativos",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Diseño Gráfico y Branding",
+              "description": "Identidades visuales únicas que conectan con tu audiencia"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Marketing Digital",
+              "description": "Estrategias integrales para hacer crecer tu negocio online"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fotografía Profesional",
+              "description": "Capturamos la esencia de tu marca con fotografías profesionales"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Video y Animación",
+              "description": "Contenido audiovisual que conecta emocionalmente con tu audiencia"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then((registration) => {
+              console.log('🎉 SW registered: ', registration);
+
+              // Handle updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                if (newWorker) {
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      // New version available
+                      if (confirm('Nueva versión disponible. ¿Actualizar ahora?')) {
+                        window.location.reload();
+                      }
+                    }
+                  });
+                }
+              });
+            })
+            .catch((error) => {
+              console.log('❌ SW registration failed: ', error);
+            });
+        });
+
+        // Handle PWA install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+
+          // Show install button after delay
+          setTimeout(() => {
+            if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
+              showInstallPrompt();
+            }
+          }, 30000); // Show after 30 seconds
+        });
+
+        function showInstallPrompt() {
+          const installBanner = document.createElement('div');
+          installBanner.innerHTML = `
+            <div style="
+              position: fixed;
+              bottom: 20px;
+              left: 20px;
+              right: 20px;
+              background: linear-gradient(135deg, #ac00d3, #6700f4);
+              color: white;
+              padding: 16px;
+              border-radius: 12px;
+              box-shadow: 0 8px 32px rgba(172, 0, 211, 0.3);
+              z-index: 10000;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              backdrop-filter: blur(10px);
+              animation: slideUp 0.3s ease-out;
+            ">
+              <div>
+                <strong>📱 Instalar Zentella</strong>
+                <p style="margin: 4px 0 0 0; opacity: 0.9; font-size: 14px;">
+                  Acceso rápido desde tu pantalla de inicio
+                </p>
+              </div>
+              <div>
+                <button onclick="installPWA()" style="
+                  background: rgba(255,255,255,0.2);
+                  border: none;
+                  color: white;
+                  padding: 8px 16px;
+                  border-radius: 8px;
+                  margin-right: 8px;
+                  cursor: pointer;
+                  font-weight: 600;
+                ">Instalar</button>
+                <button onclick="dismissInstall()" style="
+                  background: transparent;
+                  border: 1px solid rgba(255,255,255,0.3);
+                  color: white;
+                  padding: 8px 12px;
+                  border-radius: 8px;
+                  cursor: pointer;
+                ">✕</button>
+              </div>
+            </div>
+            <style>
+              @keyframes slideUp {
+                from { transform: translateY(100%); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+              }
+            </style>
+          `;
+          document.body.appendChild(installBanner);
+
+          window.installPWA = async () => {
+            if (deferredPrompt) {
+              deferredPrompt.prompt();
+              const { outcome } = await deferredPrompt.userChoice;
+              console.log('PWA install outcome:', outcome);
+              deferredPrompt = null;
+              document.body.removeChild(installBanner);
+            }
+          };
+
+          window.dismissInstall = () => {
+            document.body.removeChild(installBanner);
+            deferredPrompt = null;
+            localStorage.setItem('pwa-dismissed', Date.now());
+          };
+        }
+      }
+    </script>
   </body>
 </html>
