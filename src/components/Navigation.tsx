@@ -4,6 +4,7 @@ import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useEffect, useRef } from 'react'
+import { smoothScrollToElement, getNavbarHeight } from '../utils/smoothScroll'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -66,10 +67,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     const sectionId = href.replace('#', '')
     const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
+      const navbarHeight = getNavbarHeight()
+      smoothScrollToElement(element, navbarHeight)
     }
   }
 

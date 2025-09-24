@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import Marquee from 'react-fast-marquee'
 
 import { useLanguage } from '../hooks/useLanguage'
+import { smoothScrollToElement, getNavbarHeight } from '../utils/smoothScroll'
 
 interface HeroProps {
   scrollToSection?: (sectionId: string) => void
@@ -232,6 +233,12 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     }
   }
 
+  // Optimized scroll handler using shared utility
+  const handleSmoothScroll = useCallback((element: HTMLElement) => {
+    const navbarHeight = getNavbarHeight()
+    smoothScrollToElement(element, navbarHeight)
+  }, [])
+
 
 
   const handleComenzarClick = () => {
@@ -248,25 +255,15 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
       // Temporarily disable scroll snap for smooth navigation
       document.body.classList.add('navigating')
 
-      if (scrollToSection) {
-        try {
-          scrollToSection('contact')
-        } catch (error) {
-          console.error('ScrollToSection error:', error)
-          // Fallback to native scroll
-          if (contactElement) {
-            contactElement.scrollIntoView({ behavior: 'smooth' })
-          }
-        }
-      } else if (contactElement) {
-        contactElement.scrollIntoView({ behavior: 'smooth' })
+      if (contactElement) {
+        handleSmoothScroll(contactElement)
       }
 
       // Re-enable scroll snap after navigation
       setTimeout(() => {
         document.body.classList.remove('navigating')
       }, 1000)
-      
+
       // Desactivar aceleración después del scroll con un pequeño delay
       setTimeout(() => {
         if (window.Starfield) {
@@ -428,10 +425,9 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
                   // Temporarily disable scroll snap for smooth navigation
                   document.body.classList.add('navigating')
 
-                  if (scrollToSection) {
-                    scrollToSection('portfolio')
-                  } else {
-                    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+                  const portfolioElement = document.getElementById('portfolio')
+                  if (portfolioElement) {
+                    handleSmoothScroll(portfolioElement)
                   }
 
                   // Re-enable scroll snap after navigation

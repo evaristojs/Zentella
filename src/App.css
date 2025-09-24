@@ -59,10 +59,15 @@ section {
 
 /* Todas las secciones tienen navegación libre - no se necesitan excepciones */
 
-/* Ensure hero section takes full viewport */
+/* Ensure hero section takes full viewport with Safari compatibility */
 #hero {
   height: 100vh;
   min-height: 100vh;
+  /* Safari mobile viewport fix */
+  height: 100dvh; /* Dynamic viewport height for Safari */
+  min-height: 100dvh;
+  /* Fallback for older Safari versions */
+  height: -webkit-fill-available;
 }
 
 /* Make other sections adapt to viewport height */
@@ -99,6 +104,25 @@ section {
   /* Make scroll snap less aggressive on mobile */
   body {
     scroll-snap-type: y proximity;
+  }
+
+  /* Safari mobile specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    /* Safari mobile viewport adjustment */
+    #hero {
+      height: calc(100vh - env(safe-area-inset-top));
+      min-height: calc(100vh - env(safe-area-inset-top));
+    }
+
+    /* Fix Safari smooth scrolling issues */
+    html {
+      scroll-behavior: auto; /* Let JS handle smooth scrolling in Safari mobile */
+    }
+
+    /* Better touch scrolling for Safari */
+    body, main {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 }
 
