@@ -102,7 +102,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }, [src, placeholder, priority])
 
   const handleLoad = () => {
-    const loadTime = Date.now() - loadStartTimeRef.current
     setIsLoaded(true)
 
     // Clear skeleton timeout if image loads quickly

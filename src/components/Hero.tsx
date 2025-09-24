@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import Marquee from 'react-fast-marquee'
 
 import { useLanguage } from '../hooks/useLanguage'
-import { smoothScrollToElement, getNavbarHeight } from '../utils/smoothScroll'
 
 const Hero: React.FC = () => {
   const { t, currentLanguage } = useLanguage()
