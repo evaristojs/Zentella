@@ -1397,10 +1397,29 @@ const Portfolio = () => {
                   </motion.div>
                 )}
 
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center">
-                  <h3 className="text-white text-lg font-bold text-center p-4">
-                    {item.title}
-                  </h3>
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center p-4">
+                  <div className="text-center">
+                    <h3 className="text-white text-lg font-bold mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-white/80 text-sm mb-3">{item.client}</p>
+
+                    {/* Dynamic CTA Button */}
+                    <motion.button
+                      className="px-4 py-2 bg-color-primary hover:bg-color-accent text-white rounded-full text-sm font-medium transition-all duration-300 shadow-lg"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        const section = document.getElementById('contact')
+                        if (section) {
+                          section.scrollIntoView({ behavior: 'smooth' })
+                        }
+                      }}
+                    >
+                      {getDynamicCTA(item)?.text || t('cta.ver_proyecto')}
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
             ))}
