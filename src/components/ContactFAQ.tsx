@@ -41,6 +41,7 @@ const ContactFAQ = () => {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [acceptedTerms, setAcceptedTerms] = useState(true)
 
   const faqData: FAQItem[] = [
     {
@@ -51,7 +52,9 @@ const ContactFAQ = () => {
         t('contact.faq.q1.detail1'),
         t('contact.faq.q1.detail2'),
         t('contact.faq.q1.detail3'),
-        t('contact.faq.q1.detail4')
+        t('contact.faq.q1.detail4'),
+        t('contact.faq.q1.detail5'),
+        t('contact.faq.q1.detail6')
       ]
     },
     {
@@ -63,7 +66,9 @@ const ContactFAQ = () => {
         t('contact.faq.q2.detail2'),
         t('contact.faq.q2.detail3'),
         t('contact.faq.q2.detail4'),
-        t('contact.faq.q2.detail5')
+        t('contact.faq.q2.detail5'),
+        t('contact.faq.q2.detail6'),
+        t('contact.faq.q2.detail7')
       ]
     },
     {
@@ -73,7 +78,9 @@ const ContactFAQ = () => {
       details: [
         t('contact.faq.q3.detail1'),
         t('contact.faq.q3.detail2'),
-        t('contact.faq.q3.detail3')
+        t('contact.faq.q3.detail3'),
+        t('contact.faq.q3.detail4'),
+        t('contact.faq.q3.detail5')
       ]
     },
     {
@@ -83,7 +90,43 @@ const ContactFAQ = () => {
       details: [
         t('contact.faq.q4.detail1'),
         t('contact.faq.q4.detail2'),
-        t('contact.faq.q4.detail3')
+        t('contact.faq.q4.detail3'),
+        t('contact.faq.q4.detail4')
+      ]
+    },
+    {
+      id: 5,
+      question: t('contact.faq.q5.question'),
+      answer: t('contact.faq.q5.answer'),
+      details: [
+        t('contact.faq.q5.detail1'),
+        t('contact.faq.q5.detail2'),
+        t('contact.faq.q5.detail3'),
+        t('contact.faq.q5.detail4')
+      ]
+    },
+    {
+      id: 6,
+      question: t('contact.faq.q6.question'),
+      answer: t('contact.faq.q6.answer'),
+      details: [
+        t('contact.faq.q6.detail1'),
+        t('contact.faq.q6.detail2'),
+        t('contact.faq.q6.detail3'),
+        t('contact.faq.q6.detail4'),
+        t('contact.faq.q6.detail5')
+      ]
+    },
+    {
+      id: 7,
+      question: t('contact.faq.q7.question'),
+      answer: t('contact.faq.q7.answer'),
+      details: [
+        t('contact.faq.q7.detail1'),
+        t('contact.faq.q7.detail2'),
+        t('contact.faq.q7.detail3'),
+        t('contact.faq.q7.detail4'),
+        t('contact.faq.q7.detail5')
       ]
     }
   ]
@@ -564,28 +607,45 @@ const ContactFAQ = () => {
                 </div>
 
                 <div className="flex items-start gap-3 py-4">
-                  <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-sm flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAcceptedTerms(!acceptedTerms)}
+                    className={`flex items-center justify-center w-6 h-6 rounded-sm flex-shrink-0 mt-0.5 transition-all duration-300 ${
+                      acceptedTerms
+                        ? 'bg-gradient-to-r from-color-primary to-color-secondary'
+                        : 'border-2 border-text-secondary-light/30 dark:border-text-secondary-dark/30 bg-transparent hover:border-color-primary'
+                    }`}
+                  >
+                    {acceptedTerms && (
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
                   <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     {t('contact.terminos')}
                   </p>
                 </div>
+                <div className="min-h-[24px] -mt-2 ml-9 mb-2">
+                  {!acceptedTerms && (
+                    <p className="text-xs text-red-500">
+                      {t('contact.terminos_requeridos')}
+                    </p>
+                  )}
+                </div>
 
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !acceptedTerms}
                   className={`group relative overflow-hidden w-full px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border flex items-center justify-center gap-2 ${
-                    isSubmitting 
-                      ? 'bg-gray-400 cursor-not-allowed opacity-70 border-gray-400/20' 
+                    isSubmitting || !acceptedTerms
+                      ? 'bg-gray-400 cursor-not-allowed opacity-70 border-gray-400/20'
                       : submitSuccess
                       ? 'bg-green-500 border-green-500/20'
                       : 'bg-gradient-to-r from-color-primary to-color-secondary border-color-primary/20'
                   }`}
-                  whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
-                  whileTap={!isSubmitting ? { scale: 0.97 } : {}}
+                  whileHover={!isSubmitting && acceptedTerms ? { scale: 1.03, y: -2 } : {}}
+                  whileTap={!isSubmitting && acceptedTerms ? { scale: 0.97 } : {}}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     {isSubmitting ? (
