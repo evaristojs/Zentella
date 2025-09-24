@@ -111,23 +111,78 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               aria-label={t('nav.inicio')}
             >
               <AnimatePresence mode="wait">
-                <motion.img
-                  key={logoState.type}
-                  src={logoSrc}
-                  alt="Zentella"
-                  className={`w-auto h-full object-contain ${
-                    logoState.type === 'isotipo'
-                      ? 'scale-75 sm:scale-100'
-                      : 'scale-110 sm:scale-100'
-                  }`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeInOut"
-                  }}
-                />
+                {logoState.type === 'isotipo' ? (
+                  <motion.svg
+                    key="isotipo-combined"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 332.61 156.13"
+                    className="w-auto h-full object-contain scale-75 sm:scale-100"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {/* Line drawing path */}
+                    <motion.path
+                      d="M0,0 L154.79,61.06 L77.39,139.26 L332.61,156.13 L193.89,90.52 L255.22,24.91 Z"
+                      fill="none"
+                      stroke={isDark ? '#ffffff' : '#252425'}
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{
+                        pathLength: 0,
+                        opacity: 0,
+                        filter: 'drop-shadow(0 0 4px rgba(103, 0, 248, 0.5))'
+                      }}
+                      animate={{
+                        pathLength: 1,
+                        opacity: 1,
+                        filter: [
+                          'drop-shadow(0 0 4px rgba(103, 0, 248, 0.5))',
+                          'drop-shadow(0 0 16px rgba(103, 0, 248, 1))',
+                          'drop-shadow(0 0 8px rgba(103, 0, 248, 0.7))'
+                        ]
+                      }}
+                      transition={{
+                        pathLength: { duration: 0.6, ease: "easeInOut" },
+                        opacity: { duration: 0.15 },
+                        filter: {
+                          duration: 0.6,
+                          ease: "easeInOut",
+                          times: [0, 0.5, 1]
+                        }
+                      }}
+                    />
+
+                    {/* Solid fill that appears exactly when line drawing completes */}
+                    <motion.polygon
+                      points="0,0 154.79,61.06 77.39,139.26 332.61,156.13 193.89,90.52 255.22,24.91"
+                      fill={isDark ? '#ffffff' : '#252425'}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: 0.15,
+                        delay: 0.6, // Appears exactly when pathLength animation completes
+                        ease: "easeInOut"
+                      }}
+                    />
+                  </motion.svg>
+                ) : (
+                  <motion.img
+                    key={logoState.type}
+                    src={logoSrc}
+                    alt="Zentella"
+                    className="w-auto h-full object-contain scale-110 sm:scale-100"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeInOut"
+                    }}
+                  />
+                )}
               </AnimatePresence>
             </motion.button>
             
