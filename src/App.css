@@ -8,6 +8,15 @@
 /* Scroll snap container */
 html {
   scroll-behavior: smooth;
+  /* Disable zoom completely */
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  -webkit-touch-callout: none;
+}
+
+* {
+  /* Prevent zoom on all elements */
+  touch-action: manipulation;
 }
 
 :root {
@@ -21,6 +30,8 @@ body {
   overflow-x: hidden;
   height: 100vh;
   overscroll-behavior: contain;
+  /* Disable zoom on mobile */
+  touch-action: manipulation;
 }
 
 /* Actualizar altura navbar en móvil */
