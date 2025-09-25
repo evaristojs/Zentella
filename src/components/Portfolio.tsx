@@ -1590,7 +1590,7 @@ const Portfolio = () => {
                         Tu navegador no soporta el elemento de video.
                       </video>
                     ) : (
-                      <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[4/3] overflow-hidden">
+                      <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[5/4] overflow-hidden">
                         <AnimatePresence mode="wait">
                           <motion.div
                             key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
