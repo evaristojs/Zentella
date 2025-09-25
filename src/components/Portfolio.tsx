@@ -1591,20 +1591,54 @@ const Portfolio = () => {
                       </video>
                     ) : (
                       <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[4/3] overflow-hidden">
-                        <OptimizedImage
-                          key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
-                          src={currentImageSrc}
-                          alt=""
-                          className="w-full h-full object-cover cursor-pointer absolute inset-0 transition-opacity duration-200"
-                          onClick={() => openFullscreen(currentImageSrc)}
-                          loading="eager"
-                          priority={true}
-                          placeholder="none"
-                          style={{
-                            transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
-                            transition: 'transform 0.2s ease-out, opacity 0.2s ease-out'
-                          }}
-                        />
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
+                            initial={{
+                              opacity: 0,
+                              scale: 1.02,
+                              x: state.imageDirection === 'next' ? 15 :
+                                 state.imageDirection === 'prev' ? -15 : 0,
+                              filter: 'blur(4px)'
+                            }}
+                            animate={{
+                              opacity: 1,
+                              scale: 1,
+                              x: 0,
+                              filter: 'blur(0px)'
+                            }}
+                            exit={{
+                              opacity: 0,
+                              scale: 0.98,
+                              x: state.imageDirection === 'next' ? -15 :
+                                 state.imageDirection === 'prev' ? 15 : 0,
+                              filter: 'blur(2px)'
+                            }}
+                            transition={{
+                              duration: 0.4,
+                              ease: [0.25, 0.46, 0.45, 0.94], // Smooth easing curve
+                              opacity: { duration: 0.25 },
+                              scale: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+                              x: { duration: 0.35, ease: [0.4, 0, 0.2, 1] },
+                              filter: { duration: 0.3 }
+                            }}
+                            className="absolute inset-0"
+                          >
+                            <OptimizedImage
+                              src={currentImageSrc}
+                              alt=""
+                              className="w-full h-full object-cover cursor-pointer"
+                              onClick={() => openFullscreen(currentImageSrc)}
+                              loading="eager"
+                              priority={true}
+                              placeholder="none"
+                              style={{
+                                transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
+                                transition: 'transform 0.2s ease-out'
+                              }}
+                            />
+                          </motion.div>
+                        </AnimatePresence>
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
                             className="bg-white/20 backdrop-blur-sm rounded-full p-3 cursor-pointer"
