@@ -42,7 +42,6 @@ export const smoothScrollToElement = (
     duration?: number
   } = {}
 ) => {
-  const startTime = performance.now()
   const browserInfo = getBrowserInfo()
   const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - navbarHeight
 
@@ -81,8 +80,7 @@ export const smoothScrollToElement = (
       } else {
         // Animation complete
         if (process.env.NODE_ENV === 'development') {
-          const totalTime = performance.now() - startTime
-          // Custom scroll performance metrics
+          // Custom scroll performance metrics can be logged here if needed
         }
 
         // Restore CSS scroll-behavior
@@ -102,8 +100,7 @@ export const smoothScrollToElement = (
     })
 
     if (process.env.NODE_ENV === 'development') {
-      const totalTime = performance.now() - startTime
-      // Native scroll performance metrics
+      // Native scroll performance metrics can be logged here if needed
     }
 
     // For native scroll, we can't detect completion easily, so use timeout
