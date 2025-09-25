@@ -1561,21 +1561,16 @@ const Portfolio = () => {
         <AnimatePresence>
           {state.isModalOpen && state.selectedItem && (
             <motion.div
-              className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 pt-[65px] xl:pt-[90px] xl:pb-[10px] portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 pt-[65px] xl:pt-[90px] xl:pb-[10px] bg-black/80 backdrop-blur-sm portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              onClick={closeModal}
               {...swipeHandlers}
             >
               <motion.div
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-                onClick={closeModal}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              />
-              <motion.div
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row z-10"
+                onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}

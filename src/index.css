@@ -418,6 +418,28 @@ body::-webkit-scrollbar {
     box-sizing: border-box !important;
   }
 
+  /* Hide scrollbar in modal on mobile */
+  @media screen and (max-width: 768px) {
+    .portfolio-modal .overflow-y-auto {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .portfolio-modal .overflow-y-auto::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Hide horizontal scrollbar for thumbnails on mobile */
+    .portfolio-modal .overflow-x-auto {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .portfolio-modal .overflow-x-auto::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+  }
+
   /* 📝 Text alignment with smart hyphenation */
   .text-left-hyphens {
     text-align: left;
