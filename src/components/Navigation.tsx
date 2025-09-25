@@ -64,7 +64,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
   return (
     <>
-      <motion.nav
+      <nav
         ref={navRef}
         id="navbar"
         className={getNavbarClasses()}
@@ -313,7 +313,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             </div>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       <AnimatePresence>
         {isMenuOpen && (
