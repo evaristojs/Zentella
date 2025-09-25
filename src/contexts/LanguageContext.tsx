@@ -333,13 +333,13 @@ const translations = {
 
     // FAQ Questions and Answers
     'faq.q1.question': '¿Cuánto cuesta el servicio/proyecto o cuál es el presupuesto necesario?',
-    'faq.q1.answer': 'Cada proyecto es único y tiene necesidades específicas. Por eso, creamos propuestas personalizadas que se adapten perfectamente a tu presupuesto y objetivos. ¡La cotización es completamente gratuita y sin compromiso! Contáctanos para recibir una propuesta detallada en menos de 24 horas.',
-    'faq.q1.detail1': '✨ Cotización 100% gratuita y personalizada',
-    'faq.q1.detail2': '🚀 Propuesta lista en menos de 24 horas',
-    'faq.q1.detail3': '💡 Estrategia adaptada a tu presupuesto',
-    'faq.q1.detail4': '🎯 Sin compromiso ni costos ocultos',
-    'faq.q1.detail5': '📊 Análisis detallado de tu proyecto',
-    'faq.q1.detail6': '🤝 Asesoría inicial completamente gratis',
+    'faq.q1.answer': 'Los costos pueden variar enormemente, desde el 0 al infinito, dependiendo de los objetivos y recursos, así como de la fase del proyecto y la exposición de la marca. Factores como la industria, la competencia, la ubicación geográfica, el alcance y los objetivos del proyecto, la reputación y experiencia de la agencia, y la personalización de los servicios influyen en el precio.',
+    'faq.q1.detail1': 'Publicidad PPC: $85,000-$580,000 DOP/mes',
+    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/mes',
+    'faq.q1.detail3': 'Marketing en redes sociales: $58,000-$203,000 DOP/mes',
+    'faq.q1.detail4': 'Marketing de contenido: $1,800-$12,000/mes',
+    'faq.q1.detail5': 'Email marketing: $1,500-$7,500/mes',
+    'faq.q1.detail6': 'Videos corporativos: $65,000-$325,000 DOP',
 
     'faq.q2.question': '¿Qué servicios ofrecen y cómo pueden ayudar a mi negocio?',
     'faq.q2.answer': 'Ofrecemos una amplia gama de servicios para mejorar la visibilidad, relevancia y posicionamiento de tu negocio. Nuestros servicios incluyen posicionamiento SEO, campañas SEM, diseño y desarrollo web, estrategias de contenido, diseño gráfico, fotografía, videografía, animación y gestión de redes sociales.',
@@ -366,7 +366,12 @@ const translations = {
     'faq.q4.detail3': 'Los retrasos en feedback pueden afectar tiempos',
     'faq.q4.detail4': 'Proporcionamos cronograma detallado antes de iniciar',
 
-
+    'faq.q5.question': '¿Cómo manejan las modificaciones y los cambios en el alcance del proyecto?',
+    'faq.q5.answer': 'Ofrecemos hasta dos modificaciones incluidas en el proyecto inicial. Si se necesitan más cambios, se aplicará una tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos, formalizándose en una enmienda al contrato.',
+    'faq.q5.detail1': 'Máximo dos modificaciones incluidas',
+    'faq.q5.detail2': 'Cambios adicionales con tarifa preferencial',
+    'faq.q5.detail3': 'Reevaluación de tiempo y costos para cambios de alcance',
+    'faq.q5.detail4': 'Comunicación transparente sobre impactos en el proyecto',
 
     'faq.q6.question': '¿Es necesario que mi empresa esté presente en redes sociales?',
     'faq.q6.answer': 'Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.',
@@ -835,13 +840,13 @@ const translations = {
 
     // FAQ Questions and Answers
     'faq.q1.question': 'How much does the service/project cost or what budget is needed?',
-    'faq.q1.answer': 'Every project is unique with specific needs. That\'s why we create personalized proposals that perfectly adapt to your budget and objectives. The quote is completely free and without commitment! Contact us to receive a detailed proposal in less than 24 hours.',
-    'faq.q1.detail1': '✨ 100% free and personalized quote',
-    'faq.q1.detail2': '🚀 Proposal ready in less than 24 hours',
-    'faq.q1.detail3': '💡 Strategy adapted to your budget',
-    'faq.q1.detail4': '🎯 No commitment or hidden costs',
-    'faq.q1.detail5': '📊 Detailed analysis of your project',
-    'faq.q1.detail6': '🤝 Initial consultation completely free',
+    'faq.q1.answer': 'Costs can vary enormously, from 0 to infinity, depending on objectives and resources, as well as the project phase and brand exposure. Factors such as industry, competition, geographic location, scope and project objectives, agency reputation and experience, and service customization influence pricing.',
+    'faq.q1.detail1': 'PPC Advertising: $85,000-$580,000 DOP/month',
+    'faq.q1.detail2': 'SEO: $58,000-$435,000 DOP/month',
+    'faq.q1.detail3': 'Social media marketing: $58,000-$203,000 DOP/month',
+    'faq.q1.detail4': 'Content marketing: $1,800-$12,000/month',
+    'faq.q1.detail5': 'Email marketing: $1,500-$7,500/month',
+    'faq.q1.detail6': 'Corporate videos: $65,000-$325,000 DOP',
 
     'faq.q2.question': 'What services do you offer and how can they help my business?',
     'faq.q2.answer': 'We offer a wide range of services to improve your business\'s visibility, relevance and positioning. Our services include SEO positioning, SEM campaigns, web design and development, content strategies, graphic design, photography, videography, animation and social media management.',
@@ -868,7 +873,12 @@ const translations = {
     'faq.q4.detail3': 'Feedback delays may affect timelines',
     'faq.q4.detail4': 'We provide detailed timeline before starting',
 
-
+    'faq.q5.question': 'How do you handle modifications and changes in project scope?',
+    'faq.q5.answer': 'We offer up to two modifications included in the initial project. If more changes are needed, a preferential rate will apply. Scope increases are re-evaluated in time and costs, formalized in a contract amendment.',
+    'faq.q5.detail1': 'Maximum two modifications included',
+    'faq.q5.detail2': 'Additional changes with preferential rate',
+    'faq.q5.detail3': 'Re-evaluation of time and costs for scope changes',
+    'faq.q5.detail4': 'Transparent communication about project impacts',
 
     'faq.q6.question': 'Is it necessary for my company to be present on social media?',
     'faq.q6.answer': 'Yes, it is practically essential to be present on social media, regardless of company size. Social media allows getting new customers, demonstrating modernity and offering multiple contact channels.',
