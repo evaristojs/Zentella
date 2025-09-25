@@ -188,10 +188,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                       layoutId="active-nav-badge"
                       transition={{
                         type: 'spring',
-                        stiffness: 400,
-                        damping: 30,
-                        mass: 0.8,
-                        bounce: 0.3
+                        stiffness: 150,
+                        damping: 20,
+                        mass: 1.2,
+                        bounce: 0.6
                       }}
                       style={{
                         borderRadius: 9999,
@@ -367,10 +367,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                               layoutId="active-mobile-badge"
                               transition={{
                                 type: 'spring',
-                                stiffness: 400,
-                                damping: 30,
-                                mass: 0.8,
-                                bounce: 0.3
+                                stiffness: 150,
+                                damping: 20,
+                                mass: 1.2,
+                                bounce: 0.6
                               }}
                               style={{
                                 borderRadius: 12,
