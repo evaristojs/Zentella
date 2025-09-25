@@ -90,7 +90,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.button
-              className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-opacity-50 rounded-lg p-1 cursor-pointer"
+              className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none rounded-lg p-1 cursor-pointer"
               whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
