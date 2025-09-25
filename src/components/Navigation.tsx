@@ -3,7 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -17,89 +17,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
   const navRef = useRef<HTMLElement>(null)
-  const [focusedIndex, setFocusedIndex] = useState(-1)
-  const menuItemsRef = useRef<HTMLButtonElement[]>([])
 
-  // Navigation items with accessibility
-  const navigationItems = [
-    { id: 'about', label: t('nav.nosotros'), ariaLabel: 'Ir a la sección Nosotros' },
-    { id: 'services', label: t('nav.servicios'), ariaLabel: 'Ir a la sección Servicios' },
-    { id: 'portfolio', label: t('nav.portafolio'), ariaLabel: 'Ir a la sección Portafolio' },
-    { id: 'contact', label: t('nav.contacto'), ariaLabel: 'Ir a la sección Contacto' }
-  ]
-
-  // Smooth scroll to section with accessibility support
-  const scrollToSection = useCallback((sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      // Close mobile menu
-      setIsMenuOpen(false)
-
-      // Smooth scroll
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-
-      // Focus management for accessibility
-      setTimeout(() => {
-        element.focus({ preventScroll: true })
-      }, 500)
-
-      // Announce to screen readers
-      const announcement = document.createElement('div')
-      announcement.setAttribute('aria-live', 'polite')
-      announcement.setAttribute('aria-atomic', 'true')
-      announcement.className = 'sr-only'
-      announcement.textContent = `Navegando a sección ${sectionId}`
-      document.body.appendChild(announcement)
-      setTimeout(() => document.body.removeChild(announcement), 1000)
-    }
-  }, [setIsMenuOpen])
-
-  // Keyboard navigation for menu items
-  const handleKeyDown = useCallback((event: KeyboardEvent, index: number) => {
-    switch (event.key) {
-      case 'ArrowDown':
-      case 'ArrowRight':
-        event.preventDefault()
-        const nextIndex = index + 1 < navigationItems.length ? index + 1 : 0
-        setFocusedIndex(nextIndex)
-        menuItemsRef.current[nextIndex]?.focus()
-        break
-
-      case 'ArrowUp':
-      case 'ArrowLeft':
-        event.preventDefault()
-        const prevIndex = index - 1 >= 0 ? index - 1 : navigationItems.length - 1
-        setFocusedIndex(prevIndex)
-        menuItemsRef.current[prevIndex]?.focus()
-        break
-
-      case 'Home':
-        event.preventDefault()
-        setFocusedIndex(0)
-        menuItemsRef.current[0]?.focus()
-        break
-
-      case 'End':
-        event.preventDefault()
-        const lastIndex = navigationItems.length - 1
-        setFocusedIndex(lastIndex)
-        menuItemsRef.current[lastIndex]?.focus()
-        break
-
-      case 'Enter':
-      case ' ':
-        event.preventDefault()
-        scrollToSection(navigationItems[index].id)
-        break
-
-      case 'Escape':
-        setIsMenuOpen(false)
-        break
-    }
-  }, [navigationItems, scrollToSection, setIsMenuOpen])
+  
 
   // Dynamic navbar height tracking
   useEffect(() => {
@@ -328,7 +247,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.a>
             </div>
 
-            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 mr-2">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 lg:space-x-2.5 mr-2">
               <motion.button
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
@@ -359,11 +278,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                     style={{ transformOrigin: 'center center' }}
                   >
                     {isDark ? (
-                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                       </svg>
                     ) : (
-                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                       </svg>
                     )}
@@ -371,7 +290,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <div className="md:hidden flex items-center space-x-1.5 mr-6">
+              <div className="md:hidden flex items-center space-x-1 mr-6">
                 <motion.button
                   onClick={toggleLanguage}
                   className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
@@ -385,7 +304,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </motion.button>
 
                 <motion.button
-                  className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
+                  className="p-2 sm:p-2.5 rounded-full transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                   onClick={toggleMenu}
                   aria-label={t('nav.abrir_menu')}
                   whileHover={{ scale: 1.05 }}
@@ -402,11 +321,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                       style={{ transformOrigin: 'center center' }}
                     >
                       {isMenuOpen ? (
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       ) : (
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                       )}

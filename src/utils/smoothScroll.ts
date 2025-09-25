@@ -82,7 +82,7 @@ export const smoothScrollToElement = (
         // Animation complete
         if (process.env.NODE_ENV === 'development') {
           const totalTime = performance.now() - startTime
-          console.log(`Custom scroll: ${totalTime.toFixed(2)}ms, ${frameCount} frames, ${(frameCount / (totalTime/1000)).toFixed(1)} FPS`)
+          // Custom scroll performance metrics
         }
 
         // Restore CSS scroll-behavior
@@ -103,7 +103,7 @@ export const smoothScrollToElement = (
 
     if (process.env.NODE_ENV === 'development') {
       const totalTime = performance.now() - startTime
-      console.log(`Native scroll initiated: ${totalTime.toFixed(2)}ms`)
+      // Native scroll performance metrics
     }
 
     // For native scroll, we can't detect completion easily, so use timeout

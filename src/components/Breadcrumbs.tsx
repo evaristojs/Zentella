@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { useLanguage } from '../contexts/LanguageContext'
 
 interface BreadcrumbItem {
   label: string
@@ -14,7 +13,6 @@ interface BreadcrumbsProps {
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
-  const { language } = useLanguage()
 
   const containerVariants = {
     initial: { opacity: 0, y: -10 },

@@ -825,11 +825,11 @@ const Portfolio = () => {
         title: t('portfolio.chavalines.titulo'),
         category: 'animation',
         description: t('portfolio.chavalines.descripcion'),
-        image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.webp',
+        image: '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
         images: [
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.webp',
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.webp',
-          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.webp'
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-logo-entrada.gif',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-3d-visual-logo.gif',
+          '/images/portfolio/animation/chavalines-rp/chavalines-rp-banner-conectando-green.gif'
         ],
         client: t('portfolio.chavalines.cliente'),
         year: 2024,
@@ -1099,7 +1099,7 @@ const Portfolio = () => {
   // Analytics tracking
   const trackPortfolioView = useCallback((itemId: number) => {
     // Here you would implement your analytics tracking
-    console.log(`Portfolio item ${itemId} viewed (previous: ${lastViewedItem})`)
+    // Portfolio item tracking
     dispatch({ type: 'SET_LAST_VIEWED', payload: itemId })
     setLastViewedItem(itemId)
   }, [lastViewedItem, setLastViewedItem])
@@ -1129,7 +1129,7 @@ const Portfolio = () => {
 
     try {
       document.execCommand('copy')
-      console.log('Enlace copiado al portapapeles')
+      // Link copied to clipboard
     } catch (err) {
       console.error('Error copying to clipboard:', err)
     }
@@ -1143,7 +1143,7 @@ const Portfolio = () => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareText).then(() => {
         // Could show a toast notification here
-        console.log('Enlace copiado al portapapeles')
+        // Link copied to clipboard
       }).catch(() => {
         // Fallback to creating a temporary textarea
         createTextAreaFallback(shareText)
@@ -1165,7 +1165,7 @@ const Portfolio = () => {
       try {
         await navigator.share(shareData)
       } catch (error) {
-        console.log('Error sharing:', error)
+        // Error sharing
         // Fallback to clipboard
         fallbackShare(shareData)
       }
@@ -1229,7 +1229,7 @@ const Portfolio = () => {
       className="min-h-screen pt-16 pb-16 md:pt-20 md:pb-20 text-text-primary-light dark:text-text-primary-dark relative overflow-hidden"
       ref={elementRef}
       style={{
-        background: isDark
+        backgroundImage: isDark
           ? `
             radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%),
             repeating-conic-gradient(from 30deg at 50% 50%, transparent 0deg, rgba(103, 0, 248, 0.05) 60deg, transparent 120deg),
