@@ -6,7 +6,7 @@ interface SectionScrollOptions {
 
 export const useSectionScroll = (options: SectionScrollOptions = {}) => {
   const {
-    rootMargin = '0px 0px -25% 0px' // Default root margin
+    rootMargin = '0px 0px -40% 0px' // Default root margin
   } = options;
 
   const [currentSection, setCurrentSection] = useState<string>('hero');
@@ -36,7 +36,7 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
         const newSection = mostVisible.target.id;
 
         // Add hysteresis: require a minimum intersection ratio to switch
-        const minRatioToSwitch = 0.3;
+        const minRatioToSwitch = 0.1;
         const isSignificantChange = mostVisible.intersectionRatio >= minRatioToSwitch;
 
         // Only change if:
