@@ -442,11 +442,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Domingos',
     'contact.ubicacion.cerrado': 'Cerrado',
     'contact.ubicacion.telefono': 'Teléfono',
-    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hola@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
 
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
@@ -951,11 +951,11 @@ const translations = {
     'contact.ubicacion.domingos': 'Sundays',
     'contact.ubicacion.cerrado': 'Closed',
     'contact.ubicacion.telefono': 'Phone',
-    'contact.ubicacion.numero_telefono': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hello@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 555-0123',
+    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',
