@@ -149,7 +149,7 @@ class ImageCache {
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
-  alt,
+  alt = '', // Default to empty alt to prevent text flash
   className = '',
   loading = 'lazy',
   width,
@@ -175,6 +175,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   // Reset states when src changes
   useEffect(() => {
     setIsLoaded(false)
+    setHasError(false) // Also reset error state
     setShowSkeleton(false)
     setImageStartedLoading(false)
     loadStartTimeRef.current = 0
@@ -214,15 +215,17 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setImageStartedLoading(true)
     loadStartTimeRef.current = Date.now()
 
-    // Solo mostrar skeleton si la imagen tarda más de 200ms en cargar
+    // Solo mostrar skeleton si la imagen tarda más de un tiempo específico
     if (placeholder === 'skeleton') {
-      // Use priority for future skeleton timing optimizations
-      const delay = priority ? 150 : 200 // Priority images get slightly faster skeleton
+      // Reduced delay for mobile and priority images
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      let delay = priority ? 100 : (isMobile ? 120 : 200)
+
       skeletonTimeoutRef.current = setTimeout(() => {
-        if (!isLoaded && imageStartedLoading) {
+        if (!isLoaded && imageStartedLoading && !hasError) {
           setShowSkeleton(true)
         }
-      }, delay) // Delay más inteligente: solo si realmente tarda
+      }, delay) // Delay más inteligente: más rápido en móvil
     }
 
   }, [src, placeholder, priority])
@@ -272,10 +275,13 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   if (hasError) {
     return (
       <div
-        className={`bg-gray-200 dark:bg-gray-700 flex items-center justify-center ${className}`}
-        style={style}
+        className={`bg-gray-100 dark:bg-gray-800 ${className}`}
+        style={{
+          ...style,
+          minHeight: height || '200px',
+        }}
       >
-        <span className="text-gray-500 text-sm">Error cargando imagen</span>
+        {/* Silent error - no visible text to prevent flash */}
       </div>
     )
   }
@@ -295,11 +301,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   return (
     <img
       src={imageSrc}
-      alt={alt}
-      className={className}
+      alt={alt} // Always empty by default to prevent text flash
+      className={`${className} transition-opacity duration-200 ${!isLoaded && !hasError ? 'opacity-0' : 'opacity-100'}`}
       loading={loading}
       width={width}
       height={height}
+      draggable={false} // Prevent dragging which can cause visual glitches
       style={{
         ...style,
         ...((!isLoaded && placeholder !== 'skeleton') && {
