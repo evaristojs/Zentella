@@ -111,18 +111,15 @@ export const smoothScrollToElement = (
 }
 
 /**
- * Get the current navbar height from CSS custom property
- * @param fallback Fallback height if CSS property is not available
- * @returns Navbar height in pixels
+ * Get the current navbar height using CSS media queries
+ * @returns Navbar height in pixels based on viewport width
  */
-export const getNavbarHeight = (fallback: number = 80): number => {
-  try {
-    const cssHeight = getComputedStyle(document.documentElement)
-      .getPropertyValue('--nav-height')
-    return parseInt(cssHeight) || fallback
-  } catch {
-    return fallback
+export const getNavbarHeight = (): number => {
+  // Use CSS media query to determine navbar height
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    return 64 // Mobile navbar height
   }
+  return 80 // Desktop navbar height
 }
 
 /**

@@ -7,7 +7,6 @@ import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import SkipLinks from './components/SkipLinks'
 import { useSectionScroll } from './hooks/useSectionScroll'
-import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
 
 // Lazy load heavy components
@@ -36,8 +35,6 @@ function App() {
     rootMargin: '0px 0px -30% 0px'
   })
 
-  // Initialize dynamic navbar height tracking
-  useNavbarHeight('navbar')
 
   return (
     <ErrorBoundary>

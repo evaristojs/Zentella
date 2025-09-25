@@ -20,7 +20,7 @@ html {
 }
 
 :root {
-  --nav-height: 80px; /* Se actualiza dinámicamente con JS */
+  --nav-height: 80px; /* Fixed navbar height for desktop */
 }
 
 body {
@@ -34,10 +34,10 @@ body {
   touch-action: manipulation;
 }
 
-/* Actualizar altura navbar en móvil */
+/* Fixed navbar height for mobile */
 @media (max-width: 768px) {
   :root {
-    --nav-height: 64px; /* Navbar más pequeño en móvil */
+    --nav-height: 64px; /* Fixed navbar height for mobile */
   }
 }
 

@@ -3,7 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -17,29 +17,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
   const navRef = useRef<HTMLElement>(null)
-
-  
-
-  // Dynamic navbar height tracking
-  useEffect(() => {
-    if (!navRef.current) return undefined
-
-    const updateNavHeight = () => {
-      if (navRef.current) {
-        const height = navRef.current.getBoundingClientRect().height
-        document.documentElement.style.setProperty('--nav-height', `${height}px`)
-      }
-    }
-
-    // Set initial height
-    updateNavHeight()
-
-    // Use ResizeObserver for accurate height tracking
-    const resizeObserver = new ResizeObserver(updateNavHeight)
-    resizeObserver.observe(navRef.current)
-
-    return () => resizeObserver.disconnect()
-  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
