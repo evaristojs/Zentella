@@ -1595,32 +1595,17 @@ const Portfolio = () => {
                           <motion.div
                             key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
                             initial={{
-                              opacity: 0,
-                              scale: 1.02,
-                              x: state.imageDirection === 'next' ? 15 :
-                                 state.imageDirection === 'prev' ? -15 : 0,
-                              filter: 'blur(4px)'
+                              opacity: 0
                             }}
                             animate={{
-                              opacity: 1,
-                              scale: 1,
-                              x: 0,
-                              filter: 'blur(0px)'
+                              opacity: 1
                             }}
                             exit={{
-                              opacity: 0,
-                              scale: 0.98,
-                              x: state.imageDirection === 'next' ? -15 :
-                                 state.imageDirection === 'prev' ? 15 : 0,
-                              filter: 'blur(2px)'
+                              opacity: 0
                             }}
                             transition={{
-                              duration: 0.4,
-                              ease: [0.25, 0.46, 0.45, 0.94], // Smooth easing curve
-                              opacity: { duration: 0.25 },
-                              scale: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-                              x: { duration: 0.35, ease: [0.4, 0, 0.2, 1] },
-                              filter: { duration: 0.3 }
+                              duration: 0.2,
+                              ease: "easeInOut"
                             }}
                             className="absolute inset-0"
                           >
