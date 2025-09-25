@@ -3,7 +3,6 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useRef } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -16,7 +15,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
   const { isScrolled } = useNavbarScroll(20)
   const { currentLanguage, setLanguage, t } = useLanguage()
-  const navRef = useRef<HTMLElement>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -64,16 +62,18 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
   return (
     <>
-      <nav
-        ref={navRef}
+      <motion.nav
         id="navbar"
         className={getNavbarClasses()}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="max-w-full mx-auto px-2 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
             
             <motion.button
-              className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none rounded-lg p-1 cursor-pointer"
+              className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none focus:ring-2 focus:ring-color-primary focus:ring-opacity-50 rounded-lg p-1 cursor-pointer"
               whileHover={{
                 scale: 1.05,
                 filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
@@ -172,7 +172,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-3 lg:px-4 py-2 text-xs md:text-sm lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
+                  className={`relative px-3 lg:px-4 py-2 text-xs lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
                     isActive ? 'text-color-primary dark:text-white' : 'text-text-secondary-light dark:text-text-secondary-dark'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
@@ -188,10 +188,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                       layoutId="active-nav-badge"
                       transition={{
                         type: 'spring',
-                        stiffness: 150,
-                        damping: 20,
-                        mass: 1.2,
-                        bounce: 0.6
+                        stiffness: 400,
+                        damping: 30,
+                        mass: 0.8,
+                        bounce: 0.3
                       }}
                       style={{
                         borderRadius: 9999,
@@ -209,9 +209,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               <motion.a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs md:text-sm lg:text-base font-bold rounded-lg lg:rounded-xl transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl ${
+                className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
                   currentSection === 'contact'
-                    ? 'bg-gradient-to-r from-color-accent to-purple-600 text-white ring-2 ring-color-accent/30'
+                    ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
                     : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
                 }`}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -224,7 +224,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               </motion.a>
             </div>
 
-            <div className="flex items-center space-x-1.5 sm:space-x-2 lg:space-x-2.5 mr-2">
+            <div className="flex items-center space-x-2 sm:space-x-3 lg:space-x-4 mr-2">
               <motion.button
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
@@ -251,15 +251,13 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                     exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
                     transition={{ duration: 0.25 }}
-                    className="flex items-center justify-center"
-                    style={{ transformOrigin: 'center center' }}
                   >
                     {isDark ? (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                       </svg>
                     ) : (
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                      <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                       </svg>
                     )}
@@ -267,7 +265,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <div className="md:hidden flex items-center space-x-1 mr-6">
+              <div className="md:hidden flex items-center space-x-1.5 mr-6">
                 <motion.button
                   onClick={toggleLanguage}
                   className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
@@ -281,7 +279,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </motion.button>
 
                 <motion.button
-                  className="p-2 sm:p-2.5 rounded-full transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
+                  className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                   onClick={toggleMenu}
                   aria-label={t('nav.abrir_menu')}
                   whileHover={{ scale: 1.05 }}
@@ -294,15 +292,13 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                       animate={{ opacity: 1, rotate: 0 }}
                       exit={{ opacity: 0, rotate: 90 }}
                       transition={{ duration: 0.2 }}
-                      className="flex items-center justify-center w-full h-full"
-                      style={{ transformOrigin: 'center center' }}
                     >
                       {isMenuOpen ? (
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       ) : (
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ display: 'block' }}>
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                       )}
@@ -313,7 +309,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       <AnimatePresence>
         {isMenuOpen && (
@@ -371,10 +367,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                               layoutId="active-mobile-badge"
                               transition={{
                                 type: 'spring',
-                                stiffness: 150,
-                                damping: 20,
-                                mass: 1.2,
-                                bounce: 0.6
+                                stiffness: 400,
+                                damping: 30,
+                                mass: 0.8,
+                                bounce: 0.3
                               }}
                               style={{
                                 borderRadius: 12,

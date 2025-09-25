@@ -21,7 +21,7 @@ type ScrollCallback = (state: ScrollState) => void
 
 // Global state management for ultra-efficient scroll detection
 class UltraScrollManager {
-  private static instance: UltraScrollManager | null = null
+  private static instance: UltraScrollManager
   private listeners = new Set<ScrollCallback>()
   private rafId: number | null = null
   private lastScrollY = 0
@@ -94,7 +94,7 @@ class UltraScrollManager {
 
     const heroBottom = this.heroElement.offsetTop + this.heroElement.offsetHeight
     const scrollPosition = scrollY + heroOffset
-    
+
     if (scrollPosition < heroBottom) {
       return { currentSection: 'hero', isInHero: true }
     }
@@ -105,7 +105,7 @@ class UltraScrollManager {
       if (element) {
         const sectionTop = element.offsetTop
         const sectionBottom = sectionTop + element.offsetHeight
-        
+
         if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
           return { currentSection: sectionId, isInHero: false }
         }
@@ -118,14 +118,14 @@ class UltraScrollManager {
   private handleScroll = (): void => {
     const now = performance.now()
     const currentScrollY = this.getScrollY()
-    
+
     // Calculate velocity and direction
     const deltaY = currentScrollY - this.lastScrollY
     const deltaTime = now - this.lastTime
-    
+
     if (deltaTime > 0) {
       this.velocity = Math.abs(deltaY / deltaTime)
-      
+
       if (Math.abs(deltaY) > 1) { // Minimum threshold to avoid micro-movements
         this.direction = deltaY > 0 ? 'down' : 'up'
       } else if (this.velocity < 0.1) {
@@ -139,7 +139,7 @@ class UltraScrollManager {
     // Notify all listeners
     this.listeners.forEach(callback => {
       const sectionInfo = this.getCurrentSection(currentScrollY, this.navbarHeight)
-      
+
       const state: ScrollState = {
         scrollY: currentScrollY,
         isScrolled: currentScrollY > 20,
@@ -148,7 +148,7 @@ class UltraScrollManager {
         isInHero: sectionInfo.isInHero,
         currentSection: sectionInfo.currentSection
       }
-      
+
       callback(state)
     })
 
@@ -213,17 +213,18 @@ class UltraScrollManager {
 
   private stopListening(): void {
     if (!this.isActive) return
-    
+
     this.isActive = false
     const target = this.scrollContainer || window
-    
+
     target.removeEventListener('scroll', this.scheduleUpdate)
-    
+
     if (this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
-    
+
+
     // Clean up cached elements to prevent memory leaks
     this.heroElement = null
     this.sections.clear()
@@ -251,7 +252,7 @@ class UltraScrollManager {
     if (UltraScrollManager.instance) {
       UltraScrollManager.instance.stopListening()
       UltraScrollManager.instance.listeners.clear()
-      UltraScrollManager.instance = null
+      UltraScrollManager.instance = null as any
     }
   }
 }

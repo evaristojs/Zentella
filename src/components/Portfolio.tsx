@@ -1164,7 +1164,7 @@ const Portfolio = () => {
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       try {
         await navigator.share(shareData)
-      } catch (error) {
+      } catch {
         // Error sharing
         // Fallback to clipboard
         fallbackShare(shareData)
