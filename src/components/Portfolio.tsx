@@ -314,9 +314,9 @@ const useFullscreenTouchGestures = (dispatch: React.Dispatch<PortfolioAction>) =
         const isRightSwipe = distanceX < -minSwipeDistance
 
         if (isLeftSwipe) {
-          nextImage()
+          dispatch({ type: 'NEXT_IMAGE' })
         } else if (isRightSwipe) {
-          prevImage()
+          dispatch({ type: 'PREV_IMAGE' })
         }
       }
 
@@ -410,54 +410,11 @@ const Portfolio = () => {
     { id: 'animation', name: t('portfolio.animacion') },
   ]
 
-  // Image preloading and transition states
-  const [imageLoadingStates, setImageLoadingStates] = useState<Record<string, boolean>>({})
-  const [preloadedImages, setPreloadedImages] = useState<Set<string>>(new Set())
-  const [currentDisplayImage, setCurrentDisplayImage] = useState<string>('')
-
   // Get current image with useMemo for proper dependency tracking
   const currentImageSrc = useMemo(() => {
     if (!state.selectedItem) return ''
     return state.selectedItem.images[state.currentImageIndex] || state.selectedItem.images[0] || state.selectedItem.image
   }, [state.selectedItem, state.currentImageIndex])
-
-  // Preload images when modal opens
-  useEffect(() => {
-    if (state.selectedItem && state.isModalOpen) {
-      const imagesToPreload = state.selectedItem.images || []
-
-      imagesToPreload.forEach((imageSrc, index) => {
-        if (!preloadedImages.has(imageSrc)) {
-          const img = new Image()
-
-          setImageLoadingStates(prev => ({ ...prev, [imageSrc]: true }))
-
-          img.onload = () => {
-            setPreloadedImages(prev => new Set([...prev, imageSrc]))
-            setImageLoadingStates(prev => ({ ...prev, [imageSrc]: false }))
-          }
-
-          img.onerror = () => {
-            setImageLoadingStates(prev => ({ ...prev, [imageSrc]: false }))
-          }
-
-          img.src = imageSrc
-        }
-      })
-    }
-  }, [state.selectedItem, state.isModalOpen, preloadedImages])
-
-  // Update display image only when new image is ready
-  useEffect(() => {
-    if (currentImageSrc) {
-      if (preloadedImages.has(currentImageSrc)) {
-        setCurrentDisplayImage(currentImageSrc)
-      } else if (!currentDisplayImage) {
-        // If no image is displayed yet, show current even if not preloaded
-        setCurrentDisplayImage(currentImageSrc)
-      }
-    }
-  }, [currentImageSrc, preloadedImages, currentDisplayImage])
 
   // Advanced filtering and sorting
   const filteredAndSortedItems = useMemo(() => {
@@ -587,12 +544,12 @@ const Portfolio = () => {
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
       if (state.isModalOpen && state.selectedItem) {
-        nextImage()
+        dispatch({ type: 'NEXT_IMAGE' })
       }
     },
     onSwipedRight: () => {
       if (state.isModalOpen && state.selectedItem) {
-        prevImage()
+        dispatch({ type: 'PREV_IMAGE' })
       }
     }
   })
@@ -1026,11 +983,11 @@ const Portfolio = () => {
     let interval: NodeJS.Timeout
     if (state.slideshowActive && state.selectedItem) {
       interval = setInterval(() => {
-        nextImage()
+        dispatch({ type: 'NEXT_IMAGE' })
       }, 3000)
     }
     return () => clearInterval(interval)
-  }, [state.slideshowActive, state.selectedItem, nextImage])
+  }, [state.slideshowActive, state.selectedItem])
 
   // Advanced keyboard navigation
   useEffect(() => {
@@ -1045,11 +1002,11 @@ const Portfolio = () => {
         switch (event.key) {
           case 'ArrowLeft':
             event.preventDefault()
-            prevImage()
+            dispatch({ type: 'PREV_IMAGE' })
             break
           case 'ArrowRight':
             event.preventDefault()
-            nextImage()
+            dispatch({ type: 'NEXT_IMAGE' })
             break
           case 'Home':
             event.preventDefault()
@@ -1072,11 +1029,11 @@ const Portfolio = () => {
         switch (event.key) {
           case 'ArrowLeft':
             event.preventDefault()
-            prevImage()
+            dispatch({ type: 'PREV_IMAGE' })
             break
           case 'ArrowRight':
             event.preventDefault()
-            nextImage()
+            dispatch({ type: 'NEXT_IMAGE' })
             break
           case 'Home':
             event.preventDefault()
@@ -1110,7 +1067,7 @@ const Portfolio = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [state.isModalOpen, state.isFullscreenOpen, state.currentImageIndex, state.selectedItem, currentImageSrc, state.zoomLevel, nextImage, prevImage])
+  }, [state.isModalOpen, state.isFullscreenOpen, state.currentImageIndex, state.selectedItem, currentImageSrc, state.zoomLevel])
 
   // Body scroll management
   useEffect(() => {
@@ -1229,11 +1186,6 @@ const Portfolio = () => {
   const closeModal = () => {
     dispatch({ type: 'CLOSE_MODAL' })
     document.body.classList.remove('modal-open')
-
-    // Reset image states when closing modal
-    setCurrentDisplayImage('')
-    setImageLoadingStates({})
-    // Keep preloadedImages for performance, but could clear if needed
   }
 
   const openFullscreen = (imageUrl: string) => {
@@ -1268,46 +1220,8 @@ const Portfolio = () => {
   }
 
   const selectImage = (index: number) => {
-    if (!state.selectedItem) return
-
-    const targetImage = state.selectedItem.images[index]
-
-    // Always dispatch for immediate UI feedback (e.g., thumbnail highlighting)
     dispatch({ type: 'SELECT_IMAGE', payload: index })
-
-    // If image is not preloaded, start preloading
-    if (!preloadedImages.has(targetImage)) {
-      const img = new Image()
-      setImageLoadingStates(prev => ({ ...prev, [targetImage]: true }))
-
-      img.onload = () => {
-        setPreloadedImages(prev => new Set([...prev, targetImage]))
-        setImageLoadingStates(prev => ({ ...prev, [targetImage]: false }))
-      }
-
-      img.onerror = () => {
-        setImageLoadingStates(prev => ({ ...prev, [targetImage]: false }))
-      }
-
-      img.src = targetImage
-    }
   }
-
-  const nextImage = useCallback(() => {
-    if (!state.selectedItem) return
-    const nextIndex = state.currentImageIndex < state.selectedItem.images.length - 1
-      ? state.currentImageIndex + 1
-      : 0
-    selectImage(nextIndex)
-  }, [state.selectedItem, state.currentImageIndex])
-
-  const prevImage = useCallback(() => {
-    if (!state.selectedItem) return
-    const prevIndex = state.currentImageIndex > 0
-      ? state.currentImageIndex - 1
-      : state.selectedItem.images.length - 1
-    selectImage(prevIndex)
-  }, [state.selectedItem, state.currentImageIndex])
 
   return (
     <section
@@ -1678,25 +1592,19 @@ const Portfolio = () => {
                     ) : (
                       <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg aspect-[4/3] overflow-hidden">
                         <OptimizedImage
-                          key={`modal-image-${state.selectedItem.id}-${currentDisplayImage}`}
-                          src={currentDisplayImage}
+                          key={`modal-image-${state.selectedItem.id}-${state.currentImageIndex}`}
+                          src={currentImageSrc}
                           alt=""
-                          className="w-full h-full object-cover cursor-pointer absolute inset-0"
-                          onClick={() => openFullscreen(currentDisplayImage)}
+                          className="w-full h-full object-cover cursor-pointer absolute inset-0 transition-opacity duration-200"
+                          onClick={() => openFullscreen(currentImageSrc)}
                           loading="eager"
                           priority={true}
                           placeholder="none"
                           style={{
                             transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
-                            transition: 'transform 0.2s ease-out'
+                            transition: 'transform 0.2s ease-out, opacity 0.2s ease-out'
                           }}
                         />
-                        {/* Loading overlay when switching to unloaded image */}
-                        {currentImageSrc !== currentDisplayImage && imageLoadingStates[currentImageSrc] && (
-                          <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 flex items-center justify-center rounded-lg">
-                            <div className="w-8 h-8 border-2 border-color-primary/30 border-t-color-primary rounded-full animate-spin"></div>
-                          </div>
-                        )}
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <motion.div
                             className="bg-white/20 backdrop-blur-sm rounded-full p-3 cursor-pointer"
