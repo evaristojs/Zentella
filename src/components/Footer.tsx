@@ -46,10 +46,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer 
-      id="footer" 
-      className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark overflow-hidden"
-    >
+    <footer id="footer" className="bg-bg-secondary-light dark:bg-bg-secondary-dark">
       <div className="layout-container py-16">
         <div className="grid-mobile md:grid-tablet lg:grid-desktop-4 mb-12">
           <div className="lg:col-span-2">
@@ -86,7 +83,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="text-small">+1 (849) 517-0527</span>
+                <span className="text-small">+1 (809) 676-2429</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 text-color-primary">
@@ -140,11 +137,17 @@ const Footer = () => {
               {t('footer.suscribirse_desc')}
             </p>
             <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder={t('footer.email_placeholder')} 
+              <label htmlFor="footer-newsletter-email" className="sr-only">
+                {t('footer.email_placeholder')}
+              </label>
+              <input
+                id="footer-newsletter-email"
+                name="newsletter-email"
+                type="email"
+                placeholder={t('footer.email_placeholder')}
                 className="input-base flex-1"
-                required 
+                autoComplete="email"
+                required
               />
               <button 
                 type="submit"
@@ -193,22 +196,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      {/* Subtle animated background element */}
-      <motion.div 
-        className="absolute inset-0 -z-10"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-color-primary/5 via-transparent to-color-secondary/5 dark:from-color-primary/3 dark:to-color-secondary/3" />
-        <motion.div 
-          className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-color-primary/30 to-transparent"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
-        />
-      </motion.div>
 
       {/* Services Banner - Now at the end of footer */}
       <div className="w-full overflow-hidden relative bg-white dark:bg-bg-secondary-dark border-t border-gray-200 dark:border-gray-700 mb-8 md:mb-0" style={{ height: '200px' }}>

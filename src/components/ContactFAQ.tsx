@@ -41,6 +41,7 @@ const ContactFAQ = () => {
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [acceptedTerms, setAcceptedTerms] = useState(true)
 
   const faqData: FAQItem[] = [
     {
@@ -51,7 +52,9 @@ const ContactFAQ = () => {
         t('contact.faq.q1.detail1'),
         t('contact.faq.q1.detail2'),
         t('contact.faq.q1.detail3'),
-        t('contact.faq.q1.detail4')
+        t('contact.faq.q1.detail4'),
+        t('contact.faq.q1.detail5'),
+        t('contact.faq.q1.detail6')
       ]
     },
     {
@@ -63,7 +66,9 @@ const ContactFAQ = () => {
         t('contact.faq.q2.detail2'),
         t('contact.faq.q2.detail3'),
         t('contact.faq.q2.detail4'),
-        t('contact.faq.q2.detail5')
+        t('contact.faq.q2.detail5'),
+        t('contact.faq.q2.detail6'),
+        t('contact.faq.q2.detail7')
       ]
     },
     {
@@ -73,7 +78,9 @@ const ContactFAQ = () => {
       details: [
         t('contact.faq.q3.detail1'),
         t('contact.faq.q3.detail2'),
-        t('contact.faq.q3.detail3')
+        t('contact.faq.q3.detail3'),
+        t('contact.faq.q3.detail4'),
+        t('contact.faq.q3.detail5')
       ]
     },
     {
@@ -83,7 +90,32 @@ const ContactFAQ = () => {
       details: [
         t('contact.faq.q4.detail1'),
         t('contact.faq.q4.detail2'),
-        t('contact.faq.q4.detail3')
+        t('contact.faq.q4.detail3'),
+        t('contact.faq.q4.detail4')
+      ]
+    },
+    {
+      id: 5,
+      question: t('contact.faq.q6.question'),
+      answer: t('contact.faq.q6.answer'),
+      details: [
+        t('contact.faq.q6.detail1'),
+        t('contact.faq.q6.detail2'),
+        t('contact.faq.q6.detail3'),
+        t('contact.faq.q6.detail4'),
+        t('contact.faq.q6.detail5')
+      ]
+    },
+    {
+      id: 6,
+      question: t('contact.faq.q7.question'),
+      answer: t('contact.faq.q7.answer'),
+      details: [
+        t('contact.faq.q7.detail1'),
+        t('contact.faq.q7.detail2'),
+        t('contact.faq.q7.detail3'),
+        t('contact.faq.q7.detail4'),
+        t('contact.faq.q7.detail5')
       ]
     }
   ]
@@ -136,34 +168,9 @@ const ContactFAQ = () => {
     setIsSubmitting(true)
 
     try {
-      const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL
-
-      if (!webhookUrl) {
-        console.warn('N8N webhook URL not configured. Using fallback simulation.')
-        await new Promise(resolve => setTimeout(resolve, 2000))
-      } else {
-        // Send data to N8N webhook
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            service: formData.service,
-            budget: formData.budget,
-            message: formData.message,
-            timestamp: new Date().toISOString(),
-            source: 'zentella-contact-form'
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-      }
+      // Simular envío del formulario
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
       
       setSubmitSuccess(true)
       
@@ -180,9 +187,7 @@ const ContactFAQ = () => {
       setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      console.error('Error sending form data:', error)
-      // You could add error state here if needed
-      alert('Hubo un error al enviar el formulario. Por favor, intenta de nuevo.')
+      console.error('Form submission error:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -471,15 +476,17 @@ const ContactFAQ = () => {
               <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-name" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.nombre')}
                     </label>
                     <input
+                      id="contactfaq-name"
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t('placeholder.nombre')}
+                      autoComplete="name"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.name ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -488,15 +495,17 @@ const ContactFAQ = () => {
                   </div>
                 
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-email" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.email')}
                     </label>
                     <input
+                      id="contactfaq-email"
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t('placeholder.email')}
+                      autoComplete="email"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 ${
                         errors.email ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -506,28 +515,32 @@ const ContactFAQ = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                  <label htmlFor="contactfaq-phone" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                     {t('contact.telefono')}
                   </label>
                   <input
+                    id="contactfaq-phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder={t('placeholder.telefono')}
+                    autoComplete="tel"
                     className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50"
                   />
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-service" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.servicio')}
                     </label>
                     <select
+                      id="contactfaq-service"
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
+                      autoComplete="off"
                       className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer ${
                         errors.service ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                       }`}
@@ -543,13 +556,15 @@ const ContactFAQ = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                    <label htmlFor="contactfaq-budget" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                       {t('contact.presupuesto')}
                     </label>
                     <select
+                      id="contactfaq-budget"
                       name="budget"
                       value={formData.budget}
                       onChange={handleChange}
+                      autoComplete="off"
                       className="w-full px-4 py-4 bg-transparent border-b-2 border-white/30 dark:border-gray-600/30 focus:border-color-primary focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark appearance-none cursor-pointer"
                     >
                       <option value="" className="bg-bg-base-light dark:bg-bg-base-dark">{t('contact.seleccionar_rango')}</option>
@@ -563,13 +578,15 @@ const ContactFAQ = () => {
                 </div>
 
                 <div className="flex-1 flex flex-col">
-                  <label className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
+                  <label htmlFor="contactfaq-message" className="block text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-3 uppercase tracking-wider">
                     {t('contact.mensaje')}
                   </label>
                   <textarea
+                    id="contactfaq-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    autoComplete="off"
                     className={`w-full px-4 py-4 bg-transparent border-b-2 focus:outline-none transition-all duration-300 text-text-primary-light dark:text-text-primary-dark resize-none placeholder-text-secondary-light/50 dark:placeholder-text-secondary-dark/50 flex-1 ${
                       errors.message ? 'border-red-500' : 'border-white/30 dark:border-gray-600/30 focus:border-color-primary'
                     }`}
@@ -579,28 +596,45 @@ const ContactFAQ = () => {
                 </div>
 
                 <div className="flex items-start gap-3 py-4">
-                  <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-sm flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setAcceptedTerms(!acceptedTerms)}
+                    className={`flex items-center justify-center w-6 h-6 rounded-sm flex-shrink-0 mt-0.5 transition-all duration-300 ${
+                      acceptedTerms
+                        ? 'bg-gradient-to-r from-color-primary to-color-secondary'
+                        : 'border-2 border-text-secondary-light/30 dark:border-text-secondary-dark/30 bg-transparent hover:border-color-primary'
+                    }`}
+                  >
+                    {acceptedTerms && (
+                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </button>
                   <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
                     {t('contact.terminos')}
                   </p>
                 </div>
+                <div className="min-h-[24px] -mt-2 ml-9 mb-2">
+                  {!acceptedTerms && (
+                    <p className="text-xs text-red-500">
+                      {t('contact.terminos_requeridos')}
+                    </p>
+                  )}
+                </div>
 
                 <motion.button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !acceptedTerms}
                   className={`group relative overflow-hidden w-full px-8 py-4 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 touch-manipulation border flex items-center justify-center gap-2 ${
-                    isSubmitting 
-                      ? 'bg-gray-400 cursor-not-allowed opacity-70 border-gray-400/20' 
+                    isSubmitting || !acceptedTerms
+                      ? 'bg-gray-400 cursor-not-allowed opacity-70 border-gray-400/20'
                       : submitSuccess
                       ? 'bg-green-500 border-green-500/20'
                       : 'bg-gradient-to-r from-color-primary to-color-secondary border-color-primary/20'
                   }`}
-                  whileHover={!isSubmitting ? { scale: 1.03, y: -2 } : {}}
-                  whileTap={!isSubmitting ? { scale: 0.97 } : {}}
+                  whileHover={!isSubmitting && acceptedTerms ? { scale: 1.03, y: -2 } : {}}
+                  whileTap={!isSubmitting && acceptedTerms ? { scale: 0.97 } : {}}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     {isSubmitting ? (

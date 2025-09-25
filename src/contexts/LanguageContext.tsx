@@ -311,6 +311,7 @@ const translations = {
     'error.email_invalido': 'Email inválido',
     'error.servicio_requerido': 'Selecciona un servicio',
     'error.mensaje_requerido': 'El mensaje es requerido',
+    'contact.terminos_requeridos': 'Debes aceptar los términos y condiciones',
 
     // Loading Screen
     'loading.bienvenido': 'Bienvenido a',
@@ -365,12 +366,7 @@ const translations = {
     'faq.q4.detail3': 'Los retrasos en feedback pueden afectar tiempos',
     'faq.q4.detail4': 'Proporcionamos cronograma detallado antes de iniciar',
 
-    'faq.q5.question': '¿Cómo manejan las modificaciones y los cambios en el alcance del proyecto?',
-    'faq.q5.answer': 'Ofrecemos hasta dos modificaciones incluidas en el proyecto inicial. Si se necesitan más cambios, se aplicará una tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos, formalizándose en una enmienda al contrato.',
-    'faq.q5.detail1': 'Máximo dos modificaciones incluidas',
-    'faq.q5.detail2': 'Cambios adicionales con tarifa preferencial',
-    'faq.q5.detail3': 'Reevaluación de tiempo y costos para cambios de alcance',
-    'faq.q5.detail4': 'Comunicación transparente sobre impactos en el proyecto',
+
 
     'faq.q6.question': '¿Es necesario que mi empresa esté presente en redes sociales?',
     'faq.q6.answer': 'Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.',
@@ -415,6 +411,22 @@ const translations = {
     'contact.faq.q4.detail1': 'Máximo dos modificaciones incluidas',
     'contact.faq.q4.detail2': 'Cambios adicionales con tarifa preferencial',
     'contact.faq.q4.detail3': 'Comunicación transparente sobre impactos',
+
+    'contact.faq.q6.question': '¿Es necesario que mi empresa esté presente en redes sociales?',
+    'contact.faq.q6.answer': 'Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.',
+    'contact.faq.q6.detail1': 'Conseguir nuevos clientes y leads',
+    'contact.faq.q6.detail2': 'Demostrar modernidad y relevancia',
+    'contact.faq.q6.detail3': 'Múltiples canales de contacto',
+    'contact.faq.q6.detail4': 'Interacción bidireccional con audiencia',
+    'contact.faq.q6.detail5': 'Ventaja competitiva en el mercado',
+
+    'contact.faq.q7.question': '¿Cómo es el proceso de colaboración y comunicación durante el proyecto?',
+    'contact.faq.q7.answer': 'El proceso se construye mediante el aporte constante de ambas partes: tu visión de negocio y nuestra experiencia en diseño, comunicación y tecnología. Comenzamos con una consultoría inicial y mantenemos comunicación regular durante todo el proyecto.',
+    'contact.faq.q7.detail1': 'Consultoría inicial para definir objetivos',
+    'contact.faq.q7.detail2': 'Seguimiento constante con informes regulares',
+    'contact.faq.q7.detail3': 'Comunicación clara y transparente',
+    'contact.faq.q7.detail4': 'Colaboración estrecha cliente-agencia',
+    'contact.faq.q7.detail5': 'Adaptación de estrategias según necesidades',
 
     // Ubicación y contacto
     'contact.ubicacion.direccion_titulo': 'Nuestra Oficina',
@@ -801,6 +813,7 @@ const translations = {
     'error.email_invalido': 'Invalid email',
     'error.servicio_requerido': 'Select a service',
     'error.mensaje_requerido': 'Message is required',
+    'contact.terminos_requeridos': 'You must accept the terms and conditions',
 
     // Loading Screen
     'loading.bienvenido': 'Welcome to',
@@ -855,12 +868,7 @@ const translations = {
     'faq.q4.detail3': 'Feedback delays may affect timelines',
     'faq.q4.detail4': 'We provide detailed timeline before starting',
 
-    'faq.q5.question': 'How do you handle modifications and changes in project scope?',
-    'faq.q5.answer': 'We offer up to two modifications included in the initial project. If more changes are needed, a preferential rate will apply. Scope increases are re-evaluated in time and costs, formalized in a contract amendment.',
-    'faq.q5.detail1': 'Maximum two modifications included',
-    'faq.q5.detail2': 'Additional changes with preferential rate',
-    'faq.q5.detail3': 'Re-evaluation of time and costs for scope changes',
-    'faq.q5.detail4': 'Transparent communication about project impacts',
+
 
     'faq.q6.question': 'Is it necessary for my company to be present on social media?',
     'faq.q6.answer': 'Yes, it is practically essential to be present on social media, regardless of company size. Social media allows getting new customers, demonstrating modernity and offering multiple contact channels.',
@@ -885,6 +893,8 @@ const translations = {
     'contact.faq.q1.detail2': '🚀 Proposal ready in less than 24 hours',
     'contact.faq.q1.detail3': '💡 Strategy adapted to your budget',
     'contact.faq.q1.detail4': '🎯 No commitment or hidden costs',
+    'contact.faq.q1.detail5': '📊 Detailed analysis of your project',
+    'contact.faq.q1.detail6': '🤝 Initial consultation completely free',
 
     'contact.faq.q2.question': 'What services do you offer?',
     'contact.faq.q2.answer': 'We offer complete digital marketing, graphic design, photography, videography, animation and web development services to improve your business\'s digital presence.',
@@ -893,18 +903,39 @@ const translations = {
     'contact.faq.q2.detail3': 'Commercial and product photography',
     'contact.faq.q2.detail4': '2D/3D videography and animation',
     'contact.faq.q2.detail5': 'Social media management',
+    'contact.faq.q2.detail6': '2D/3D videography and animation',
+    'contact.faq.q2.detail7': 'Social media management',
 
     'contact.faq.q3.question': 'How long does a project take?',
     'contact.faq.q3.answer': 'Duration depends on project complexity and information provided. Projects are divided into phases with deliverables that require your approval.',
     'contact.faq.q3.detail1': 'Times according to initial information',
     'contact.faq.q3.detail2': 'Each phase requires approval',
     'contact.faq.q3.detail3': 'Detailed timeline before starting',
+    'contact.faq.q3.detail4': 'Regular performance reports',
+    'contact.faq.q3.detail5': 'SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound)',
 
     'contact.faq.q4.question': 'How do you handle modifications?',
     'contact.faq.q4.answer': 'We include up to two modifications. Additional changes have preferential rates. Scope increases are re-evaluated in time and costs.',
     'contact.faq.q4.detail1': 'Maximum two modifications included',
     'contact.faq.q4.detail2': 'Additional changes with preferential rate',
     'contact.faq.q4.detail3': 'Transparent communication about impacts',
+    'contact.faq.q4.detail4': 'We provide detailed timeline before starting',
+
+    'contact.faq.q6.question': 'Is it necessary for my company to be present on social media?',
+    'contact.faq.q6.answer': 'Yes, it is practically essential to be present on social media, regardless of the size of the company. Social networks allow you to get new customers, demonstrate modernity and offer multiple contact channels.',
+    'contact.faq.q6.detail1': 'Get new customers and leads',
+    'contact.faq.q6.detail2': 'Demonstrate modernity and relevance',
+    'contact.faq.q6.detail3': 'Multiple contact channels',
+    'contact.faq.q6.detail4': 'Bidirectional interaction with audience',
+    'contact.faq.q6.detail5': 'Competitive advantage in the market',
+
+    'contact.faq.q7.question': 'What is the collaboration and communication process during the project?',
+    'contact.faq.q7.answer': 'The process is built through the constant contribution of both parties: your business vision and our experience in design, communication and technology. We start with an initial consultation and maintain regular communication throughout the project.',
+    'contact.faq.q7.detail1': 'Initial consultation to define objectives',
+    'contact.faq.q7.detail2': 'Constant monitoring with regular reports',
+    'contact.faq.q7.detail3': 'Clear and transparent communication',
+    'contact.faq.q7.detail4': 'Close client-agency collaboration',
+    'contact.faq.q7.detail5': 'Adaptation of strategies according to needs',
 
     // Location and contact
     'contact.ubicacion.direccion_titulo': 'Our Office',

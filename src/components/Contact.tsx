@@ -116,7 +116,7 @@ const Contact = () => {
         terms: false 
       })
     } catch (error) {
-      
+      console.error('Form submission error:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -211,7 +211,7 @@ const Contact = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>} title="Oficina" lines={['Torre Naco 2000', 'Santo Domingo, RD']} isLocation={true} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} title="Email" lines={['hola@agenciazentella.com']} />
-              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>} title="Teléfono" lines={['+1 (849) 517-0527']} />
+              <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>} title="Teléfono" lines={['+1 (809) 676-2429']} />
               <InfoCard icon={<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>} title="Horarios" lines={['Lun - Vie: 9:00 - 18:00', 'Sáb: 9:00 - 14:00']} />
             </div>
 
@@ -344,59 +344,85 @@ const Contact = () => {
 }
 
 // Helper components for form fields to reduce repetition
-const FormField = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
-  <div>
-    <label className="label-base">{label} *</label>
-    <motion.div 
-      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
-      whileFocus={{ scale: 1.01 }}
-    >
-      <input
-        name={name}
-        {...props}
-      />
-    </motion.div>
-    <AnimatePresence>
-      {error && <FormError message={error} />}
-    </AnimatePresence>
-  </div>
-)
+const FormField = ({ name, label, error, type = 'text', ...props }: { name: string; label: string; error?: string; type?: string; [key: string]: unknown }) => {
+  const fieldId = `contact-${name}`
+  const getAutocomplete = (fieldName: string, fieldType: string) => {
+    switch (fieldName) {
+      case 'name': return 'name'
+      case 'email': return 'email'
+      case 'phone': return 'tel'
+      case 'company': return 'organization'
+      default: return fieldType === 'email' ? 'email' : fieldType === 'tel' ? 'tel' : 'off'
+    }
+  }
 
-const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: Array<{value: string, label: string}>; [key: string]: unknown }) => (
-  <div>
-    <label className="label-base">{label} *</label>
-    <motion.div 
-      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
-      whileFocus={{ scale: 1.01 }}
-    >
-      <select name={name} {...props}>
-        {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-      </select>
-    </motion.div>
-    <AnimatePresence>
-      {error && <FormError message={error} />}
-    </AnimatePresence>
-  </div>
-)
+  return (
+    <div>
+      <label htmlFor={fieldId} className="label-base">{label} *</label>
+      <motion.div
+        className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+        whileFocus={{ scale: 1.01 }}
+      >
+        <input
+          id={fieldId}
+          name={name}
+          type={type}
+          autoComplete={getAutocomplete(name, type)}
+          {...props}
+        />
+      </motion.div>
+      <AnimatePresence>
+        {error && <FormError message={error} />}
+      </AnimatePresence>
+    </div>
+  )
+}
 
-const FormTextarea = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => (
-  <div>
-    <label className="label-base">{label} *</label>
-    <motion.div 
-      className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
-      whileFocus={{ scale: 1.01 }}
-    >
-      <textarea
-        name={name}
-        rows={5}
-        {...props}
-      />
-    </motion.div>
-    <AnimatePresence>
-      {error && <FormError message={error} />}
-    </AnimatePresence>
-  </div>
-)
+const FormSelect = ({ name, label, error, options, ...props }: { name: string; label: string; error?: string; options: Array<{value: string, label: string}>; [key: string]: unknown }) => {
+  const fieldId = `contact-${name}`
+
+  return (
+    <div>
+      <label htmlFor={fieldId} className="label-base">{label} *</label>
+      <motion.div
+        className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+        whileFocus={{ scale: 1.01 }}
+      >
+        <select id={fieldId} name={name} autoComplete="off" {...props}>
+          {options.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+        </select>
+      </motion.div>
+      <AnimatePresence>
+        {error && <FormError message={error} />}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+const FormTextarea = ({ name, label, error, ...props }: { name: string; label: string; error?: string; [key: string]: unknown }) => {
+  const fieldId = `contact-${name}`
+
+  return (
+    <div>
+      <label htmlFor={fieldId} className="label-base">{label} *</label>
+      <motion.div
+        className={`messageBox ${error ? 'border-color-error dark:border-color-error' : ''}`}
+        whileFocus={{ scale: 1.01 }}
+      >
+        <textarea
+          id={fieldId}
+          name={name}
+          rows={5}
+          autoComplete="off"
+          {...props}
+        />
+      </motion.div>
+      <AnimatePresence>
+        {error && <FormError message={error} />}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 const FormError = ({ message }: { message: string }) => (
   <motion.p
