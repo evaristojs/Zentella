@@ -1,0 +1,36 @@
+/* Share Menu styles */
+.share-menu-overlay {
+  @apply fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm;
+}
+
+.share-menu-container {
+  @apply absolute bottom-0 left-0 right-0 bg-white dark:bg-bg-base-dark rounded-t-3xl shadow-xl;
+}
+
+.share-menu-handle {
+  @apply absolute left-1/2 -top-8 -translate-x-1/2 w-12 h-1.5 rounded-full bg-gray-300 dark:bg-gray-700;
+}
+
+.share-menu-header {
+  @apply text-xl font-semibold text-center mb-6 text-text-primary-light dark:text-text-primary-dark;
+}
+
+.share-menu-grid {
+  @apply grid grid-cols-2 gap-4 mb-6;
+}
+
+.share-menu-button {
+  @apply flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-200;
+}
+
+.share-menu-icon {
+  @apply w-6 h-6;
+}
+
+.share-menu-text {
+  @apply text-sm mt-2 font-medium;
+}
+
+.share-menu-close {
+  @apply w-full p-4 rounded-2xl bg-bg-secondary-light dark:bg-bg-secondary-dark text-text-primary-light dark:text-text-primary-dark font-medium text-lg transition-all duration-200 hover:bg-color-primary/10 dark:hover:bg-color-primary/20;
+}

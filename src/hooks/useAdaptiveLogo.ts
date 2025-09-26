@@ -17,9 +17,9 @@ export const useAdaptiveLogo = (isDark: boolean) => {
     isInHero: true
   })
   
-  // Update logo state when scroll position changes (only when entering/leaving hero)
+  // Update logo state when scroll position or section changes
   useEffect(() => {
-    const logoType: LogoType = isInHero ? 'logotipo' : 'isotipo'
+    const logoType: LogoType = isInHero && currentSection === 'hero' ? 'logotipo' : 'isotipo'
     
     setLogoState(prev => {
       if (prev.type !== logoType || prev.isInHero !== isInHero) {

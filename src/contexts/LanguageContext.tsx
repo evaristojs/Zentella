@@ -9,10 +9,17 @@ interface LanguageContextType {
 }
 
 // Translation keys and values
-const translations = {
+interface Translations {
+  [key: string]: {
+    [key: string]: string | string[] | Record<string, any>
+  }
+}
+
+const translations: Translations = {
   es: {
     // Navigation
     'nav.inicio': 'Inicio',
+    'nav.menu_movil': 'Menú móvil',
     'nav.servicios': 'Servicios', 
     'nav.portafolio': 'Portafolio',
     'nav.nosotros': 'Nosotros',
@@ -396,6 +403,8 @@ const translations = {
     'contact.faq.q1.detail2': '🚀 Propuesta lista en menos de 24 horas',
     'contact.faq.q1.detail3': '💡 Estrategia adaptada a tu presupuesto',
     'contact.faq.q1.detail4': '🎯 Sin compromiso ni costos ocultos',
+    'contact.faq.q1.detail5': '📊 Análisis detallado de tu proyecto',
+    'contact.faq.q1.detail6': '🤝 Consulta inicial completamente gratuita',
 
     'contact.faq.q2.question': '¿Qué servicios ofrecen?',
     'contact.faq.q2.answer': 'Ofrecemos servicios completos de marketing digital, diseño gráfico, fotografía, videografía, animación y desarrollo web para mejorar la presencia digital de tu negocio.',
@@ -404,18 +413,23 @@ const translations = {
     'contact.faq.q2.detail3': 'Fotografía comercial y de producto',
     'contact.faq.q2.detail4': 'Videografía y animación 2D/3D',
     'contact.faq.q2.detail5': 'Gestión de redes sociales',
+    'contact.faq.q2.detail6': 'Videografía y animación 2D/3D',
+    'contact.faq.q2.detail7': 'Gestión de redes sociales',
 
     'contact.faq.q3.question': '¿Cuánto tiempo toma un proyecto?',
     'contact.faq.q3.answer': 'La duración depende de la complejidad del proyecto y la información proporcionada. Los proyectos se dividen en fases con entregables que requieren tu aprobación.',
     'contact.faq.q3.detail1': 'Tiempos según información inicial',
     'contact.faq.q3.detail2': 'Cada fase requiere aprobación',
     'contact.faq.q3.detail3': 'Cronograma detallado antes de iniciar',
+    'contact.faq.q3.detail4': 'Informes regulares de rendimiento',
+    'contact.faq.q3.detail5': 'Objetivos SMART (Específicos, Medibles, Alcanzables, Relevantes, Temporales)',
 
     'contact.faq.q4.question': '¿Cómo manejan las modificaciones?',
     'contact.faq.q4.answer': 'Incluimos hasta dos modificaciones. Cambios adicionales tienen tarifa preferencial. Los aumentos de alcance se reevalúan en tiempo y costos.',
     'contact.faq.q4.detail1': 'Máximo dos modificaciones incluidas',
     'contact.faq.q4.detail2': 'Cambios adicionales con tarifa preferencial',
     'contact.faq.q4.detail3': 'Comunicación transparente sobre impactos',
+    'contact.faq.q4.detail4': 'Proporcionamos cronograma detallado antes de iniciar',
 
     'contact.faq.q6.question': '¿Es necesario que mi empresa esté presente en redes sociales?',
     'contact.faq.q6.answer': 'Sí, es prácticamente imprescindible estar presente en redes sociales, independientemente del tamaño de la empresa. Las redes sociales permiten conseguir nuevos clientes, demostrar modernidad y ofrecer múltiples canales de contacto.',
@@ -528,6 +542,7 @@ const translations = {
     'nav.cambiar_tema': 'Toggle theme',
     'nav.abrir_menu': 'Open menu',
     'nav.cambiar_idioma': 'Change language',
+    'nav.menu_movil': 'Mobile menu',
 
     // Hero
     'hero.bienvenido': 'Welcome to',
@@ -822,6 +837,7 @@ const translations = {
 
     // Loading Screen
     'loading.bienvenido': 'Welcome to',
+    'loading.cargando': 'Loading...',
 
     // Error Boundary
     'error.titulo': 'Oops! Something went wrong',
@@ -904,7 +920,7 @@ const translations = {
     'contact.faq.q1.detail3': '💡 Strategy adapted to your budget',
     'contact.faq.q1.detail4': '🎯 No commitment or hidden costs',
     'contact.faq.q1.detail5': '📊 Detailed analysis of your project',
-    'contact.faq.q1.detail6': '🤝 Initial consultation completely free',
+    'contact.faq.q1.detail6': '🤝 Completely free initial consultation',
 
     'contact.faq.q2.question': 'What services do you offer?',
     'contact.faq.q2.answer': 'We offer complete digital marketing, graphic design, photography, videography, animation and web development services to improve your business\'s digital presence.',
@@ -923,6 +939,7 @@ const translations = {
     'contact.faq.q3.detail3': 'Detailed timeline before starting',
     'contact.faq.q3.detail4': 'Regular performance reports',
     'contact.faq.q3.detail5': 'SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound)',
+    'contact.faq.q4.detail4': 'We provide detailed timeline before starting',
 
     'contact.faq.q4.question': 'How do you handle modifications?',
     'contact.faq.q4.answer': 'We include up to two modifications. Additional changes have preferential rates. Scope increases are re-evaluated in time and costs.',

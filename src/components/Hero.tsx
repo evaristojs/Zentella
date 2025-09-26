@@ -264,7 +264,7 @@ const Hero: React.FC<HeroProps> = () => {
       setTimeout(() => {
         document.body.classList.remove('navigating')
       }, 1000)
-      
+
       // Desactivar aceleración después del scroll con un pequeño delay
       setTimeout(() => {
         if (window.Starfield) {
@@ -275,6 +275,13 @@ const Hero: React.FC<HeroProps> = () => {
 
     // Store timeout for cleanup if component unmounts
     timeoutsRef.current.push(scrollTimeout)
+  }
+
+  // Custom styles for the main headings
+  const mainHeadingStyles = {
+    fontSize: 'clamp(3.5rem, 8vw, 7rem)',
+    lineHeight: '1.1',
+    letterSpacing: '0.05em',
   }
 
   return (
@@ -319,7 +326,7 @@ const Hero: React.FC<HeroProps> = () => {
 
             {/* Main Headline with Rotating Phrases */}
             <motion.div
-              className="space-y-2"
+              className="space-y-[1.5]"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -337,7 +344,7 @@ const Hero: React.FC<HeroProps> = () => {
                   {t('hero.haz_que')}
                 </span>
                 <div
-                  className="relative w-full text-center flex items-center justify-center overflow-visible -mt-1"
+                  className="relative w-full text-center flex items-center justify-center overflow-visible mt-1.5 mb-1.5"
                   style={{
                     minHeight: 'clamp(4rem, 8vw, 8rem)',
                     maxWidth: '100vw',

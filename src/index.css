@@ -22,6 +22,7 @@
     body {
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
+      scroll-behavior: smooth;
     }
 
     * {
@@ -42,24 +43,27 @@
     overflow-x: hidden;
   }
   
-  /* Disable scroll snap on mobile completely */
-  @media (max-width: 767px) {
-    body {
-      scroll-snap-type: none !important;
-    }
-
-    section, section[id] {
-      scroll-snap-align: none !important;
-      scroll-snap-stop: unset !important;
-    }
+  /* Configuración de scroll inteligente */
+  body {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Configure scroll snap for sections - desktop only */
-  @media (min-width: 768px) {
-    section[id] {
-      scroll-snap-align: start;
-      scroll-snap-margin-top: 80px;
-    }
+  /* Optimización del scroll en modo claro y oscuro */
+  html.light body {
+    scroll-behavior: smooth;
+  }
+
+  html.dark body {
+    scroll-behavior: smooth;
+  }
+
+  /* Ajuste de secciones para scroll suave */
+  section[id] {
+    scroll-margin-top: var(--navbar-height, 80px);
+    position: relative;
   }
   
   html.dark {
@@ -148,13 +152,38 @@ body::-webkit-scrollbar {
 }
 
 /* Utilidad para ocultar scrollbar en elementos específicos */
+
+/* Ocultar scrollbar en móvil y tablet */
+@media (max-width: 1024px) {
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Ocultar scrollbar pero permitir scroll */
 .scrollbar-hide {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none;  /* Chrome, Safari y Opera */
+}
+
+/* Permitir scroll horizontal con rueda del mouse */
+@media (min-width: 1025px) {
+  .wheel-scroll {
+    overflow-x: auto;
+  }
+
+  .wheel-scroll:hover {
+    cursor: all-scroll;
+  }
 }
 
 /* Modal scroll prevention */
@@ -371,26 +400,11 @@ body::-webkit-scrollbar {
     @apply grid grid-cols-4 gap-8;
   }
 
-  @media (max-width: 480px) {
-    .portfolio-modal {
-      padding-top: 56px;
-      padding-bottom: 56px;
-    }
+  .portfolio-modal {
+    padding-top: 90px !important;
+    padding-bottom: 10px !important;
   }
 
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .portfolio-modal {
-      padding-top: 64px;
-      padding-bottom: 64px;
-    }
-  }
-
-  @media (min-width: 1025px) {
-    .portfolio-modal {
-      padding-top: 80px;
-      padding-bottom: 80px;
-    }
-  }
 
   /* 📝 Text alignment with smart hyphenation */
   .text-left-hyphens {

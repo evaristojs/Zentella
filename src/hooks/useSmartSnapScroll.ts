@@ -1,6 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface SmartSnapScrollOptions {
+  /** Whether smart snap scrolling is enabled */
+  /** CSS class applied while scrolling */
+  /** CSS class applied when scroll snapping is enabled */
+  /** Timeout in ms before re-enabling snap after scroll stops */
   enabled?: boolean
   scrollingClass?: string
   snapEnabledClass?: string
@@ -56,7 +60,13 @@ export const useSmartSnapScroll = (options: SmartSnapScrollOptions = {}) => {
     }
   }, [enabled, scrollingClass, snapEnabledClass, scrollTimeout])
 
+  const [isScrolling, setIsScrolling] = useState(false)
+
+  useEffect(() => {
+    setIsScrolling(isScrollingRef.current)
+  }, [isScrollingRef.current])
+
   return {
-    isScrolling: isScrollingRef.current
+    isScrolling
   }
 }

@@ -69,6 +69,7 @@ type PortfolioAction =
 
 const portfolioReducer = (state: PortfolioState, action: PortfolioAction): PortfolioState => {
   switch (action.type) {
+
     case 'SET_PORTFOLIO_ITEMS':
       return { ...state, portfolioItems: action.payload }
 
@@ -96,7 +97,7 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
       }
 
     case 'OPEN_FULLSCREEN':
-      return { ...state, fullscreenImage: action.payload, isFullscreenOpen: true, showMobileInstructions: true }
+      return { ...state, fullscreenImage: action.payload, isFullscreenOpen: true, showMobileInstructions: true, zoomLevel: 1, panPosition: { x: 0, y: 0 } }
 
     case 'CLOSE_FULLSCREEN':
       return { ...state, isFullscreenOpen: false, fullscreenImage: '', showMobileInstructions: false }
@@ -1561,7 +1562,7 @@ const Portfolio = () => {
         <AnimatePresence>
           {state.isModalOpen && state.selectedItem && (
             <motion.div
-              className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 pt-[65px] xl:pt-[90px] xl:pb-[10px] bg-black/80 backdrop-blur-sm portfolio-modal"
+              className="fixed inset-0 z-[1000] flex items-center justify-center p-2 sm:p-4 pt-[90px] pb-[10px] bg-black/80 backdrop-blur-sm portfolio-modal"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -1569,7 +1570,7 @@ const Portfolio = () => {
               {...swipeHandlers}
             >
               <motion.div
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row z-10"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(90vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row z-10"
                 onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -1618,7 +1619,7 @@ const Portfolio = () => {
                               priority={true}
                               placeholder="none"
                               style={{
-                                transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
+                                transform: `scale(${state.zoomLevel})`,
                                 transition: 'transform 0.2s ease-out'
                               }}
                             />
@@ -1660,7 +1661,16 @@ const Portfolio = () => {
 
                   {/* Thumbnail Navigation */}
                   <div className="w-full px-2 md:px-0 mt-1 xl:mt-1">
-                    <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1 cursor-grab active:cursor-grabbing select-none">
+                    <div className="flex space-x-2 overflow-x-auto scrollbar-hide py-2 px-1 cursor-grab active:cursor-grabbing select-none wheel-scroll" onWheel={(e) => {
+                        if (e.deltaY !== 0) {
+                          e.preventDefault();
+                          const currentScroll = e.currentTarget.scrollLeft;
+                          e.currentTarget.scrollTo({
+                            left: currentScroll + (e.deltaY * 2),
+                            behavior: 'smooth'
+                          });
+                        }
+                      }}>
                       {state.selectedItem.images.map((image, index) => (
                         <OptimizedImage
                           key={index}
@@ -1849,10 +1859,6 @@ const Portfolio = () => {
                       alt="Imagen en pantalla completa"
                       className="max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] object-contain rounded-lg shadow-2xl"
                       loading="eager"
-                      style={{
-                        transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
-                        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                      }}
                     />
                   </motion.div>
                 </AnimatePresence>

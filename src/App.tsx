@@ -1,10 +1,12 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy } from 'react'
 import { motion } from 'framer-motion'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { ToastProvider } from './components/Toast'
 import ErrorBoundary from './components/ErrorBoundary'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import SuspenseLoader from './components/SuspenseLoader'
 import { useSectionScroll } from './hooks/useSectionScroll'
 import { useNavbarHeight } from './hooks/useNavbarHeight'
 import './App.css'
@@ -18,15 +20,6 @@ const Testimonials = lazy(() => import('./components/Testimonials'))
 const ContactFAQ = lazy(() => import('./components/ContactFAQ'))
 const Footer = lazy(() => import('./components/Footer'))
 
-// Loading fallback component
-const ComponentLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-pulse flex flex-col items-center">
-      <div className="w-8 h-8 bg-color-primary rounded-full animate-bounce mb-4"></div>
-      <div className="text-text-secondary-light dark:text-text-secondary-dark">Cargando...</div>
-    </div>
-  </div>
-)
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -43,7 +36,8 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <LanguageProvider>
-          <motion.div
+          <ToastProvider>
+            <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -56,27 +50,28 @@ function App() {
             />
             <main>
               <Hero />
-              <Suspense fallback={<ComponentLoader />}>
+              <SuspenseLoader>
                 <Services />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
+              </SuspenseLoader>
+              <SuspenseLoader>
                 <Portfolio />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
+              </SuspenseLoader>
+              <SuspenseLoader>
                 <About />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
+              </SuspenseLoader>
+              <SuspenseLoader>
                 <Testimonials />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
+              </SuspenseLoader>
+              <SuspenseLoader>
                 <ContactFAQ />
-              </Suspense>
-              <Suspense fallback={<ComponentLoader />}>
+              </SuspenseLoader>
+              <SuspenseLoader>
                 <Footer />
-              </Suspense>
+              </SuspenseLoader>
             </main>
             <BackToTop />
           </motion.div>
+          </ToastProvider>
         </LanguageProvider>
       </ThemeProvider>
     </ErrorBoundary>

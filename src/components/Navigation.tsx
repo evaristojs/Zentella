@@ -172,7 +172,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-3 lg:px-4 py-2 text-xs lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
+                  className={`relative px-3 lg:px-4 py-2 text-xs md:text-base lg:text-base font-medium rounded-full transition-colors duration-200 whitespace-nowrap ${
                     isActive ? 'text-color-primary dark:text-white' : 'text-text-secondary-light dark:text-text-secondary-dark'
                   }`}
                   initial={{ opacity: 0, y: -10 }}
@@ -265,7 +265,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 </AnimatePresence>
               </motion.button>
 
-              <div className="md:hidden flex items-center space-x-1.5 mr-6">
+              <div className="md:hidden flex items-center space-x-1.5 mr-0">
                 <motion.button
                   onClick={toggleLanguage}
                   className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
@@ -282,6 +282,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                   onClick={toggleMenu}
                   aria-label={t('nav.abrir_menu')}
+                  aria-expanded={isMenuOpen}
+                  aria-controls="mobile-menu"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -313,8 +315,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
+            id="mobile-menu"
             className="fixed inset-0 z-[40] md:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('nav.menu_movil')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
