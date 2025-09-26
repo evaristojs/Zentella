@@ -1859,6 +1859,10 @@ const Portfolio = () => {
                       alt="Imagen en pantalla completa"
                       className="max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] max-h-[60vh] sm:max-h-[65vh] md:max-h-[70vh] object-contain rounded-lg shadow-2xl"
                       loading="eager"
+                      style={{
+                        transform: `scale(${state.zoomLevel}) translate(${state.panPosition.x}px, ${state.panPosition.y}px)`,
+                        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                      }}
                     />
                   </motion.div>
                 </AnimatePresence>

@@ -12,21 +12,144 @@ interface OptimizedImageProps {
   onLoad?: () => void
   onError?: () => void
   priority?: boolean
-  placeholder?: 'blur' | 'skeleton' | 'none'
+  placeholder?: 'skeleton' | 'blur' | 'none'
+  sizes?: string
+  quality?: number
+  preload?: boolean
 }
 
-// Detectar soporte para WebP
-const supportsWebP = (() => {
-  try {
-    return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0
-  } catch {
-    return false
+// Advanced image format detection
+const formatSupport = (() => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1
+  canvas.height = 1
+
+  return {
+    webp: canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0,
+    avif: canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0,
+    jp2: canvas.toDataURL('image/jp2').indexOf('data:image/jp2') === 0
   }
 })()
 
+// Image cache with intelligent memory management - Future implementation
+/*
+class ImageCache {
+  private cache = new Map<string, HTMLImageElement>()
+  private preloadQueue = new Set<string>()
+  private readonly maxCacheSize = 50
+  private readonly preloadLimit = 5
+
+  get(src: string): HTMLImageElement | undefined {
+    const cached = this.cache.get(src)
+    if (cached) {
+      // Move to end (LRU)
+      this.cache.delete(src)
+      this.cache.set(src, cached)
+    }
+    return cached
+  }
+
+  set(src: string, img: HTMLImageElement): void {
+    // Remove oldest if cache is full
+    if (this.cache.size >= this.maxCacheSize) {
+      const firstKey = this.cache.keys().next().value
+      if (firstKey) {
+        this.cache.delete(firstKey)
+      }
+    }
+
+    this.cache.set(src, img)
+  }
+
+  preload(src: string): Promise<HTMLImageElement> {
+    if (this.cache.has(src)) {
+      return Promise.resolve(this.cache.get(src)!)
+    }
+
+    if (this.preloadQueue.size >= this.preloadLimit) {
+      return Promise.reject(new Error('Preload queue full'))
+    }
+
+    if (this.preloadQueue.has(src)) {
+      return Promise.reject(new Error('Already preloading'))
+    }
+
+    this.preloadQueue.add(src)
+
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+
+      img.onload = () => {
+        this.preloadQueue.delete(src)
+        this.set(src, img)
+        resolve(img)
+      }
+
+      img.onerror = () => {
+        this.preloadQueue.delete(src)
+        reject(new Error('Failed to preload image'))
+      }
+
+      img.src = src
+    })
+  }
+
+  clear(): void {
+    this.cache.clear()
+    this.preloadQueue.clear()
+  }
+}
+*/
+
+// const imageCache = new ImageCache()
+
+// Smart connection detection
+// const getConnectionSpeed = (): 'slow' | 'fast' => {
+//   if ('connection' in navigator && 'effectiveType' in (navigator as any).connection) {
+//     const connection = (navigator as any).connection
+//     return ['slow-2g', '2g', '3g'].includes(connection.effectiveType) ? 'slow' : 'fast'
+//   }
+//   return 'fast'
+// }
+
+// Generate optimized image URLs - Future implementation
+// const generateImageSources = (src: string, width?: number, quality = 85): string[] => {
+//   const sources: string[] = []
+//   const baseUrl = src.replace(/\.[^/.]+$/, '')
+//   const extension = src.split('.').pop()?.toLowerCase()
+//
+//   // Skip optimization for SVGs and data URLs
+//   if (extension === 'svg' || src.startsWith('data:')) {
+//     return [src]
+//   }
+//
+//   const connectionSpeed = getConnectionSpeed()
+//   const targetQuality = connectionSpeed === 'slow' ? Math.min(quality, 70) : quality
+//
+//   // AVIF (best compression, newer browsers)
+//   if (formatSupport.avif) {
+//     sources.push(`${baseUrl}.avif?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // WebP (good compression, wide support)
+//   if (formatSupport.webp) {
+//     sources.push(`${baseUrl}.webp?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // JP2 (Safari fallback)
+//   if (formatSupport.jp2 && ['jpg', 'jpeg'].includes(extension || '')) {
+//     sources.push(`${baseUrl}.jp2?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//   }
+//
+//   // Original format as fallback
+//   sources.push(`${src}?q=${targetQuality}${width ? `&w=${width}` : ''}`)
+//
+//   return sources
+// }
+
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
-  alt,
+  alt = '', // Default to empty alt to prevent text flash
   className = '',
   loading = 'lazy',
   width,
@@ -36,67 +159,27 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onLoad,
   onError,
   priority = false,
-  placeholder = 'skeleton'
+  placeholder = 'none',
+  // sizes,
+  // quality = 85,
+  // preload = false
 }) => {
   const [imageSrc, setImageSrc] = useState<string>('')
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
   const [showSkeleton, setShowSkeleton] = useState(false)
   const [imageStartedLoading, setImageStartedLoading] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
   const skeletonTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const loadStartTimeRef = useRef<number>(0)
-
-  // Intersection Observer para lazy loading inteligente
-  useEffect(() => {
-    if (priority || loading === 'eager') {
-      setIsVisible(true)
-      return
-    }
-
-    const currentContainer = containerRef.current
-    if (!currentContainer) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true)
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      {
-        rootMargin: '50px', // Comenzar a cargar 50px antes
-        threshold: 0.1
-      }
-    )
-
-    observer.observe(currentContainer)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [priority, loading])
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (skeletonTimeoutRef.current) {
-        clearTimeout(skeletonTimeoutRef.current)
-      }
-    }
-  }, [])
 
   // Reset states when src changes
   useEffect(() => {
     setIsLoaded(false)
+    setHasError(false) // Also reset error state
     setShowSkeleton(false)
     setImageStartedLoading(false)
     loadStartTimeRef.current = 0
-    
+
     // Clear any existing timeout
     if (skeletonTimeoutRef.current) {
       clearTimeout(skeletonTimeoutRef.current)
@@ -104,8 +187,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
   }, [src])
 
+  // Handle image loading with intelligent skeleton
   useEffect(() => {
-    if (!isVisible && !priority && loading !== 'eager') return
+    if (!src) return
 
     // Determinar la mejor fuente de imagen
     const getOptimalSrc = () => {
@@ -113,7 +197,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       if (src.startsWith('/images/') || src.startsWith('images/')) {
         const optimizedPath = src.replace('/images/', '/images-optimized/').replace('images/', 'images-optimized/')
 
-        if (supportsWebP) {
+        if (formatSupport.webp) {
           // Convertir extensión a WebP
           const webpPath = optimizedPath.replace(/\.(jpg|jpeg|png|gif)$/i, '.webp')
           return webpPath
@@ -130,116 +214,110 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setImageSrc(getOptimalSrc())
     setImageStartedLoading(true)
     loadStartTimeRef.current = Date.now()
-    
-    // Para imágenes prioritarias (LCP), no mostrar skeleton para carga más rápida
-    if (priority) {
-      // No skeleton para imágenes críticas - mejora LCP
-      return
+
+    // Solo mostrar skeleton si la imagen tarda más de un tiempo específico
+    if (placeholder === 'skeleton') {
+      // Reduced delay for mobile and priority images
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+      let delay = priority ? 100 : (isMobile ? 120 : 200)
+
+      skeletonTimeoutRef.current = setTimeout(() => {
+        if (!isLoaded && imageStartedLoading && !hasError) {
+          setShowSkeleton(true)
+        }
+      }, delay) // Delay más inteligente: más rápido en móvil
     }
-    
-    // Solo mostrar skeleton si la imagen tarda más de 150ms en cargar (reducido de 200ms)
-    skeletonTimeoutRef.current = setTimeout(() => {
-      if (!isLoaded && imageStartedLoading) {
-        setShowSkeleton(true)
-      }
-    }, 150) // Delay optimizado para mejor FCP
-    
-  }, [src, isVisible, priority, loading, isLoaded, imageStartedLoading])
+
+  }, [src, placeholder, priority])
 
   const handleLoad = () => {
-    const loadTime = Date.now() - loadStartTimeRef.current
     setIsLoaded(true)
-    
+
     // Clear skeleton timeout if image loads quickly
     if (skeletonTimeoutRef.current) {
       clearTimeout(skeletonTimeoutRef.current)
       skeletonTimeoutRef.current = null
     }
-    
-    // Solo mostrar skeleton si no se ha mostrado ya y la imagen tardó más de 200ms
-    if (loadTime >= 200 && showSkeleton) {
-      // Mantener skeleton por un momento antes de ocultarlo para transición suave
-      setTimeout(() => setShowSkeleton(false), 100)
-    } else {
-      setShowSkeleton(false)
-    }
-    
+
+    // Siempre ocultar skeleton cuando la imagen carga
+    setShowSkeleton(false)
+
     onLoad?.()
   }
 
   const handleError = () => {
+    // Clear skeleton timeout
+    if (skeletonTimeoutRef.current) {
+      clearTimeout(skeletonTimeoutRef.current)
+      skeletonTimeoutRef.current = null
+    }
+
     // Fallback a imagen original si hay error
     if (imageSrc !== src) {
       setImageSrc(src)
       setHasError(false)
     } else {
       setHasError(true)
+      setShowSkeleton(false) // Ocultar skeleton cuando falla definitivamente
       onError?.()
     }
   }
 
-  const renderPlaceholder = () => {
-    if (placeholder === 'none' || !showSkeleton) return null
-
-    const placeholderClasses = `absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-      isLoaded ? 'opacity-0' : 'opacity-100'
-    }`
-
-    if (placeholder === 'skeleton') {
-      return (
-        <div className={placeholderClasses}>
-          <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse rounded-lg" />
-        </div>
-      )
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (skeletonTimeoutRef.current) {
+        clearTimeout(skeletonTimeoutRef.current)
+      }
     }
-
-    if (placeholder === 'blur') {
-      return (
-        <div className={placeholderClasses}>
-          <div className="w-full h-full bg-gray-200 dark:bg-gray-700 blur-sm rounded-lg" />
-        </div>
-      )
-    }
-
-    return null
-  }
+  }, [])
 
   if (hasError) {
     return (
       <div
-        ref={containerRef}
-        className={`bg-gray-200 dark:bg-gray-700 flex items-center justify-center relative ${className}`}
+        className={`bg-gray-100 dark:bg-gray-800 ${className}`}
+        style={{
+          ...style,
+          minHeight: height || '200px',
+        }}
+      >
+        {/* Silent error - no visible text to prevent flash */}
+      </div>
+    )
+  }
+
+  // Show skeleton while loading if enabled (but not if there's an error)
+  if (showSkeleton && !isLoaded && !hasError) {
+    return (
+      <div
+        className={`bg-gray-100 dark:bg-gray-800 animate-pulse flex items-center justify-center ${className}`}
         style={style}
       >
-        <span className="text-gray-500 dark:text-gray-400 text-sm">Error cargando imagen</span>
+        <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700 animate-pulse rounded-lg" />
       </div>
     )
   }
 
   return (
-    <div 
-      ref={containerRef}
-      className={`relative overflow-hidden ${className}`}
-      style={style}
-    >
-      {imageSrc && (
-        <img
-          ref={imgRef}
-          src={imageSrc}
-          alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          loading={priority ? 'eager' : loading}
-          width={width}
-          height={height}
-          onClick={onClick}
-          onLoad={handleLoad}
-          onError={handleError}
-        />
-      )}
-      {renderPlaceholder()}
-    </div>
+    <img
+      src={imageSrc}
+      alt={alt} // Always empty by default to prevent text flash
+      className={`${className} transition-opacity duration-200 ${!isLoaded && !hasError ? 'opacity-0' : 'opacity-100'}`}
+      loading={loading}
+      width={width}
+      height={height}
+      draggable={false} // Prevent dragging which can cause visual glitches
+      style={{
+        ...style,
+        ...((!isLoaded && placeholder !== 'skeleton') && {
+          backgroundColor: '#f3f4f6',
+          minHeight: height || '200px'
+        })
+      }}
+      onClick={onClick}
+      onLoad={handleLoad}
+      onError={handleError}
+    />
   )
 }
 
