@@ -309,7 +309,7 @@ const translations: Translations = {
     // Placeholders
     'placeholder.nombre': 'Juan Pérez',
     'placeholder.email': 'hola@agenciazentella.com',
-    'placeholder.telefono': '+1 (809) 676-2429',
+    'placeholder.telefono': '849-517-0527',
     'placeholder.mensaje': 'Me encantaría conocer más sobre sus servicios',
 
     // Error messages
@@ -447,25 +447,14 @@ const translations: Translations = {
     'contact.faq.q7.detail4': 'Colaboración estrecha cliente-agencia',
     'contact.faq.q7.detail5': 'Adaptación de estrategias según necesidades',
 
-    // Ubicación y contacto
-    'contact.ubicacion.direccion_titulo': 'Nuestra Oficina',
-    'contact.ubicacion.direccion_linea1': 'Calle Principal #123',
-    'contact.ubicacion.direccion_linea2': 'Zona Colonial, Santo Domingo',
-    'contact.ubicacion.direccion_linea3': 'República Dominicana, 10210',
-    'contact.ubicacion.horarios_titulo': 'Horarios de Atención',
+    // Contacto online
     'contact.ubicacion.contacto_titulo': 'Contacto',
-    'contact.ubicacion.lun_vie': 'Lun - Vie',
-    'contact.ubicacion.horario_semana': '9:00 AM - 6:00 PM',
-    'contact.ubicacion.sabados': 'Sábados',
-    'contact.ubicacion.horario_sabado': '9:00 AM - 2:00 PM',
-    'contact.ubicacion.domingos': 'Domingos',
-    'contact.ubicacion.cerrado': 'Cerrado',
     'contact.ubicacion.telefono': 'Teléfono',
-    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
+    'contact.ubicacion.numero_telefono': '849-517-0527',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hola@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
+    'contact.ubicacion.numero_whatsapp': '849-517-0527',
 
 
     'contact.seleccionar_servicio': 'Seleccionar servicio',
@@ -824,7 +813,7 @@ const translations: Translations = {
     // Placeholders
     'placeholder.nombre': 'John Doe',
     'placeholder.email': 'hello@agenciazentella.com',
-    'placeholder.telefono': '+1 (809) 676-2429',
+    'placeholder.telefono': '849-517-0527',
     'placeholder.mensaje': 'I\'d love to learn more about your services',
 
     // Error messages
@@ -939,7 +928,6 @@ const translations: Translations = {
     'contact.faq.q3.detail3': 'Detailed timeline before starting',
     'contact.faq.q3.detail4': 'Regular performance reports',
     'contact.faq.q3.detail5': 'SMART objectives (Specific, Measurable, Achievable, Relevant, Time-bound)',
-    'contact.faq.q4.detail4': 'We provide detailed timeline before starting',
 
     'contact.faq.q4.question': 'How do you handle modifications?',
     'contact.faq.q4.answer': 'We include up to two modifications. Additional changes have preferential rates. Scope increases are re-evaluated in time and costs.',
@@ -964,25 +952,14 @@ const translations: Translations = {
     'contact.faq.q7.detail4': 'Close client-agency collaboration',
     'contact.faq.q7.detail5': 'Adaptation of strategies according to needs',
 
-    // Location and contact
-    'contact.ubicacion.direccion_titulo': 'Our Office',
-    'contact.ubicacion.direccion_linea1': 'Main Street #123',
-    'contact.ubicacion.direccion_linea2': 'Colonial Zone, Santo Domingo',
-    'contact.ubicacion.direccion_linea3': 'Dominican Republic, 10210',
-    'contact.ubicacion.horarios_titulo': 'Business Hours',
+    // Online contact
     'contact.ubicacion.contacto_titulo': 'Contact',
-    'contact.ubicacion.lun_vie': 'Mon - Fri',
-    'contact.ubicacion.horario_semana': '9:00 AM - 6:00 PM',
-    'contact.ubicacion.sabados': 'Saturdays',
-    'contact.ubicacion.horario_sabado': '9:00 AM - 2:00 PM',
-    'contact.ubicacion.domingos': 'Sundays',
-    'contact.ubicacion.cerrado': 'Closed',
     'contact.ubicacion.telefono': 'Phone',
-    'contact.ubicacion.numero_telefono': '+1 (809) 676-2429',
+    'contact.ubicacion.numero_telefono': '849-517-0527',
     'contact.ubicacion.email': 'Email',
     'contact.ubicacion.direccion_email': 'hello@zentella.com',
     'contact.ubicacion.whatsapp': 'WhatsApp',
-    'contact.ubicacion.numero_whatsapp': '+1 (809) 676-2429',
+    'contact.ubicacion.numero_whatsapp': '849-517-0527',
 
     'contact.seleccionar_servicio': 'Select service',
     'contact.seleccionar_rango': 'Select range',

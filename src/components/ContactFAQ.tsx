@@ -339,67 +339,6 @@ const ContactFAQ = () => {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8 space-y-4"
             >
-              {/* Dirección */}
-              <motion.a
-                href="https://share.google/xPEMCMm0KDJ5vqSzl"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -3 }}
-                className="block p-6 rounded-2xl bg-bg-secondary-light dark:bg-bg-secondary-dark border border-gray-200/30 dark:border-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-full bg-color-primary/10 dark:bg-color-primary/20 flex-shrink-0 group-hover:bg-color-primary/20 dark:group-hover:bg-color-primary/30 transition-colors duration-300">
-                    <svg className="w-5 h-5 text-color-primary group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold mb-2 text-text-primary-light dark:text-text-primary-dark group-hover:text-color-primary transition-colors duration-300">
-                      {t('contact.ubicacion.direccion_titulo')}
-                    </h4>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1">
-                      <p>{t('contact.ubicacion.direccion_linea1')}</p>
-                      <p>{t('contact.ubicacion.direccion_linea2')}</p>
-                      <p>{t('contact.ubicacion.direccion_linea3')}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.a>
-
-              {/* Horarios */}
-              <motion.div
-                whileHover={{ y: -3 }}
-                className="p-6 rounded-2xl bg-bg-secondary-light dark:bg-bg-secondary-dark border border-gray-200/30 dark:border-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-full bg-color-primary/10 dark:bg-color-primary/20 flex-shrink-0">
-                    <svg className="w-5 h-5 text-color-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold mb-2 text-text-primary-light dark:text-text-primary-dark">
-                      {t('contact.ubicacion.horarios_titulo')}
-                    </h4>
-                    <div className="text-sm text-text-secondary-light dark:text-text-secondary-dark space-y-1">
-                      <div className="flex justify-between">
-                        <span className="font-medium">{t('contact.ubicacion.lun_vie')}</span>
-                        <span>{t('contact.ubicacion.horario_semana')}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">{t('contact.ubicacion.sabados')}</span>
-                        <span>{t('contact.ubicacion.horario_sabado')}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">{t('contact.ubicacion.domingos')}</span>
-                        <span className="text-red-500 dark:text-red-400">{t('contact.ubicacion.cerrado')}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
               {/* Contacto */}
               <motion.div
                 whileHover={{ y: -3 }}
@@ -419,7 +358,7 @@ const ContactFAQ = () => {
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{t('contact.ubicacion.telefono')}: </span>
                         <a
-                          href="tel:+18095550123"
+                          href="tel:8495170527"
                           className="text-color-primary hover:text-color-secondary transition-colors duration-300 hover:underline"
                         >
                           {t('contact.ubicacion.numero_telefono')}
@@ -437,7 +376,7 @@ const ContactFAQ = () => {
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{t('contact.ubicacion.whatsapp')}: </span>
                         <a
-                          href="https://wa.me/18095550123"
+                          href="https://wa.me/8495170527"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-color-primary hover:text-color-secondary transition-colors duration-300 hover:underline"

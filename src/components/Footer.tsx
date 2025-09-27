@@ -83,7 +83,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="text-small">+1 (809) 676-2429</span>
+                <span className="text-small">849-517-0527</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 text-color-primary">
@@ -92,7 +92,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <span className="text-small">Torre Naco 2000, Santo Domingo, RD</span>
+                <span className="text-small">Servicio Online</span>
               </div>
             </div>
           </div>
@@ -189,10 +189,6 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            
-            <div className="bg-gray-200 dark:bg-gray-800 text-text-secondary-light dark:text-text-secondary-dark rounded px-3 py-1 font-mono text-small">
-              20°58'17.4"N 89°37'18.6"W
-            </div>
           </div>
         </div>
       </div>
@@ -223,10 +219,10 @@ const Footer = () => {
             {/* Solo servicios repetidos */}
             {[...Array(12)].map((_, groupIndex) => (
               <div key={groupIndex} className="flex items-center gap-12 sm:gap-16 lg:gap-20 xl:gap-24">
-                {['Fotografía', 'Diseño', 'Video', 'Animación'].map((service, index) => (
+                {['FOTOGRAFIA', 'DISENO', 'VIDEO', 'ANIMACION'].map((service, index) => (
                   <motion.span
                     key={`${groupIndex}-${service}-${index}`}
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-text-primary-light dark:text-text-primary-dark"
+                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-purple-600 dark:text-text-primary-dark"
                     style={{
                       fontFamily: 'Poppins, sans-serif',
                       letterSpacing: '-0.03em',
