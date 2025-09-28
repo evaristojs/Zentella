@@ -298,6 +298,10 @@ const Hero: React.FC<HeroProps> = () => {
         // backgroundColor handled by Tailwind classes
       }}
     >
+      {/* Video Background - Eliminado para mejor visibilidad del starfield */}
+
+      {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
+
       <style>{`
         @media (min-width: 1024px) {
           .hero-content {
@@ -305,10 +309,6 @@ const Hero: React.FC<HeroProps> = () => {
           }
         }
       `}</style>
-      {/* Video Background - Eliminado para mejor visibilidad del starfield */}
-
-      {/* Starfield canvas se insertará aquí automáticamente por starfield.js */}
-
       {/* Hero Content - starfield-origin según especificaciones oficiales */}
       <div
         className="hero-content starfield-origin absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full text-center"
@@ -361,7 +361,10 @@ const Hero: React.FC<HeroProps> = () => {
                       color: '#6700f8', // Fallback color
                       maxWidth: '100%',
                       wordBreak: 'normal',
-                      overflow: 'visible'
+                      overflow: 'visible',
+                      minHeight: 'clamp(3.85rem, 8.8vw, 7.7rem)', // Altura fija para evitar reflow durante typing
+                      display: 'flex',
+                      alignItems: 'center'
                     }}
                   >
                     {displayText}

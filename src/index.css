@@ -11,6 +11,23 @@
     scroll-behavior: smooth;
   }
 
+  /* Offset scroll para navegación con navbar fija */
+  section {
+    scroll-margin-top: 56px; /* Mobile: h-14 = 56px */
+  }
+
+  @media (min-width: 640px) {
+    section {
+      scroll-margin-top: 64px; /* Small: h-16 = 64px */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    section {
+      scroll-margin-top: 80px; /* Large: h-20 = 80px */
+    }
+  }
+
   /* Extra smooth scrolling with momentum for mobile */
   @media (max-width: 767px) {
     html {
@@ -433,7 +450,31 @@ body::-webkit-scrollbar {
 }
 
 @layer utilities {
-  /* 🚀 ChatBase.co style backdrop blur implementation */
+  /* 🚀 Chrome mobile optimized navbar glass effect */
+  .navbar-glass {
+    /* Performance optimizations for Chrome mobile */
+    will-change: backdrop-filter;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    /* Original blur level maintained */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Light mode fallbacks for navbar glass */
+  html:not(.dark) .navbar-glass {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Chrome mobile specific optimizations with fallbacks */
+  @supports not (backdrop-filter: blur(1px)) {
+    html:not(.dark) .navbar-glass {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  /* Legacy backdrop blur implementation */
   .backdrop-blur-\[100px\], .backdrop-blur-md {
     -webkit-backdrop-filter: var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,)var(--tw-backdrop-brightness,)var(--tw-backdrop-contrast,)var(--tw-backdrop-grayscale,)var(--tw-backdrop-hue-rotate,)var(--tw-backdrop-invert,)var(--tw-backdrop-opacity,)var(--tw-backdrop-saturate,)var(--tw-backdrop-sepia,);

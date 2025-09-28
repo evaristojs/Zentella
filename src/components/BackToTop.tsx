@@ -29,7 +29,7 @@ const BackToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className="fixed bottom-6 right-6 z-50 p-3 bg-color-primary hover:bg-color-primary-hover text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm border border-white/10"
+          className="fixed bottom-6 right-6 z-[60] p-4 bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-md border border-gray-200/20 dark:border-gray-700/30 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 text-gray-700 dark:text-gray-300 hover:text-color-primary dark:hover:text-color-primary cursor-pointer"
           onClick={scrollToTop}
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -48,7 +48,7 @@ const BackToTop = () => {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={2.5}
               d="M5 10l7-7m0 0l7 7m-7-7v18"
             />
           </svg>

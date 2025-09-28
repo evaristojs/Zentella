@@ -3,7 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -14,9 +14,22 @@ interface NavigationProps {
 const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
-  const { isScrolled } = useNavbarScroll(20)
+  const { isScrolled, forceUpdate } = useNavbarScroll(5)
   const { currentLanguage, setLanguage, t } = useLanguage()
   const navRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    // On a cached reload at a scrolled position, the browser restores scroll
+    // before our hooks initialize. We only force an update if we detect the
+    // page has loaded at a scrolled position.
+    if (window.scrollY > 0) {
+      const timer = setTimeout(() => {
+        forceUpdate();
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [forceUpdate]); // Run only when forceUpdate function is available
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -42,23 +55,27 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     e.preventDefault()
     closeMenu()
 
-    const sectionId = href.replace('#', '')
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
+    if (href === '#hero') {
+      document.body.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const sectionId = href.replace('#', '')
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
     }
   }
 
   const getNavbarClasses = () => {
     const baseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    
+
     if (isScrolled) {
-      return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-lg shadow-lg shadow-black/10 dark:shadow-black/30`
+      return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 navbar-glass shadow-lg shadow-black/10 dark:shadow-black/30`
     }
-    
+
     return `${baseClasses} bg-transparent`
   }
 
@@ -81,8 +98,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={() => {
-                const element = document.getElementById('hero')
-                if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                document.body.scrollTo({ top: 0, behavior: 'smooth' })
               }}
               aria-label={t('nav.inicio')}
             >
@@ -334,8 +350,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               exit={{ opacity: 0 }}
             />
             
-            <motion.div 
-              className="absolute top-0 left-0 w-full h-full bg-white/90 dark:bg-bg-base-dark/90 backdrop-blur-lg shadow-2xl z-[50]"
+            <motion.div
+              className="absolute top-0 left-0 w-full h-full bg-white/90 dark:bg-bg-base-dark/90 navbar-glass shadow-2xl z-[50]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

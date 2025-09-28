@@ -51,18 +51,10 @@ section {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Secciones que ocupan viewport completo */
+/* Secciones que ocupan viewport completo, usando dvh para compatibilidad con UI móvil */
 #hero {
-  min-height: 100vh; /* Hero sí ocupa todo el viewport */
-  height: 100vh;
-}
-
-/* Todas las secciones tienen navegación libre - no se necesitan excepciones */
-
-/* Ensure hero section takes full viewport */
-#hero {
-  height: 100vh;
-  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100dvh;
 }
 
 /* Make other sections adapt to viewport height */
@@ -79,26 +71,26 @@ section {
 #footer {
   min-height: 100vh;
   height: auto;
-  scroll-snap-align: start;
+  scroll-snap-align: none;
 }
 
 /* Contact section normal behavior */
 #contact {
-  scroll-snap-align: start;
+  scroll-snap-align: none;
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   /* Allow sections to be taller on mobile if needed */
   section {
-    scroll-snap-align: start;
+    scroll-snap-align: none;
     min-height: 100vh;
     height: auto;
   }
 
-  /* Make scroll snap less aggressive on mobile */
+  /* Disable scroll snap on mobile to prevent navbar transparency issues */
   body {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none !important;
   }
 }
 
@@ -112,9 +104,9 @@ a[href^="#"] {
   scroll-snap-type: none !important;
 }
 
-/* Improve snap behavior for touch devices */
+/* Disable snap behavior for touch devices to prevent navbar issues */
 @media (hover: none) and (pointer: coarse) {
   body {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: none !important;
   }
 }

@@ -43,8 +43,8 @@ function App() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="min-h-screen bg-bg-base-light dark:bg-bg-base-dark text-text-primary-light dark:text-text-primary-dark"
           >
-            <Navigation 
-              isMenuOpen={isMenuOpen} 
+            <Navigation
+              isMenuOpen={isMenuOpen}
               setIsMenuOpen={setIsMenuOpen}
               currentSection={currentSection}
             />

@@ -65,8 +65,15 @@ class UltraScrollManager {
   }
 
   private getScrollY(): number {
-    // Always use the most reliable method for scroll position
-    // window.scrollY works consistently across all scroll containers
+    // For WebKit mobile browsers, use more reliable detection
+    const isWebKitMobile = /iPhone|iPad|iPod|Android.*Chrome|Android.*Safari/i.test(navigator.userAgent)
+
+    if (isWebKitMobile) {
+      // Force integer values and use multiple fallbacks for mobile WebKit
+      return Math.floor(window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0)
+    }
+
+    // Desktop and other browsers
     return window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
   }
 
@@ -118,14 +125,14 @@ class UltraScrollManager {
   private handleScroll = (): void => {
     const now = performance.now()
     const currentScrollY = this.getScrollY()
-    
+
     // Calculate velocity and direction
     const deltaY = currentScrollY - this.lastScrollY
     const deltaTime = now - this.lastTime
-    
+
     if (deltaTime > 0) {
       this.velocity = Math.abs(deltaY / deltaTime)
-      
+
       if (Math.abs(deltaY) > 1) { // Minimum threshold to avoid micro-movements
         this.direction = deltaY > 0 ? 'down' : 'up'
       } else if (this.velocity < 0.1) {
@@ -136,19 +143,20 @@ class UltraScrollManager {
     // Cache elements if needed
     this.cacheElements()
 
+
     // Notify all listeners
     this.listeners.forEach(callback => {
       const sectionInfo = this.getCurrentSection(currentScrollY, this.navbarHeight)
-      
+
       const state: ScrollState = {
         scrollY: currentScrollY,
-        isScrolled: currentScrollY > 20,
+        isScrolled: currentScrollY > 0,
         direction: this.direction,
         velocity: this.velocity,
         isInHero: sectionInfo.isInHero,
         currentSection: sectionInfo.currentSection
       }
-      
+
       callback(state)
     })
 
@@ -179,7 +187,7 @@ class UltraScrollManager {
     
     callback({
       scrollY: currentScrollY,
-      isScrolled: currentScrollY > 20,
+      isScrolled: currentScrollY > 0,
       direction: this.direction,
       velocity: this.velocity,
       isInHero: sectionInfo.isInHero,
@@ -198,32 +206,51 @@ class UltraScrollManager {
 
   private startListening(): void {
     if (this.isActive) return
-    
+
     this.isActive = true
     const target = this.scrollContainer || window
-    
-    target.addEventListener('scroll', this.scheduleUpdate, { 
-      passive: true,
-      capture: false
-    })
-    
+    const isWebKitMobile = /iPhone|iPad|iPod|Android.*Chrome|Android.*Safari/i.test(navigator.userAgent)
+
+    if (isWebKitMobile) {
+      // Para WebKit móvil, usar configuración más agresiva
+      target.addEventListener('scroll', this.scheduleUpdate, {
+        passive: true,
+        capture: true  // Cambiar a capture true para WebKit móvil
+      })
+      // Agregar listener adicional para touchend para WebKit móvil
+      target.addEventListener('touchend', () => {
+        setTimeout(() => this.handleScroll(), 100)
+      }, { passive: true })
+    } else {
+      target.addEventListener('scroll', this.scheduleUpdate, {
+        passive: true,
+        capture: false
+      })
+    }
+
     // Initial call
     this.handleScroll()
   }
 
   private stopListening(): void {
     if (!this.isActive) return
-    
+
     this.isActive = false
     const target = this.scrollContainer || window
-    
+    const isWebKitMobile = /iPhone|iPad|iPod|Android.*Chrome|Android.*Safari/i.test(navigator.userAgent)
+
     target.removeEventListener('scroll', this.scheduleUpdate)
-    
+
+    if (isWebKitMobile) {
+      // Cleanup adicional para WebKit móvil
+      target.removeEventListener('touchend', this.handleScroll)
+    }
+
     if (this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
-    
+
     // Clean up cached elements to prevent memory leaks
     this.heroElement = null
     this.sections.clear()
@@ -301,7 +328,7 @@ export const useUltraScrollDetection = (options: ScrollOptions = {}) => {
         isInHero: enableSections ? newState.isInHero : true,
         currentSection: enableSections ? newState.currentSection : 'hero'
       }
-      
+
       stateRef.current = filteredState
       setState(filteredState)
     }
@@ -339,11 +366,11 @@ export const useSimpleScroll = (threshold = 20) => {
  * Navbar scroll detection - isScrolled + direction for hide/show
  */
 export const useNavbarScroll = (threshold = 20) => {
-  const { isScrolled, direction, scrollY } = useUltraScrollDetection({ 
+  const { isScrolled, direction, scrollY, forceUpdate } = useUltraScrollDetection({
     threshold,
-    enableVelocity: false 
+    enableVelocity: false
   })
-  return { isScrolled, direction, scrollY }
+  return { isScrolled, direction, scrollY, forceUpdate }
 }
 
 /**

@@ -48,11 +48,11 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
             clearTimeout(debounceRef.current);
           }
 
-          // Use longer debounce for better stability
+          // Use shorter debounce for faster responsiveness
           debounceRef.current = setTimeout(() => {
             lastSectionRef.current = newSection;
             setCurrentSection(newSection);
-          }, 100);
+          }, 50);
         }
       }
     };
