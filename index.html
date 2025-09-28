@@ -65,6 +65,11 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://zentella.com/" />
 
+    <!-- Additional PWA meta tags for better installation prompts -->
+    <meta name="application-name" content="Zentella">
+    <meta name="msapplication-tooltip" content="Zentella - Agencia Creativa">
+    <meta name="msapplication-starturl" content="/?source=pwa">
+
     <!-- Structured Data - Organization -->
     <script type="application/ld+json">
     {
@@ -212,7 +217,7 @@
             if (deferredPrompt && !window.matchMedia('(display-mode: standalone)').matches) {
               showInstallPrompt();
             }
-          }, 30000); // Show after 30 seconds
+          }, 15000); // Show after 15 seconds instead of 30
         });
 
         function showInstallPrompt() {

@@ -12,8 +12,6 @@ const inputDir = path.resolve(__dirname, '../src/assets/originals/images-origina
 const outputDir = path.resolve(__dirname, '../public/images');
 
 // Configuraciones de optimización
-const jpegConfig = { quality: 85, progressive: true };
-const pngConfig = { quality: 85, compressionLevel: 8 };
 const webpConfig = { quality: 80, effort: 4 };
 
 async function ensureDir(dirPath) {

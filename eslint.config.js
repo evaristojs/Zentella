@@ -124,6 +124,19 @@ export default [
     }
   },
   {
+    // Configuration for Node.js scripts
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
+    },
+    rules: {
+      // Allow console.log in scripts
+      'no-console': 'off'
+    }
+  },
+  {
     // Test files configuration
     files: [
       '**/*.test.{js,ts,jsx,tsx}',

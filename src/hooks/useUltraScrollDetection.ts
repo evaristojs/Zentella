@@ -366,11 +366,12 @@ export const useSimpleScroll = (threshold = 20) => {
  * Navbar scroll detection - isScrolled + direction for hide/show
  */
 export const useNavbarScroll = (threshold = 20) => {
-  const { isScrolled, direction, scrollY, forceUpdate } = useUltraScrollDetection({
+  const { isScrolled, direction, scrollY, forceUpdate, isInHero } = useUltraScrollDetection({
     threshold,
-    enableVelocity: false
+    enableVelocity: false,
+    enableSections: true // Enable section detection to get isInHero
   })
-  return { isScrolled, direction, scrollY, forceUpdate }
+  return { isScrolled, direction, scrollY, forceUpdate, isInHero }
 }
 
 /**

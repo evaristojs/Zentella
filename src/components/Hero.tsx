@@ -29,14 +29,14 @@ const Hero: React.FC<HeroProps> = () => {
     t('hero.phrase.tu_audiencia'),
     t('hero.phrase.tu_estrategia'),
     t('hero.phrase.tu_vision')
-  ], [currentLanguage, t])
+  ], [t])
 
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [showCursor, setShowCursor] = useState(true)
 
-  // Logo data array
-  const clientLogos = [
+  // Logo data array - Memoized to prevent re-renders
+  const clientLogos = useMemo(() => [
     { name: 'Regularzentella2025', logo: '/regularzentella2025.png' },
     { name: 'Zentella Mesa 7', logo: '/zentella-clientesMesa-de-trabajo-7.png' },
     { name: 'Zentella Mesa 10', logo: '/zentella-clientesMesa-de-trabajo-10.png' },
@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = () => {
     { name: 'Zentella Mesa 2', logo: '/zentella-Mesa-de-trabajo-2.png' },
     { name: 'Zentella Mesa 8', logo: '/zentella-clientesMesa-de-trabajo-8.png' },
     { name: 'Zentella Mesa 9 Copia', logo: '/zentella-clientesMesa-de-trabajo-9-copia.png' }
-  ]
+  ], [])
 
   // Reset typewriter when language changes
   useEffect(() => {
@@ -61,12 +61,12 @@ const Hero: React.FC<HeroProps> = () => {
   useEffect(() => {
     // Only preload first 4 logos that appear above the fold
     const criticalLogos = clientLogos.slice(0, 4)
-    
+
     criticalLogos.forEach((client) => {
       const img = new Image()
       img.src = client.logo
     })
-  }, [])
+  }, [clientLogos])
 
   const timeoutsRef = useRef<NodeJS.Timeout[]>([])
   const themeObserverRef = useRef<MutationObserver | null>(null)
@@ -157,7 +157,7 @@ const Hero: React.FC<HeroProps> = () => {
       if (window.Starfield) {
         try {
           window.Starfield.cleanup()
-        } catch (error) {
+        } catch {
         }
       }
 
@@ -266,12 +266,6 @@ const Hero: React.FC<HeroProps> = () => {
     }, 500)
   }
 
-  // Custom styles for the main headings
-  const mainHeadingStyles = {
-    fontSize: 'clamp(3.5rem, 8vw, 7rem)',
-    lineHeight: '1.1',
-    letterSpacing: '0.05em',
-  }
 
   return (
     <>

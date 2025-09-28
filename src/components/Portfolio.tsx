@@ -39,6 +39,8 @@ interface PortfolioState {
   retryAttempts: Map<string, number>
   lastViewedItem: number | null
   showMobileInstructions: boolean
+  hasShownInstructions: boolean
+  showHelpIcon: boolean
   imageDirection: 'next' | 'prev' | null
 }
 
@@ -66,6 +68,9 @@ type PortfolioAction =
   | { type: 'SET_LAST_VIEWED'; payload: number }
   | { type: 'HIDE_MOBILE_INSTRUCTIONS' }
   | { type: 'SHOW_MOBILE_INSTRUCTIONS' }
+  | { type: 'MARK_INSTRUCTIONS_SHOWN' }
+  | { type: 'SHOW_HELP_ICON' }
+  | { type: 'HIDE_HELP_ICON' }
 
 const portfolioReducer = (state: PortfolioState, action: PortfolioAction): PortfolioState => {
   switch (action.type) {
@@ -97,10 +102,10 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
       }
 
     case 'OPEN_FULLSCREEN':
-      return { ...state, fullscreenImage: action.payload, isFullscreenOpen: true, showMobileInstructions: true, zoomLevel: 1, panPosition: { x: 0, y: 0 } }
+      return { ...state, fullscreenImage: action.payload, isFullscreenOpen: true, showMobileInstructions: !state.hasShownInstructions, zoomLevel: 1, panPosition: { x: 0, y: 0 } }
 
     case 'CLOSE_FULLSCREEN':
-      return { ...state, isFullscreenOpen: false, fullscreenImage: '', showMobileInstructions: false }
+      return { ...state, isFullscreenOpen: false, fullscreenImage: '', showMobileInstructions: false, showHelpIcon: false }
 
     case 'SET_ITEMS_TO_SHOW':
       return { ...state, itemsToShow: action.payload }
@@ -168,6 +173,15 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
 
     case 'SHOW_MOBILE_INSTRUCTIONS':
       return { ...state, showMobileInstructions: true }
+
+    case 'MARK_INSTRUCTIONS_SHOWN':
+      return { ...state, hasShownInstructions: true }
+
+    case 'SHOW_HELP_ICON':
+      return { ...state, showHelpIcon: true }
+
+    case 'HIDE_HELP_ICON':
+      return { ...state, showHelpIcon: false }
 
     default:
       return state
@@ -354,6 +368,8 @@ const Portfolio = () => {
     retryAttempts: new Map(),
     lastViewedItem: null,
     showMobileInstructions: true,
+    hasShownInstructions: false,
+    showHelpIcon: false,
     imageDirection: null
   }
 
@@ -1083,19 +1099,56 @@ const Portfolio = () => {
     }
   }, [state.isModalOpen])
 
-  // Auto-hide mobile instructions after 5 seconds
+  // Auto-hide mobile instructions after 5 seconds and mark as shown
   useEffect(() => {
     let timer: NodeJS.Timeout
     if (state.isFullscreenOpen && state.showMobileInstructions) {
       timer = setTimeout(() => {
         dispatch({ type: 'HIDE_MOBILE_INSTRUCTIONS' })
+        if (!state.hasShownInstructions) {
+          dispatch({ type: 'MARK_INSTRUCTIONS_SHOWN' })
+        }
       }, 5000)
     }
 
     return () => {
       if (timer) clearTimeout(timer)
     }
-  }, [state.isFullscreenOpen, state.showMobileInstructions])
+  }, [state.isFullscreenOpen, state.showMobileInstructions, state.hasShownInstructions])
+
+  // Auto-hide help icon after 2 seconds
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+    if (state.isFullscreenOpen && state.showHelpIcon && state.hasShownInstructions) {
+      timer = setTimeout(() => {
+        dispatch({ type: 'HIDE_HELP_ICON' })
+      }, 2000)
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [state.isFullscreenOpen, state.showHelpIcon, state.hasShownInstructions])
+
+  // Show help icon on touch/click in fullscreen (only on mobile after instructions have been shown)
+  useEffect(() => {
+    const handleTouch = () => {
+      if (state.isFullscreenOpen && state.hasShownInstructions && !state.showMobileInstructions) {
+        dispatch({ type: 'SHOW_HELP_ICON' })
+      }
+    }
+
+    if (state.isFullscreenOpen && state.hasShownInstructions) {
+      // Add touch and click listeners
+      document.addEventListener('touchstart', handleTouch, { passive: true })
+      document.addEventListener('click', handleTouch)
+    }
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouch)
+      document.removeEventListener('click', handleTouch)
+    }
+  }, [state.isFullscreenOpen, state.hasShownInstructions, state.showMobileInstructions])
 
   // Analytics tracking
   const trackPortfolioView = useCallback((itemId: number) => {
@@ -1570,7 +1623,7 @@ const Portfolio = () => {
               {...swipeHandlers}
             >
               <motion.div
-                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[95vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(90vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row z-10"
+                className="relative bg-bg-secondary-light dark:bg-bg-secondary-dark max-w-[90vw] sm:max-w-3xl md:max-w-4xl w-full max-h-[calc(85vh-4rem)] overflow-y-auto rounded-2xl border border-gray-200/50 dark:border-gray-700/50 flex flex-col md:flex-row z-10"
                 onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -1744,16 +1797,6 @@ const Portfolio = () => {
                     </motion.button>
                   </div>
 
-                  {/* Navigation Instructions - Mobile Only */}
-                  <div className="md:hidden text-sm text-text-secondary-light dark:text-text-secondary-dark">
-                    <p className="mb-1">{t('portfolio.navegacion')}:</p>
-                    <ul className="text-xs space-y-1">
-                      <li>• {t('portfolio.flechas_cambiar')}</li>
-                      <li>• {t('portfolio.espacio_pantalla_completa')}</li>
-                      <li>• {t('portfolio.s_slideshow')}</li>
-                      <li>• {t('portfolio.escape_cerrar')}</li>
-                    </ul>
-                  </div>
 
                   {/* Desktop-only enhanced content */}
                   <div className="hidden xl:block mt-8">
@@ -1966,6 +2009,32 @@ const Portfolio = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
+
+                {/* Help Icon - Shows after instructions have been shown once */}
+                {state.hasShownInstructions && !state.showMobileInstructions && state.showHelpIcon && (
+                  <motion.button
+                    className="md:hidden absolute top-4 left-4 bg-black/70 hover:bg-black/90 text-white rounded-full p-3 backdrop-blur-sm border border-color-primary/50"
+                    onClick={() => {
+                      dispatch({ type: 'HIDE_HELP_ICON' })
+                      dispatch({ type: 'SHOW_MOBILE_INSTRUCTIONS' })
+                    }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </motion.button>
+                )}
 
                 {/* Close Button */}
                 <motion.button

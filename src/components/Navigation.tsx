@@ -3,7 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
 import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -19,16 +19,13 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
   const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // On a cached reload at a scrolled position, the browser restores scroll
-    // before our hooks initialize. We only force an update if we detect the
-    // page has loaded at a scrolled position.
-    if (window.scrollY > 0) {
-      const timer = setTimeout(() => {
-        forceUpdate();
-      }, 100);
+    // Always force update after a short delay to ensure navbar state is correct on initial load,
+    // especially after browser scroll restoration or initial render.
+    const timer = setTimeout(() => {
+      forceUpdate();
+    }, 50);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, [forceUpdate]); // Run only when forceUpdate function is available
 
   const toggleMenu = () => {
@@ -80,7 +77,6 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     if (isScrolled) {
       return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 navbar-glass shadow-lg shadow-black/10 dark:shadow-black/30`
     }
-
     return `${baseClasses} bg-transparent`
   }
 
