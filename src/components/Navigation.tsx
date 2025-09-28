@@ -57,6 +57,11 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
     if (href === '#hero') {
       document.body.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        forceUpdate();
+      }, 300);
     } else {
       const sectionId = href.replace('#', '')
       const element = document.getElementById(sectionId)
@@ -98,7 +103,12 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={() => {
-                document.body.scrollTo({ top: 0, behavior: 'smooth' })
+                document.body.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                  document.body.scrollTop = 0;
+                  document.documentElement.scrollTop = 0;
+                  forceUpdate();
+                }, 300);
               }}
               aria-label={t('nav.inicio')}
             >

@@ -2,7 +2,6 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- Primary Meta Tags -->
     <title>Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video</title>
     <meta name="title" content="Zentella - Agencia Creativa | Marketing Digital, Fotografía, Diseño & Video" />
@@ -27,9 +26,9 @@
     <meta name="msapplication-config" content="/browserconfig.xml" />
 
     <!-- Icons -->
-    <link rel="icon" type="image/svg+xml" href="/isotipo-positivo.svg" />
-    <link rel="apple-touch-icon" href="/isotipo-positivo.svg" />
-    <link rel="mask-icon" href="/isotipo-positivo.svg" color="#ac00d3" />
+    <link rel="icon" type="image/svg+xml" href="/isotipo-negativo.svg" />
+    <link rel="apple-touch-icon" href="/isotipo-negativo.svg" />
+    <link rel="mask-icon" href="/isotipo-negativo.svg" color="#ffffff" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -51,7 +50,7 @@
     <meta property="twitter:creator" content="@ZentellaAgency" />
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="/logo-modo-claro.svg" as="image" type="image/svg+xml">
+    <!-- Local fonts removed - using Google Fonts instead -->
 
     <!-- DNS Prefetch -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -65,6 +64,108 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://zentella.com/" />
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Zentella Creative Agency",
+      "alternateName": "Zentella",
+      "url": "https://zentella.com",
+      "logo": "https://zentella.com/icons/icon-512x512.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-809-676-2429",
+        "contactType": "customer service",
+        "areaServed": "DO",
+        "availableLanguage": ["Spanish", "English"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle Principal #123",
+        "addressLocality": "Santo Domingo",
+        "addressRegion": "Distrito Nacional",
+        "postalCode": "10210",
+        "addressCountry": "DO"
+      },
+      "sameAs": [
+        "https://www.instagram.com/zentellaagency",
+        "https://www.linkedin.com/company/zentella",
+        "https://www.facebook.com/zentellaagency"
+      ],
+      "foundingDate": "2019",
+      "description": "Agencia creativa especializada en marketing digital, fotografía profesional, diseño gráfico, videografía y animación",
+      "knowsAbout": ["Marketing Digital", "Fotografía", "Diseño Gráfico", "Videografía", "Animación", "Branding"],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "18.4861",
+          "longitude": "-69.9312"
+        },
+        "geoRadius": "100000"
+      }
+    }
+    </script>
+
+    <!-- Structured Data - Services -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Zentella Creative Agency",
+      "image": "https://zentella.com/icons/icon-512x512.png",
+      "description": "Agencia creativa que ofrece servicios integrales de marketing digital, fotografía profesional, diseño gráfico, videografía y animación",
+      "serviceType": ["Marketing Digital", "Fotografía Profesional", "Diseño Gráfico", "Videografía", "Animación", "Branding"],
+      "provider": {
+        "@type": "Organization",
+        "name": "Zentella Creative Agency"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Dominican Republic"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios Creativos",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Diseño Gráfico y Branding",
+              "description": "Identidades visuales únicas que conectan con tu audiencia"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Marketing Digital",
+              "description": "Estrategias integrales para hacer crecer tu negocio online"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fotografía Profesional",
+              "description": "Capturamos la esencia de tu marca con fotografías profesionales"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Video y Animación",
+              "description": "Contenido audiovisual que conecta emocionalmente con tu audiencia"
+            }
+          }
+        ]
+      }
+    }
+    </script>
 
     <script src="/theme-init.js"></script>
   </head>

@@ -6,7 +6,7 @@ interface SectionScrollOptions {
 
 export const useSectionScroll = (options: SectionScrollOptions = {}) => {
   const {
-    rootMargin = '0px 0px -40% 0px' // Default root margin
+    rootMargin = '0px 0px -20% 0px' // Default root margin, less aggressive
   } = options;
 
   const [currentSection, setCurrentSection] = useState<string>('hero');
@@ -19,9 +19,8 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
 
     const observerOptions = {
       root: null,
-      rootMargin,
-      // Use fewer, strategic thresholds to reduce noise
-      threshold: [0, 0.25, 0.5, 0.75],
+      rootMargin: '-50% 0px -50% 0px', // Narrow active zone in the middle of the viewport
+      threshold: 0,
     };
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
@@ -35,24 +34,10 @@ export const useSectionScroll = (options: SectionScrollOptions = {}) => {
 
         const newSection = mostVisible.target.id;
 
-        // Add hysteresis: require a minimum intersection ratio to switch
-        const minRatioToSwitch = 0.1;
-        const isSignificantChange = mostVisible.intersectionRatio >= minRatioToSwitch;
-
-        // Only change if:
-        // 1. It's a significant intersection ratio
-        // 2. AND (it's a different section OR the intersection ratio is very high)
-        if (isSignificantChange && (newSection !== lastSectionRef.current || mostVisible.intersectionRatio > 0.6)) {
-          // Clear previous timeout
-          if (debounceRef.current) {
-            clearTimeout(debounceRef.current);
-          }
-
-          // Use shorter debounce for faster responsiveness
-          debounceRef.current = setTimeout(() => {
-            lastSectionRef.current = newSection;
-            setCurrentSection(newSection);
-          }, 50);
+        // Update immediately if it's a different section
+        if (newSection !== lastSectionRef.current) {
+          lastSectionRef.current = newSection;
+          setCurrentSection(newSection);
         }
       }
     };

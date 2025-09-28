@@ -28,6 +28,10 @@ body {
   :root {
     --nav-height: 64px; /* Navbar más pequeño en móvil */
   }
+  /* Disable scroll snap on mobile to prevent navbar transparency issues */
+  body {
+    scroll-snap-type: none !important;
+  }
 }
 
 main {

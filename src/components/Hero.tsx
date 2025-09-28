@@ -73,6 +73,108 @@ const Hero: React.FC<HeroProps> = () => {
   const scriptRef = useRef<HTMLScriptElement | null>(null)
   const cursorIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
+  // Starfield.js initialization
+  useEffect(() => {
+    // Check if script already exists to prevent duplicates
+    const existingScript = document.querySelector('script[src="/starfield.js"]')
+    if (existingScript) {
+      return
+    }
+
+    // Load starfield.js script
+    const script = document.createElement('script')
+    script.src = '/starfield.js'
+    script.async = true
+    scriptRef.current = script
+
+    script.onload = () => {
+      // Initialize Starfield with custom configuration
+      if (window.Starfield) {
+        // Función para configurar el starfield según el tema
+        const setupStarfield = () => {
+          const isDarkMode = document.documentElement.classList.contains('dark')
+
+          window.Starfield.setup({
+            numStars: 400,
+            baseSpeed: 1.2, // Velocidad normal para mejor visibilidad
+            trailLength: 0,
+            // Colores mejorados para mejor visibilidad
+            starColor: isDarkMode
+              ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
+              : 'rgba(60, 20, 180, 0.15)',   // Púrpura muy translúcido en modo claro
+            canvasColor: isDarkMode
+              ? 'rgb(8, 8, 12)'      // Azul muy oscuro en lugar de negro puro
+              : 'rgb(248, 248, 252)', // Gris muy claro para modo claro
+            hueJitter: 25, // Variación de color para ambos modos
+            maxAcceleration: 6,
+            accelerationRate: 0.15,
+            decelerationRate: 0.12,
+            minSpawnRadius: 100,
+            maxSpawnRadius: 500,
+            auto: false,                // Desactivar auto para control manual
+            container: document.querySelector('.starfield') as HTMLElement | null,
+            originElement: document.querySelector('.starfield-origin') as HTMLElement | null
+          })
+
+        }
+
+        setupStarfield()
+
+        // Observer para cambios de tema - Solo actualizar colores
+        // Prevent double observer creation
+        if (!themeObserverRef.current) {
+          themeObserverRef.current = new MutationObserver(() => {
+            if (!window.Starfield || !window.Starfield.config) return
+
+            const isDarkMode = document.documentElement.classList.contains('dark')
+
+            // Actualizar solo los colores sin recrear el starfield
+            window.Starfield.config.starColor = isDarkMode
+              ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
+              : 'rgba(60, 20, 180, 0.15)'   // Púrpura muy translúcido en modo claro
+
+            window.Starfield.config.canvasColor = isDarkMode
+              ? 'rgb(8, 8, 12)'      // Azul muy oscuro
+              : 'rgb(248, 248, 252)' // Gris muy claro para modo claro
+          })
+
+          themeObserverRef.current.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+          })
+        }
+      }
+    }
+
+    script.onerror = () => {
+      scriptRef.current = null
+    }
+
+    document.head.appendChild(script)
+
+    return () => {
+      // Robust cleanup
+      if (window.Starfield) {
+        try {
+          window.Starfield.cleanup()
+        } catch (error) {
+        }
+      }
+
+      // Clean up script
+      if (scriptRef.current && scriptRef.current.parentNode) {
+        scriptRef.current.parentNode.removeChild(scriptRef.current)
+        scriptRef.current = null
+      }
+
+      // Clean up observer
+      if (themeObserverRef.current) {
+        themeObserverRef.current.disconnect()
+        themeObserverRef.current = null
+      }
+    }
+  }, [])
+
   // Typing effect
   useEffect(() => {
     const typeNextCharacter = (i: number) => {
@@ -118,109 +220,6 @@ const Hero: React.FC<HeroProps> = () => {
     }
   }, [])
 
-  // Starfield.js initialization
-  useEffect(() => {
-    // Check if script already exists to prevent duplicates
-    const existingScript = document.querySelector('script[src="/starfield.js"]')
-    if (existingScript) {
-      return
-    }
-
-    // Load starfield.js script
-    const script = document.createElement('script')
-    script.src = '/starfield.js'
-    script.async = true
-    scriptRef.current = script
-
-    script.onload = () => {
-      // Initialize Starfield with custom configuration
-      if (window.Starfield) {
-        // Función para configurar el starfield según el tema
-        const setupStarfield = () => {
-          const isDarkMode = document.documentElement.classList.contains('dark')
-
-          window.Starfield.setup({
-            numStars: 400,
-            baseSpeed: 1.2, // Velocidad normal para mejor visibilidad
-            trailLength: 0,
-            // Colores mejorados para mejor visibilidad
-            starColor: isDarkMode
-              ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
-              : 'rgba(60, 20, 180, 0.15)',   // Púrpura muy translúcido en modo claro
-            canvasColor: isDarkMode
-              ? 'rgb(8, 8, 12)'      // Azul muy oscuro en lugar de negro puro
-              : 'rgb(248, 248, 252)', // Gris muy claro para modo claro
-            hueJitter: 25, // Variación de color para ambos modos
-            maxAcceleration: 6,
-            accelerationRate: 0.15,
-            decelerationRate: 0.12,
-            minSpawnRadius: 100,
-            maxSpawnRadius: 500,
-            auto: false,                // Desactivar auto para control manual
-            accelerate: false,          // Comenzar en modo normal, no hiper
-            container: document.querySelector('.starfield') as HTMLElement | null,
-            originElement: document.querySelector('.starfield-origin') as HTMLElement | null
-          } as any)
-
-        }
-
-        setupStarfield()
-
-        // Observer para cambios de tema - Solo actualizar colores
-        // Prevent double observer creation
-        if (!themeObserverRef.current) {
-          themeObserverRef.current = new MutationObserver(() => {
-            if (!window.Starfield || !window.Starfield.config) return
-
-            const isDarkMode = document.documentElement.classList.contains('dark')
-
-            // Actualizar solo los colores sin recrear el starfield
-            window.Starfield.config.starColor = isDarkMode
-              ? 'rgb(200, 160, 255)' // Púrpura claro en modo oscuro
-              : 'rgba(60, 20, 180, 0.15)'   // Púrpura muy translúcido en modo claro
-
-            window.Starfield.config.canvasColor = isDarkMode
-              ? 'rgb(8, 8, 12)'      // Azul muy oscuro
-              : 'rgb(248, 248, 252)' // Gris muy claro para modo claro
-
-          })
-
-          themeObserverRef.current.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class']
-          })
-        }
-      }
-    }
-
-    script.onerror = () => {
-      scriptRef.current = null
-    }
-
-    document.head.appendChild(script)
-
-    return () => {
-      // Robust cleanup
-      if (window.Starfield) {
-        try {
-          window.Starfield.cleanup()
-        } catch (error) {
-        }
-      }
-
-      // Clean up script
-      if (scriptRef.current && scriptRef.current.parentNode) {
-        scriptRef.current.parentNode.removeChild(scriptRef.current)
-        scriptRef.current = null
-      }
-
-      // Clean up observer
-      if (themeObserverRef.current) {
-        themeObserverRef.current.disconnect()
-        themeObserverRef.current = null
-      }
-    }
-  }, [])
 
   // Event handlers para el botón Comenzar - Aceleración en hover
   const handleComenzarHover = () => {
@@ -243,38 +242,28 @@ const Hero: React.FC<HeroProps> = () => {
 
 
   const handleComenzarClick = () => {
-    // Activar aceleración del starfield
-    if (window.Starfield) {
+    // Activar aceleración del starfield como en hover
+    if (window.Starfield && window.Starfield.setAccelerate) {
       window.Starfield.setAccelerate(true)
     }
 
-    // Esperar menos tiempo para mejor UX y luego hacer scroll
-    const scrollTimeout = setTimeout(() => {
-      // Verificar si existe el elemento antes de hacer scroll
-      const contactElement = document.getElementById('contact')
-
-      // Temporarily disable scroll snap for smooth navigation
-      document.body.classList.add('navigating')
-
-      if (contactElement) {
-        contactElement.scrollIntoView({ behavior: 'smooth' })
+    // Wait 500ms then scroll
+    setTimeout(() => {
+      const element = document.getElementById('contact')
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
       }
 
-      // Re-enable scroll snap after navigation
+      // Desactivar aceleración después del scroll con delay
       setTimeout(() => {
-        document.body.classList.remove('navigating')
-      }, 1000)
-
-      // Desactivar aceleración después del scroll con un pequeño delay
-      setTimeout(() => {
-        if (window.Starfield) {
+        if (window.Starfield && window.Starfield.setAccelerate) {
           window.Starfield.setAccelerate(false)
         }
-      }, 300)
+      }, 100)
     }, 500)
-
-    // Store timeout for cleanup if component unmounts
-    timeoutsRef.current.push(scrollTimeout)
   }
 
   // Custom styles for the main headings
@@ -290,7 +279,7 @@ const Hero: React.FC<HeroProps> = () => {
       id="hero"
       className="starfield min-h-screen relative overflow-hidden bg-white dark:bg-black"
       style={{
-        height: '100vh',
+        height: '100dvh',
         width: '100%',
         maxWidth: '100vw',
         overflowX: 'hidden',
@@ -313,7 +302,7 @@ const Hero: React.FC<HeroProps> = () => {
       <div
         className="hero-content starfield-origin absolute left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full text-center"
         style={{
-          top: '52%', // Default para móvil
+          top: '50%', // Centrado vertical perfecto
           maxWidth: '100vw',
           padding: '0'
         }}
@@ -362,7 +351,7 @@ const Hero: React.FC<HeroProps> = () => {
                       maxWidth: '100%',
                       wordBreak: 'normal',
                       overflow: 'visible',
-                      minHeight: 'clamp(3.85rem, 8.8vw, 7.7rem)', // Altura fija para evitar reflow durante typing
+                      minHeight: 'clamp(3.85rem, 8.8vw, 7.7rem)', // Original minHeight for the text itself
                       display: 'flex',
                       alignItems: 'center'
                     }}
@@ -433,15 +422,14 @@ const Hero: React.FC<HeroProps> = () => {
               <motion.button
                 className="group flex-1 max-w-[160px] px-4 py-2.5 bg-transparent border-2 border-color-primary/40 text-color-primary dark:text-color-primary rounded-full font-semibold text-sm hover:border-color-primary hover:bg-gradient-to-r hover:from-color-primary/10 hover:to-color-secondary/10 transition-all duration-300 min-h-[40px] touch-manipulation backdrop-blur-sm"
                 onClick={() => {
-                  // Temporarily disable scroll snap for smooth navigation
-                  document.body.classList.add('navigating')
-
-                  document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-
-                  // Re-enable scroll snap after navigation
-                  setTimeout(() => {
-                    document.body.classList.remove('navigating')
-                  }, 1000)
+                  // Use same logic as navbar
+                  const element = document.getElementById('portfolio')
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start'
+                    })
+                  }
                 }}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.97 }}
@@ -463,36 +451,6 @@ const Hero: React.FC<HeroProps> = () => {
               </motion.button>
             </motion.div>
 
-            {/* Services Pills - Mobile/Tablet Only */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-3 pt-6 lg:hidden max-w-sm mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.5 }}
-            >
-              {[
-                { key: 'photography', text: t('hero.fotografia') },
-                { key: 'design', text: t('hero.diseno') },
-                { key: 'video', text: t('hero.video') },
-                { key: 'animation', text: t('hero.animacion') }
-              ].map((service, index) => (
-                <motion.div
-                  key={service.key}
-                  className="group relative px-4 py-2.5 bg-white/90 dark:bg-white/15 backdrop-blur-sm border border-gray-300 dark:border-transparent rounded-full text-sm font-medium text-gray-800 dark:text-white drop-shadow-sm cursor-pointer"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.6 + index * 0.1, duration: 0.3 }}
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "rgba(255, 255, 255, 0.95)",
-                    borderColor: "rgba(156, 163, 175, 0.8)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {service.text}
-                </motion.div>
-              ))}
-            </motion.div>
 
           </div>
         </div>
