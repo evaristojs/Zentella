@@ -470,17 +470,25 @@ const Hero: React.FC<HeroProps> = () => {
                     // Create unique key by combining client name with position in extended array
                     const groupIndex = Math.floor(index / clientLogos.length)
                     const uniqueKey = `${client.name}-group${groupIndex}-${index}`
-                    
+
+                    // Check if this is the zentella-Mesa-de-trabajo-2.png image
+                    const isZentellaMesa2 = client.logo === '/zentella-Mesa-de-trabajo-2.png'
+
                     return (
                       <motion.img
                         key={uniqueKey}
                         src={client.logo}
                         alt={`${client.name} logo`}
-                        className="h-20 w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 filter brightness-0 dark:brightness-0 dark:invert mx-6"
+                        className={`h-[5.4rem] w-auto object-contain opacity-60 hover:opacity-90 transition-all duration-300 mx-6 ${
+                          isZentellaMesa2 ? '' : 'filter brightness-0 dark:brightness-0 dark:invert'
+                        }`}
                         whileHover={{ scale: 1.1, y: -2 }}
                         style={{
                           backfaceVisibility: 'hidden',
                           transform: 'translateZ(0)',
+                          ...(isZentellaMesa2 && {
+                            filter: 'grayscale(100%) brightness(2)',
+                          }),
                         }}
                         loading="eager"
                       />
