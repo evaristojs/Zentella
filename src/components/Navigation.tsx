@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
-import { useNavbarScroll } from '../hooks/useUltraScrollDetection'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -13,20 +12,148 @@ interface NavigationProps {
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
-  const { logoSrc, logoState } = useAdaptiveLogo(isDark)
-  const { isScrolled, forceUpdate } = useNavbarScroll(5)
   const { currentLanguage, setLanguage, t } = useLanguage()
   const navRef = useRef<HTMLElement>(null)
 
+  // Estados para scroll personalizado
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isInHero, setIsInHero] = useState(true)
+  const [scrollY, setScrollY] = useState(0)
+  const [detectedSection, setDetectedSection] = useState('hero')
+
+  // Hook del logo con nuestro estado personalizado
+  const { logoSrc, logoState } = useAdaptiveLogo(isDark)
+
+  // Efecto para detectar scroll y cambiar estilo del navbar + lógica del logo
   useEffect(() => {
-    // Always force update after a short delay to ensure navbar state is correct on initial load,
-    // especially after browser scroll restoration or initial render.
+    const handleScroll = () => {
+      // Usar document.body.scrollTop ya que el scroll está en body
+      const currentScrollY = document.body.scrollTop || window.scrollY
+      setScrollY(currentScrollY)
+      const shouldBeScrolled = currentScrollY > 1.5
+      setIsScrolled(shouldBeScrolled)
+
+      console.log('Scroll Y:', currentScrollY, 'isScrolled:', shouldBeScrolled)
+
+      // Lógica para detectar sección actual y si está en hero
+      const sections = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
+      const navbarHeight = 80 // Altura aproximada del navbar
+
+      let currentSectionId = 'hero'
+      let closestSection = { id: 'hero', distance: Infinity }
+
+      // Encontrar la sección más cercana al centro de la pantalla
+      const viewportCenter = currentScrollY + window.innerHeight / 2
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const elementTop = element.offsetTop
+          const elementBottom = elementTop + element.offsetHeight
+          const elementCenter = elementTop + element.offsetHeight / 2
+
+          // Si el centro de la pantalla está dentro de la sección
+          if (viewportCenter >= elementTop && viewportCenter <= elementBottom) {
+            currentSectionId = sectionId
+            break
+          }
+
+          // Si no, encontrar la sección más cercana
+          const distanceToCenter = Math.abs(elementCenter - viewportCenter)
+          if (distanceToCenter < closestSection.distance) {
+            closestSection = { id: sectionId, distance: distanceToCenter }
+          }
+        }
+      }
+
+      // Si ninguna sección contiene el centro, usar la más cercana
+      if (currentSectionId === 'hero' && closestSection.id !== 'hero') {
+        currentSectionId = closestSection.id
+      }
+
+      console.log('Current section:', currentSectionId, 'Scroll Y:', currentScrollY)
+      setDetectedSection(currentSectionId)
+
+      // Lógica para detectar si está en la sección hero (para el logo)
+      const heroElement = document.getElementById('hero')
+      if (heroElement) {
+        const heroBottom = heroElement.offsetTop + heroElement.offsetHeight
+        setIsInHero(currentScrollY + navbarHeight < heroBottom)
+      }
+    }
+
+    // Escuchar scroll en body ya que es donde está configurado overflow-y: auto
+    document.body.addEventListener('scroll', handleScroll)
+    // También en window como fallback
+    window.addEventListener('scroll', handleScroll)
+
+    // Llamada inicial para establecer el estado correcto
+    handleScroll()
+
+    return () => {
+      document.body.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Función para forzar actualización (reemplaza forceUpdate del hook original)
+  const forceUpdate = () => {
+    const currentScrollY = document.body.scrollTop || window.scrollY
+    setScrollY(currentScrollY)
+    setIsScrolled(currentScrollY > 1.5)
+
+    // Detectar sección actual
+    const sections = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
+
+    let currentSectionId = 'hero'
+    let closestSection = { id: 'hero', distance: Infinity }
+
+    // Encontrar la sección más cercana al centro de la pantalla
+    const viewportCenter = currentScrollY + window.innerHeight / 2
+
+    for (const sectionId of sections) {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        const elementTop = element.offsetTop
+        const elementBottom = elementTop + element.offsetHeight
+        const elementCenter = elementTop + element.offsetHeight / 2
+
+        // Si el centro de la pantalla está dentro de la sección
+        if (viewportCenter >= elementTop && viewportCenter <= elementBottom) {
+          currentSectionId = sectionId
+          break
+        }
+
+        // Si no, encontrar la sección más cercana
+        const distanceToCenter = Math.abs(elementCenter - viewportCenter)
+        if (distanceToCenter < closestSection.distance) {
+          closestSection = { id: sectionId, distance: distanceToCenter }
+        }
+      }
+    }
+
+    // Si ninguna sección contiene el centro, usar la más cercana
+    if (currentSectionId === 'hero' && closestSection.id !== 'hero') {
+      currentSectionId = closestSection.id
+    }
+
+    setDetectedSection(currentSectionId)
+
+    const heroElement = document.getElementById('hero')
+    if (heroElement) {
+      const heroBottom = heroElement.offsetTop + heroElement.offsetHeight
+      setIsInHero(currentScrollY + 80 < heroBottom)
+    }
+  }
+
+  // Efecto para forzar actualización inicial
+  useEffect(() => {
     const timer = setTimeout(() => {
       forceUpdate();
     }, 50);
 
     return () => clearTimeout(timer);
-  }, [forceUpdate]); // Run only when forceUpdate function is available
+  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -73,6 +200,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
 
   const getNavbarClasses = () => {
     const baseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+
+    console.log('getNavbarClasses - isScrolled:', isScrolled)
 
     if (isScrolled) {
       return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 navbar-glass shadow-lg shadow-black/10 dark:shadow-black/30`
@@ -187,7 +316,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
               {menuItems.slice(0, -1).map((item, index) => {
                 const sectionId = item.id
-                const isActive = currentSection === sectionId
+                const isActive = detectedSection === sectionId
 
                 return (
                 <motion.a
@@ -232,7 +361,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
                 className={`relative ml-2 lg:ml-4 px-3 lg:px-6 py-2 lg:py-2.5 text-xs lg:text-sm font-bold rounded-lg lg:rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl ${
-                  currentSection === 'contact'
+                  detectedSection === 'contact'
                     ? 'bg-gradient-to-r from-color-primary to-color-accent text-white ring-2 ring-color-primary/30'
                     : 'bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white'
                 }`}
@@ -365,7 +494,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             >
               <div className="h-full flex flex-col items-center justify-center max-w-md mx-auto">
                 <nav className="flex-1 px-4 pt-8 py-4 w-full flex flex-col justify-center">
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 flex flex-col items-center">
                     {menuItems.map((item, index) => (
                       <motion.li 
                         key={item.name}
@@ -380,8 +509,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                         <motion.a
                           href={item.href}
                           onClick={(e) => handleNavClick(e, item.href)}
-                          className={`relative block w-full px-6 py-4 text-xl font-medium rounded-xl transition-colors duration-200 text-center ${
-                            currentSection === item.id
+                          className={`relative inline-block px-6 py-4 text-xl font-medium rounded-xl transition-colors duration-200 ${
+                            detectedSection === item.id
                               ? 'text-color-primary dark:text-white'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
@@ -389,10 +518,9 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                           whileTap={{ scale: 0.98 }}
                         >
                           <span className="relative z-10 font-semibold">{item.name}</span>
-                          {currentSection === item.id && (
+                          {detectedSection === item.id && (
                             <motion.div
-                              className="absolute inset-2 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-xl shadow-lg shadow-color-primary/10"
-                              layoutId="active-mobile-badge"
+                              className="absolute inset-1 bg-gradient-to-r from-color-primary/10 to-color-secondary/10 dark:from-color-primary/20 dark:to-color-secondary/20 rounded-full shadow-lg shadow-color-primary/10"
                               transition={{
                                 type: 'spring',
                                 stiffness: 150,
@@ -401,7 +529,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                                 bounce: 0.6
                               }}
                               style={{
-                                borderRadius: 12,
+                                borderRadius: 9999,
                                 backdropFilter: 'blur(8px)'
                               }}
                               initial={{ scale: 0.8, opacity: 0 }}

@@ -42,6 +42,7 @@ interface PortfolioState {
   hasShownInstructions: boolean
   showHelpIcon: boolean
   imageDirection: 'next' | 'prev' | null
+  hoveredCards: Set<number>
 }
 
 type PortfolioAction =
@@ -71,6 +72,8 @@ type PortfolioAction =
   | { type: 'MARK_INSTRUCTIONS_SHOWN' }
   | { type: 'SHOW_HELP_ICON' }
   | { type: 'HIDE_HELP_ICON' }
+  | { type: 'TOGGLE_CARD_HOVER'; payload: number }
+  | { type: 'HIDE_ALL_CARD_HOVERS' }
 
 const portfolioReducer = (state: PortfolioState, action: PortfolioAction): PortfolioState => {
   switch (action.type) {
@@ -182,6 +185,18 @@ const portfolioReducer = (state: PortfolioState, action: PortfolioAction): Portf
 
     case 'HIDE_HELP_ICON':
       return { ...state, showHelpIcon: false }
+
+    case 'TOGGLE_CARD_HOVER':
+      const newHoveredCards = new Set(state.hoveredCards)
+      if (newHoveredCards.has(action.payload)) {
+        newHoveredCards.delete(action.payload)
+      } else {
+        newHoveredCards.add(action.payload)
+      }
+      return { ...state, hoveredCards: newHoveredCards }
+
+    case 'HIDE_ALL_CARD_HOVERS':
+      return { ...state, hoveredCards: new Set() }
 
     default:
       return state
@@ -370,7 +385,8 @@ const Portfolio = () => {
     showMobileInstructions: true,
     hasShownInstructions: false,
     showHelpIcon: false,
-    imageDirection: null
+    imageDirection: null,
+    hoveredCards: new Set()
   }
 
   const [state, dispatch] = useReducer(portfolioReducer, initialState)
@@ -1237,6 +1253,38 @@ const Portfolio = () => {
     document.body.classList.add('modal-open')
   }
 
+  const handleCardClick = (item: PortfolioItem, event: React.MouseEvent) => {
+    // Solo aplicar lógica especial en dispositivos touch (móvil)
+    if ('ontouchstart' in window) {
+      if (state.hoveredCards.has(item.id)) {
+        // Segundo toque: abrir modal
+        openModal(item)
+        dispatch({ type: 'HIDE_ALL_CARD_HOVERS' })
+      } else {
+        // Primer toque: mostrar overlay
+        event.preventDefault()
+        event.stopPropagation()
+        dispatch({ type: 'HIDE_ALL_CARD_HOVERS' })
+        dispatch({ type: 'TOGGLE_CARD_HOVER', payload: item.id })
+      }
+    } else {
+      // En desktop: comportamiento normal (abrir modal directamente)
+      openModal(item)
+    }
+  }
+
+  // Ocultar overlays al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = () => {
+      dispatch({ type: 'HIDE_ALL_CARD_HOVERS' })
+    }
+
+    if (state.hoveredCards.size > 0) {
+      document.addEventListener('click', handleClickOutside)
+      return () => document.removeEventListener('click', handleClickOutside)
+    }
+  }, [state.hoveredCards.size])
+
   const closeModal = () => {
     dispatch({ type: 'CLOSE_MODAL' })
     document.body.classList.remove('modal-open')
@@ -1387,7 +1435,7 @@ const Portfolio = () => {
               <motion.div
                 key={item.id}
                 className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800"
-                onClick={() => openModal(item)}
+                onClick={(e) => handleCardClick(item, e)}
                 variants={cardVariants}
                 initial="initial"
                 animate="animate"
@@ -1451,27 +1499,26 @@ const Portfolio = () => {
                   </motion.div>
                 )}
 
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center items-center p-4">
+                <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-all duration-300 flex flex-col justify-center items-center p-4 ${
+                  state.hoveredCards.has(item.id) ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}>
                   <div className="text-center">
                     <h3 className="text-white text-lg font-bold mb-2">
                       {item.title}
                     </h3>
                     <p className="text-white/80 text-sm mb-3">{item.client}</p>
 
-                    {/* Dynamic CTA Button */}
+                    {/* Ver Button */}
                     <motion.button
-                      className="px-4 py-2 bg-color-primary hover:bg-color-accent text-white rounded-full text-sm font-medium transition-all duration-300 shadow-lg"
+                      className="px-6 py-3 bg-color-primary hover:bg-color-accent text-white rounded-full text-sm font-medium transition-all duration-300 shadow-lg"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => {
                         e.stopPropagation()
-                        const section = document.getElementById('contact')
-                        if (section) {
-                          section.scrollIntoView({ behavior: 'smooth' })
-                        }
+                        openModal(item)
                       }}
                     >
-                      {getDynamicCTA(item)?.text || t('cta.ver_proyecto')}
+                      Ver
                     </motion.button>
                   </div>
                 </div>
