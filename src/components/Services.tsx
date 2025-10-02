@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { memo } from 'react'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
 import { useLanguage } from '../hooks/useLanguage'
 
@@ -145,4 +146,4 @@ const Services = () => {
   )
 }
 
-export default Services
+export default memo(Services)

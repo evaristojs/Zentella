@@ -1,4 +1,5 @@
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
+import { useUltraScrollDetection } from './useUltraScrollDetection'
 
 interface MagneticScrollOptions {
   sections: string[] // IDs of sections to magnetize
@@ -21,51 +22,12 @@ export const useMagneticScroll = (options: MagneticScrollOptions) => {
   const lastScrollTime = useRef(0)
   const userScrolling = useRef(false)
   const magneticAnimationRef = useRef<number>()
-  
-  // Section tracking state
-  const [currentSection, setCurrentSection] = useState<string>('hero')
-  const observerRef = useRef<IntersectionObserver>()
 
-  // Initialize intersection observer for section tracking
-  useEffect(() => {
-    if (!enabled) return
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-10% 0px -10% 0px', // Margin for intersection observer
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
-    }
-
-    observerRef.current = new IntersectionObserver((entries) => {
-      let mostVisible = entries[0]
-      let maxVisibility = 0
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > maxVisibility) {
-          maxVisibility = entry.intersectionRatio
-          mostVisible = entry
-        }
-      })
-
-      if (mostVisible && maxVisibility > 0.3) { // 30% threshold
-        setCurrentSection(mostVisible.target.id)
-      }
-    }, observerOptions)
-
-    // Observe all sections
-    sections.forEach(sectionId => {
-      const element = document.getElementById(sectionId)
-      if (element && observerRef.current) {
-        observerRef.current.observe(element)
-      }
-    })
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [enabled, sections])
+  // Use centralized scroll detection system instead of creating a new observer
+  const { currentSection } = useUltraScrollDetection({
+    threshold: 0,
+    enableSections: true
+  })
 
   // Detect if user is actively scrolling vs programmatic scroll
   const handleScroll = useCallback(() => {

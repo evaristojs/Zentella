@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, memo } from 'react'
 
 import { useLanguage } from '../hooks/useLanguage'
 import Marquee from 'react-fast-marquee'
@@ -505,4 +505,4 @@ const Hero: React.FC<HeroProps> = () => {
 
 
 
-export default Hero
+export default memo(Hero)

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode, useMemo, useRef } from 'react'
 
 export type Language = 'es' | 'en'
 
@@ -1046,6 +1046,10 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     return 'es' // Default to Spanish
   })
 
+  // Translation cache using useRef for optimal performance
+  // Map structure: "language:key" -> translation value
+  const translationCache = useRef<Map<string, any>>(new Map())
+
   // Update localStorage when language changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -1055,14 +1059,32 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     }
   }, [currentLanguage])
 
-  // Translation function
+  // Clear cache when language changes to prevent stale translations
+  useEffect(() => {
+    translationCache.current.clear()
+  }, [currentLanguage])
+
+  // Translation function with caching
   const t = useCallback((key: string): any => {
+    const cacheKey = `${currentLanguage}:${key}`
+
+    // Check cache first for O(1) lookup
+    if (translationCache.current.has(cacheKey)) {
+      return translationCache.current.get(cacheKey)
+    }
+
+    // Cache miss - perform lookup in translations object
     const languageTranslations = translations[currentLanguage] as Record<string, any>
     const translation = languageTranslations?.[key]
+
     if (!translation) {
-      console.warn(`Translation missing for key: ${key} in language: ${currentLanguage}`)
-      return key // Return the key as fallback
+      // Translation missing - returning key as fallback
+      // Don't cache missing translations to allow hot-reloading
+      return key
     }
+
+    // Store in cache for future lookups
+    translationCache.current.set(cacheKey, translation)
     return translation
   }, [currentLanguage])
 

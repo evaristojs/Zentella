@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo, useReducer, useCallback } from 'react'
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { useState, useEffect, useMemo, useReducer, useCallback, memo } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'
+import { useReducedMotion } from '../hooks/useReducedMotion'
 import { useLanguage } from '../hooks/useLanguage'
 import { useTheme } from '../contexts/ThemeContext'
 import OptimizedImage from './OptimizedImage'
@@ -219,7 +220,7 @@ const useLocalStorage = <T,>(key: string, initialValue: T): [T, (value: T) => vo
       setStoredValue(value)
       window.localStorage.setItem(key, JSON.stringify(value))
     } catch (error) {
-      console.error('Error saving to localStorage:', error)
+      // LocalStorage save failed - silently continue
     }
   }
 
@@ -1201,7 +1202,7 @@ const Portfolio = () => {
       document.execCommand('copy')
       // Link copied to clipboard
     } catch (err) {
-      console.error('Error copying to clipboard:', err)
+      // Clipboard copy failed - silently continue
     }
 
     document.body.removeChild(textArea)
@@ -2119,4 +2120,4 @@ const Portfolio = () => {
   )
 }
 
-export default Portfolio
+export default memo(Portfolio)

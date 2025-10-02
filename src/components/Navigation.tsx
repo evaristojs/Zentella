@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../hooks/useTheme'
 import { useAdaptiveLogo } from '../hooks/useAdaptiveLogo'
+import { useReducedMotion } from '../hooks/useReducedMotion'
 import { useLanguage } from '../contexts/LanguageContext'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 
 interface NavigationProps {
   isMenuOpen: boolean
@@ -10,141 +11,121 @@ interface NavigationProps {
   currentSection?: string
 }
 
-const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationProps) => {
+const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { toggleTheme, isDark } = useTheme()
   const { currentLanguage, setLanguage, t } = useLanguage()
+  const shouldReduceMotion = useReducedMotion()
   const navRef = useRef<HTMLElement>(null)
 
   // Estados para scroll personalizado
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isInHero, setIsInHero] = useState(true)
-  const [scrollY, setScrollY] = useState(0)
   const [detectedSection, setDetectedSection] = useState('hero')
 
   // Hook del logo con nuestro estado personalizado
   const { logoSrc, logoState } = useAdaptiveLogo(isDark)
+
+  // Función para detectar la sección actual basada en la posición del scroll
+  const detectCurrentSection = useCallback((scrollY: number) => {
+    const sections = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
+    const viewportCenter = scrollY + window.innerHeight / 2
+
+    let currentSectionId = 'hero'
+    let closestSection = { id: 'hero', distance: Infinity }
+
+    for (const sectionId of sections) {
+      const element = document.getElementById(sectionId)
+      if (!element) continue
+
+      const elementTop = element.offsetTop
+      const elementBottom = elementTop + element.offsetHeight
+      const elementCenter = elementTop + element.offsetHeight / 2
+
+      // Si el centro de la pantalla está dentro de la sección
+      if (viewportCenter >= elementTop && viewportCenter <= elementBottom) {
+        currentSectionId = sectionId
+        break
+      }
+
+      // Si no, encontrar la sección más cercana
+      const distanceToCenter = Math.abs(elementCenter - viewportCenter)
+      if (distanceToCenter < closestSection.distance) {
+        closestSection = { id: sectionId, distance: distanceToCenter }
+      }
+    }
+
+    // Si ninguna sección contiene el centro, usar la más cercana
+    return currentSectionId === 'hero' && closestSection.id !== 'hero'
+      ? closestSection.id
+      : currentSectionId
+  }, [])
+
+  // Throttle helper para optimizar eventos de scroll
+  const throttle = useCallback(<T extends (...args: any[]) => void>(
+    func: T,
+    limit: number
+  ): [(...args: Parameters<T>) => void, () => void] => {
+    let inThrottle: boolean
+    let timeoutId: NodeJS.Timeout | null = null
+
+    const throttledFunc = function(this: any, ...args: Parameters<T>) {
+      if (!inThrottle) {
+        func.apply(this, args)
+        inThrottle = true
+        timeoutId = setTimeout(() => {
+          inThrottle = false
+          timeoutId = null
+        }, limit)
+      }
+    }
+
+    const cancel = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = null
+        inThrottle = false
+      }
+    }
+
+    return [throttledFunc, cancel]
+  }, [])
 
   // Efecto para detectar scroll y cambiar estilo del navbar + lógica del logo
   useEffect(() => {
     const handleScroll = () => {
       // Usar document.body.scrollTop ya que el scroll está en body
       const currentScrollY = document.body.scrollTop || window.scrollY
-      setScrollY(currentScrollY)
       const shouldBeScrolled = currentScrollY > 1.5
       setIsScrolled(shouldBeScrolled)
 
-      console.log('Scroll Y:', currentScrollY, 'isScrolled:', shouldBeScrolled)
-
-      // Lógica para detectar sección actual y si está en hero
-      const sections = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
-      const navbarHeight = 80 // Altura aproximada del navbar
-
-      let currentSectionId = 'hero'
-      let closestSection = { id: 'hero', distance: Infinity }
-
-      // Encontrar la sección más cercana al centro de la pantalla
-      const viewportCenter = currentScrollY + window.innerHeight / 2
-
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId)
-        if (element) {
-          const elementTop = element.offsetTop
-          const elementBottom = elementTop + element.offsetHeight
-          const elementCenter = elementTop + element.offsetHeight / 2
-
-          // Si el centro de la pantalla está dentro de la sección
-          if (viewportCenter >= elementTop && viewportCenter <= elementBottom) {
-            currentSectionId = sectionId
-            break
-          }
-
-          // Si no, encontrar la sección más cercana
-          const distanceToCenter = Math.abs(elementCenter - viewportCenter)
-          if (distanceToCenter < closestSection.distance) {
-            closestSection = { id: sectionId, distance: distanceToCenter }
-          }
-        }
-      }
-
-      // Si ninguna sección contiene el centro, usar la más cercana
-      if (currentSectionId === 'hero' && closestSection.id !== 'hero') {
-        currentSectionId = closestSection.id
-      }
-
-      console.log('Current section:', currentSectionId, 'Scroll Y:', currentScrollY)
+      // Detectar sección actual usando la función consolidada
+      const currentSectionId = detectCurrentSection(currentScrollY)
       setDetectedSection(currentSectionId)
-
-      // Lógica para detectar si está en la sección hero (para el logo)
-      const heroElement = document.getElementById('hero')
-      if (heroElement) {
-        const heroBottom = heroElement.offsetTop + heroElement.offsetHeight
-        setIsInHero(currentScrollY + navbarHeight < heroBottom)
-      }
     }
 
-    // Escuchar scroll en body ya que es donde está configurado overflow-y: auto
-    document.body.addEventListener('scroll', handleScroll)
-    // También en window como fallback
-    window.addEventListener('scroll', handleScroll)
+    // Aplicar throttle de 100ms al handler de scroll para optimizar rendimiento
+    const [throttledScrollHandler, cancelThrottle] = throttle(handleScroll, 100)
+
+    // Escuchar scroll solo en body (donde está configurado overflow-y: auto)
+    // Usar {passive: true} para mejorar el rendimiento del scroll
+    document.body.addEventListener('scroll', throttledScrollHandler, { passive: true })
 
     // Llamada inicial para establecer el estado correcto
     handleScroll()
 
     return () => {
-      document.body.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('scroll', handleScroll)
+      document.body.removeEventListener('scroll', throttledScrollHandler)
+      cancelThrottle()
     }
-  }, [])
+  }, [detectCurrentSection, throttle])
 
   // Función para forzar actualización (reemplaza forceUpdate del hook original)
-  const forceUpdate = () => {
+  const forceUpdate = useCallback(() => {
     const currentScrollY = document.body.scrollTop || window.scrollY
-    setScrollY(currentScrollY)
     setIsScrolled(currentScrollY > 1.5)
 
-    // Detectar sección actual
-    const sections = ['hero', 'services', 'portfolio', 'about', 'testimonials', 'contact']
-
-    let currentSectionId = 'hero'
-    let closestSection = { id: 'hero', distance: Infinity }
-
-    // Encontrar la sección más cercana al centro de la pantalla
-    const viewportCenter = currentScrollY + window.innerHeight / 2
-
-    for (const sectionId of sections) {
-      const element = document.getElementById(sectionId)
-      if (element) {
-        const elementTop = element.offsetTop
-        const elementBottom = elementTop + element.offsetHeight
-        const elementCenter = elementTop + element.offsetHeight / 2
-
-        // Si el centro de la pantalla está dentro de la sección
-        if (viewportCenter >= elementTop && viewportCenter <= elementBottom) {
-          currentSectionId = sectionId
-          break
-        }
-
-        // Si no, encontrar la sección más cercana
-        const distanceToCenter = Math.abs(elementCenter - viewportCenter)
-        if (distanceToCenter < closestSection.distance) {
-          closestSection = { id: sectionId, distance: distanceToCenter }
-        }
-      }
-    }
-
-    // Si ninguna sección contiene el centro, usar la más cercana
-    if (currentSectionId === 'hero' && closestSection.id !== 'hero') {
-      currentSectionId = closestSection.id
-    }
-
-    setDetectedSection(currentSectionId)
-
-    const heroElement = document.getElementById('hero')
-    if (heroElement) {
-      const heroBottom = heroElement.offsetTop + heroElement.offsetHeight
-      setIsInHero(currentScrollY + 80 < heroBottom)
-    }
-  }
+    // Usar la función consolidada para detectar sección
+    setDetectedSection(detectCurrentSection(currentScrollY))
+  }, [detectCurrentSection])
 
   // Efecto para forzar actualización inicial
   useEffect(() => {
@@ -155,17 +136,17 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     return () => clearTimeout(timer);
   }, [])
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen)
-  }
+  }, [isMenuOpen])
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
-  }
+  }, [])
 
-  const toggleLanguage = () => {
+  const toggleLanguage = useCallback(() => {
     setLanguage(currentLanguage === 'es' ? 'en' : 'es')
-  }
+  }, [currentLanguage, setLanguage])
 
   const menuItems = [
     { name: t('nav.inicio'), href: '#hero', id: 'hero' },
@@ -175,7 +156,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
     { name: t('nav.contacto'), href: '#contact', id: 'contact' }
   ]
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
     closeMenu()
 
@@ -196,12 +177,10 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
         })
       }
     }
-  }
+  }, [closeMenu, forceUpdate])
 
   const getNavbarClasses = () => {
     const baseClasses = "fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-
-    console.log('getNavbarClasses - isScrolled:', isScrolled)
 
     if (isScrolled) {
       return `${baseClasses} bg-white/90 dark:bg-bg-base-dark/90 navbar-glass shadow-lg shadow-black/10 dark:shadow-black/30`
@@ -221,11 +200,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             
             <motion.button
               className="flex-shrink-0 relative h-10 sm:h-8 lg:h-10 w-44 sm:w-44 lg:w-56 flex items-center justify-start focus:outline-none rounded-lg p-1 cursor-pointer"
-              whileHover={{
-                scale: 1.05,
-                filter: isDark ? 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.3))' : 'drop-shadow(0 0 8px rgba(103, 0, 248, 0.2))'
-              }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={() => {
                 document.body.scrollTo({ top: 0, behavior: 'smooth' });
@@ -239,62 +215,71 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
             >
               <AnimatePresence mode="wait">
                 {logoState.type === 'isotipo' ? (
-                  <motion.svg
-                    key="isotipo-combined"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 332.61 156.13"
-                    className="w-auto h-full object-contain scale-75 sm:scale-100"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Line drawing path */}
-                    <motion.path
-                      d="M0,0 L154.79,61.06 L77.39,139.26 L332.61,156.13 L193.89,90.52 L255.22,24.91 Z"
-                      fill="none"
-                      stroke={isDark ? '#ffffff' : '#252425'}
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      initial={{
-                        pathLength: 0,
-                        opacity: 0,
-                        filter: 'drop-shadow(0 0 4px rgba(103, 0, 248, 0.5))'
-                      }}
-                      animate={{
-                        pathLength: 1,
-                        opacity: 1,
-                        filter: [
-                          'drop-shadow(0 0 4px rgba(103, 0, 248, 0.5))',
-                          'drop-shadow(0 0 16px rgba(103, 0, 248, 1))',
-                          'drop-shadow(0 0 8px rgba(103, 0, 248, 0.7))'
-                        ]
-                      }}
-                      transition={{
-                        pathLength: { duration: 0.6, ease: "easeInOut" },
-                        opacity: { duration: 0.15 },
-                        filter: {
-                          duration: 0.6,
-                          ease: "easeInOut",
-                          times: [0, 0.5, 1]
-                        }
-                      }}
-                    />
-
-                    {/* Solid fill that appears exactly when line drawing completes */}
-                    <motion.polygon
-                      points="0,0 154.79,61.06 77.39,139.26 332.61,156.13 193.89,90.52 255.22,24.91"
-                      fill={isDark ? '#ffffff' : '#252425'}
+                  shouldReduceMotion ? (
+                    // Simplified animation for reduced motion - just fade in
+                    <motion.svg
+                      key="isotipo-simple"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 332.61 156.13"
+                      className="w-auto h-full object-contain scale-75 sm:scale-100"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{
-                        duration: 0.15,
-                        delay: 0.6, // Appears exactly when pathLength animation completes
-                        ease: "easeInOut"
-                      }}
-                    />
-                  </motion.svg>
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <polygon
+                        points="0,0 154.79,61.06 77.39,139.26 332.61,156.13 193.89,90.52 255.22,24.91"
+                        fill={isDark ? '#ffffff' : '#252425'}
+                      />
+                    </motion.svg>
+                  ) : (
+                    // Full animation for normal users - optimized
+                    <motion.svg
+                      key="isotipo-combined"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 332.61 156.13"
+                      className="w-auto h-full object-contain scale-75 sm:scale-100"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {/* Line drawing path - removed expensive filter animation */}
+                      <motion.path
+                        d="M0,0 L154.79,61.06 L77.39,139.26 L332.61,156.13 L193.89,90.52 L255.22,24.91 Z"
+                        fill="none"
+                        stroke={isDark ? '#ffffff' : '#252425'}
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        initial={{
+                          pathLength: 0,
+                          opacity: 0
+                        }}
+                        animate={{
+                          pathLength: 1,
+                          opacity: 1
+                        }}
+                        transition={{
+                          pathLength: { duration: 0.6, ease: "easeInOut" },
+                          opacity: { duration: 0.15 }
+                        }}
+                      />
+
+                      {/* Solid fill that appears exactly when line drawing completes */}
+                      <motion.polygon
+                        points="0,0 154.79,61.06 77.39,139.26 332.61,156.13 193.89,90.52 255.22,24.91"
+                        fill={isDark ? '#ffffff' : '#252425'}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{
+                          duration: 0.15,
+                          delay: 0.6,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </motion.svg>
+                  )
                 ) : (
                   <motion.img
                     key={logoState.type}
@@ -329,8 +314,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >
                   <span className="relative z-10">{item.name}</span>
                   {isActive && (
@@ -368,8 +353,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               >
                 {t('nav.trabajemos')}
               </motion.a>
@@ -380,8 +365,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 onClick={toggleLanguage}
                 className="hidden md:flex p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark items-center justify-center"
                 aria-label={t('nav.cambiar_idioma')}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
               >
                 <span className="text-xs font-bold uppercase tracking-wider">
                   {currentLanguage === 'es' ? 'EN' : 'ES'}
@@ -392,8 +377,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                 onClick={toggleTheme}
                 className="p-2 sm:p-2.5 lg:p-3 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                 aria-label={t('nav.cambiar_tema')}
-                whileHover={{ scale: 1.05, rotate: 15 }}
-                whileTap={{ scale: 0.95, rotate: -15 }}
+                whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotate: 15 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.95, rotate: -15 }}
               >
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -421,22 +406,22 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                   onClick={toggleLanguage}
                   className="p-2 sm:p-2.5 rounded-full transition-all duration-200 bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark flex items-center justify-center"
                   aria-label={t('nav.cambiar_idioma')}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >
                   <span className="text-xs font-bold uppercase tracking-wider">
                     {currentLanguage === 'es' ? 'EN' : 'ES'}
                   </span>
                 </motion.button>
 
-                <motion.button 
+                <motion.button
                   className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 relative z-[60] bg-bg-secondary-light/80 dark:bg-bg-secondary-dark/80 text-text-secondary-light dark:text-text-secondary-dark hover:bg-bg-secondary-light dark:hover:bg-bg-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark"
                   onClick={toggleMenu}
                   aria-label={t('nav.abrir_menu')}
                   aria-expanded={isMenuOpen}
                   aria-controls="mobile-menu"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -514,8 +499,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                               ? 'text-color-primary dark:text-white'
                               : 'text-text-primary-light dark:text-text-primary-dark hover:text-color-primary dark:hover:text-color-primary'
                           }`}
-                          whileHover={{ x: 4 }}
-                          whileTap={{ scale: 0.98 }}
+                          whileHover={shouldReduceMotion ? {} : { x: 4 }}
+                          whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                         >
                           <span className="relative z-10 font-semibold">{item.name}</span>
                           {detectedSection === item.id && (
@@ -553,8 +538,8 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen, currentSection }: NavigationPro
                     href="#contact"
                     onClick={(e) => handleNavClick(e, '#contact')}
                     className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-purple-600 to-color-accent hover:from-purple-700 hover:to-color-accent/90 text-white text-lg font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.03, y: -2 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                   >
                     {t('nav.trabajemos')}
                   </motion.a>

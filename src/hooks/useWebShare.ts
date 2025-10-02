@@ -15,7 +15,7 @@ export const useWebShare = () => {
       await navigator.share(data)
       return true
     } catch (err) {
-      console.error('Error al compartir:', err)
+      // Share cancelled or failed
       return false
     }
   }

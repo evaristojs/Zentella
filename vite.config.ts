@@ -17,28 +17,41 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Vendor chunks
+          // Vendors - separar React del resto
           'react-vendor': ['react', 'react-dom'],
           'framer-motion': ['framer-motion'],
 
-          // Component chunks
-          'portfolio': ['./src/components/Portfolio.tsx'],
-          'hero': ['./src/components/Hero.tsx'],
-          'about': ['./src/components/About.tsx'],
+          // Features - split por secciones de la app
+          'home-section': [
+            './src/components/Hero.tsx',
+            './src/components/Services.tsx'
+          ],
+          'portfolio-section': [
+            './src/components/Portfolio.tsx'
+          ],
+          'contact-section': [
+            './src/components/About.tsx',
+            './src/components/ContactFAQ.tsx',
+            './src/components/Testimonials.tsx'
+          ],
 
-          // Hooks and utilities
-          'hooks': [
-            './src/hooks/useIntersectionObserver.ts',
+          // Contexts - agrupar solo los usados globalmente
+          'app-contexts': [
+            './src/contexts/ThemeContext.tsx',
+            './src/contexts/LanguageContext.tsx'
+          ],
+
+          // Hooks - solo los relacionados con scroll
+          'scroll-system': [
+            './src/hooks/useUltraScrollDetection.ts',
             './src/hooks/useSectionScroll.ts',
-            './src/hooks/useAdaptiveLogo.ts',
-            './src/hooks/useMagneticScroll.ts',
-            './src/hooks/useUltraScrollDetection.ts'
+            './src/hooks/useMagneticScroll.ts'
           ]
         }
       }
     },
     // Optimize bundle size
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 600,
     minify: 'terser',
     sourcemap: false
   }
