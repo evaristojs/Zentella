@@ -531,34 +531,35 @@ const Portfolio = () => {
   }), [t])
 
   // Dynamic CTAs based on project category and user engagement
-  const getDynamicCTA = useCallback((item: PortfolioItem) => {
-    const ctaVariants = {
-      design: [
-        { text: t('cta.solicitar_cotizacion'), action: 'quote', variant: 'primary' },
-        { text: t('cta.ver_proceso'), action: 'process', variant: 'secondary' },
-        { text: t('cta.contactar_ahora'), action: 'contact', variant: 'accent' }
-      ],
-      photography: [
-        { text: t('cta.reservar_sesion'), action: 'book', variant: 'primary' },
-        { text: t('cta.ver_paquetes'), action: 'packages', variant: 'secondary' },
-        { text: t('cta.contactar_fotografo'), action: 'contact', variant: 'accent' }
-      ],
-      video: [
-        { text: t('cta.solicitar_video'), action: 'video-quote', variant: 'primary' },
-        { text: t('cta.ver_demo_reel'), action: 'demo', variant: 'secondary' },
-        { text: t('cta.empezar_proyecto'), action: 'start', variant: 'accent' }
-      ],
-      animation: [
-        { text: t('cta.crear_animacion'), action: 'animation-quote', variant: 'primary' },
-        { text: t('cta.ver_ejemplos'), action: 'examples', variant: 'secondary' },
-        { text: t('cta.consulta_gratis'), action: 'free-consult', variant: 'accent' }
-      ]
-    }
+  // Note: Currently unused, kept for future feature enhancement
+  // const getDynamicCTA = useCallback((item: PortfolioItem) => {
+  //   const ctaVariants = {
+  //     design: [
+  //       { text: t('cta.solicitar_cotizacion'), action: 'quote', variant: 'primary' },
+  //       { text: t('cta.ver_proceso'), action: 'process', variant: 'secondary' },
+  //       { text: t('cta.contactar_ahora'), action: 'contact', variant: 'accent' }
+  //     ],
+  //     photography: [
+  //       { text: t('cta.reservar_sesion'), action: 'book', variant: 'primary' },
+  //       { text: t('cta.ver_paquetes'), action: 'packages', variant: 'secondary' },
+  //       { text: t('cta.contactar_fotografo'), action: 'contact', variant: 'accent' }
+  //     ],
+  //     video: [
+  //       { text: t('cta.solicitar_video'), action: 'video-quote', variant: 'primary' },
+  //       { text: t('cta.ver_demo_reel'), action: 'demo', variant: 'secondary' },
+  //       { text: t('cta.empezar_proyecto'), action: 'start', variant: 'accent' }
+  //     ],
+  //     animation: [
+  //       { text: t('cta.crear_animacion'), action: 'animation-quote', variant: 'primary' },
+  //       { text: t('cta.ver_ejemplos'), action: 'examples', variant: 'secondary' },
+  //       { text: t('cta.consulta_gratis'), action: 'free-consult', variant: 'accent' }
+  //     ]
+  //   }
 
-    const categoryVariants = ctaVariants[item.category as keyof typeof ctaVariants] || ctaVariants.design
-    // Rotate CTAs based on item ID for variety
-    return categoryVariants[item.id % categoryVariants.length]
-  }, [t])
+  //   const categoryVariants = ctaVariants[item.category as keyof typeof ctaVariants] || ctaVariants.design
+  //   // Rotate CTAs based on item ID for variety
+  //   return categoryVariants[item.id % categoryVariants.length]
+  // }, [t])
 
   // Get all unique years and tags for filters
   // const availableYears = useMemo(() => {
@@ -1284,6 +1285,9 @@ const Portfolio = () => {
       document.addEventListener('click', handleClickOutside)
       return () => document.removeEventListener('click', handleClickOutside)
     }
+
+    // Return undefined explicitly when condition is not met
+    return undefined
   }, [state.hoveredCards.size])
 
   const closeModal = () => {
